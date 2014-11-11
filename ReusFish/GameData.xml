@@ -1,0 +1,2266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gameData>
+
+	<!-- Giants -->
+	<!-- DON'T CHANGE -->
+
+	<oceanGiant>
+		<domesticAbility name = "Domestic Animals"/>
+		<growthAspect name = "Growth"/>
+		<herdAspect name = "Herd"/>
+		<crystalAspect name = "Crystal"/>
+	</oceanGiant>
+	<forestGiant>
+		<fruitAbility name = "Fruit Plants"/>
+		<leafAspect name = "Leaf"/>
+		<fruitAspect name = "Fruit"/>
+		<huntAspect name = "Hunt"/>
+	</forestGiant>
+	<rockGiant>
+		<preciousAbility name = "Precious Minerals"/>
+		<advancedAbility name = "Advanced Minerals"/>
+		<exoticAspect name = "Exotic"/>
+		<nobleAspect name = "Noble"/>
+		<seismicAspect name = "Seismic"/>
+	</rockGiant>
+	<swampGiant>
+		<herbAbility name = "Herbs"/>
+		<exoticAbility name = "Exotic Animals"/>
+		<toxicAspect name = "Toxic"/>
+		<predatorAspect name = "Predator"/>
+		<reactionAspect name = "Reaction"/>
+	</swampGiant>
+	
+	<!-- Natural Sources -->
+	<!-- Aspect level : 1 = Lesser, 2 = Potent, 3 = Greater, 4 = Sublime -->
+	
+	<sources>
+	
+		<!-- Forest Plants -->
+	
+		<source name = "Blueberry" level = "1">
+			<abilityDependency ability = "Fruit Plants" level = "1"/>
+		</source>
+		<source name = "Great Blueberry" level = "1">
+			<abilityDependency ability = "Fruit Plants"	level = "2"/>
+		</source>
+		<source name = "Superior Blueberry" level = "1">
+			<abilityDependency ability = "Fruit Plants" level = "3"/>
+		</source>
+		<source name = "Dandelion" level = "1">
+			<abilityDependency ability = "Herbs" level = "1"/>
+		</source>
+		<source name = "Great Dandelion" level = "1">
+			<abilityDependency ability = "Herbs" level = "2"/>
+		</source>
+		<source name = "Superior Dandelion" level = "1">
+			<abilityDependency ability = "Herbs" level = "3"/>
+		</source>
+		<source name = "Apple Tree" level = "1">
+			<sourceDependency source = "Blueberry"/>
+			<aspectDependency aspect = "Fruit" level = "1"/>
+		</source>
+		<source name = "Great Apple Tree" level = "1">
+			<sourceDependency source = "Great Blueberry"/>
+			<aspectDependency aspect = "Fruit" level = "1"/>
+		</source>
+		<source name = "Superior Apple Tree" level = "1">
+			<sourceDependency source = "Superior Blueberry"/>
+			<aspectDependency aspect = "Fruit" level = "1"/>
+		</source>
+		<source name = "Strawberry" level = "1">
+			<or>
+				<and>
+					<sourceDependency source = "Blueberry"/>
+					<aspectDependency aspect = "Leaf" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Dandelion"/>
+					<aspectDependency aspect = "Growth" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Strawberry" level = "1">
+			<or>
+				<and>
+					<sourceDependency source = "Great Blueberry"/>
+					<aspectDependency aspect = "Leaf" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Dandelion"/>
+					<aspectDependency aspect = "Growth" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Strawberry" level = "1">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Blueberry"/>
+					<aspectDependency aspect = "Leaf" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Dandelion"/>
+					<aspectDependency aspect = "Growth" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Nightshade" level = "1">
+			<sourceDependency source = "Dandelion"/>
+			<aspectDependency aspect = "Toxic" level = "1"/>
+		</source>
+		<source name = "Great Nightshade" level = "1">
+			<sourceDependency source = "Great Dandelion"/>
+			<aspectDependency aspect = "Toxic" level = "1"/>
+		</source>
+		<source name = "Superior Nightshade" level = "1">
+			<sourceDependency source = "Superior Dandelion"/>
+			<aspectDependency aspect = "Toxic" level = "1"/>
+		</source>
+		<source name = "Pear Tree" level = "1">
+			<or>
+				<and>
+					<sourceDependency source = "Apple Tree"/>
+					<aspectDependency aspect = "Fruit" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Strawberry"/>
+					<aspectDependency aspect = "Fruit" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Pear Tree" level = "1">
+			<or>
+				<and>
+					<sourceDependency source = "Great Apple Tree"/>
+					<aspectDependency aspect = "Fruit" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Strawberry"/>
+					<aspectDependency aspect = "Fruit" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Pear Tree" level = "1">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Apple Tree"/>
+					<aspectDependency aspect = "Fruit" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Strawberry"/>
+					<aspectDependency aspect = "Fruit" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Foxglove" level = "1">
+			<sourceDependency source = "Nightshade"/>
+			<aspectDependency aspect = "Toxic" level = "2"/>
+		</source>
+		<source name = "Great Foxglove" level = "1">
+			<sourceDependency source = "Great Nightshade"/>
+			<aspectDependency aspect = "Toxic" level = "2"/>
+		</source>
+		<source name = "Superior Foxglove" level = "1">
+			<sourceDependency source = "Superior Nightshade"/>
+			<aspectDependency aspect = "Toxic" level = "2"/>
+		</source>
+		<source name = "Cherry Tree" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Apple Tree"/>
+					<aspectDependency aspect = "Growth" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Strawberry"/>
+					<aspectDependency aspect = "Growth" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Cherry Tree" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Apple Tree"/>
+					<aspectDependency aspect = "Growth" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Strawberry"/>
+					<aspectDependency aspect = "Growth" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Plum Tree" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Strawberry"/>
+					<aspectDependency aspect = "Leaf" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Nightshade"/>
+					<aspectDependency aspect = "Leaf" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Plum Tree" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Strawberry"/>
+					<aspectDependency aspect = "Leaf" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Nightshade"/>
+					<aspectDependency aspect = "Leaf" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Orange Tree" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Pear Tree"/>
+					<aspectDependency aspect = "Fruit" level = "4"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Plum Tree"/>
+					<aspectDependency aspect = "Fruit" level = "4"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Cherry Tree"/>
+					<aspectDependency aspect = "Fruit" level = "4"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Sunflower" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Foxglove"/>
+					<aspectDependency aspect = "Toxic" level = "4"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Plum Tree"/>
+					<aspectDependency aspect = "Toxic" level = "4"/>
+				</and>
+			</or>
+		</source>
+		
+		<!-- Forest Animals -->
+		
+		<source name = "Chicken" level = "1">
+			<abilityDependency ability = "Domestic Animals" level = "1"/>
+		</source>
+		<source name = "Great Chicken" level = "1">
+			<abilityDependency ability = "Domestic Animals" level = "2"/>
+		</source>
+		<source name = "Superior Chicken" level = "1">
+			<abilityDependency ability = "Domestic Animals" level = "3"/>
+		</source>
+		<source name = "Stoat" level = "1">
+			<abilityDependency ability = "Exotic Animals" level = "1"/>
+		</source>
+		<source name = "Great Stoat" level = "1">
+			<abilityDependency ability = "Exotic Animals" level = "2"/>
+		</source>
+		<source name = "Superior Stoat" level = "1">
+			<abilityDependency ability = "Exotic Animals" level = "3"/>
+		</source>
+		<source name = "Rabbit" level = "1">
+			<sourceDependency source = "Chicken"/>
+			<aspectDependency aspect = "Herd" level = "1"/>
+		</source>
+		<source name = "Great Rabbit" level = "1">
+			<sourceDependency source = "Great Chicken"/>
+			<aspectDependency aspect = "Herd" level = "1"/>
+		</source>
+		<source name = "Superior Rabbit" level = "1">
+			<sourceDependency source = "Superior Chicken"/>
+			<aspectDependency aspect = "Herd" level = "1"/>
+		</source>
+		<source name = "Beaver" level = "1">
+			<or>
+				<and>
+					<sourceDependency source = "Chicken"/>
+					<aspectDependency aspect = "Hunt" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Stoat"/>
+					<aspectDependency aspect = "Exotic" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Beaver" level = "1">
+			<or>
+				<and>
+					<sourceDependency source = "Great Chicken"/>
+					<aspectDependency aspect = "Hunt" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Stoat"/>
+					<aspectDependency aspect = "Exotic" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Beaver" level = "1">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Chicken"/>
+					<aspectDependency aspect = "Hunt" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Stoat"/>
+					<aspectDependency aspect = "Exotic" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Fox" level = "1">
+			<sourceDependency source = "Stoat"/>
+			<aspectDependency aspect = "Predator" level = "1"/>
+		</source>
+		<source name = "Great Fox" level = "1">
+			<sourceDependency source = "Great Stoat"/>
+			<aspectDependency aspect = "Predator" level = "1"/>
+		</source>
+		<source name = "Superior Fox" level = "1">
+			<sourceDependency source = "Superior Stoat"/>
+			<aspectDependency aspect = "Predator" level = "1"/>
+		</source>
+		<source name = "Deer" level = "1">
+			<sourceDependency source = "Rabbit"/>
+			<aspectDependency aspect = "Herd" level = "2"/>
+		</source>
+		<source name = "Great Deer" level = "1">
+			<sourceDependency source = "Great Rabbit"/>
+			<aspectDependency aspect = "Herd" level = "2"/>
+		</source>
+		<source name = "Superior Deer" level = "1">
+			<sourceDependency source = "Superior Rabbit"/>
+			<aspectDependency aspect = "Herd" level = "2"/>
+		</source>
+		<source name = "Boar">
+			<or>
+				<and>
+					<sourceDependency source = "Beaver"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Fox"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Boar">
+			<or>
+				<and>
+					<sourceDependency source = "Great Beaver"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Fox"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Boar">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Beaver"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Fox"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Wisent" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Rabbit"/>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Beaver"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "3"/>
+						<aspectDependency aspect = "Herd" level = "3"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Wisent" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Rabbit"/>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Beaver"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "3"/>
+						<aspectDependency aspect = "Herd" level = "3"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Wolf" level = "2">
+			<sourceDependency source = "Great Fox"/>
+			<aspectDependency aspect = "Predator" level = "3"/>
+		</source>
+		<source name = "Great Wolf" level = "2">
+			<sourceDependency source = "Superior Fox"/>
+			<aspectDependency aspect = "Predator" level = "3"/>
+		</source>
+		<source name = "Moose" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Deer"/>
+					<aspectDependency aspect = "Herd" level = "4"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Wisent"/>
+					<aspectDependency aspect = "Hunt" level = "4"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Boar"/>
+					<aspectDependency aspect = "Hunt" level = "4"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Bear" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Boar"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "4"/>
+						<aspectDependency aspect = "Predator" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Wolf"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "4"/>
+						<aspectDependency aspect = "Predator" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		
+		<!-- Desert Plants -->
+		
+		<source name = "Withered Shrub">
+			<or>
+				<abilityDependency ability = "Fruit Plants" level = "1"/>
+				<abilityDependency ability = "Herbs" level = "1"/>
+			</or>
+		</source>
+		<source name = "Great Withered Shrub">
+			<or>
+				<abilityDependency ability = "Fruit Plants" level = "2"/>
+				<abilityDependency ability = "Herbs" level = "2"/>
+			</or>
+		</source>
+		<source name = "Superior Withered Shrub">
+			<or>
+				<abilityDependency ability = "Fruit Plants" level = "3"/>
+				<abilityDependency ability = "Herbs" level = "3"/>
+			</or>
+		</source>
+		<source name = "Agave">
+			<sourceDependency source = "Withered Shrub"/>
+			<or>
+				<aspectDependency aspect = "Growth" level = "1"/>
+				<aspectDependency aspect = "Fruit" level = "1"/>
+			</or>
+		</source>
+		<source name = "Great Agave">
+			<sourceDependency source = "Great Withered Shrub"/>
+			<or>
+				<aspectDependency aspect = "Growth" level = "1"/>
+				<aspectDependency aspect = "Fruit" level = "1"/>
+			</or>
+		</source>
+		<source name = "Superior Agave">
+			<sourceDependency source = "Superior Withered Shrub"/>
+			<or>
+				<aspectDependency aspect = "Growth" level = "1"/>
+				<aspectDependency aspect = "Fruit" level = "1"/>
+			</or>
+		</source>
+		<source name = "Barrel Cactus">
+			<sourceDependency source = "Withered Shrub"/>
+			<or>
+				<aspectDependency aspect = "Leaf" level = "1"/>
+				<aspectDependency aspect = "Toxic" level = "1"/>
+			</or>
+		</source>
+		<source name = "Great Barrel Cactus">
+			<sourceDependency source = "Great Withered Shrub"/>
+			<or>
+				<aspectDependency aspect = "Leaf" level = "1"/>
+				<aspectDependency aspect = "Toxic" level = "1"/>
+			</or>
+		</source>
+		<source name = "Superior Barrel Cactus">
+			<sourceDependency source = "Superior Withered Shrub"/>
+			<or>
+				<aspectDependency aspect = "Leaf" level = "1"/>
+				<aspectDependency aspect = "Toxic" level = "1"/>
+			</or>
+		</source>
+		<source name = "Date Palm">
+			<sourceDependency source = "Agave"/>
+			<aspectDependency aspect = "Fruit" level = "2"/>
+		</source>
+		<source name = "Great Date Palm">
+			<sourceDependency source = "Great Agave"/>
+			<aspectDependency aspect = "Fruit" level = "2"/>
+		</source>
+		<source name = "Superior Date Palm">
+			<sourceDependency source = "Superior Agave"/>
+			<aspectDependency aspect = "Fruit" level = "2"/>
+		</source>
+		<source name = "Aloe Vera">
+			<sourceDependency source = "Barrel Cactus"/>
+			<aspectDependency aspect = "Leaf" level = "2"/>
+		</source>
+		<source name = "Great Aloe Vera">
+			<sourceDependency source = "Great Barrel Cactus"/>
+			<aspectDependency aspect = "Leaf" level = "2"/>
+		</source>
+		<source name = "Superior Aloe Vera">
+			<sourceDependency source = "Superior Barrel Cactus"/>
+			<aspectDependency aspect = "Leaf" level = "2"/>
+		</source>
+		<source name = "Desert Lime" level = "2">
+			<sourceDependency source = "Great Agave"/>
+			<aspectDependency aspect = "Growth" level = "3"/>
+		</source>
+		<source name = "Great Desert Lime" level = "2">
+			<sourceDependency source = "Superior Agave"/>
+			<aspectDependency aspect = "Growth" level = "3"/>
+		</source>
+		<source name = "Chilli Pepper" level = "2">
+			<sourceDependency source = "Great Barrel Cactus"/>
+			<aspectDependency aspect = "Toxic" level = "3"/>
+		</source>
+		<source name = "Great Chilli Pepper" level = "2">
+			<sourceDependency source = "Superior Barrel Cactus"/>
+			<aspectDependency aspect = "Toxic" level = "3"/>
+		</source>
+		<source name = "Cardon Cactus" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Date Palm"/>
+					<or>
+						<aspectDependency aspect = "Growth" level = "4"/>
+						<aspectDependency aspect = "Fruit" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Desert Lime"/>
+					<or>
+						<aspectDependency aspect = "Growth" level = "4"/>
+						<aspectDependency aspect = "Fruit" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Opium Poppy" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Aloe Vera"/>
+					<aspectDependency aspect = "Toxic" level = "4"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Chilli Pepper"/>
+					<aspectDependency aspect = "Toxic" level = "4"/>
+				</and>
+			</or>
+		</source>
+		
+		<!-- Desert Animals -->
+		
+		<source name = "Kangaroo Rat">
+			<abilityDependency ability = "Domestic Animals" level = "1"/>
+		</source>
+		<source name = "Great Kangaroo Rat">
+			<abilityDependency ability = "Domestic Animals" level = "2"/>
+		</source>
+		<source name = "Superior Kangaroo Rat">
+			<abilityDependency ability = "Domestic Animals" level = "3"/>
+		</source>
+		<source name = "Desert Tortoise">
+			<abilityDependency ability = "Exotic Animals" level = "1"/>
+		</source>
+		<source name = "Great Desert Tortoise">
+			<abilityDependency ability = "Exotic Animals" level = "2"/>
+		</source>
+		<source name = "Superior Desert Tortoise">
+			<abilityDependency ability = "Exotic Animals" level = "3"/>
+		</source>
+		<source name = "Goat">
+			<sourceDependency source = "Kangaroo Rat"/>
+			<aspectDependency aspect = "Herd" level = "1"/>
+		</source>
+		<source name = "Great Goat">
+			<sourceDependency source = "Great Kangaroo Rat"/>
+			<aspectDependency aspect = "Herd" level = "1"/>
+		</source>
+		<source name = "Superior Goat">
+			<sourceDependency source = "Superior Kangaroo Rat"/>
+			<aspectDependency aspect = "Herd" level = "1"/>
+		</source>
+		<source name = "Armadillo">
+			<or>
+				<and>
+					<sourceDependency source = "Kangaroo Rat"/>
+					<aspectDependency aspect = "Hunt" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Desert Tortoise"/>
+					<aspectDependency aspect = "Exotic" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Armadillo">
+			<or>
+				<and>
+					<sourceDependency source = "Great Kangaroo Rat"/>
+					<aspectDependency aspect = "Hunt" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Desert Tortoise"/>
+					<aspectDependency aspect = "Exotic" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Armadillo">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Kangaroo Rat"/>
+					<aspectDependency aspect = "Hunt" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Desert Tortoise"/>
+					<aspectDependency aspect = "Exotic" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Rattlesnake">
+			<sourceDependency source = "Desert Tortoise"/>
+			<aspectDependency aspect = "Predator" level = "1"/>
+		</source>
+		<source name = "Great Rattlesnake">
+			<sourceDependency source = "Great Desert Tortoise"/>
+			<aspectDependency aspect = "Predator" level = "1"/>
+		</source>
+		<source name = "Superior Rattlesnake">
+			<sourceDependency source = "Superior Desert Tortoise"/>
+			<aspectDependency aspect = "Predator" level = "1"/>
+		</source>
+		<source name = "Javaline">
+			<or>
+				<and>
+					<sourceDependency source = "Goat"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Armadillo"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Javaline">
+			<or>
+				<and>
+					<sourceDependency source = "Great Goat"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Armadillo"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Javaline">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Goat"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Armadillo"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Grey Fox">
+			<or>
+				<and>
+					<sourceDependency source = "Armadillo"/>
+					<aspectDependency aspect = "Exotic" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Rattlesnake"/>
+					<aspectDependency aspect = "Exotic" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Grey Fox">
+			<or>
+				<and>
+					<sourceDependency source = "Great Armadillo"/>
+					<aspectDependency aspect = "Exotic" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Rattlesnake"/>
+					<aspectDependency aspect = "Exotic" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Grey Fox">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Armadillo"/>
+					<aspectDependency aspect = "Exotic" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Rattlesnake"/>
+					<aspectDependency aspect = "Exotic" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Coyote" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Goat"/>
+					<aspectDependency aspect = "Predator" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Rattlesnake"/>
+					<aspectDependency aspect = "Predator" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Coyote" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Goat"/>
+					<aspectDependency aspect = "Predator" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Rattlesnake"/>
+					<aspectDependency aspect = "Predator" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Gila Monster" level = "2">
+			<sourceDependency source = "Great Rattlesnake"/>
+			<or>
+				<and>
+					<aspectDependency aspect = "Predator" level = "3"/>
+					<aspectDependency aspect = "Predator" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Predator" level = "3"/>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Predator" level = "3"/>
+					<aspectDependency aspect = "Herd" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Predator" level = "3"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+					<aspectDependency aspect = "Herd" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Herd" level = "3"/>
+					<aspectDependency aspect = "Herd" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Herd" level = "3"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Gila Monster" level = "2">
+			<sourceDependency source = "Superior Rattlesnake"/>
+			<or>
+				<and>
+					<aspectDependency aspect = "Predator" level = "3"/>
+					<aspectDependency aspect = "Predator" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Predator" level = "3"/>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Predator" level = "3"/>
+					<aspectDependency aspect = "Herd" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Predator" level = "3"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+					<aspectDependency aspect = "Herd" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Herd" level = "3"/>
+					<aspectDependency aspect = "Herd" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Herd" level = "3"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+				<and>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Big Horn" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Javaline"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "4"/>
+						<aspectDependency aspect = "Herd" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Coyote"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "4"/>
+						<aspectDependency aspect = "Herd" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Bobcat" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Coyote"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "4"/>
+						<aspectDependency aspect = "Predator" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Grey Fox"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "4"/>
+						<aspectDependency aspect = "Predator" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Gila Monster"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "4"/>
+						<aspectDependency aspect = "Predator" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		
+		<!-- Swamp Plants -->
+		
+		<source name = "Elderberry">
+			<abilityDependency ability = "Fruit Plants" level = "1"/>
+		</source>
+		<source name = "Great Elderberry">
+			<abilityDependency ability = "Fruit Plants" level = "2"/>
+		</source>
+		<source name = "Superior Elderberry">
+			<abilityDependency ability = "Fruit Plants" level = "3"/>
+		</source>
+		<source name = "Peppermint">
+			<abilityDependency ability = "Herbs" level = "1"/>
+		</source>
+		<source name = "Great Peppermint">
+			<abilityDependency ability = "Herbs" level = "2"/>
+		</source>
+		<source name = "Superior Peppermint">
+			<abilityDependency ability = "Herbs" level = "3"/>
+		</source>
+		<source name = "Tomato">
+			<or>
+				<and>
+					<sourceDependency source = "Elderberry"/>
+					<aspectDependency aspect = "Leaf" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Peppermint"/>
+					<aspectDependency aspect = "Growth" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Tomato">
+			<or>
+				<and>
+					<sourceDependency source = "Great Elderberry"/>
+					<aspectDependency aspect = "Leaf" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Peppermint"/>
+					<aspectDependency aspect = "Growth" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Tomato">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Elderberry"/>
+					<aspectDependency aspect = "Leaf" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Peppermint"/>
+					<aspectDependency aspect = "Growth" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Pineapple">
+			<sourceDependency source = "Elderberry"/>
+			<aspectDependency aspect = "Fruit" level = "1"/>
+		</source>
+		<source name = "Great Pineapple">
+			<sourceDependency source = "Great Elderberry"/>
+			<aspectDependency aspect = "Fruit" level = "1"/>
+		</source>
+		<source name = "Superior Pineapple">
+			<sourceDependency source = "Superior Elderberry"/>
+			<aspectDependency aspect = "Fruit" level = "1"/>
+		</source>
+		<source name = "Marshmallow">
+			<sourceDependency source = "Peppermint"/>
+			<aspectDependency aspect = "Toxic" level = "1"/>
+		</source>
+		<source name = "Great Marshmallow">
+			<sourceDependency source = "Great Peppermint"/>
+			<aspectDependency aspect = "Toxic" level = "1"/>
+		</source>
+		<source name = "Superior Marshmallow">
+			<sourceDependency source = "Superior Peppermint"/>
+			<aspectDependency aspect = "Toxic" level = "1"/>
+		</source>
+		<source name = "Papaya">
+			<sourceDependency source = "Pineapple"/>
+			<aspectDependency aspect = "Fruit" level = "2"/>
+		</source>
+		<source name = "Great Papaya">
+			<sourceDependency source = "Great Pineapple"/>
+			<aspectDependency aspect = "Fruit" level = "2"/>
+		</source>
+		<source name = "Superior Papaya">
+			<sourceDependency source = "Superior Pineapple"/>
+			<aspectDependency aspect = "Fruit" level = "2"/>
+		</source>
+		<source name = "White Willow">
+			<or>
+				<and>
+					<sourceDependency source = "Tomato"/>
+					<aspectDependency aspect = "Leaf" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Marshmallow"/>
+					<aspectDependency aspect = "Leaf" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great White Willow">
+			<or>
+				<and>
+					<sourceDependency source = "Great Tomato"/>
+					<aspectDependency aspect = "Leaf" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Marshmallow"/>
+					<aspectDependency aspect = "Leaf" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior White Willow">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Tomato"/>
+					<aspectDependency aspect = "Leaf" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Marshmallow"/>
+					<aspectDependency aspect = "Leaf" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Coffee" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Pineapple"/>
+					<aspectDependency aspect = "Growth" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Tomato"/>
+					<aspectDependency aspect = "Growth" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Coffee" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Pineapple"/>
+					<aspectDependency aspect = "Growth" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Tomato"/>
+					<aspectDependency aspect = "Growth" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Hemp" level = "2">
+			<sourceDependency source = "Great Marshmallow"/>
+			<aspectDependency aspect = "Toxic" level = "3"/>
+		</source>
+		<source name = "Great Hemp" level = "2">
+			<sourceDependency source = "Superior Marshmallow"/>
+			<aspectDependency aspect = "Toxic" level = "3"/>
+		</source>
+		<source name = "Cacao Tree" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Papaya"/>
+					<or>
+						<aspectDependency aspect = "Growth" level = "4"/>
+						<aspectDependency aspect = "Fruit" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Coffee"/>
+					<or>
+						<aspectDependency aspect = "Growth" level = "4"/>
+						<aspectDependency aspect = "Fruit" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Rubber Tree" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Coffee"/>
+					<or>
+						<aspectDependency aspect = "Leaf" level = "4"/>
+						<aspectDependency aspect = "Toxic" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Superior White Willow"/>
+					<or>
+						<aspectDependency aspect = "Leaf" level = "4"/>
+						<aspectDependency aspect = "Toxic" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Hemp"/>
+					<or>
+						<aspectDependency aspect = "Leaf" level = "4"/>
+						<aspectDependency aspect = "Toxic" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		
+		<!-- Swamp Animals -->
+		
+		<source name = "Frog">
+			<abilityDependency ability = "Domestic Animals" level = "1"/>
+		</source>
+		<source name = "Great Frog">
+			<abilityDependency ability = "Domestic Animals" level = "2"/>
+		</source>
+		<source name = "Superior Frog">
+			<abilityDependency ability = "Domestic Animals" level = "3"/>
+		</source>
+		<source name = "Poison Dart Frog">
+			<abilityDependency ability = "Exotic Animals" level = "1"/>
+		</source>
+		<source name = "Great Poison Dart Frog">
+			<abilityDependency ability = "Exotic Animals" level = "2"/>
+		</source>
+		<source name = "Superior Poison Dart Frog">
+			<abilityDependency ability = "Exotic Animals" level = "3"/>
+		</source>
+		<source name = "Otter">
+			<or>
+				<and>
+					<sourceDependency source = "Frog"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Poison Dart Frog"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Otter">
+			<or>
+				<and>
+					<sourceDependency source = "Great Frog"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Poison Dart Frog"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Otter">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Frog"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Poison Dart Frog"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Iguana">
+			<or>
+				<and>
+					<sourceDependency source = "Frog"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Poison Dart Frog"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Iguana">
+			<or>
+				<and>
+					<sourceDependency source = "Great Frog"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Poison Dart Frog"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Iguana">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Frog"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Poison Dart Frog"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Tapir">
+			<or>
+				<and>
+					<sourceDependency source = "Otter"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Iguana"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Tapir">
+			<or>
+				<and>
+					<sourceDependency source = "Great Otter"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Iguana"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Tapir">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Otter"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Iguana"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Buffalo" level = "2">
+			<sourceDependency source = "Great Otter"/>
+			<aspectDependency aspect = "Herd" level = "3"/>
+		</source>
+		<source name = "Great Buffalo" level = "2">
+			<sourceDependency source = "Superior Otter"/>
+			<aspectDependency aspect = "Herd" level = "3"/>
+		</source>
+		<source name = "Komodo Dragon" level = "2">
+			<sourceDependency source = "Great Iguana"/>
+			<aspectDependency aspect = "Predator" level = "3"/>
+		</source>
+		<source name = "Great Komodo Dragon" level = "2">
+			<sourceDependency source = "Superior Iguana"/>
+			<aspectDependency aspect = "Predator" level = "3"/>
+		</source>
+		<source name = "Orangutan" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Buffalo"/>
+					<or>
+						<aspectDependency aspect = "Herd" level = "4"/>
+						<aspectDependency aspect = "Hunt" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Tapir"/>
+					<or>
+						<aspectDependency aspect = "Herd" level = "4"/>
+						<aspectDependency aspect = "Hunt" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Crocodile" level = "3">
+			<sourceDependency source = "Great Komodo Dragon"/>
+			<aspectDependency aspect = "Predator" level = "4"/>
+		</source>
+		
+		<!-- Mountain Plants -->
+		
+		<source name = "Kumquat">
+			<abilityDependency ability = "Fruit Plants" level = "1"/>
+		</source>
+		<source name = "Great Kumquat">
+			<abilityDependency ability = "Fruit Plants" level = "2"/>
+		</source>
+		<source name = "Superior Kumquat">
+			<abilityDependency ability = "Fruit Plants" level = "3"/>
+		</source>
+		<source name = "Ginger">
+			<abilityDependency ability = "Herbs" level = "1"/>
+		</source>
+		<source name = "Great Ginger">
+			<abilityDependency ability = "Herbs" level = "2"/>
+		</source>
+		<source name = "Superior Ginger">
+			<abilityDependency ability = "Herbs" level = "3"/>
+		</source>
+		<source name = "Dragonfruit">
+			<or>
+				<and>
+					<sourceDependency source = "Kumquat"/>
+					<or>
+						<aspectDependency aspect = "Fruit" level = "1"/>
+						<aspectDependency aspect = "Toxic" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Ginger"/>
+					<or>
+						<aspectDependency aspect = "Fruit" level = "1"/>
+						<aspectDependency aspect = "Toxic" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Dragonfruit">
+			<or>
+				<and>
+					<sourceDependency source = "Great Kumquat"/>
+					<or>
+						<aspectDependency aspect = "Fruit" level = "1"/>
+						<aspectDependency aspect = "Toxic" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Ginger"/>
+					<or>
+						<aspectDependency aspect = "Fruit" level = "1"/>
+						<aspectDependency aspect = "Toxic" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Dragonfruit">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Kumquat"/>
+					<or>
+						<aspectDependency aspect = "Fruit" level = "1"/>
+						<aspectDependency aspect = "Toxic" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Ginger"/>
+					<or>
+						<aspectDependency aspect = "Fruit" level = "1"/>
+						<aspectDependency aspect = "Toxic" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Kiwifruit">
+			<sourceDependency source = "Kumquat"/>
+			<aspectDependency aspect = "Growth" level = "2"/>
+		</source>
+		<source name = "Great Kiwifruit">
+			<sourceDependency source = "Great Kumquat"/>
+			<aspectDependency aspect = "Growth" level = "2"/>
+		</source>
+		<source name = "Superior Kiwifruit">
+			<sourceDependency source = "Superior Kumquat"/>
+			<aspectDependency aspect = "Growth" level = "2"/>
+		</source>
+		<source name = "Lychee" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Dragonfruit"/>
+					<aspectDependency aspect = "Fruit" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Kiwifruit"/>
+					<aspectDependency aspect = "Fruit" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Lychee" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Dragonfruit"/>
+					<aspectDependency aspect = "Fruit" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Kiwifruit"/>
+					<aspectDependency aspect = "Fruit" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Cinnamomum" level = "2">
+			<sourceDependency source = "Great Dragonfruit"/>
+			<aspectDependency aspect = "Growth" level = "3"/>
+		</source>
+		<source name = "Great Cinnamomum" level = "2">
+			<sourceDependency source = "Superior Dragonfruit"/>
+			<aspectDependency aspect = "Growth" level = "3"/>
+		</source>
+		<source name = "Tea Plant" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Dragonfruit"/>
+					<aspectDependency aspect = "Leaf" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Kiwifruit"/>
+					<aspectDependency aspect = "Leaf" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Tea Plant" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Dragonfruit"/>
+					<aspectDependency aspect = "Leaf" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Kiwifruit"/>
+					<aspectDependency aspect = "Leaf" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Ginkgo" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Lychee"/>
+					<or>
+						<aspectDependency aspect = "Leaf" level = "4"/>
+						<aspectDependency aspect = "Growth" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Cinnamomum"/>
+					<or>
+						<aspectDependency aspect = "Leaf" level = "4"/>
+						<aspectDependency aspect = "Growth" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Tea Plant"/>
+					<or>
+						<aspectDependency aspect = "Leaf" level = "4"/>
+						<aspectDependency aspect = "Growth" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		
+		<!-- Mountain Animals -->
+		
+		<source name = "Marten">
+			<abilityDependency ability = "Domestic Animals" level = "1"/>
+		</source>
+		<source name = "Great Marten">
+			<abilityDependency ability = "Domestic Animals" level = "2"/>
+		</source>
+		<source name = "Superior Marten">
+			<abilityDependency ability = "Domestic Animals" level = "3"/>
+		</source>
+		<source name = "Monal">
+			<abilityDependency ability = "Exotic Animals" level = "1"/>
+		</source>
+		<source name = "Great Monal">
+			<abilityDependency ability = "Exotic Animals" level = "2"/>
+		</source>
+		<source name = "Superior Monal">
+			<abilityDependency ability = "Exotic Animals" level = "3"/>
+		</source>
+		<source name = "Musk Deer">
+			<or>
+				<and>
+					<sourceDependency source = "Marten"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Monal"/>
+					<or>
+						<aspectDependency aspect = "Predator" level = "2"/>
+						<aspectDependency aspect = "Exotic" level = "2"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Musk Deer">
+			<or>
+				<and>
+					<sourceDependency source = "Great Marten"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Monal"/>
+					<or>
+						<aspectDependency aspect = "Predator" level = "2"/>
+						<aspectDependency aspect = "Exotic" level = "2"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Musk Deer">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Marten"/>
+					<aspectDependency aspect = "Hunt" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Monal"/>
+					<or>
+						<aspectDependency aspect = "Predator" level = "2"/>
+						<aspectDependency aspect = "Exotic" level = "2"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Pangolin">
+			<or>
+				<and>
+					<sourceDependency source = "Marten"/>
+					<aspectDependency aspect = "Herd" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Monal"/>
+					<aspectDependency aspect = "Herd" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Pangolin">
+			<or>
+				<and>
+					<sourceDependency source = "Great Marten"/>
+					<aspectDependency aspect = "Herd" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Monal"/>
+					<aspectDependency aspect = "Herd" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Pangolin">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Marten"/>
+					<aspectDependency aspect = "Herd" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Monal"/>
+					<aspectDependency aspect = "Herd" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Snow Leopard" level = "2">
+			<sourceDependency source = "Great Musk Deer"/>
+			<aspectDependency aspect = "Predator" level = "3"/>
+		</source>
+		<source name = "Great Snow Leopard" level = "2">
+			<sourceDependency source = "Superior Musk Deer"/>
+			<aspectDependency aspect = "Predator" level = "3"/>
+		</source>
+		<source name = "Langur Monkey" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Musk Deer"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Pangolin"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Langur Monkey" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Musk Deer"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Pangolin"/>
+					<aspectDependency aspect = "Exotic" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Yak" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Musk Deer"/>
+					<aspectDependency aspect = "Herd" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Pangolin"/>
+					<aspectDependency aspect = "Herd" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Yak" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Musk Deer"/>
+					<aspectDependency aspect = "Herd" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Pangolin"/>
+					<aspectDependency aspect = "Herd" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Panda" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Snow Leopard"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "4"/>
+						<aspectDependency aspect = "Herd" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Langur Monkey"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "4"/>
+						<aspectDependency aspect = "Herd" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Yak"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "4"/>
+						<aspectDependency aspect = "Herd" level = "4"/>
+					</or>/>
+				</and>
+			</or>
+		</source>
+		
+		<!-- Ocean Animals -->
+		
+		<source name = "Mackerel">
+			<abilityDependency ability = "Domestic Animals" level = "1"/>
+		</source>
+		<source name = "Great Mackerel">
+			<abilityDependency ability = "Domestic Animals" level = "2"/>
+		</source>
+		<source name = "Superior Mackerel">
+			<abilityDependency ability = "Domestic Animals" level = "3"/>
+		</source>
+		<source name = "Clownfish">
+			<abilityDependency ability = "Exotic Animals" level = "1"/>
+		</source>
+		<source name = "Great Clownfish">
+			<abilityDependency ability = "Exotic Animals" level = "2"/>
+		</source>
+		<source name = "Superior Clownfish">
+			<abilityDependency ability = "Exotic Animals" level = "3"/>
+		</source>
+		<source name = "Seabass">
+			<or>
+				<and>
+					<sourceDependency source = "Mackerel"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Clownfish"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Seabass">
+			<or>
+				<and>
+					<sourceDependency source = "Great Mackerel"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Clownfish"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Seabass">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Mackerel"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Clownfish"/>
+					<or>
+						<aspectDependency aspect = "Hunt" level = "1"/>
+						<aspectDependency aspect = "Predator" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Parrotfish">
+			<or>
+				<and>
+					<sourceDependency source = "Mackerel"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Clownfish"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Parrotfish">
+			<or>
+				<and>
+					<sourceDependency source = "Great Mackerel"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Clownfish"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Parrotfish">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Mackerel"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Clownfish"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "1"/>
+						<aspectDependency aspect = "Herd" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Marlin" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Seabass"/>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Parrotfish"/>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Marlin" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Seabass"/>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Parrotfish"/>
+					<aspectDependency aspect = "Hunt" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Anglerfish" level = "2">
+			<sourceDependency source = "Great Parrotfish"/>
+			<aspectDependency aspect = "Exotic" level = "3"/>
+		</source>
+		<source name = "Great Anglerfish" level = "2">
+			<sourceDependency source = "Superior Parrotfish"/>
+			<aspectDependency aspect = "Exotic" level = "3"/>
+		</source>
+		<source name = "Tuna" level = "2">
+			<sourceDependency source = "Great Seabass"/>
+			<aspectDependency aspect = "Herd" level = "3"/>
+		</source>
+		<source name = "Great Tuna" level = "2">
+			<sourceDependency source = "Superior Seabass"/>
+			<aspectDependency aspect = "Herd" level = "3"/>
+		</source>
+		<source name = "Blue Whale" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Marlin"/>
+					<aspectDependency aspect = "Herd" level = "4"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Tuna"/>
+					<aspectDependency aspect = "Herd" level = "4"/>
+				</and>
+			</or>
+		</source>
+		<source name = "White Shark" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Marlin"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "4"/>
+						<aspectDependency aspect = "Herd" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Anglerfish"/>
+					<or>
+						<aspectDependency aspect = "Exotic" level = "4"/>
+						<aspectDependency aspect = "Herd" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		
+		<!-- Minerals -->
+		
+		<source name = "Agate">
+			<abilityDependency ability = "Precious Minerals" level = "1"/>
+		</source>
+		<source name = "Great Agate">
+			<abilityDependency ability = "Precious Minerals" level = "2"/>
+		</source>
+		<source name = "Superior Agate">
+			<abilityDependency ability = "Precious Minerals" level = "3"/>
+		</source>
+		<source name = "Quartz">
+			<abilityDependency ability = "Precious Minerals" level = "1"/>
+		</source>
+		<source name = "Great Quartz">
+			<abilityDependency ability = "Precious Minerals" level = "2"/>
+		</source>
+		<source name = "Superior Quartz">
+			<abilityDependency ability = "Precious Minerals" level = "3"/>
+		</source>
+		<source name = "Stone">
+			<abilityDependency ability = "Advanced Minerals" level = "1"/>
+		</source>
+		<source name = "Great Stone">
+			<abilityDependency ability = "Advanced Minerals" level = "2"/>
+		</source>
+		<source name = "Superior Stone">
+			<abilityDependency ability = "Advanced Minerals" level = "3"/>
+		</source>
+		<source name = "Marble">
+			<abilityDependency ability = "Advanced Minerals" level = "1"/>
+		</source>
+		<source name = "Great Marble">
+			<abilityDependency ability = "Advanced Minerals" level = "2"/>
+		</source>
+		<source name = "Superior Marble">
+			<abilityDependency ability = "Advanced Minerals" level = "3"/>
+		</source>
+		<source name = "Topaz">
+			<or>
+				<and>
+					<sourceDependency source = "Agate"/>
+					<aspectDependency aspect = "Noble" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Quartz"/>
+					<aspectDependency aspect = "Noble" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Topaz">
+			<or>
+				<and>
+					<sourceDependency source = "Great Agate"/>
+					<aspectDependency aspect = "Noble" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Quartz"/>
+					<aspectDependency aspect = "Noble" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Topaz">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Agate"/>
+					<aspectDependency aspect = "Noble" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Quartz"/>
+					<aspectDependency aspect = "Noble" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Salt">
+			<or>
+				<and>
+					<sourceDependency source = "Agate"/>
+					<aspectDependency aspect = "Seismic" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Quartz"/>
+					<aspectDependency aspect = "Seismic" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Stone"/>
+					<aspectDependency aspect = "Crystal" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Marble"/>
+					<aspectDependency aspect = "Crystal" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Salt">
+			<or>
+				<and>
+					<sourceDependency source = "Great Agate"/>
+					<aspectDependency aspect = "Seismic" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Quartz"/>
+					<aspectDependency aspect = "Seismic" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Stone"/>
+					<aspectDependency aspect = "Crystal" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Marble"/>
+					<aspectDependency aspect = "Crystal" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Salt">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Agate"/>
+					<aspectDependency aspect = "Seismic" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Quartz"/>
+					<aspectDependency aspect = "Seismic" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Stone"/>
+					<aspectDependency aspect = "Crystal" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Marble"/>
+					<aspectDependency aspect = "Crystal" level = "1"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Onyx">
+			<or>
+				<and>
+					<sourceDependency source = "Topaz"/>
+					<aspectDependency aspect = "Noble" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Salt"/>
+					<aspectDependency aspect = "Crystal" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Onyx">
+			<or>
+				<and>
+					<sourceDependency source = "Great Topaz"/>
+					<aspectDependency aspect = "Noble" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Salt"/>
+					<aspectDependency aspect = "Crystal" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Onyx">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Topaz"/>
+					<aspectDependency aspect = "Noble" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Salt"/>
+					<aspectDependency aspect = "Crystal" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Copper">
+			<or>
+				<and>
+					<sourceDependency source = "Stone"/>
+					<aspectDependency aspect = "Reaction" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Marble"/>
+					<or>
+						<aspectDependency aspect = "Reaction" level = "1"/>
+						<aspectDependency aspect = "Seismic" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Copper">
+			<or>
+				<and>
+					<sourceDependency source = "Great Stone"/>
+					<aspectDependency aspect = "Reaction" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Marble"/>
+					<or>
+						<aspectDependency aspect = "Reaction" level = "1"/>
+						<aspectDependency aspect = "Seismic" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Copper">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Stone"/>
+					<aspectDependency aspect = "Reaction" level = "1"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Marble"/>
+					<or>
+						<aspectDependency aspect = "Reaction" level = "1"/>
+						<aspectDependency aspect = "Seismic" level = "1"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Phosphorus">
+			<sourceDependency source = "Copper"/>
+			<aspectDependency aspect = "Reaction" level = "2"/>
+		</source>
+		<source name = "Great Phosphorus">
+			<sourceDependency source = "Great Copper"/>
+			<aspectDependency aspect = "Reaction" level = "2"/>
+		</source>
+		<source name = "Superior Phosphorus">
+			<sourceDependency source = "Superior Copper"/>
+			<aspectDependency aspect = "Reaction" level = "2"/>
+		</source>
+		<source name = "Iron">
+			<or>
+				<and>
+					<sourceDependency source = "Copper"/>
+					<aspectDependency aspect = "Reaction" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Salt"/>
+					<aspectDependency aspect = "Seismic" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Iron">
+			<or>
+				<and>
+					<sourceDependency source = "Great Copper"/>
+					<aspectDependency aspect = "Reaction" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Salt"/>
+					<aspectDependency aspect = "Seismic" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Superior Iron">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Copper"/>
+					<aspectDependency aspect = "Reaction" level = "2"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Salt"/>
+					<aspectDependency aspect = "Seismic" level = "2"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Gold" level = "2">
+			<sourceDependency source = "Great Onyx"/>
+			<aspectDependency aspect = "Noble" level = "3"/>
+		</source>
+		<source name = "Great Gold" level = "2">
+			<sourceDependency source = "Superior Onyx"/>
+			<aspectDependency aspect = "Noble" level = "3"/>
+		</source>
+		<source name = "Silver" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Onyx"/>
+					<aspectDependency aspect = "Seismic" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Phosphorus"/>
+					<aspectDependency aspect = "Crystal" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Iron"/>
+					<aspectDependency aspect = "Crystal" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Silver" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Onyx"/>
+					<aspectDependency aspect = "Seismic" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Phosphorus"/>
+					<aspectDependency aspect = "Crystal" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Iron"/>
+					<aspectDependency aspect = "Crystal" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Platinum" level = "2">
+			<sourceDependency source = "Great Onyx"/>
+			<aspectDependency aspect = "Crystal" level = "3"/>
+		</source>
+		<source name = "Great Platinum" level = "2">
+			<sourceDependency source = "Superior Onyx"/>
+			<aspectDependency aspect = "Crystal" level = "3"/>
+		</source>
+		<source name = "Aluminium" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Great Phosphorus"/>
+					<aspectDependency aspect = "Reaction" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Iron"/>
+					<aspectDependency aspect = "Reaction" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Great Aluminium" level = "2">
+			<or>
+				<and>
+					<sourceDependency source = "Superior Phosphorus"/>
+					<aspectDependency aspect = "Reaction" level = "3"/>
+				</and>
+				<and>
+					<sourceDependency source = "Superior Iron"/>
+					<aspectDependency aspect = "Reaction" level = "3"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Zinc" level = "2">
+			<sourceDependency source = "Great Iron"/>
+			<aspectDependency aspect = "Seismic" level = "3"/>
+		</source>
+		<source name = "Great Zinc" level = "2">
+			<sourceDependency source = "Superior Iron"/>
+			<aspectDependency aspect = "Seismic" level = "3"/>
+		</source>
+		<source name = "Ruby" level = "3">
+			<sourceDependency source = "Great Gold"/>
+			<aspectDependency aspect = "Noble" level = "4"/>
+		</source>
+		<source name = "Diamond" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Gold"/>
+					<or>
+						<aspectDependency aspect = "Noble" level = "4"/>
+						<aspectDependency aspect = "Crystal" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Silver"/>
+					<or>
+						<aspectDependency aspect = "Noble" level = "4"/>
+						<aspectDependency aspect = "Crystal" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		<source name = "Coal" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Silver"/>
+					<aspectDependency aspect = "Crystal" level = "4"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Platinum"/>
+					<aspectDependency aspect = "Crystal" level = "4"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Oil" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Silver"/>
+					<aspectDependency aspect = "Seismic" level = "4"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Platinum"/>
+					<aspectDependency aspect = "Seismic" level = "4"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Uranium" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Aluminium"/>
+					<aspectDependency aspect = "Reaction" level = "4"/>
+				</and>
+				<and>
+					<sourceDependency source = "Great Zinc"/>
+					<aspectDependency aspect = "Reaction" level = "4"/>
+				</and>
+			</or>
+		</source>
+		<source name = "Fluorite" level = "3">
+			<or>
+				<and>
+					<sourceDependency source = "Great Aluminium"/>
+					<or>
+						<aspectDependency aspect = "Reaction" level = "4"/>
+						<aspectDependency aspect = "Seismic" level = "4"/>
+					</or>
+				</and>
+				<and>
+					<sourceDependency source = "Great Zinc"/>
+					<or>
+						<aspectDependency aspect = "Reaction" level = "4"/>
+						<aspectDependency aspect = "Seismic" level = "4"/>
+					</or>
+				</and>
+			</or>
+		</source>
+		
+	</sources>
+</gameData>
