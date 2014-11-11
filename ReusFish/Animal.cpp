@@ -116,7 +116,10 @@ void WhiteShark::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddAllInRange(spaces, loc, yield, Yield(0,0,0,4,0,0), WHITE_SHARK, MARLIN);
-   yield.m_wealth += 40 - 2*yield.m_danger;
+
+   std::vector<unsigned> danger_yield(spaces.size());
+   GetDanger(spaces, loc, yield, danger_yield);
+   yield.m_wealth += 40 - 2 * danger_yield[loc];
 }
 
 void BlueWhale::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
@@ -229,7 +232,9 @@ void Bear::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
-   yield.m_wealth += 2 * yield.m_danger;
+   std::vector<unsigned> danger_yield(spaces.size());
+   GetDanger(spaces, loc, yield, danger_yield);
+   yield.m_wealth += 2 * danger_yield[loc];
    AddAllInRange(spaces, loc, yield, Yield(3,0,0,0,0,0), DEER, WISENT, BOAR);
 }
 
@@ -277,7 +282,7 @@ void Rattlesnake::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
    AddAllInRange(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), KANGAROO_RAT, ARMADILLO, DESERT_TORTOISE);
 }
 
-void Javelina::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_dnager_adder)
+void Javelina::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_danger_adder)
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -300,7 +305,7 @@ void GreyFox::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, u
    }
 
    if (m_base_yield.m_wealth >= m_wealth_adder)
-      m_base_yield += m_wealth_adder;
+      m_base_yield.m_wealth += m_wealth_adder;
 }
 
 void Coyote::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
@@ -309,7 +314,7 @@ void Coyote::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
    if (NotAdjacent(spaces, loc, ANIMAL))
-      yield.m_range += 1
+      yield.m_range += 1;
    AddAllInRange(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), JAVELINA, GOAT);
 }
 
@@ -355,19 +360,7 @@ void Bobcat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
 
    // Calculate danger of rest of world
    std::vector<unsigned> danger_yield(spaces.size());
-
-   for (unsigned i = 0; i < spaces.size(); i++)
-   {
-      if ((i != loc) && spaces[i].m_source)
-      {
-	 Yield this_yield;
-	 spaces[i].m_source->GetYield(m_spaces, i, this_yield);
-	 for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < m_spaces.size()); j++)
-	    danger_yield[j] += this_yield.m_danger;
-      }
-   }
-   for (unsigned i = std::max<int>(0, (int)loc - this_yield.m_range); (i <= loc + this_yield.m_range) && (i < m_spaces.size()); i++)
-      danger_yield[i] += yield.m_danger;
+   GetDanger(spaces, loc, yield, danger_yield);
 
    unsigned seen_flag[SOURCE_CLASS_T_MAX] = {0};
 
@@ -377,7 +370,7 @@ void Bobcat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    for (unsigned i = std::max<int>(0, (int)loc - yield.m_range); (i <= loc + yield.m_range) && (i < spaces.size()); i+= 1)
    {
       if (danger_yield[i] >= 5)
-	 m_yield.m_wealth += 5;
+	 yield.m_wealth += 5;
       if ((i != loc) && !seen_flag[spaces[i].m_source->Class()])
       {
 	 seen_flag[spaces[i].m_source->Class()] = 1;
@@ -393,7 +386,7 @@ void Frog::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 
    AddIfAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), ELDERBERRY);
    if (!NotAdjacent(spaces, loc, ELDERBERRY))
-      yield.m_range += 1
+      yield.m_range += 1;
 }
 
 void PoisonDartFrog::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
@@ -403,7 +396,7 @@ void PoisonDartFrog::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &y
 
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), ELDERBERRY);
    if (!NotAdjacent(spaces, loc, ELDERBERRY))
-      yield.m_range += 1
+      yield.m_range += 1;
 }
 
 void Otter::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
@@ -422,7 +415,7 @@ void Iguana::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,m_danger_adder,0,0), MINERAL);
 }
 
-void Iguana::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_natura_limit)
+void Tapir::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_natura_limit)
 {
    unsigned i;
    yield = m_base_yield;
@@ -432,7 +425,7 @@ void Iguana::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 	 yield.m_food += m_food_adder;
 }
 
-void Buffalo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Buffalo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_food_multiplier, unsigned m_food_adder)
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -440,11 +433,11 @@ void Buffalo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, u
    AddAllAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), HEMP, TOMATO, MARSH_MALLOW);
    for (unsigned i = std::max<int>((int)loc - yield.m_range,0); (i <= loc + yield.m_range) && (i < spaces.size()); i+= 1)
    {
-      if (spaces[loc + i].m_source->Class() == PLANT)
+      if (spaces[i].m_source->Class() == PLANT)
       {
 	 Yield yield;
-	 spaces[loc].m_source->GetYield(spaces, loc + i, yield);
-	 spaces[loc].m_yield.m_food += int(yield.m_food * m_food_multiplier);
+	 spaces[i].m_source->GetYield(spaces, i, yield);
+	 spaces[i].m_yield.m_food += int(yield.m_food * m_food_multiplier);
       }
    }
 }
@@ -455,7 +448,7 @@ void KomodoDragon::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yie
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
    if (!NotAdjacent(spaces, loc, IGUANA))
-      yield.m_range += 1
+      yield.m_range += 1;
    AddAllInRange(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), IGUANA, POISON_DART_FROG);
    AddIfInRange(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), BUFFALO);
    AddIfInRange(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), OTTER);
@@ -478,24 +471,24 @@ void Orangutan::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    if (tree_count >= 2)
       yield.m_range += 1;
 
-   AddAllInRange(space, loc, yield, Yield(0,12,0,0,0,0), RUBBER_TREE, COFFEA, WHITE_WILLOW);
-   AddAllInRange(space, loc, yield, Yield(0,12,0,0,0,0), PAPAYA, CACAO_TREE);
+   AddAllInRange(spaces, loc, yield, Yield(0,12,0,0,0,0), RUBBER_TREE, COFFEA, WHITE_WILLOW);
+   AddAllInRange(spaces, loc, yield, Yield(0,12,0,0,0,0), PAPAYA, CACAO_TREE);
 
    yield.m_tech = std::max<unsigned>(36, yield.m_tech);
 
    for (unsigned i = std::max<int>((int)loc - yield.m_range,0); (i <= loc + yield.m_range) && (i < spaces.size()); i+= 1)
    {
-      if ((spaces[loc + i].m_source->Type() == WHITE_WILLOW)
-          (spaces[loc + i].m_source->Type() == COFFEA))
+      if ((spaces[i].m_source->Type() == WHITE_WILLOW) ||
+          (spaces[i].m_source->Type() == COFFEA))
       {
 	 Yield yield;
-	 spaces[loc].m_source->GetYield(spaces, loc + i, yield);
-	 spaces[loc].m_yield.m_tech += int(yield.m_tech * 0.75);
+	 spaces[i].m_source->GetYield(spaces, i, yield);
+	 spaces[i].m_yield.m_tech += int(yield.m_tech * 0.75);
       }
    }
 }
 
-void Crocodile::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Crocodile::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -503,12 +496,127 @@ void Crocodile::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
    AddAllAdjacent(spaces, loc, yield, Yield(0,0,4,0,0,0), MINERAL);
    for (unsigned i = std::max<int>((int)loc - yield.m_range,0); (i <= loc + yield.m_range) && (i < spaces.size()); i+= 1)
    {
-      if ((spaces[loc + i].m_source->Type() == BUFFALO) ||
-          (spaces[loc + i].m_source->Type() == ORANGUTAN) ||
-          (spaces[loc + i].m_source->Type() == TAPIR) )
+      if ((spaces[i].m_source->Type() == BUFFALO) ||
+          (spaces[i].m_source->Type() == ORANGUTAN) ||
+          (spaces[i].m_source->Type() == TAPIR) )
       {
-	 spaces[loc + i].m_yield.m_food -= 2;
-	 m_yield.m_wealth += 6;
+	 spaces[i].m_yield.m_food -= 2;
+	 yield.m_wealth += 6;
       }
    }
 }
+
+void Marten::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_danger_adder)
+{
+   yield = m_base_yield;
+   GetAspects(spaces[loc].m_yield.m_natura, yield);
+
+   AddIfAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,m_danger_adder,0,0), MINERAL);
+}
+
+void Monal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder)
+{
+   yield = m_base_yield;
+   GetAspects(spaces[loc].m_yield.m_natura, yield);
+
+   AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,m_awe_adder,0), PLANT);
+}
+
+void MuskDeer::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_danger_limit, unsigned m_tech_limit)
+{
+   yield = m_base_yield;
+   GetAspects(spaces[loc].m_yield.m_natura, yield);
+
+   // Calculate danger
+   std::vector<unsigned> danger_yield(spaces.size());
+   GetDanger(spaces, loc, yield, danger_yield);
+   if (danger_yield[loc] >= m_danger_limit)
+      yield.m_range += 1;
+
+   std::vector<unsigned> tech_yield(spaces.size());
+   GetTech(spaces, loc, yield, tech_yield);
+   for (unsigned i = std::max<int>((int)loc - yield.m_range,0); (i <= loc + yield.m_range) && (i < spaces.size()); i+= 1)
+      if (tech_yield[i] >= m_tech_limit)
+	 yield.m_wealth += m_wealth_adder;
+}
+
+void Pangolin::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
+      unsigned m_shy_food_adder, unsigned m_natura_limit, unsigned m_peaceful_food_adder, unsigned m_awe_adder)
+{
+   yield = m_base_yield;
+   GetAspects(spaces[loc].m_yield.m_natura, yield);
+
+   if(spaces[loc].m_yield.m_natura >= m_natura_limit)
+   {
+      yield.m_food += m_shy_food_adder;
+      yield.m_awe  += m_awe_adder;
+   }
+
+   // Hack up a way to check for 1 of 4 types
+   Yield old_yield = yield;
+   AddIfInRange(spaces, loc, yield, Yield(m_peaceful_food_adder,0,0,0,m_awe_adder,0), MONAL, MARTEN, LANGUR_MONKEY);
+   if (old_yield == yield)
+      AddIfInRange(spaces, loc, yield, Yield(m_peaceful_food_adder,0,0,0,m_awe_adder,0), YAK);
+}
+
+void SnowLeopard::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
+      unsigned m_wealth_adder, unsigned m_peak_wealth_adder, unsigned m_danger_adder) 
+{
+   yield = m_base_yield;
+   GetAspects(spaces[loc].m_yield.m_natura, yield);
+
+   AddAllAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), YAK, MUSK_DEER);
+   AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_peak_wealth_adder,m_danger_adder,0,0), SILVER, ZINC);
+}
+
+void LangurMonkey::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
+      unsigned m_wealth_adder, unsigned m_tech_adder)
+{
+   yield = m_base_yield;
+   GetAspects(spaces[loc].m_yield.m_natura, yield);
+
+   AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), PLANT);
+   if (!NotAdjacent(spaces, loc, PLANT))
+      yield.m_range += 1;
+   AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), CINNAMOMUM, LYCHEE, GINKGO);
+}
+
+void Yak::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
+      unsigned m_grazer_food_adder, unsigned m_no_animals_food_adder, unsigned m_one_animal_food_adder)
+{
+   yield = m_base_yield;
+   GetAspects(spaces[loc].m_yield.m_natura, yield);
+
+   yield.m_food += spaces[loc].m_yield.m_natura / 5;
+
+   unsigned animal_count = 0;
+
+   for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
+      if ((i != loc) && (spaces[i].m_source->Class() == ANIMAL))
+	 animal_count += 1;
+   if (animal_count == 0)
+      yield.m_food += m_no_animals_food_adder;
+   else if (animal_count == 1)
+      yield.m_food += m_one_animal_food_adder;
+}
+
+void Panda::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+{
+   yield = m_base_yield;
+   GetAspects(spaces[loc].m_yield.m_natura, yield);
+
+   AddIfAdjacent(spaces, loc, yield, Yield(0,0,0,6,0,0), ANIMAL);
+   AddIfAdjacent(spaces, loc, yield, Yield(0,0,0,0,8,0), MINERAL);
+
+   for (unsigned i = std::max<int>((int)loc - 1,0); (i <= loc + 1) && (i < spaces.size()); i+= 1)
+      if (spaces[i].m_source->Class() == PLANT)
+	 spaces[i].m_yield.m_food += 15;
+
+   std::vector<unsigned> awe_yield(spaces.size());
+   GetAwe(spaces, loc, yield, awe_yield);
+   unsigned awe = 0;
+   for (unsigned i = std::max<int>((int)loc - yield.m_range,0); (i <= loc + yield.m_range) && (i < spaces.size()); i+= 1)
+      awe += awe_yield[i];
+   yield.m_wealth += int(0.4 * awe);
+}
+

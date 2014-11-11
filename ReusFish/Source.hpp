@@ -115,7 +115,7 @@ class Source
       }
 
       virtual void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) { yield.Reset(); }
-      virtual void GetNatura(const std::vector<Space> &spaces, unsigned loc, Yield &yield) { yield.Reset(); }
+      virtual void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) { yield.Reset(); }
       void GetAspects(unsigned natura, Yield &yield) const
       {
 	 for (unsigned i = 0; i < m_aspects.size(); i++)
@@ -271,11 +271,39 @@ class Source
       }
       bool NotInRange(const std::vector<Space> &spaces, unsigned loc, unsigned range,
 	              source_type_t type1, source_type_t type2, source_type_t type3); 
-      bool NotAdjacent(const std::vector<Space> &spaces,
-	              source_type_t type1, source_type_t type2, source_type_t type3); 
+      bool NotInRange(const std::vector<Space> &spaces, unsigned loc, unsigned range,
+	              source_type_t type1, source_type_t type2)
+      {
+	 return NotInRange(spaces, loc, range, type1, type2, type2);
+      }
+      bool NotInRange(const std::vector<Space> &spaces, unsigned loc, unsigned range,
+	              source_type_t type1)
+      {
+	 return NotInRange(spaces, loc, range, type1, type1, type1);
+      }
+      bool NotAdjacent(const std::vector<Space> &spaces, unsigned loc,
+	              source_type_t type1, source_type_t type2, source_type_t type3)
       {
 	 return NotInRange(spaces, loc, 1, type1, type2, type3);
       }
+
+      bool NotAdjacent(const std::vector<Space> &spaces, unsigned loc,
+	              source_type_t type1, source_type_t type2)
+      {
+	 return NotInRange(spaces, loc, 1, type1, type2);
+      }
+      bool NotAdjacent(const std::vector<Space> &spaces, unsigned loc, source_type_t type1)
+      {
+	 return NotInRange(spaces, loc, 1, type1);
+      }
+
+
+      void GetFood(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &food_yield);
+      void GetTech(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &tech_yield);
+      void GetWealth(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &wealth_yield);
+      void GetDanger(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &danger_yield);
+      void GetAwe(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &awe_yield);
+      
 
       void AddUpgrade(source_type_t source_type, Aspects::aspect_t aspect1, Aspects::aspect_t aspect2 = Aspects::ASPECT_T_MAX)
       {

@@ -12,12 +12,12 @@ class Aspect
 
    public :
       Aspect() : m_name("None"), m_resource(SOURCE_CLASS_NONE), m_natura_threshold(0) {}
-      Aspect(const std::string &name, source_class_t resource, Yield &bonus, unsigned natura_threshold, Yield &natura_bonus) :
+      Aspect(const std::string &name, source_class_t resource, const Yield &bonus, unsigned natura_threshold, const Yield &natura_bonus) :
 	 m_name(name),
 	 m_resource(resource),
 	 m_bonus(bonus),
-	 m_natura_threshold(m_natura_threshold),
-	 m_natura_bonus(m_natura_bonus)
+	 m_natura_threshold(natura_threshold),
+	 m_natura_bonus(natura_bonus)
       {}
       void Print(void) const
       {

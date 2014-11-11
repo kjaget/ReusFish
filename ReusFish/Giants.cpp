@@ -1,5 +1,6 @@
 #include "Aspects.hpp"
 #include "Animal.hpp"
+#include "Mineral.hpp"
 #include "Plant.hpp"
 #include "Giants.hpp"
 
@@ -47,6 +48,10 @@ void Ocean_Giant::Init(void)
    m_source_factory.Register(SWAMP, 1, SourceBuilder<Frog>);
    m_source_factory.Register(SWAMP, 2, SourceBuilder<Great_Frog>);
    m_source_factory.Register(SWAMP, 3, SourceBuilder<Superior_Frog>);
+
+   m_source_factory.Register(MOUNTAIN, 1, SourceBuilder<Marten>);
+   m_source_factory.Register(MOUNTAIN, 2, SourceBuilder<Great_Marten>);
+   m_source_factory.Register(MOUNTAIN, 3, SourceBuilder<Superior_Marten>);
 }
 
 Forest_Giant::Forest_Giant() {}
@@ -69,6 +74,17 @@ void Forest_Giant::Init(void)
    m_source_factory.Register(FOREST, 2, SourceBuilder<Great_Blueberry>);
    m_source_factory.Register(FOREST, 3, SourceBuilder<Superior_Blueberry>);
 
+   m_source_factory.Register(DESERT, 1, SourceBuilder<WitheredShrub>);
+   m_source_factory.Register(DESERT, 2, SourceBuilder<Great_WitheredShrub>);
+   m_source_factory.Register(DESERT, 3, SourceBuilder<Superior_WitheredShrub>);
+
+   m_source_factory.Register(SWAMP, 1, SourceBuilder<Elderberry>);
+   m_source_factory.Register(SWAMP, 2, SourceBuilder<Great_Elderberry>);
+   m_source_factory.Register(SWAMP, 3, SourceBuilder<Superior_Elderberry>);
+
+   m_source_factory.Register(MOUNTAIN, 1, SourceBuilder<Kumquat>);
+   m_source_factory.Register(MOUNTAIN, 2, SourceBuilder<Great_Kumquat>);
+   m_source_factory.Register(MOUNTAIN, 3, SourceBuilder<Superior_Kumquat>);
 }
 
 Stone_Giant::Stone_Giant() {}
@@ -88,6 +104,38 @@ Stone_Giant::Stone_Giant(unsigned domestic_level,
 
 void Stone_Giant::Init(void)
 {
+   m_source_factory.Register(FOREST, 1, SourceBuilder<Agate>);
+   m_source_factory.Register(FOREST, 2, SourceBuilder<Great_Agate>);
+   m_source_factory.Register(FOREST, 3, SourceBuilder<Superior_Agate>);
+
+   m_source_factory.Register(MOUNTAIN, 1, SourceBuilder<Agate>);
+   m_source_factory.Register(MOUNTAIN, 2, SourceBuilder<Great_Agate>);
+   m_source_factory.Register(MOUNTAIN, 3, SourceBuilder<Superior_Agate>);
+
+   m_source_factory.Register(SWAMP, 1, SourceBuilder<Agate>);
+   m_source_factory.Register(SWAMP, 2, SourceBuilder<Great_Agate>);
+   m_source_factory.Register(SWAMP, 3, SourceBuilder<Superior_Agate>);
+
+   m_source_factory.Register(DESERT, 1, SourceBuilder<Quartz>);
+   m_source_factory.Register(DESERT, 2, SourceBuilder<Great_Quartz>);
+   m_source_factory.Register(DESERT, 3, SourceBuilder<Superior_Quartz>);
+
+   m_source_factory2.Register(FOREST, 1, SourceBuilder<Stone>);
+   m_source_factory2.Register(FOREST, 2, SourceBuilder<Great_Stone>);
+   m_source_factory2.Register(FOREST, 3, SourceBuilder<Superior_Stone>);
+
+   m_source_factory2.Register(MOUNTAIN, 1, SourceBuilder<Stone>);
+   m_source_factory2.Register(MOUNTAIN, 2, SourceBuilder<Great_Stone>);
+   m_source_factory2.Register(MOUNTAIN, 3, SourceBuilder<Superior_Stone>);
+
+   m_source_factory2.Register(SWAMP, 1, SourceBuilder<Stone>);
+   m_source_factory2.Register(SWAMP, 2, SourceBuilder<Great_Stone>);
+   m_source_factory2.Register(SWAMP, 3, SourceBuilder<Superior_Stone>);
+
+   m_source_factory2.Register(DESERT, 1, SourceBuilder<Marble>);
+   m_source_factory2.Register(DESERT, 2, SourceBuilder<Great_Marble>);
+   m_source_factory2.Register(DESERT, 3, SourceBuilder<Superior_Marble>);
+
 }
 
 Swamp_Giant::Swamp_Giant() {}
@@ -111,6 +159,18 @@ void Swamp_Giant::Init(void)
    m_source_factory.Register(FOREST, 2, SourceBuilder<Great_Dandelion>);
    m_source_factory.Register(FOREST, 3, SourceBuilder<Superior_Dandelion>);
 
+   m_source_factory.Register(DESERT, 1, SourceBuilder<WitheredShrub>);
+   m_source_factory.Register(DESERT, 2, SourceBuilder<Great_WitheredShrub>);
+   m_source_factory.Register(DESERT, 3, SourceBuilder<Superior_WitheredShrub>);
+
+   m_source_factory.Register(SWAMP, 1, SourceBuilder<Peppermint>);
+   m_source_factory.Register(SWAMP, 2, SourceBuilder<Great_Peppermint>);
+   m_source_factory.Register(SWAMP, 3, SourceBuilder<Superior_Peppermint>);
+
+   m_source_factory.Register(MOUNTAIN, 1, SourceBuilder<Ginger>);
+   m_source_factory.Register(MOUNTAIN, 2, SourceBuilder<Great_Ginger>);
+   m_source_factory.Register(MOUNTAIN, 3, SourceBuilder<Superior_Ginger>);
+
    m_source_factory2.Register(OCEAN, 1, SourceBuilder<Clownfish>);
    m_source_factory2.Register(OCEAN, 2, SourceBuilder<Great_Clownfish>);
    m_source_factory2.Register(OCEAN, 3, SourceBuilder<Superior_Clownfish>);
@@ -125,6 +185,10 @@ void Swamp_Giant::Init(void)
    m_source_factory2.Register(SWAMP, 1, SourceBuilder<PoisonDartFrog>);
    m_source_factory2.Register(SWAMP, 2, SourceBuilder<Great_PoisonDartFrog>);
    m_source_factory2.Register(SWAMP, 3, SourceBuilder<Superior_PoisonDartFrog>);
+
+   m_source_factory.Register(MOUNTAIN, 1, SourceBuilder<Monal>);
+   m_source_factory.Register(MOUNTAIN, 2, SourceBuilder<Great_Monal>);
+   m_source_factory.Register(MOUNTAIN, 3, SourceBuilder<Superior_Monal>);
 }
 
 Giants::Giants() :

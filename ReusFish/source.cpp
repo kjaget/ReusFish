@@ -1,7 +1,7 @@
 #include "Source.hpp"
 #include "Space.hpp"
 
-void Source::GetUpgrades (biome_t biome, SourceList &upgrades) const
+void Source::GetUpgrades(biome_t biome, SourceList &upgrades) const
 {
    upgrades.clear();
    for (unsigned i = 0; i < m_upgrades.size(); i++)
@@ -41,7 +41,7 @@ void Source::AddInRange(const std::vector<Space> &spaces,
                         source_type_t type3,
 			bool once)
 {
-   unsigned range = m_base_yield.m_range;
+   unsigned range = yield.m_range;
 
    for (unsigned i = std::max<int>(0, (int)loc - range); i <= loc + range && (i < spaces.size()); i+= 1)
    {
@@ -62,7 +62,7 @@ void Source::AddInRange(const std::vector<Space> &spaces,
                         source_class_t source_class,
 			bool once)
 {
-   unsigned range = m_base_yield.m_range;
+   unsigned range = yield.m_range;
 
    for (unsigned i = std::max<int>(0, (int)loc - range); i <= loc + range && (i < spaces.size()); i+= 1)
    {
@@ -103,4 +103,100 @@ bool Source::NotInRange(const std::vector<Space> &spaces,
 	 return false;
    }
    return true;
+}
+
+void Source::GetDanger(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &danger_yield)
+{
+   danger_yield.clear();
+   danger_yield.resize(spaces.size());
+   for (unsigned i = 0; i < spaces.size(); i++)
+   {
+      if ((i != loc) && spaces[i].m_source)
+      {
+	 Yield this_yield;
+	 spaces[i].m_source->GetYield(spaces, i, this_yield);
+	 for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < spaces.size()); j++)
+	    danger_yield[j] += this_yield.m_danger;
+      }
+   }
+   // Use passed-in danger from loc's space
+   for (unsigned i = std::max<int>(0, (int)loc - yield.m_range); (i <= loc + yield.m_range) && (i < spaces.size()); i++)
+      danger_yield[i] += yield.m_danger;
+}
+
+void Source::GetFood(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &food_yield)
+{
+   food_yield.clear();
+   food_yield.resize(spaces.size());
+   for (unsigned i = 0; i < spaces.size(); i++)
+   {
+      if ((i != loc) && spaces[i].m_source)
+      {
+	 Yield this_yield;
+	 spaces[i].m_source->GetYield(spaces, i, this_yield);
+	 for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < spaces.size()); j++)
+	    food_yield[j] += this_yield.m_food;
+      }
+   }
+   // Use passed-in food from loc's space
+   for (unsigned i = std::max<int>(0, (int)loc - yield.m_range); (i <= loc + yield.m_range) && (i < spaces.size()); i++)
+      food_yield[i] += yield.m_food;
+}
+
+
+void Source::GetTech(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &tech_yield)
+{
+   tech_yield.clear();
+   tech_yield.resize(spaces.size());
+   for (unsigned i = 0; i < spaces.size(); i++)
+   {
+      if ((i != loc) && spaces[i].m_source)
+      {
+	 Yield this_yield;
+	 spaces[i].m_source->GetYield(spaces, i, this_yield);
+	 for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < spaces.size()); j++)
+	    tech_yield[j] += this_yield.m_tech;
+      }
+   }
+   // Use passed-in tech from loc's space
+   for (unsigned i = std::max<int>(0, (int)loc - yield.m_range); (i <= loc + yield.m_range) && (i < spaces.size()); i++)
+      tech_yield[i] += yield.m_tech;
+}
+
+void Source::GetWealth(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &wealth_yield)
+{
+   wealth_yield.clear();
+   wealth_yield.resize(spaces.size());
+   for (unsigned i = 0; i < spaces.size(); i++)
+   {
+      if ((i != loc) && spaces[i].m_source)
+      {
+	 Yield this_yield;
+	 spaces[i].m_source->GetYield(spaces, i, this_yield);
+	 for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < spaces.size()); j++)
+	    wealth_yield[j] += this_yield.m_wealth;
+      }
+   }
+   // Use passed-in wealth from loc's space
+   for (unsigned i = std::max<int>(0, (int)loc - yield.m_range); (i <= loc + yield.m_range) && (i < spaces.size()); i++)
+      wealth_yield[i] += yield.m_wealth;
+}
+
+void Source::GetAwe(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &awe_yield)
+{
+   awe_yield.clear();
+   awe_yield.resize(spaces.size());
+   for (unsigned i = 0; i < spaces.size(); i++)
+   {
+      if ((i != loc) && spaces[i].m_source)
+      {
+	 Yield this_yield;
+	 spaces[i].m_source->GetYield(spaces, i, this_yield);
+	 for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < spaces.size()); j++)
+	    awe_yield[j] += this_yield.m_awe;
+      }
+   }
+   // Use passed-in awe from loc's space
+   for (unsigned i = std::max<int>(0, (int)loc - yield.m_range); (i <= loc + yield.m_range) && (i < spaces.size()); i++)
+      awe_yield[i] += yield.m_awe;
 }

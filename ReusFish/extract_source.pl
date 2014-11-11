@@ -133,7 +133,11 @@ foreach $source_type (@source_names)
 	    }
 
 	    print "      }\n\n";
-	    print "      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_dummy);\n" if ($level != 3);
+	    if ($level != 3)
+	    {
+	       print "      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_dummy);\n" ;
+	       print "      void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder);\n" if ($base_class eq "Plant");
+	    }
 	 }
 	 print "      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)";
 	 if ($level == 3)
@@ -146,6 +150,21 @@ foreach $source_type (@source_names)
 	    print $base_class . "::" if ($j != ($level - 1));
 	    print "GetYield(spaces, loc, yield, foo);\n";
 	    print "      }\n";
+	 }
+	 if ($source_type eq "Plant")
+	 {
+	    print "      void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield)";
+	    if ($level == 3)
+	    {
+	       print ";\n";
+	    }
+	    else
+	    {
+	       print "\n      {\n         ";
+	       print $base_class . "::" if ($j != ($level - 1));
+	       print "GetNatura(spaces, loc, yield, foo);\n";
+	       print "      }\n";
+	    }
 	 }
 	 print "      $class_name* Clone() const {return new $class_name\(*this);}\n";
 	 print "};\n\n";

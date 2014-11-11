@@ -18,7 +18,7 @@ Yield::Yield(unsigned food,
 	     unsigned wealth,
 	     unsigned danger,
 	     unsigned awe,
-	     unsigned natura) :
+	     int natura) :
    m_food   (food),
    m_tech   (tech),
    m_wealth (wealth),
@@ -34,7 +34,7 @@ Yield::Yield(unsigned food,
 	     unsigned wealth,
 	     unsigned danger,
 	     unsigned awe,
-	     unsigned natura,
+	     int      natura,
 	     unsigned range = 0,
 	     unsigned natura_range = 0) :
    m_food   (food),

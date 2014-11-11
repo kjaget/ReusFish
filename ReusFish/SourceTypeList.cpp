@@ -59,7 +59,6 @@ SourceTypeList::SourceTypeList()
    Register(WOLF, 3, SourceBuilder<Great_Wolf>);
    Register(MOOSE, 3, SourceBuilder<Moose>);
    Register(BEAR, 3, SourceBuilder<Bear>);
-#if 0
    Register(WITHERED_SHRUB, 1, SourceBuilder<WitheredShrub>);
    Register(WITHERED_SHRUB, 2, SourceBuilder<Great_WitheredShrub>);
    Register(WITHERED_SHRUB, 3, SourceBuilder<Superior_WitheredShrub>);
@@ -82,7 +81,6 @@ SourceTypeList::SourceTypeList()
    Register(CARDON_CACTUS, 3, SourceBuilder<CardonCactus>);
    Register(OPIUM_POPPY, 3, SourceBuilder<OpiumPoppy>);
    Register(KANGAROO_RAT, 1, SourceBuilder<KangarooRat>);
-#endif
    Register(KANGAROO_RAT, 2, SourceBuilder<Great_KangarooRat>);
    Register(KANGAROO_RAT, 3, SourceBuilder<Superior_KangarooRat>);
    Register(DESERT_TORTOISE, 1, SourceBuilder<DesertTortoise>);
@@ -109,7 +107,6 @@ SourceTypeList::SourceTypeList()
    Register(GILA_MONSTER, 3, SourceBuilder<Great_GilaMonster>);
    Register(BIG_HORN, 3, SourceBuilder<BigHorn>);
    Register(BOBCAT, 3, SourceBuilder<Bobcat>);
-#if 0
    Register(ELDERBERRY, 1, SourceBuilder<Elderberry>);
    Register(ELDERBERRY, 2, SourceBuilder<Great_Elderberry>);
    Register(ELDERBERRY, 3, SourceBuilder<Superior_Elderberry>);
@@ -131,13 +128,12 @@ SourceTypeList::SourceTypeList()
    Register(WHITE_WILLOW, 1, SourceBuilder<WhiteWillow>);
    Register(WHITE_WILLOW, 2, SourceBuilder<Great_WhiteWillow>);
    Register(WHITE_WILLOW, 3, SourceBuilder<Superior_WhiteWillow>);
-   Register(COFFEA, 2, SourceBuilder<Coffee>);
-   Register(COFFEA, 3, SourceBuilder<Great_Coffee>);
+   Register(COFFEA, 2, SourceBuilder<Coffea>);
+   Register(COFFEA, 3, SourceBuilder<Great_Coffea>);
    Register(HEMP, 2, SourceBuilder<Hemp>);
    Register(HEMP, 3, SourceBuilder<Great_Hemp>);
    Register(CACAO_TREE, 3, SourceBuilder<CacaoTree>);
    Register(RUBBER_TREE, 3, SourceBuilder<RubberTree>);
-#endif
    Register(FROG, 1, SourceBuilder<Frog>);
    Register(FROG, 2, SourceBuilder<Great_Frog>);
    Register(FROG, 3, SourceBuilder<Superior_Frog>);
@@ -159,7 +155,6 @@ SourceTypeList::SourceTypeList()
    Register(KOMODO_DRAGON, 3, SourceBuilder<Great_KomodoDragon>);
    Register(ORANGUTAN, 3, SourceBuilder<Orangutan>);
    Register(CROCODILE, 3, SourceBuilder<Crocodile>);
-#if 0
    Register(KUMQUAT, 1, SourceBuilder<Kumquat>);
    Register(KUMQUAT, 2, SourceBuilder<Great_Kumquat>);
    Register(KUMQUAT, 3, SourceBuilder<Superior_Kumquat>);
@@ -171,7 +166,7 @@ SourceTypeList::SourceTypeList()
    Register(DRAGONFRUIT, 3, SourceBuilder<Superior_Dragonfruit>);
    Register(KIWIFRUIT, 1, SourceBuilder<Kiwifruit>);
    Register(KIWIFRUIT, 2, SourceBuilder<Great_Kiwifruit>);
-   Register(KIWIFRUIT, 3, SourceBuilder<Superior_Kiwifruit>);
+   //Register(KIWIFRUIT, 3, SourceBuilder<Superior_Kiwifruit>);
    Register(LYCHEE, 2, SourceBuilder<Lychee>);
    Register(LYCHEE, 3, SourceBuilder<Great_Lychee>);
    Register(CINNAMOMUM, 2, SourceBuilder<Cinnamomum>);
@@ -179,7 +174,6 @@ SourceTypeList::SourceTypeList()
    Register(TEA_PLANT, 2, SourceBuilder<TeaPlant>);
    Register(TEA_PLANT, 3, SourceBuilder<Great_TeaPlant>);
    Register(GINKGO, 3, SourceBuilder<Ginkgo>);
-#endif
    Register(MARTEN, 1, SourceBuilder<Marten>);
    Register(MARTEN, 2, SourceBuilder<Great_Marten>);
    Register(MARTEN, 3, SourceBuilder<Superior_Marten>);
@@ -222,7 +216,6 @@ SourceTypeList::SourceTypeList()
    Register(AGATE, 1, SourceBuilder<Agate>);
    Register(AGATE, 2, SourceBuilder<Great_Agate>);
    Register(AGATE, 3, SourceBuilder<Superior_Agate>);
-#if 0
    Register(QUARTZ, 1, SourceBuilder<Quartz>);
    Register(QUARTZ, 2, SourceBuilder<Great_Quartz>);
    Register(QUARTZ, 3, SourceBuilder<Superior_Quartz>);
@@ -266,7 +259,6 @@ SourceTypeList::SourceTypeList()
    Register(OIL, 3, SourceBuilder<Oil>);
    Register(URANIUM, 3, SourceBuilder<Uranium>);
    Register(FLUORITE, 3, SourceBuilder<Fluorite>);
-#endif
 }
 
 SourceTypeList source_type_list;

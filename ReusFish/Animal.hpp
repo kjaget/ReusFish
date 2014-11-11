@@ -2374,7 +2374,7 @@ class GilaMonster : public Animal
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_adder, unsigned m_natura_limit);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         GetYield(spaces, loc, yield, foo, 5, 15);
+         GetYield(spaces, loc, yield, 5, 15);
       }
       GilaMonster* Clone() const {return new GilaMonster(*this);}
 };
@@ -2802,7 +2802,7 @@ class Iguana : public Animal
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_danger_Adder);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         GetYield(spaces, loc, yield, foo, 3, 1);
+         GetYield(spaces, loc, yield, 3, 1);
       }
       Iguana* Clone() const {return new Iguana(*this);}
 };
@@ -2959,7 +2959,7 @@ class Superior_Tapir : public Tapir
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         Tapir::GetYield(spaces, loc, yield, 4. 24);
+         Tapir::GetYield(spaces, loc, yield, 4, 24);
       }
       Superior_Tapir* Clone() const {return new Superior_Tapir(*this);}
 };
@@ -3187,6 +3187,8 @@ class Marten : public Animal
       {
          m_name = "Marten";
          m_type = MARTEN;
+	 m_base_yield.m_food = 1;
+	 m_max_aspects = 1;
          m_level = 1;
          AddUpgrades();
       }
@@ -3198,10 +3200,10 @@ class Marten : public Animal
          AddUpgrade(PANGOLIN, Aspects::POTENT_HERD);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_dummy);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_danger_adder);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         GetYield(spaces, loc, yield, foo);
+         GetYield(spaces, loc, yield, 2, 1);
       }
       Marten* Clone() const {return new Marten(*this);}
 };
@@ -3223,12 +3225,14 @@ class Great_Marten : public Marten
       void Create(void)
       {
          m_name = "Great Marten";
+	 m_base_yield.m_food = 2;
+	 m_max_aspects = 2;
          m_level = 2;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         Marten::GetYield(spaces, loc, yield, foo);
+         Marten::GetYield(spaces, loc, yield, 4, 1);
       }
       Great_Marten* Clone() const {return new Great_Marten(*this);}
 };
@@ -3250,12 +3254,14 @@ class Superior_Marten : public Marten
       void Create(void)
       {
          m_name = "Superior Marten";
+	 m_base_yield.m_food = 4;
+	 m_max_aspects = 1;
          m_level = 3;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         Marten::GetYield(spaces, loc, yield, foo);
+         Marten::GetYield(spaces, loc, yield, 8, 2);
       }
       Superior_Marten* Clone() const {return new Superior_Marten(*this);}
 };
@@ -3278,6 +3284,8 @@ class Monal : public Animal
       {
          m_name = "Monal";
          m_type = MONAL;
+	 m_base_yield.m_wealth = 1;
+	 m_max_aspects = 1;
          m_level = 1;
          AddUpgrades();
       }
@@ -3289,10 +3297,10 @@ class Monal : public Animal
          AddUpgrade(PANGOLIN, Aspects::POTENT_HERD);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_dummy);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         GetYield(spaces, loc, yield, foo);
+         GetYield(spaces, loc, yield, 2, 1);
       }
       Monal* Clone() const {return new Monal(*this);}
 };
@@ -3314,12 +3322,14 @@ class Great_Monal : public Monal
       void Create(void)
       {
          m_name = "Great Monal";
+	 m_base_yield.m_wealth = 2;
+	 m_max_aspects = 2;
          m_level = 2;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         Monal::GetYield(spaces, loc, yield, foo);
+         Monal::GetYield(spaces, loc, yield, 4, 2);
       }
       Great_Monal* Clone() const {return new Great_Monal(*this);}
 };
@@ -3341,12 +3351,14 @@ class Superior_Monal : public Monal
       void Create(void)
       {
          m_name = "Superior Monal";
+	 m_base_yield.m_wealth = 4;
+	 m_max_aspects = 3;
          m_level = 3;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         Monal::GetYield(spaces, loc, yield, foo);
+         Monal::GetYield(spaces, loc, yield, 8, 4);
       }
       Superior_Monal* Clone() const {return new Superior_Monal(*this);}
 };
@@ -3369,6 +3381,9 @@ class MuskDeer : public Animal
       {
          m_name = "Musk Deer";
          m_type = MUSK_DEER;
+	 m_base_yield.m_food   = 2;
+	 m_base_yield.m_wealth = 1;
+	 m_max_aspects = 2;
          m_level = 1;
          AddUpgrades();
       }
@@ -3381,10 +3396,10 @@ class MuskDeer : public Animal
          AddUpgrade(YAK, Aspects::GREATER_HERD);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_dummy);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_danger_limit, unsigned m_tech_limit);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         GetYield(spaces, loc, yield, foo);
+         GetYield(spaces, loc, yield, 1, 2, 10);
       }
       MuskDeer* Clone() const {return new MuskDeer(*this);}
 };
@@ -3406,12 +3421,15 @@ class Great_MuskDeer : public MuskDeer
       void Create(void)
       {
          m_name = "Great Musk Deer";
+	 m_base_yield.m_food   = 4;
+	 m_base_yield.m_wealth = 2;
+	 m_max_aspects = 3;
          m_level = 2;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         MuskDeer::GetYield(spaces, loc, yield, foo);
+         MuskDeer::GetYield(spaces, loc, yield, 2, 3, 20);
       }
       Great_MuskDeer* Clone() const {return new Great_MuskDeer(*this);}
 };
@@ -3433,12 +3451,15 @@ class Superior_MuskDeer : public MuskDeer
       void Create(void)
       {
          m_name = "Superior Musk Deer";
+	 m_base_yield.m_food   = 8;
+	 m_base_yield.m_wealth = 5;
+	 m_max_aspects = 4;
          m_level = 3;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         MuskDeer::GetYield(spaces, loc, yield, foo);
+         MuskDeer::GetYield(spaces, loc, yield, 3, 4, 30);
       }
       Superior_MuskDeer* Clone() const {return new Superior_MuskDeer(*this);}
 };
@@ -3461,6 +3482,9 @@ class Pangolin : public Animal
       {
          m_name = "Pangolin";
          m_type = PANGOLIN;
+	 m_base_yield.m_food   = 1;
+	 m_base_yield.m_wealth = 1;
+	 m_max_aspects = 2;
          m_level = 1;
          AddUpgrades();
       }
@@ -3472,10 +3496,10 @@ class Pangolin : public Animal
          AddUpgrade(YAK, Aspects::GREATER_HERD);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_dummy);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_shy_food_adder, unsigned m_natura_limit, unsigned m_peaceful_food_adder, unsigned m_awe_adder);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         GetYield(spaces, loc, yield, foo);
+         GetYield(spaces, loc, yield, 2, 8, 3, 1);
       }
       Pangolin* Clone() const {return new Pangolin(*this);}
 };
@@ -3497,12 +3521,15 @@ class Great_Pangolin : public Pangolin
       void Create(void)
       {
          m_name = "Great Pangolin";
+	 m_base_yield.m_food   = 2;
+	 m_base_yield.m_wealth = 2;
+	 m_max_aspects = 3;
          m_level = 2;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         Pangolin::GetYield(spaces, loc, yield, foo);
+         Pangolin::GetYield(spaces, loc, yield, 4, 14, 6, 2);
       }
       Great_Pangolin* Clone() const {return new Great_Pangolin(*this);}
 };
@@ -3524,12 +3551,15 @@ class Superior_Pangolin : public Pangolin
       void Create(void)
       {
          m_name = "Superior Pangolin";
+	 m_base_yield.m_food   = 2; // KCJ might be wrong
+	 m_base_yield.m_wealth = 2;
+	 m_max_aspects = 4;
          m_level = 3;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         Pangolin::GetYield(spaces, loc, yield, foo);
+         Pangolin::GetYield(spaces, loc, yield, 8, 24, 12, 4);
       }
       Superior_Pangolin* Clone() const {return new Superior_Pangolin(*this);}
 };
@@ -3552,6 +3582,9 @@ class SnowLeopard : public Animal
       {
          m_name = "Snow Leopard";
          m_type = SNOW_LEOPARD;
+	 m_base_yield.m_wealth = 4;
+	 m_base_yield.m_danger = 3;
+	 m_max_aspects = 4;
          m_level = 2;
          AddUpgrades();
       }
@@ -3562,10 +3595,10 @@ class SnowLeopard : public Animal
          AddUpgrade(PANDA, Aspects::SUBLIME_EXOTIC, Aspects::SUBLIME_HERD);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_dummy);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_peak_wealth_adder, unsigned m_danger_adder);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         GetYield(spaces, loc, yield, foo);
+         GetYield(spaces, loc, yield, 4, 8, 2);
       }
       SnowLeopard* Clone() const {return new SnowLeopard(*this);}
 };
@@ -3587,12 +3620,15 @@ class Great_SnowLeopard : public SnowLeopard
       void Create(void)
       {
          m_name = "Great Snow Leopard";
+	 m_base_yield.m_wealth = 8;
+	 m_base_yield.m_danger = 4;
+	 m_max_aspects = 5;
          m_level = 3;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         SnowLeopard::GetYield(spaces, loc, yield, foo);
+         SnowLeopard::GetYield(spaces, loc, yield, 6, 16, 4);
       }
       Great_SnowLeopard* Clone() const {return new Great_SnowLeopard(*this);}
 };
@@ -3615,6 +3651,8 @@ class LangurMonkey : public Animal
       {
          m_name = "Langur Monkey";
          m_type = LANGUR_MONKEY;
+	 m_base_yield.m_food = 2;
+	 m_max_aspects = 4;
          m_level = 2;
          AddUpgrades();
       }
@@ -3625,10 +3663,10 @@ class LangurMonkey : public Animal
          AddUpgrade(PANDA, Aspects::SUBLIME_EXOTIC, Aspects::SUBLIME_HERD);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_dummy);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         GetYield(spaces, loc, yield, foo);
+         GetYield(spaces, loc, yield, 4, 4);
       }
       LangurMonkey* Clone() const {return new LangurMonkey(*this);}
 };
@@ -3650,12 +3688,14 @@ class Great_LangurMonkey : public LangurMonkey
       void Create(void)
       {
          m_name = "Great Langur Monkey";
+	 m_base_yield.m_food = 4;
+	 m_max_aspects = 5;
          m_level = 3;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         LangurMonkey::GetYield(spaces, loc, yield, foo);
+         LangurMonkey::GetYield(spaces, loc, yield, 8, 6);
       }
       Great_LangurMonkey* Clone() const {return new Great_LangurMonkey(*this);}
 };
@@ -3678,6 +3718,8 @@ class Yak : public Animal
       {
          m_name = "Yak";
          m_type = YAK;
+	 m_base_yield.m_food = 2;
+	 m_max_aspects = 4;
          m_level = 2;
          AddUpgrades();
       }
@@ -3688,10 +3730,10 @@ class Yak : public Animal
          AddUpgrade(PANDA, Aspects::SUBLIME_EXOTIC, Aspects::SUBLIME_HERD);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_dummy);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_grazer_food_adder, unsigned m_no_animals_food_adder, unsigned m_one_animal_food_adder);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         GetYield(spaces, loc, yield, foo);
+         GetYield(spaces, loc, yield, 1, 6, 4);
       }
       Yak* Clone() const {return new Yak(*this);}
 };
@@ -3713,12 +3755,14 @@ class Great_Yak : public Yak
       void Create(void)
       {
          m_name = "Great Yak";
+	 m_base_yield.m_food = 4;
+	 m_max_aspects = 5;
          m_level = 3;
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
-         Yak::GetYield(spaces, loc, yield, foo);
+         Yak::GetYield(spaces, loc, yield, 2, 12, 8);
       }
       Great_Yak* Clone() const {return new Great_Yak(*this);}
 };
@@ -3741,6 +3785,9 @@ class Panda : public Animal
       {
          m_name = "Panda";
          m_type = PANDA;
+	 m_base_yield.m_food = 8;
+	 m_base_yield.m_wealth = 8;
+	 m_max_aspects = 6;
          m_level = 3;
          AddUpgrades();
       }

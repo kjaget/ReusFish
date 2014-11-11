@@ -10,13 +10,13 @@ class Yield
 	    unsigned wealth,
 	    unsigned danger, 
 	    unsigned awe, 
-	    unsigned natura);
+	    int      natura);
       Yield(unsigned food, 
 	    unsigned tech, 
 	    unsigned wealth,
 	    unsigned danger, 
 	    unsigned awe, 
-	    unsigned natura, 
+	    int      natura, 
 	    unsigned range,
 	    unsigned natura_range);
       void Reset(void);
@@ -33,7 +33,7 @@ class Yield
 	    return false;
 	 if ((rhs.m_awe > 0) && (rhs.m_awe > m_awe))
 	    return false;
-	 if ((rhs.m_natura > 0) && (rhs.m_natura > m_natura))
+	 if ((rhs.m_natura != 0) && (rhs.m_natura > m_natura))
 	    return false;
 	 return true;
       }
@@ -55,7 +55,7 @@ class Yield
       unsigned m_wealth;
       unsigned m_danger;
       unsigned m_awe;
-      unsigned m_natura;
+      int      m_natura;
       unsigned m_range;
       unsigned m_natura_range;
 };

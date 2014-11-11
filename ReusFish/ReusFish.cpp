@@ -9,6 +9,8 @@
 #include "Animal.hpp"
 #include "Biome.hpp"
 #include "Giants.hpp"
+#include "Mineral.hpp"
+#include "Plant.hpp"
 #include "Source.hpp"
 #include "Space.hpp"
 #include "UsedList.hpp"
@@ -226,6 +228,22 @@ class Landscape
 		  m_spaces[j].m_yield += yield;
 	    }
 	 }
+	 for (unsigned i = 0; i < m_spaces.size(); i++)
+	    if ((m_spaces[i].m_source) && (m_spaces[i].m_source->Type() == FLUORITE))
+	    {
+	       if (m_spaces[i].m_yield.m_tech >= 10)
+		  m_spaces[i].m_yield.m_tech += 25;
+	       if (m_spaces[i].m_yield.m_food >= 10)
+		  m_spaces[i].m_yield.m_tech += 25;
+	       if (m_spaces[i].m_yield.m_wealth >= 10)
+		  m_spaces[i].m_yield.m_tech += 25;
+	       if (m_spaces[i].m_yield.m_danger >= 10)
+		  m_spaces[i].m_yield.m_tech += 25;
+	       if (m_spaces[i].m_yield.m_awe >= 10)
+		  m_spaces[i].m_yield.m_tech += 25;
+	       if (m_spaces[i].m_yield.m_natura >= 10)
+		  m_spaces[i].m_yield.m_tech += 25;
+	    }
       }
 
       bool BeatsGoal(void)
@@ -543,10 +561,16 @@ void initial_moves(Landscape &spaces, int pos)
 
 int main (int argc, char **argv)
 {
-   Landscape test_spaces (5, 0, 4, Yield());
-   test_spaces[0] = Space(OCEAN, new Mackerel());
-   test_spaces[1] = Space(OCEAN, new Great_Mackerel());
-   test_spaces[2] = Space(OCEAN, new Superior_Mackerel());
+   Landscape test_spaces (6, 0, 6, Yield());
+   test_spaces[0] = Space(SWAMP, new Salt());
+   test_spaces[0].m_source->AddAspect(Aspects::LESSER_SEISMIC);
+   test_spaces[1] = Space(SWAMP, new Great_Phosphorus ());
+   test_spaces[1].m_source->AddAspect(Aspects::GREATER_REACTION);
+   test_spaces[2] = Space(SWAMP, new Great_Elderberry());
+
+    test_spaces.SetYield();
+   test_spaces.PrintAll();
+   return 0;
    SourceList upgrades;
    for (unsigned pos = 0; pos < 3; pos++)
    {
