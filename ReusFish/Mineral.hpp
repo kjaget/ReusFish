@@ -86,14 +86,14 @@ class Agate: public Mineral
 
       void AddUpgrades(void)
       {
-	 AddUpgrade(SALT, Aspects::LESSER_SEISMIC);
+         AddUpgrade(SALT, Aspects::LESSER_SEISMIC, Aspects::LESSER_CRYSTAL);
 	 AddUpgrade(TOPAZ, Aspects::LESSER_NOBLE);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 GetYield(spaces, loc, yield, 10);
+	 GetYield(spaces, loc, yield, 10, mask);
       }
       Agate* Clone() const {return new Agate(*this);}
 };
@@ -122,9 +122,9 @@ class Great_Agate : public Agate
 	 AddUpgrades();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Agate::GetYield(spaces, loc, yield, 20);
+	 Agate::GetYield(spaces, loc, yield, 20, mask);
       }
       Great_Agate* Clone() const {return new Great_Agate(*this);}
 };
@@ -153,9 +153,9 @@ class Superior_Agate : public Agate
 	 AddUpgrades();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Agate::GetYield(spaces, loc, yield, 30);
+	 Agate::GetYield(spaces, loc, yield, 30, mask);
       }
       Superior_Agate* Clone() const {return new Superior_Agate(*this);}
 };
@@ -189,13 +189,13 @@ class Quartz : public Mineral
       {
          m_upgrades.clear();
          AddUpgrade(TOPAZ, Aspects::LESSER_NOBLE);
-         AddUpgrade(SALT, Aspects::LESSER_SEISMIC);
+         AddUpgrade(SALT, Aspects::LESSER_SEISMIC, Aspects::LESSER_CRYSTAL);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 8, 8);
+         GetYield(spaces, loc, yield, 8, 8, mask);
       }
       Quartz* Clone() const {return new Quartz(*this);}
 };
@@ -222,9 +222,9 @@ class Great_Quartz : public Quartz
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Quartz::GetYield(spaces, loc, yield, 16, 16);
+         Quartz::GetYield(spaces, loc, yield, 16, 16, mask);
       }
       Great_Quartz* Clone() const {return new Great_Quartz(*this);}
 };
@@ -251,9 +251,9 @@ class Superior_Quartz : public Quartz
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Quartz::GetYield(spaces, loc, yield, 30, 30);
+         Quartz::GetYield(spaces, loc, yield, 30, 30, mask);
       }
       Superior_Quartz* Clone() const {return new Superior_Quartz(*this);}
 };
@@ -286,14 +286,14 @@ class Stone : public Mineral
       void AddUpgrades(void)
       {
          m_upgrades.clear();
-         AddUpgrade(SALT, Aspects::LESSER_CRYSTAL);
+         AddUpgrade(SALT, Aspects::LESSER_SEISMIC, Aspects::LESSER_CRYSTAL);
          AddUpgrade(COPPER, Aspects::LESSER_REACTION);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 10);
+         GetYield(spaces, loc, yield, 10, mask);
       }
       Stone* Clone() const {return new Stone(*this);}
 };
@@ -320,9 +320,9 @@ class Great_Stone : public Stone
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Stone::GetYield(spaces, loc, yield, 20);
+         Stone::GetYield(spaces, loc, yield, 20, mask);
       }
       Great_Stone* Clone() const {return new Great_Stone(*this);}
 };
@@ -349,9 +349,9 @@ class Superior_Stone : public Stone
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Stone::GetYield(spaces, loc, yield, 40);
+         Stone::GetYield(spaces, loc, yield, 40, mask);
       }
       Superior_Stone* Clone() const {return new Superior_Stone(*this);}
 };
@@ -384,14 +384,14 @@ class Marble : public Mineral
       void AddUpgrades(void)
       {
          m_upgrades.clear();
-         AddUpgrade(SALT, Aspects::LESSER_CRYSTAL);
+         AddUpgrade(SALT, Aspects::LESSER_SEISMIC, Aspects::LESSER_CRYSTAL);
          AddUpgrade(COPPER, Aspects::LESSER_REACTION, Aspects::LESSER_SEISMIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 6, 6);
+         GetYield(spaces, loc, yield, 6, 6, mask);
       }
       Marble* Clone() const {return new Marble(*this);}
 };
@@ -418,9 +418,9 @@ class Great_Marble : public Marble
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Marble::GetYield(spaces, loc, yield, 10, 15);
+         Marble::GetYield(spaces, loc, yield, 10, 15, mask);
       }
       Great_Marble* Clone() const {return new Great_Marble(*this);}
 };
@@ -447,9 +447,9 @@ class Superior_Marble : public Marble
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Marble::GetYield(spaces, loc, yield, 25, 25);
+         Marble::GetYield(spaces, loc, yield, 25, 25, mask);
       }
       Superior_Marble* Clone() const {return new Superior_Marble(*this);}
 };
@@ -485,10 +485,10 @@ class Topaz : public Mineral
          AddUpgrade(ONYX, Aspects::POTENT_NOBLE);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 12, 5);
+         GetYield(spaces, loc, yield, 12, 5, mask);
       }
       Topaz* Clone() const {return new Topaz(*this);}
 };
@@ -515,9 +515,9 @@ class Great_Topaz : public Topaz
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Topaz::GetYield(spaces, loc, yield, 25, 10);
+         Topaz::GetYield(spaces, loc, yield, 25, 10, mask);
       }
       Great_Topaz* Clone() const {return new Great_Topaz(*this);}
 };
@@ -544,9 +544,9 @@ class Superior_Topaz : public Topaz
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Topaz::GetYield(spaces, loc, yield, 35, 15);
+         Topaz::GetYield(spaces, loc, yield, 35, 15, mask);
       }
       Superior_Topaz* Clone() const {return new Superior_Topaz(*this);}
 };
@@ -585,10 +585,10 @@ class Salt : public Mineral
          AddUpgrade(IRON, Aspects::POTENT_SEISMIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder, unsigned m_awe_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 5, 5, 5);
+         GetYield(spaces, loc, yield, 5, 5, 5, mask);
       }
       Salt* Clone() const {return new Salt(*this);}
 };
@@ -617,9 +617,9 @@ class Great_Salt : public Salt
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Salt::GetYield(spaces, loc, yield, 10, 10, 10);
+         Salt::GetYield(spaces, loc, yield, 10, 10, 10, mask);
       }
       Great_Salt* Clone() const {return new Great_Salt(*this);}
 };
@@ -648,9 +648,9 @@ class Superior_Salt : public Salt
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Salt::GetYield(spaces, loc, yield, 20, 20, 15);
+         Salt::GetYield(spaces, loc, yield, 20, 20, 15, mask);
       }
       Superior_Salt* Clone() const {return new Superior_Salt(*this);}
 };
@@ -688,10 +688,10 @@ class Onyx : public Mineral
          AddUpgrade(PLATINUM, Aspects::GREATER_CRYSTAL);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_wealth_multiplier) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_wealth_multiplier, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 1.5);
+         GetYield(spaces, loc, yield, 1.5, mask);
       }
       Onyx* Clone() const {return new Onyx(*this);}
 };
@@ -718,9 +718,9 @@ class Great_Onyx : public Onyx
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Onyx::GetYield(spaces, loc, yield, 2.0);
+         Onyx::GetYield(spaces, loc, yield, 2.0, mask);
       }
       Great_Onyx* Clone() const {return new Great_Onyx(*this);}
 };
@@ -747,9 +747,9 @@ class Superior_Onyx : public Onyx
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Onyx::GetYield(spaces, loc, yield, 2.5);
+         Onyx::GetYield(spaces, loc, yield, 2.5, mask);
       }
       Superior_Onyx* Clone() const {return new Superior_Onyx(*this);}
 };
@@ -786,10 +786,10 @@ class Copper : public Mineral
          AddUpgrade(IRON, Aspects::POTENT_REACTION);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_animal_tech_adder, unsigned m_mountain_tech_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_animal_tech_adder, unsigned m_mountain_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 10, 10);
+         GetYield(spaces, loc, yield, 10, 10, mask);
       }
       Copper* Clone() const {return new Copper(*this);}
 };
@@ -816,9 +816,9 @@ class Great_Copper : public Copper
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Copper::GetYield(spaces, loc, yield, 25, 20);
+         Copper::GetYield(spaces, loc, yield, 25, 20, mask);
       }
       Great_Copper* Clone() const {return new Great_Copper(*this);}
 };
@@ -845,9 +845,9 @@ class Superior_Copper : public Copper
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Copper::GetYield(spaces, loc, yield, 50, 30);
+         Copper::GetYield(spaces, loc, yield, 50, 30, mask);
       }
       Superior_Copper* Clone() const {return new Superior_Copper(*this);}
 };
@@ -884,10 +884,10 @@ class Phosphorus : public Mineral
          AddUpgrade(ALUMINIUM, Aspects::GREATER_REACTION);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 10, 5);
+         GetYield(spaces, loc, yield, 10, 5, mask);
       }
       Phosphorus* Clone() const {return new Phosphorus(*this);}
 };
@@ -914,9 +914,9 @@ class Great_Phosphorus : public Phosphorus
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Phosphorus::GetYield(spaces, loc, yield, 25, 10);
+         Phosphorus::GetYield(spaces, loc, yield, 25, 10, mask);
       }
       Great_Phosphorus* Clone() const {return new Great_Phosphorus(*this);}
 };
@@ -943,9 +943,9 @@ class Superior_Phosphorus : public Phosphorus
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Phosphorus::GetYield(spaces, loc, yield, 40, 20);
+         Phosphorus::GetYield(spaces, loc, yield, 40, 20, mask);
       }
       Superior_Phosphorus* Clone() const {return new Superior_Phosphorus(*this);}
 };
@@ -983,10 +983,10 @@ class Iron : public Mineral
          AddUpgrade(ZINC, Aspects::GREATER_SEISMIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 5);
+         GetYield(spaces, loc, yield, 5, mask);
       }
       Iron* Clone() const {return new Iron(*this);}
 };
@@ -1013,9 +1013,9 @@ class Great_Iron : public Iron
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Iron::GetYield(spaces, loc, yield, 7);
+         Iron::GetYield(spaces, loc, yield, 7, mask);
       }
       Great_Iron* Clone() const {return new Great_Iron(*this);}
 };
@@ -1042,9 +1042,9 @@ class Superior_Iron : public Iron
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Iron::GetYield(spaces, loc, yield, 10);
+         Iron::GetYield(spaces, loc, yield, 10, mask);
       }
       Superior_Iron* Clone() const {return new Superior_Iron(*this);}
 };
@@ -1081,10 +1081,10 @@ class Gold : public Mineral
          AddUpgrade(DIAMOND, Aspects::SUBLIME_NOBLE, Aspects::SUBLIME_CRYSTAL);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_rarity, unsigned m_rarity_subtract, unsigned m_wealth_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_rarity, unsigned m_rarity_subtract, unsigned m_wealth_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 60, 15, 15);
+         GetYield(spaces, loc, yield, 60, 15, 15, mask);
       }
       Gold* Clone() const {return new Gold(*this);}
 };
@@ -1111,9 +1111,9 @@ class Great_Gold : public Gold
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Gold::GetYield(spaces, loc, yield, 100, 20, 25);
+         Gold::GetYield(spaces, loc, yield, 100, 20, 25, mask);
       }
       Great_Gold* Clone() const {return new Great_Gold(*this);}
 };
@@ -1152,10 +1152,10 @@ class Silver : public Mineral
          AddUpgrade(OIL, Aspects::SUBLIME_SEISMIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_wealth_multiplier) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_wealth_multiplier, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 0.6);
+         GetYield(spaces, loc, yield, 0.6, mask);
       }
       Silver* Clone() const {return new Silver(*this);}
 };
@@ -1183,9 +1183,9 @@ class Great_Silver : public Silver
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Silver::GetYield(spaces, loc, yield, 0.8);
+         Silver::GetYield(spaces, loc, yield, 0.8, mask);
       }
       Great_Silver* Clone() const {return new Great_Silver(*this);}
 };
@@ -1223,10 +1223,10 @@ class Platinum : public Mineral
          AddUpgrade(OIL, Aspects::SUBLIME_SEISMIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 15, 10);
+         GetYield(spaces, loc, yield, 15, 10, mask);
       }
       Platinum* Clone() const {return new Platinum(*this);}
 };
@@ -1254,9 +1254,9 @@ class Great_Platinum : public Platinum
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Platinum::GetYield(spaces, loc, yield, 25, 15);
+         Platinum::GetYield(spaces, loc, yield, 25, 15, mask);
       }
       Great_Platinum* Clone() const {return new Great_Platinum(*this);}
 };
@@ -1293,10 +1293,10 @@ class Aluminium : public Mineral
          AddUpgrade(FLUORITE, Aspects::SUBLIME_REACTION, Aspects::SUBLIME_SEISMIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_mineral_tech_adder, unsigned m_plant_tech_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_mineral_tech_adder, unsigned m_plant_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 10, 15);
+         GetYield(spaces, loc, yield, 10, 15, mask);
       }
       Aluminium* Clone() const {return new Aluminium(*this);}
 };
@@ -1323,9 +1323,9 @@ class Great_Aluminium : public Aluminium
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Aluminium::GetYield(spaces, loc, yield, 20, 30);
+         Aluminium::GetYield(spaces, loc, yield, 20, 30, mask);
       }
       Great_Aluminium* Clone() const {return new Great_Aluminium(*this);}
 };
@@ -1362,10 +1362,10 @@ class Zinc : public Mineral
          AddUpgrade(FLUORITE, Aspects::SUBLIME_REACTION, Aspects::SUBLIME_SEISMIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_range, double m_tech_multiplier, unsigned m_awe_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_range, double m_tech_multiplier, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 3, 0.4, 15);
+         GetYield(spaces, loc, yield, 3, 0.4, 15, mask);
       }
       Zinc* Clone() const {return new Zinc(*this);}
 };
@@ -1392,9 +1392,9 @@ class Great_Zinc : public Zinc
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Zinc::GetYield(spaces, loc, yield, 5, 0.5, 25);
+         Zinc::GetYield(spaces, loc, yield, 5, 0.5, 25, mask);
       }
       Great_Zinc* Clone() const {return new Great_Zinc(*this);}
 };
@@ -1429,7 +1429,7 @@ class Ruby : public Mineral
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
       Ruby* Clone() const {return new Ruby(*this);}
 };
@@ -1464,7 +1464,7 @@ class Diamond : public Mineral
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       Diamond* Clone() const {return new Diamond(*this);}
 };
 
@@ -1499,7 +1499,7 @@ class Coal : public Mineral
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       Coal* Clone() const {return new Coal(*this);}
 };
 
@@ -1534,7 +1534,7 @@ class Oil : public Mineral
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       Oil* Clone() const {return new Oil(*this);}
 };
 
@@ -1568,7 +1568,7 @@ class Uranium : public Mineral
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       Uranium* Clone() const {return new Uranium(*this);}
 };
 
@@ -1594,16 +1594,71 @@ class Fluorite : public Mineral
 	 m_max_aspects = 8;
 	 m_biome_mask = MASK_MOUNTAIN;
          m_level = 3;
+	 m_post_processed = 0;
          AddUpgrades();
       }
 
       void AddUpgrades(void)
       {
-         m_upgrades.clear();
+	 m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
-      Fluorite* Clone() const {return new Fluorite(*this);}
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+      Fluorite* Clone() const {return new Fluorite(*this); }
+      void ResetPostProcessed(void)
+      {
+	 m_post_processed = 0;
+      }
+      bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
+      {
+	 unsigned save_post_processed = m_post_processed; 
+	 yield.Reset();
+	 if (!(M_POST_PROCESSED_TECH & m_post_processed) && (spaces[loc].m_yield.m_tech >= 10))
+	 {
+	    yield.m_tech += 25;
+	    m_post_processed |= M_POST_PROCESSED_TECH;
+	 }
+	 if (!(M_POST_PROCESSED_FOOD & m_post_processed) && (spaces[loc].m_yield.m_food >= 10))
+	 {
+	    yield.m_tech += 25;
+	    m_post_processed |= M_POST_PROCESSED_FOOD;
+	 }
+	 if (!(M_POST_PROCESSED_WEALTH & m_post_processed) && (spaces[loc].m_yield.m_wealth >= 10))
+	 {
+	    yield.m_tech += 25;
+	    m_post_processed |= M_POST_PROCESSED_WEALTH;
+	 }
+	 if (!(M_POST_PROCESSED_DANGER & m_post_processed) && (spaces[loc].m_yield.m_danger >= 10))
+	 {
+	    yield.m_tech += 25;
+	    m_post_processed |= M_POST_PROCESSED_DANGER;
+	 }
+	 if (!(M_POST_PROCESSED_AWE & m_post_processed) && (spaces[loc].m_yield.m_awe >= 10))
+	 {
+	    yield.m_tech += 25;
+	    m_post_processed |= M_POST_PROCESSED_AWE;
+	 }
+	 if (!(M_POST_PROCESSED_NATURA & m_post_processed) && (spaces[loc].m_yield.m_natura >= 10))
+	 {
+	    yield.m_tech += 25;
+	    m_post_processed |= M_POST_PROCESSED_NATURA;
+	 }
+	 if (save_post_processed == m_post_processed)
+	    return false;
+	 global_yield.clear();
+	 global_yield.resize(spaces.size());
+	 return true;
+
+      }
+   protected:
+      unsigned char m_post_processed;
+      static const unsigned char M_POST_PROCESSED_FOOD   = 0x01; 
+      static const unsigned char M_POST_PROCESSED_TECH   = 0x02; 
+      static const unsigned char M_POST_PROCESSED_WEALTH = 0x04; 
+      static const unsigned char M_POST_PROCESSED_DANGER = 0x08; 
+      static const unsigned char M_POST_PROCESSED_AWE    = 0x10; 
+      static const unsigned char M_POST_PROCESSED_NATURA = 0x20; 
+
 };
 
 #endif

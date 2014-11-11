@@ -92,11 +92,11 @@ class Blueberry : public Plant
          AddUpgrade(STRAWBERRY, Aspects::LESSER_LEAF);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 GetYield(spaces, loc, yield, 10);
+	 GetYield(spaces, loc, yield, 10, mask);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned mask = YIELD_MASK_ALL) const;
       Blueberry* Clone() const {return new Blueberry(*this);}
 };
 
@@ -124,9 +124,9 @@ class Great_Blueberry : public Blueberry
 	 m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Blueberry::GetYield(spaces, loc, yield, 20);
+	 Blueberry::GetYield(spaces, loc, yield, 20, mask);
       }
       Great_Blueberry* Clone() const {return new Great_Blueberry(*this);}
 };
@@ -155,9 +155,9 @@ class Superior_Blueberry : public Blueberry
 	 m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Blueberry::GetYield(spaces, loc, yield, 40);
+	 Blueberry::GetYield(spaces, loc, yield, 40, mask);
       }
       Superior_Blueberry* Clone() const {return new Superior_Blueberry(*this);}
 };
@@ -195,11 +195,11 @@ class Strawberry : public Plant
          AddUpgrade(PLUM_TREE, Aspects::GREATER_LEAF);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
+	  void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 GetYield(spaces, loc, yield, 3, 5);
+	 GetYield(spaces, loc, yield, 3, 5, mask);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder) const;
       Strawberry* Clone() const {return new Strawberry(*this);}
 };
 
@@ -228,9 +228,9 @@ class Great_Strawberry : public Strawberry
 	 m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Strawberry::GetYield(spaces, loc, yield, 15, 10);
+	 Strawberry::GetYield(spaces, loc, yield, 15, 10, mask);
       }
       Great_Strawberry* Clone() const {return new Great_Strawberry(*this);}
 };
@@ -260,9 +260,9 @@ class Superior_Strawberry : public Strawberry
 	 m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Strawberry::GetYield(spaces, loc, yield, 30, 25);
+	 Strawberry::GetYield(spaces, loc, yield, 30, 25, mask);
       }
       Superior_Strawberry* Clone() const {return new Superior_Strawberry(*this);}
 };
@@ -304,11 +304,11 @@ class AppleTree : public Plant
 	 GetNatura(spaces, loc, yield, 2);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 GetYield(spaces, loc, yield, 8);
+	 GetYield(spaces, loc, yield, 8, mask);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned mask = YIELD_MASK_ALL) const;
       AppleTree* Clone() const {return new AppleTree(*this);}
 };
 
@@ -340,9 +340,9 @@ class Great_AppleTree : public AppleTree
       {
 	 AppleTree::GetNatura(spaces, loc, yield, 4);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 AppleTree::GetYield(spaces, loc, yield, 16);
+	 AppleTree::GetYield(spaces, loc, yield, 16, mask);
       }
       Great_AppleTree* Clone() const {return new Great_AppleTree(*this);}
 };
@@ -375,9 +375,9 @@ class Superior_AppleTree : public AppleTree
       {
 	 AppleTree::GetNatura(spaces, loc, yield, 8);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 AppleTree::GetYield(spaces, loc, yield, 32);
+	 AppleTree::GetYield(spaces, loc, yield, 32, mask);
       }
       Superior_AppleTree* Clone() const {return new Superior_AppleTree(*this);}
 };
@@ -413,11 +413,11 @@ class PearTree : public Plant
          AddUpgrade(ORANGE_TREE, Aspects::SUBLIME_FRUIT);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 GetYield(spaces, loc, yield, 10,5);
+	 GetYield(spaces, loc, yield, 10, 5, mask);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
       PearTree* Clone() const {return new PearTree(*this);}
 };
 
@@ -451,9 +451,9 @@ class Great_PearTree : public PearTree
          AddUpgrade(ORANGE_TREE, Aspects::SUBLIME_FRUIT);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 PearTree::GetYield(spaces, loc, yield, 20, 10);
+	 PearTree::GetYield(spaces, loc, yield, 20, 10, mask);
       }
       Great_PearTree* Clone() const {return new Great_PearTree(*this);}
 };
@@ -481,9 +481,9 @@ class Superior_PearTree : public PearTree
 	 m_max_aspects = 5;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 PearTree::GetYield(spaces, loc, yield, 40, 15);
+	 PearTree::GetYield(spaces, loc, yield, 40, 15, mask);
       }
       Superior_PearTree* Clone() const {return new Superior_PearTree(*this);}
 };
@@ -519,12 +519,12 @@ class CherryTree : public Plant
          AddUpgrade(ORANGE_TREE, Aspects::SUBLIME_FRUIT);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 GetYield(spaces, loc, yield, 15, 10, 20);
+	 GetYield(spaces, loc, yield, 15, 10, 20, mask);
       }
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    unsigned m_mineral_food_adder, unsigned m_silver_food_adder, unsigned m_gold_food_adder) const;
+	    unsigned m_mineral_food_adder, unsigned m_silver_food_adder, unsigned m_gold_food_adder, unsigned mask = YIELD_MASK_ALL) const;
       CherryTree* Clone() const {return new CherryTree(*this);}
 };
 
@@ -552,9 +552,9 @@ class Great_CherryTree : public CherryTree
 	 m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 CherryTree::GetYield(spaces, loc, yield, 30, 25, 50);
+	 CherryTree::GetYield(spaces, loc, yield, 30, 25, 50, mask);
       }
       Great_CherryTree* Clone() const {return new Great_CherryTree(*this);}
 };
@@ -598,11 +598,11 @@ class PlumTree : public Plant
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const;
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 GetYield(spaces, loc, yield, 10, 20);
+	 GetYield(spaces, loc, yield, 10, 20, mask);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_awe_adder, unsigned m_food_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_awe_adder, unsigned m_food_adder, unsigned mask = YIELD_MASK_ALL) const;
 
       PlumTree* Clone() const {return new PlumTree(*this);}
 };
@@ -636,9 +636,9 @@ class Great_PlumTree : public PlumTree
       {
 	 PlumTree::GetNatura(spaces, loc, yield, 25);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 PlumTree::GetYield(spaces, loc, yield, 24, 50);
+	 PlumTree::GetYield(spaces, loc, yield, 24, 50, mask);
       }
       Great_PlumTree* Clone() const {return new Great_PlumTree(*this);}
 };
@@ -673,7 +673,7 @@ class OrangeTree : public Plant
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       OrangeTree* Clone() const {return new OrangeTree(*this);}
 };
 
@@ -714,11 +714,11 @@ class Dandelion : public Plant
 	 GetNatura(spaces, loc, yield, 4);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 GetYield(spaces, loc, yield, 8);
+	 GetYield(spaces, loc, yield, 8, mask);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
       Dandelion* Clone() const {return new Dandelion(*this);}
 };
 
@@ -750,9 +750,9 @@ class Great_Dandelion : public Dandelion
       {
 	 Dandelion::GetNatura(spaces, loc, yield, 8);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Dandelion::GetYield(spaces, loc, yield, 16);
+	 Dandelion::GetYield(spaces, loc, yield, 16, mask);
       }
       Great_Dandelion* Clone() const {return new Great_Dandelion(*this);}
 };
@@ -786,9 +786,9 @@ class Superior_Dandelion : public Dandelion
       {
 	 Dandelion::GetNatura(spaces, loc, yield, 16);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Dandelion::GetYield(spaces, loc, yield, 28);
+	 Dandelion::GetYield(spaces, loc, yield, 28, mask);
       }
       Superior_Dandelion* Clone() const {return new Superior_Dandelion(*this);}
 };
@@ -830,11 +830,11 @@ class Nightshade : public Plant
 	 GetNatura(spaces, loc, yield, 7);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 GetYield(spaces, loc, yield, 15);
+	 GetYield(spaces, loc, yield, 15, mask);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
       Nightshade* Clone() const {return new Nightshade(*this);}
 };
 
@@ -866,9 +866,9 @@ class Great_Nightshade : public Nightshade
       {
 	 Nightshade::GetNatura(spaces, loc, yield, 10);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Nightshade::GetYield(spaces, loc, yield, 25);
+	 Nightshade::GetYield(spaces, loc, yield, 25, mask);
       }
       Great_Nightshade* Clone() const {return new Great_Nightshade(*this);}
 };
@@ -901,9 +901,9 @@ class Superior_Nightshade : public Nightshade
       {
 	 Nightshade::GetNatura(spaces, loc, yield, 16);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Nightshade::GetYield(spaces, loc, yield, 50);
+	 Nightshade::GetYield(spaces, loc, yield, 50, mask);
       }
       Superior_Nightshade* Clone() const {return new Superior_Nightshade(*this);}
 };
@@ -939,11 +939,11 @@ class Foxglove : public Plant
          AddUpgrade(SUNFLOWER, Aspects::SUBLIME_TOXIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 GetYield(spaces, loc, yield, 2.0);
+	 GetYield(spaces, loc, yield, 2.0, mask);
       }
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier, unsigned mask = YIELD_MASK_ALL) const;
       Foxglove* Clone() const {return new Foxglove(*this);}
 };
 
@@ -971,9 +971,9 @@ class Great_Foxglove : public Foxglove
 	 m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Foxglove::GetYield(spaces, loc, yield, 2.5);
+	 Foxglove::GetYield(spaces, loc, yield, 2.5, mask);
       }
       Great_Foxglove* Clone() const {return new Great_Foxglove(*this);}
 };
@@ -1002,9 +1002,9 @@ class Superior_Foxglove : public Foxglove
 	 m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-	 Foxglove::GetYield(spaces, loc, yield, 3.0);
+	 Foxglove::GetYield(spaces, loc, yield, 3.0, mask);
       }
       Superior_Foxglove* Clone() const {return new Superior_Foxglove(*this);}
 };
@@ -1040,7 +1040,7 @@ class Sunflower : public Plant
       }
 
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       Sunflower* Clone() const {return new Sunflower(*this);}
 };
 
@@ -1076,7 +1076,7 @@ class WitheredShrub : public Plant
       }
 
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
          GetNatura(spaces, loc, yield, 1);
@@ -1172,10 +1172,10 @@ class Agave : public Plant
          AddUpgrade(DESERT_LIME, Aspects::GREATER_GROWTH);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 10);
+         GetYield(spaces, loc, yield, 10, mask);
       }
       Agave* Clone() const {return new Agave(*this);}
 };
@@ -1203,9 +1203,9 @@ class Great_Agave : public Agave
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Agave::GetYield(spaces, loc, yield, 20);
+         Agave::GetYield(spaces, loc, yield, 20, mask);
       }
       Great_Agave* Clone() const {return new Great_Agave(*this);}
 };
@@ -1233,9 +1233,9 @@ class Superior_Agave : public Agave
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Agave::GetYield(spaces, loc, yield, 40);
+         Agave::GetYield(spaces, loc, yield, 40, mask);
       }
       Superior_Agave* Clone() const {return new Superior_Agave(*this);}
 };
@@ -1262,6 +1262,7 @@ class BarrelCactus : public Plant
 	 m_base_yield.m_natura = 2;
 	 m_max_aspects = 2;
          m_level = 1;
+	 ResetPostProcess();
          AddUpgrades();
       }
 
@@ -1272,12 +1273,38 @@ class BarrelCactus : public Plant
          AddUpgrade(CHILLI_PEPPER, Aspects::GREATER_TOXIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_wealth_limit) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
-      {
-         GetYield(spaces, loc, yield, 8, 5);
-      }
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       BarrelCactus* Clone() const {return new BarrelCactus(*this);}
+
+      void ResetPostProcessed(void)
+      {
+	 m_post_processed = false;
+      }
+      bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
+      {
+	 bool rc;
+	 if (rc = PostProcess(spaces, loc, yield, 5, 8))
+	 {
+	    global_yield.clear();
+	    global_yield.resize(spaces.size());
+	 }
+	 return rc;
+      }
+      bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_limit, unsigned m_tech_adder)
+      {
+	 yield.Reset();
+	 // Only add extra tech once
+	 if (m_post_processed)
+	    return false; // nothing changed
+	 if (spaces[loc].m_yield.m_wealth >= m_wealth_limit)
+	 {
+	    yield.m_tech += m_tech_adder;
+	    return true; // update using this yield
+	 }
+	 return false; // nothing changed
+      }
+   protected:
+      bool m_post_processed;
 };
 
 class Great_BarrelCactus : public BarrelCactus
@@ -1303,11 +1330,11 @@ class Great_BarrelCactus : public BarrelCactus
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
-      {
-         BarrelCactus::GetYield(spaces, loc, yield, 20, 10);
-      }
       Great_BarrelCactus* Clone() const {return new Great_BarrelCactus(*this);}
+      bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
+      {
+	 return BarrelCactus::PostProcess(spaces, loc, yield, 10, 20);
+      }
 };
 
 class Superior_BarrelCactus : public BarrelCactus
@@ -1333,11 +1360,11 @@ class Superior_BarrelCactus : public BarrelCactus
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
-      {
-         BarrelCactus::GetYield(spaces, loc, yield, 40, 15);
-      }
       Superior_BarrelCactus* Clone() const {return new Superior_BarrelCactus(*this);}
+      bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
+      {
+	 return BarrelCactus::PostProcess(spaces, loc, yield, 15, 40);
+      }
 };
 
 class DatePalm : public Plant
@@ -1371,10 +1398,10 @@ class DatePalm : public Plant
          AddUpgrade(CARDON_CACTUS, Aspects::SUBLIME_GROWTH, Aspects::SUBLIME_FRUIT);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 8);
+         GetYield(spaces, loc, yield, 8, mask);
       }
       DatePalm* Clone() const {return new DatePalm(*this);}
 };
@@ -1402,9 +1429,9 @@ class Great_DatePalm : public DatePalm
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         DatePalm::GetYield(spaces, loc, yield, 16);
+         DatePalm::GetYield(spaces, loc, yield, 16, mask);
       }
       Great_DatePalm* Clone() const {return new Great_DatePalm(*this);}
 };
@@ -1432,9 +1459,9 @@ class Superior_DatePalm : public DatePalm
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         DatePalm::GetYield(spaces, loc, yield, 32);
+         DatePalm::GetYield(spaces, loc, yield, 32, mask);
       }
       Superior_DatePalm* Clone() const {return new Superior_DatePalm(*this);}
 };
@@ -1470,10 +1497,10 @@ class AloeVera : public Plant
          AddUpgrade(OPIUM_POPPY, Aspects::SUBLIME_TOXIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 5, 5);
+         GetYield(spaces, loc, yield, 5, 5, mask);
       }
       AloeVera* Clone() const {return new AloeVera(*this);}
 };
@@ -1501,9 +1528,9 @@ class Great_AloeVera : public AloeVera
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         AloeVera::GetYield(spaces, loc, yield, 10, 8);
+         AloeVera::GetYield(spaces, loc, yield, 10, 8, mask);
       }
       Great_AloeVera* Clone() const {return new Great_AloeVera(*this);}
 };
@@ -1531,9 +1558,9 @@ class Superior_AloeVera : public AloeVera
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         AloeVera::GetYield(spaces, loc, yield, 20, 12);
+         AloeVera::GetYield(spaces, loc, yield, 20, 12, mask);
       }
       Superior_AloeVera* Clone() const {return new Superior_AloeVera(*this);}
 };
@@ -1569,11 +1596,11 @@ class DesertLime : public Plant
          AddUpgrade(CARDON_CACTUS, Aspects::SUBLIME_GROWTH, Aspects::SUBLIME_FRUIT);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, unsigned m_tech_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 35, 15, 15);
+         GetYield(spaces, loc, yield, 35, 15, 15, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -1605,9 +1632,9 @@ class Great_DesertLime : public DesertLime
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         DesertLime::GetYield(spaces, loc, yield, 50, 25, 30);
+         DesertLime::GetYield(spaces, loc, yield, 50, 25, 30, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -1648,10 +1675,10 @@ class ChilliPepper : public Plant
          AddUpgrade(OPIUM_POPPY, Aspects::SUBLIME_TOXIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_food_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_food_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 20, 20);
+         GetYield(spaces, loc, yield, 20, 20, mask);
       }
       ChilliPepper* Clone() const {return new ChilliPepper(*this);}
 };
@@ -1680,9 +1707,9 @@ class Great_ChilliPepper : public ChilliPepper
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         ChilliPepper::GetYield(spaces, loc, yield, 40, 40);
+         ChilliPepper::GetYield(spaces, loc, yield, 40, 40, mask);
       }
       Great_ChilliPepper* Clone() const {return new Great_ChilliPepper(*this);}
 };
@@ -1717,7 +1744,7 @@ class CardonCactus : public Plant
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       CardonCactus* Clone() const {return new CardonCactus(*this);}
 };
 
@@ -1751,7 +1778,7 @@ class OpiumPoppy : public Plant
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       OpiumPoppy* Clone() const {return new OpiumPoppy(*this);}
 };
 
@@ -1787,11 +1814,11 @@ class Elderberry : public Plant
          AddUpgrade(PINEAPPLE, Aspects::LESSER_FRUIT);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned mask = YIELD_MASK_ALL) const;
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 7);
+         GetYield(spaces, loc, yield, 7, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -1823,9 +1850,9 @@ class Great_Elderberry : public Elderberry
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Elderberry::GetYield(spaces, loc, yield, 15);
+         Elderberry::GetYield(spaces, loc, yield, 15, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -1857,9 +1884,9 @@ class Superior_Elderberry : public Elderberry
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Elderberry::GetYield(spaces, loc, yield, 30);
+         Elderberry::GetYield(spaces, loc, yield, 30, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -1900,10 +1927,10 @@ class Peppermint : public Plant
          AddUpgrade(MARSH_MALLOW, Aspects::LESSER_TOXIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 7);
+         GetYield(spaces, loc, yield, 7, mask);
       }
       Peppermint* Clone() const {return new Peppermint(*this);}
 };
@@ -1931,9 +1958,9 @@ class Great_Peppermint : public Peppermint
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Peppermint::GetYield(spaces, loc, yield, 14);
+         Peppermint::GetYield(spaces, loc, yield, 14, mask);
       }
       Great_Peppermint* Clone() const {return new Great_Peppermint(*this);}
 };
@@ -1961,9 +1988,9 @@ class Superior_Peppermint : public Peppermint
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Peppermint::GetYield(spaces, loc, yield, 28);
+         Peppermint::GetYield(spaces, loc, yield, 28, mask);
       }
       Superior_Peppermint* Clone() const {return new Superior_Peppermint(*this);}
 };
@@ -2001,10 +2028,10 @@ class Tomato : public Plant
          AddUpgrade(COFFEA, Aspects::GREATER_GROWTH);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 0.5);
+         GetYield(spaces, loc, yield, 0.5, mask);
       }
       Tomato* Clone() const {return new Tomato(*this);}
 };
@@ -2033,9 +2060,9 @@ class Great_Tomato : public Tomato
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Tomato::GetYield(spaces, loc, yield, 1.0);
+         Tomato::GetYield(spaces, loc, yield, 1.0, mask);
       }
       Great_Tomato* Clone() const {return new Great_Tomato(*this);}
 };
@@ -2064,9 +2091,9 @@ class Superior_Tomato : public Tomato
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Tomato::GetYield(spaces, loc, yield, 1.5);
+         Tomato::GetYield(spaces, loc, yield, 1.5, mask);
       }
       Superior_Tomato* Clone() const {return new Superior_Tomato(*this);}
 };
@@ -2103,10 +2130,10 @@ class Pineapple : public Plant
          AddUpgrade(COFFEA, Aspects::GREATER_GROWTH);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 14);
+         GetYield(spaces, loc, yield, 14, mask);
       }
       Pineapple* Clone() const {return new Pineapple(*this);}
 };
@@ -2134,9 +2161,9 @@ class Great_Pineapple : public Pineapple
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Pineapple::GetYield(spaces, loc, yield, 28);
+         Pineapple::GetYield(spaces, loc, yield, 28, mask);
       }
       Great_Pineapple* Clone() const {return new Great_Pineapple(*this);}
 };
@@ -2164,9 +2191,9 @@ class Superior_Pineapple : public Pineapple
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Pineapple::GetYield(spaces, loc, yield, 42);
+         Pineapple::GetYield(spaces, loc, yield, 42, mask);
       }
       Superior_Pineapple* Clone() const {return new Superior_Pineapple(*this);}
 };
@@ -2203,10 +2230,10 @@ class Marshmallow : public Plant
          AddUpgrade(HEMP, Aspects::GREATER_TOXIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 15, 10);
+         GetYield(spaces, loc, yield, 15, 10, mask);
       }
       Marshmallow* Clone() const {return new Marshmallow(*this);}
 };
@@ -2234,9 +2261,9 @@ class Great_Marshmallow : public Marshmallow
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Marshmallow::GetYield(spaces, loc, yield, 30, 20);
+         Marshmallow::GetYield(spaces, loc, yield, 30, 20, mask);
       }
       Great_Marshmallow* Clone() const {return new Great_Marshmallow(*this);}
 };
@@ -2264,9 +2291,9 @@ class Superior_Marshmallow : public Marshmallow
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Marshmallow::GetYield(spaces, loc, yield, 60, 40);
+         Marshmallow::GetYield(spaces, loc, yield, 60, 40, mask);
       }
       Superior_Marshmallow* Clone() const {return new Superior_Marshmallow(*this);}
 };
@@ -2302,10 +2329,10 @@ class Papaya : public Plant
          AddUpgrade(CACAO_TREE, Aspects::SUBLIME_GROWTH, Aspects::SUBLIME_FRUIT);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, int m_natura_limit) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, int m_natura_limit, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 15, 5, 8);
+         GetYield(spaces, loc, yield, 15, 5, 8, mask);
       }
       Papaya* Clone() const {return new Papaya(*this);}
 };
@@ -2333,9 +2360,9 @@ class Great_Papaya : public Papaya
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Papaya::GetYield(spaces, loc, yield, 30, 10, 14);
+         Papaya::GetYield(spaces, loc, yield, 30, 10, 14, mask);
       }
       Great_Papaya* Clone() const {return new Great_Papaya(*this);}
 };
@@ -2363,9 +2390,9 @@ class Superior_Papaya : public Papaya
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Papaya::GetYield(spaces, loc, yield, 60, 15, 22);
+         Papaya::GetYield(spaces, loc, yield, 60, 15, 22, mask);
       }
       Superior_Papaya* Clone() const {return new Superior_Papaya(*this);}
 };
@@ -2401,11 +2428,11 @@ class WhiteWillow : public Plant
          AddUpgrade(RUBBER_TREE, Aspects::SUBLIME_LEAF, Aspects::SUBLIME_TOXIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 6);
+         GetYield(spaces, loc, yield, 6, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -2437,9 +2464,9 @@ class Great_WhiteWillow : public WhiteWillow
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         WhiteWillow::GetYield(spaces, loc, yield, 16);
+         WhiteWillow::GetYield(spaces, loc, yield, 16, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -2471,9 +2498,9 @@ class Superior_WhiteWillow : public WhiteWillow
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         WhiteWillow::GetYield(spaces, loc, yield, 32);
+         WhiteWillow::GetYield(spaces, loc, yield, 32, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -2516,11 +2543,11 @@ class Coffea : public Plant
          AddUpgrade(RUBBER_TREE, Aspects::SUBLIME_LEAF, Aspects::SUBLIME_TOXIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier, unsigned m_food_adder, unsigned m_tech_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier, unsigned m_food_adder, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 1, 10, 10);
+         GetYield(spaces, loc, yield, 1, 10, 10, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -2553,9 +2580,9 @@ class Great_Coffea : public Coffea
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Coffea::GetYield(spaces, loc, yield, 2, 20, 20);
+         Coffea::GetYield(spaces, loc, yield, 2, 20, 20, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -2595,10 +2622,10 @@ class Hemp : public Plant
          AddUpgrade(RUBBER_TREE, Aspects::SUBLIME_LEAF, Aspects::SUBLIME_TOXIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier, unsigned m_tech_adder, unsigned m_awe_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier, unsigned m_tech_adder, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 1, 15, 10);
+         GetYield(spaces, loc, yield, 1, 15, 10, mask);
       }
       Hemp* Clone() const {return new Hemp(*this);}
 };
@@ -2626,9 +2653,9 @@ class Great_Hemp : public Hemp
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Hemp::GetYield(spaces, loc, yield, 2, 25, 12);
+         Hemp::GetYield(spaces, loc, yield, 2, 25, 12, mask);
       }
       Great_Hemp* Clone() const {return new Great_Hemp(*this);}
 };
@@ -2663,7 +2690,7 @@ class CacaoTree : public Plant
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
       CacaoTree* Clone() const {return new CacaoTree(*this);}
 };
@@ -2698,7 +2725,7 @@ class RubberTree : public Plant
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       RubberTree* Clone() const {return new RubberTree(*this);}
 };
 
@@ -2734,10 +2761,10 @@ class Kumquat : public Plant
          AddUpgrade(KIWIFRUIT, Aspects::POTENT_GROWTH);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 8, 3);
+         GetYield(spaces, loc, yield, 8, 3, mask);
       }
       Kumquat* Clone() const {return new Kumquat(*this);}
 };
@@ -2765,9 +2792,9 @@ class Great_Kumquat : public Kumquat
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Kumquat::GetYield(spaces, loc, yield, 10, 7);
+         Kumquat::GetYield(spaces, loc, yield, 10, 7, mask);
       }
       Great_Kumquat* Clone() const {return new Great_Kumquat(*this);}
 };
@@ -2795,9 +2822,9 @@ class Superior_Kumquat : public Kumquat
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Kumquat::GetYield(spaces, loc, yield, 20, 14);
+         Kumquat::GetYield(spaces, loc, yield, 20, 14, mask);
       }
       Superior_Kumquat* Clone() const {return new Superior_Kumquat(*this);}
 };
@@ -2833,11 +2860,11 @@ class Ginger : public Plant
          AddUpgrade(DRAGONFRUIT, Aspects::LESSER_FRUIT, Aspects::LESSER_TOXIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 10);
+         GetYield(spaces, loc, yield, 10, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -2869,9 +2896,9 @@ class Great_Ginger : public Ginger
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Ginger::GetYield(spaces, loc, yield, 20);
+         Ginger::GetYield(spaces, loc, yield, 20, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -2903,9 +2930,9 @@ class Superior_Ginger : public Ginger
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Ginger::GetYield(spaces, loc, yield, 40);
+         Ginger::GetYield(spaces, loc, yield, 40, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -2948,10 +2975,10 @@ class Dragonfruit : public Plant
          AddUpgrade(TEA_PLANT, Aspects::GREATER_LEAF);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_food_multiplier, double m_awe_multiplier) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_food_multiplier, double m_awe_multiplier, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 2.0, 1.0);
+         GetYield(spaces, loc, yield, 2.0, 1.0, mask);
       }
       Dragonfruit* Clone() const {return new Dragonfruit(*this);}
 };
@@ -2980,9 +3007,9 @@ class Great_Dragonfruit : public Dragonfruit
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Dragonfruit::GetYield(spaces, loc, yield, 3.0, 1.5);
+         Dragonfruit::GetYield(spaces, loc, yield, 3.0, 1.5, mask);
       }
       Great_Dragonfruit* Clone() const {return new Great_Dragonfruit(*this);}
 };
@@ -3011,9 +3038,9 @@ class Superior_Dragonfruit : public Dragonfruit
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Dragonfruit::GetYield(spaces, loc, yield, 4.0, 2.0);
+         Dragonfruit::GetYield(spaces, loc, yield, 4.0, 2.0, mask);
       }
       Superior_Dragonfruit* Clone() const {return new Superior_Dragonfruit(*this);}
 };
@@ -3051,11 +3078,11 @@ class Kiwifruit : public Plant
          AddUpgrade(TEA_PLANT, Aspects::GREATER_LEAF);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_tech_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_tech_adder, unsigned mask = YIELD_MASK_ALL) const;
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, int m_natura_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 5, 10);
+         GetYield(spaces, loc, yield, 5, 10, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -3088,9 +3115,9 @@ class Great_Kiwifruit : public Kiwifruit
          m_level = 2;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Kiwifruit::GetYield(spaces, loc, yield, 10, 20);
+         Kiwifruit::GetYield(spaces, loc, yield, 10, 20, mask);
       }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
@@ -3130,10 +3157,10 @@ class Lychee : public Plant
          AddUpgrade(GINKGO, Aspects::SUBLIME_LEAF, Aspects::SUBLIME_GROWTH);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_animal_food_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_animal_food_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 18, 2);
+         GetYield(spaces, loc, yield, 18, 2, mask);
       }
       Lychee* Clone() const {return new Lychee(*this);}
 };
@@ -3161,9 +3188,9 @@ class Great_Lychee : public Lychee
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Lychee::GetYield(spaces, loc, yield, 27, 4);
+         Lychee::GetYield(spaces, loc, yield, 27, 4, mask);
       }
       Great_Lychee* Clone() const {return new Great_Lychee(*this);}
 };
@@ -3200,10 +3227,10 @@ class Cinnamomum : public Plant
          AddUpgrade(GINKGO, Aspects::SUBLIME_LEAF, Aspects::SUBLIME_GROWTH);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_wealth_multiplier, unsigned m_plant_food_adder, unsigned m_plant_adjacent_food_adder) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_wealth_multiplier, unsigned m_plant_food_adder, unsigned m_plant_adjacent_food_adder, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 0.6, 5, 20);
+         GetYield(spaces, loc, yield, 0.6, 5, 20, mask);
       }
       Cinnamomum* Clone() const {return new Cinnamomum(*this);}
 };
@@ -3232,9 +3259,9 @@ class Great_Cinnamomum : public Cinnamomum
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         Cinnamomum::GetYield(spaces, loc, yield, 0.75, 8, 40);
+         Cinnamomum::GetYield(spaces, loc, yield, 0.75, 8, 40, mask);
       }
       Great_Cinnamomum* Clone() const {return new Great_Cinnamomum(*this);}
 };
@@ -3271,11 +3298,16 @@ class TeaPlant : public Plant
          AddUpgrade(GINKGO, Aspects::SUBLIME_LEAF, Aspects::SUBLIME_GROWTH);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_awe_adder, unsigned m_tech_adder, int m_natura_limit) const;
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_awe_adder, unsigned m_tech_adder, int m_natura_limit, unsigned mask = YIELD_MASK_ALL) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         GetYield(spaces, loc, yield, 12, 35, 15);
+         GetYield(spaces, loc, yield, 12, 35, 15, mask);
       }
+      void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      {
+	 GetNatura(spaces, loc, yield, 15);
+      }
+      void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, int m_natura_limit) const;
       TeaPlant* Clone() const {return new TeaPlant(*this);}
 };
 
@@ -3303,9 +3335,13 @@ class Great_TeaPlant : public TeaPlant
          m_level = 3;
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
-         TeaPlant::GetYield(spaces, loc, yield, 25, 70, 25);
+         TeaPlant::GetYield(spaces, loc, yield, 25, 70, 25, mask);
+      }
+      void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      {
+	 TeaPlant::GetNatura(spaces, loc, yield, 25);
       }
       Great_TeaPlant* Clone() const {return new Great_TeaPlant(*this);}
 };
@@ -3342,7 +3378,7 @@ class Ginkgo : public Plant
          m_upgrades.clear();
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
       Ginkgo* Clone() const {return new Ginkgo(*this);}
 };

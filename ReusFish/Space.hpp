@@ -40,8 +40,7 @@ class Space
 
       bool operator==(const Space &rhs) const
       {
-	 return ((m_source == NULL) && (rhs.m_source == NULL)) ||
-	    (*m_source == *rhs.m_source);
+	 return (*m_source == *rhs.m_source);
       }
       unsigned Hash (void) const
       {

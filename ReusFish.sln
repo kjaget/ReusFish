@@ -7,15 +7,22 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
+		Release_PG|Win32 = Release_PG|Win32
+		Release_PG|x64 = Release_PG|x64
 		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|Win32.ActiveCfg = Release|Win32
-		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|Win32.Build.0 = Release|Win32
-		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|Win32.Deploy.0 = Release|Win32
+		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|Win32.ActiveCfg = Release|x64
+		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|Win32.Build.0 = Release|x64
+		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|Win32.Deploy.0 = Release|x64
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|x64.ActiveCfg = Release|x64
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|x64.Build.0 = Release|x64
+		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release_PG|Win32.ActiveCfg = Release_PG|Win32
+		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release_PG|Win32.Build.0 = Release_PG|Win32
+		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release_PG|x64.ActiveCfg = Release|Win32
+		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release_PG|x64.Build.0 = Release|Win32
+		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release_PG|x64.Deploy.0 = Release|Win32
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release|Win32.ActiveCfg = Release|Win32
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release|Win32.Build.0 = Release|Win32
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release|Win32.Deploy.0 = Release|Win32

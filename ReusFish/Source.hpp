@@ -72,26 +72,21 @@ class Source
       
       bool operator==(const Source &rhs) const
       {
-	 if ((m_name != rhs.m_name)               ||
+	 if (!strcmp(m_name,rhs.m_name) && (m_aspects == rhs.m_aspects))
+	    return true;
+	 return false;
+#if 0
+	 if (strcmp(m_name,rhs.m_name)               ||
 	     (m_class != rhs.m_class)             ||
 	     (m_type != rhs.m_type)               ||
 	     (m_level != rhs.m_level)             ||
 	     !(m_base_yield == rhs.m_base_yield)  ||
 	     (m_max_aspects != rhs.m_max_aspects) ||
-	     (m_aspects.size() != rhs.m_aspects.size() ||
-	     !(m_upgrades == rhs.m_upgrades)))
+	     !(m_aspects == rhs.m_aspects)        ||
+	     !(m_upgrades == rhs.m_upgrades))
 	    return false;
-
-	 std::vector<Aspects::aspect_t> m_sorted_aspects(m_aspects);
-	 std::vector<Aspects::aspect_t> rhs_sorted_aspects(rhs.m_aspects);
-
-	 std::sort(m_sorted_aspects.begin(), m_sorted_aspects.end());
-	 std::sort(rhs_sorted_aspects.begin(), rhs_sorted_aspects.end());
-
-	 if (m_sorted_aspects != rhs_sorted_aspects)
-	    return false;
-
 	 return true;
+#endif
       }
 
       source_class_t Class(void) const {return m_class;}
@@ -117,9 +112,18 @@ class Source
 	 return hash;
       }
 
-      virtual void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const { yield.Reset(); } 
+      static const unsigned YIELD_MASK_FOOD   = 0x1;
+      static const unsigned YIELD_MASK_TECH   = 0x2;
+      static const unsigned YIELD_MASK_WEALTH = 0x4;
+      static const unsigned YIELD_MASK_DANGER = 0x8;
+      static const unsigned YIELD_MASK_AWE    = 0x10;
+      static const unsigned YIELD_MASK_ALL    = 0xFF;
+
+      virtual void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const { yield.Reset(); } 
       virtual void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const { yield.Reset(); }
       virtual unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const { return m_base_yield.m_range; }
+      virtual bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield) { return false; }
+      virtual void ResetPostProcess(void) { }
       void GetAspects(unsigned natura, Yield &yield) const
       {
 	 for (unsigned i = 0; i < m_aspects.size(); i++)
@@ -134,15 +138,25 @@ class Source
 	 if (m_aspects.size() < m_max_aspects)
 	 {
 	    m_aspects.push_back(aspect);
+	    std::sort(m_aspects.begin(), m_aspects.end());
 	    return true;
 	 }
 	 return false;
       }
       bool CanAddAspect(Aspects::aspect_t aspect) const
       {
-	 if (m_aspects.size() < m_max_aspects)
-	    return true;
-	 return false;
+	 if (m_aspects.size() >= std::min<unsigned>(3, m_max_aspects))
+	    return false;
+	 if (CountAspects(Aspects::SUBLIME) >= std::max<unsigned>(2, m_max_aspects/2))
+	       return false;
+	 unsigned count = 0;
+	 for (unsigned i = 0; i < m_aspects.size(); i++)
+	    if (m_aspects[i] == aspect)
+	       count += 1;
+	 if (count >= 2)
+	    return false;
+
+	 return true;
       }
       unsigned CountAspects(Aspects::aspect_class_t aspect_class) const
       {
@@ -370,7 +384,7 @@ class Source
       source_type_t                  m_type;
       unsigned char                  m_level;
       unsigned char                  m_max_aspects;
-      std::string                    m_name;
+      const char                    *m_name;
       Yield                          m_base_yield;
       std::vector<Aspects::aspect_t> m_aspects;
       std::vector<Upgrade>           m_upgrades;

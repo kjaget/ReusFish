@@ -121,13 +121,13 @@ void Source::GetFood(std::vector<Space> &spaces, unsigned loc, int start, unsign
       if (i != loc)
       {
 	 unsigned range = spaces[i].m_source->GetRange(spaces, i);
-	 unsigned this_start = std::max<int>(0, (int)i-range);
-	 unsigned this_end = std::min<unsigned>(i + range, spaces.size() - 1);
+	 size_t this_start = std::max<int>(0, (int)i-range);
+	 size_t this_end = std::min<size_t>(i + range, spaces.size() - 1);
 
 	 if (!((this_start > end) || (this_end < start)))
 	 {
 	    Yield this_yield;
-	    spaces[i].m_source->GetYield(spaces, i, this_yield);
+	    spaces[i].m_source->GetYield(spaces, i, this_yield, YIELD_MASK_FOOD);
 	    for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < spaces.size()); j++)
 	       food_yield[j] += this_yield.m_food;
 	 }
@@ -149,13 +149,13 @@ void Source::GetTech(std::vector<Space> &spaces, unsigned loc, int start, unsign
       if (i != loc)
       {
 	 unsigned range = spaces[i].m_source->GetRange(spaces, i);
-	 unsigned this_start = std::max<int>(0, (int)i-range);
-	 unsigned this_end = std::min<unsigned>(i + range, spaces.size() - 1);
+	 size_t this_start = std::max<int>(0, (int)i-range);
+	 size_t this_end = std::min<size_t>(i + range, spaces.size() - 1);
 
 	 if (!((this_start > end) || (this_end < start)))
 	 {
 	    Yield this_yield;
-	    spaces[i].m_source->GetYield(spaces, i, this_yield);
+	    spaces[i].m_source->GetYield(spaces, i, this_yield, YIELD_MASK_TECH);
 	    for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < spaces.size()); j++)
 	       tech_yield[j] += this_yield.m_tech;
 	 }
@@ -177,13 +177,13 @@ void Source::GetWealth(std::vector<Space> &spaces, unsigned loc, int start, unsi
       if (i != loc)
       {
 	 unsigned range = spaces[i].m_source->GetRange(spaces, i);
-	 unsigned this_start = std::max<int>(0, (int)i-range);
-	 unsigned this_end = std::min<unsigned>(i + range, spaces.size() - 1);
+	 size_t this_start = std::max<int>(0, (int)i-range);
+	 size_t this_end = std::min<size_t>(i + range, spaces.size() - 1);
 
 	 if (!((this_start > end) || (this_end < start)))
 	 {
 	    Yield this_yield;
-	    spaces[i].m_source->GetYield(spaces, i, this_yield);
+	    spaces[i].m_source->GetYield(spaces, i, this_yield, YIELD_MASK_WEALTH);
 	    for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < spaces.size()); j++)
 	       wealth_yield[j] += this_yield.m_wealth;
 	 }
@@ -206,12 +206,12 @@ void Source::GetDanger(std::vector<Space> &spaces, unsigned loc, int start, unsi
       {
 	 unsigned range = spaces[i].m_source->GetRange(spaces, i);
 	 unsigned this_start = std::max<int>(0, (int)i-range);
-	 unsigned this_end = std::min<unsigned>(i + range, spaces.size() - 1);
+	 size_t this_end = std::min<size_t>(i + range, spaces.size() - 1);
 
 	 if (!((this_start > end) || (this_end < start)))
 	 {
 	    Yield this_yield;
-	    spaces[i].m_source->GetYield(spaces, i, this_yield);
+	    spaces[i].m_source->GetYield(spaces, i, this_yield, YIELD_MASK_DANGER);
 	    for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < spaces.size()); j++)
 	       danger_yield[j] += this_yield.m_danger;
 	 }
@@ -234,12 +234,12 @@ void Source::GetAwe(std::vector<Space> &spaces, unsigned loc, int start, unsigne
       {
 	 unsigned range = spaces[i].m_source->GetRange(spaces, i);
 	 unsigned this_start = std::max<int>(0, (int)i-range);
-	 unsigned this_end = std::min<unsigned>(i + range, spaces.size() - 1);
+	 size_t this_end = std::min<size_t>(i + range, spaces.size() - 1);
 
 	 if (!((this_start > end) || (this_end < start)))
 	 {
 	    Yield this_yield;
-	    spaces[i].m_source->GetYield(spaces, i, this_yield);
+	    spaces[i].m_source->GetYield(spaces, i, this_yield, YIELD_MASK_AWE);
 	    for (unsigned j = std::max<int>(0, (int)i - this_yield.m_range); (j <= i + this_yield.m_range) && (j < spaces.size()); j++)
 	       awe_yield[j] += this_yield.m_awe;
 	 }
