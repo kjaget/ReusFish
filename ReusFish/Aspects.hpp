@@ -34,7 +34,7 @@ class Aspect
 class Aspects
 {
    public:
-      typedef enum
+      typedef enum : unsigned char
       {
 	 LESSER,
 	 POTENT,

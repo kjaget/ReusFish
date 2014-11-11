@@ -62,10 +62,10 @@ Aspects::Aspects()
    m_aspects[GREATER_PREDATOR] = Aspect("Greater Predator", ANIMAL, Yield(0,0,3,2,0,0),14, Yield(0,0,3,2,0,0));
    m_aspects[SUBLIME_PREDATOR] = Aspect("Sublime Predator", ANIMAL, Yield(0,0,4,2,0,0),30, Yield(0,0,4,2,0,0)); 
 
-   m_aspects[LESSER_REACTION] =  Aspect("Lesser Reaction",  ANIMAL, Yield(0, 3,0,0,0,0), 0, Yield());
-   m_aspects[POTENT_REACTION] =  Aspect("Potent Reaction",  ANIMAL, Yield(0, 5,0,0,0,0), 7, Yield(0, 7,0,0,0,0));
-   m_aspects[GREATER_REACTION] = Aspect("Greater Reaction", ANIMAL, Yield(0,10,0,0,0,0),14, Yield(0,13,0,0,0,0));
-   m_aspects[SUBLIME_REACTION] = Aspect("Sublime Reaction", ANIMAL, Yield(0,15,0,0,0,0),30, Yield(0,20,0,0,0,0)); 
+   m_aspects[LESSER_REACTION] =  Aspect("Lesser Reaction",  MINERAL, Yield(0, 3,0,0,0,0), 0, Yield());
+   m_aspects[POTENT_REACTION] =  Aspect("Potent Reaction",  MINERAL, Yield(0, 5,0,0,0,0), 7, Yield(0, 7,0,0,0,0));
+   m_aspects[GREATER_REACTION] = Aspect("Greater Reaction", MINERAL, Yield(0,10,0,0,0,0),14, Yield(0,13,0,0,0,0));
+   m_aspects[SUBLIME_REACTION] = Aspect("Sublime Reaction", MINERAL, Yield(0,15,0,0,0,0),30, Yield(0,20,0,0,0,0)); 
 
    m_aspects[LESSER_EXOTIC] =  Aspect("Lesser Exotic",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(0,0,1,0,0,0));
    m_aspects[POTENT_EXOTIC] =  Aspect("Potent Exotic",  ANIMAL, Yield(0,0,1,0,0,0), 7, Yield(0,0,2,0,0,0));
@@ -101,8 +101,6 @@ bool Aspects::IsValid(aspect_t type, source_class_t source_class) const
    if (!m_enabled[type])
       return false;
    if (source_class == m_aspects[type].m_resource)
-      return true;
-   if ((source_class == FISH) && (m_aspects[type].m_resource == ANIMAL))
       return true;
    return false;
 }

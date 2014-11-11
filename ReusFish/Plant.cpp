@@ -79,9 +79,8 @@ void OrangeTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    unsigned seen_flag[SOURCE_TYPE_T_MAX] = {0};
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i+= 1)
    {
-      if ((i != loc) && !seen_flag[spaces[i].m_source->Type()] &&
-	  ((spaces[i].m_source->Class() == ANIMAL) || (spaces[i].m_source->Class() == FISH)   || 
-	   (spaces[i].m_source->Class() == PLANT)  || (spaces[i].m_source->Class() == MINERAL) ))
+      if ((i != loc) && spaces[i].m_source && !seen_flag[spaces[i].m_source->Type()] &&
+	  ((spaces[i].m_source->Class() == ANIMAL) || (spaces[i].m_source->Class() == PLANT)  || (spaces[i].m_source->Class() == MINERAL) ))
       {
 	 seen_flag[spaces[i].m_source->Type()] = 1;
 	 yield.m_food += 27;
@@ -133,9 +132,10 @@ void Sunflower::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield
    unsigned seen_flag[SOURCE_TYPE_T_MAX] = {0};
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i += 1)
    {
-      if (!seen_flag[spaces[i].m_source->Type()] &&
+      if (spaces[i].m_source && 
+	  !seen_flag[spaces[i].m_source->Type()] &&
 	  (spaces[i].m_source->Class() == PLANT) &&
-	  (spaces[i].Biome() == FOREST)  )
+	  (biome_list[i] == FOREST)  )
       {
 	 seen_flag[spaces[i].m_source->Type()] = 1;
 	 yield.m_natura += 8;
@@ -220,9 +220,8 @@ void DesertLime::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
    {
-      if ((i != loc) && 
-	  ((spaces[i].m_source->Class() != ANIMAL) && (spaces[i].m_source->Class() != FISH)   && 
-	   (spaces[i].m_source->Class() != PLANT)  && (spaces[i].m_source->Class() != MINERAL) ))
+      if ((i != loc) && spaces[i].m_source &&
+	  ((spaces[i].m_source->Class() != ANIMAL) && (spaces[i].m_source->Class() != PLANT)  && (spaces[i].m_source->Class() != MINERAL) ))
       {
 	 yield.m_food += m_food_adder;
 	 yield.m_awe  += m_awe_adder;
@@ -254,7 +253,7 @@ void CardonCactus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yie
 
    unsigned food = 0;
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i += 1)
-      if (spaces[i].m_source->Class() == MINERAL)
+      if (spaces[i].m_source && (spaces[i].m_source->Class() == MINERAL))
 	 yield.m_wealth += wealth_yield[i]/2;
 }
 
@@ -266,7 +265,7 @@ void OpiumPoppy::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    AddAllAdjacent(spaces, loc, yield, Yield(0,50,50,0,-15,0), PLANT);
    unsigned plant_count = 0;
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i += 1)
-      if (spaces[i].m_source->Class() == PLANT)
+      if (spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
 	 plant_count += 1;
    if (plant_count >= 2)
       yield.m_tech += 100;
@@ -347,7 +346,7 @@ void Coffea::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, u
    yield = m_base_yield;
    GetAspects(0, yield);
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i += 1)
-      if ((i != loc) && (spaces[i].m_source->Class() == PLANT))
+      if ((i != loc) && spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
 	 spaces[i].m_yield.m_natura += m_natura_adder;
 }
 
@@ -359,7 +358,7 @@ void Coffea::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    std::vector<unsigned> food_yield;
    GetFood(spaces, loc, yield, food_yield);
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i += 1)
-      if ((i != loc) && (spaces[i].m_source->Class() == PLANT))
+      if ((i != loc) && spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
       {
 	 unsigned food = food_yield[i] / 2;
 	 yield.m_tech += food * m_tech_multiplier;
@@ -465,7 +464,7 @@ void Kiwifruit::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield
    yield = m_base_yield;
    GetAspects(0, yield);
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i+= 1)
-      if ((i != loc) && (spaces[i].m_source->Class() == PLANT))
+      if ((i != loc) && spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
       {
 	 spaces[i].m_yield.m_natura += m_natura_adder;
       }
@@ -477,7 +476,7 @@ void Kiwifruit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddAllAdjacent(spaces, loc, yield, Yield(m_food_adder, 0,0,0,0,0), ANIMAL);
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i+= 1)
-      if ((i != loc) && (spaces[i].m_source->Class() == PLANT))
+      if ((i != loc) && spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
       {
 	 spaces[i].m_yield.m_food += m_food_adder;
 	 spaces[i].m_yield.m_tech += m_tech_adder;
@@ -512,7 +511,7 @@ void Cinnamomum::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    GetWealth(spaces, loc, yield, wealth_yield);
 
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i+= 1)
-      if (spaces[i].m_source->Class() == PLANT)
+      if (spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
 	 yield.m_wealth += int(m_wealth_multiplier * wealth_yield[i]);
 
    AddAllInNaturaRange(spaces, loc, yield, Yield(m_plant_food_adder, 0,0,0,0,0), PLANT);

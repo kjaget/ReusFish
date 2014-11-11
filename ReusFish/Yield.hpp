@@ -5,20 +5,20 @@ class Yield
 {
    public:
       Yield();
-      Yield(unsigned food, 
-	    unsigned tech, 
-	    unsigned wealth,
-	    unsigned danger, 
-	    unsigned awe, 
-	    int      natura);
-      Yield(unsigned food, 
-	    unsigned tech, 
-	    unsigned wealth,
-	    unsigned danger, 
-	    unsigned awe, 
-	    int      natura, 
-	    unsigned range,
-	    unsigned natura_range);
+      Yield(unsigned short food, 
+	    unsigned short tech, 
+	    unsigned short wealth,
+	    unsigned short danger, 
+	    unsigned short awe, 
+	    short          natura);
+      Yield(unsigned short food, 
+	    unsigned short tech, 
+	    unsigned short wealth,
+	    unsigned short danger, 
+	    unsigned short awe, 
+	    short          natura, 
+	    unsigned char  range,
+	    unsigned char  natura_range);
       void Reset(void);
       Yield& operator+= (const Yield &rhs);
       bool operator> (const Yield &rhs) const
@@ -46,18 +46,18 @@ class Yield
 	    (m_awe == rhs.m_awe) &&
 	    (m_natura == rhs.m_natura) &&
 	    (m_range == rhs.m_range) &&
-	    (m_natura_range == rhs.m_range) ;
+	    (m_natura_range == rhs.m_natura_range) ;
       }
       void Print(void) const;
 
-      unsigned m_food;
-      unsigned m_tech;
-      unsigned m_wealth;
-      unsigned m_danger;
-      unsigned m_awe;
-      int      m_natura;
-      unsigned m_range;
-      unsigned m_natura_range;
+      unsigned short m_food;
+      unsigned short m_tech;
+      unsigned short m_wealth;
+      unsigned short m_danger;
+      unsigned short m_awe;
+               short m_natura;
+      unsigned char  m_range;
+      unsigned char  m_natura_range;
 };
 
 

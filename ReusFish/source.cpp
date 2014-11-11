@@ -35,22 +35,27 @@ void Source::GetUpgrades(biome_t biome, SourceList &upgrades) const
 void Source::AddInRange(const std::vector<Space> &spaces, 
                         unsigned loc, 
                         Yield &yield,
-                        const Yield &yield_adder,
+			int start, 
+			unsigned end,
+			            const Yield &yield_adder,
                         source_type_t type1,
                         source_type_t type2,
                         source_type_t type3,
-			bool once)
+			bool once) const
 {
    unsigned range = yield.m_range;
 
-   for (unsigned i = std::max<int>(0, (int)loc - range); i <= loc + range && (i < spaces.size()); i+= 1)
+   for (unsigned i = std::max<int>(0, start); (i <= end) && (i < (spaces.size())); i+= 1)
    {
-      const source_type_t type = spaces[i].m_source->Type();
-      if ((i != loc) && ((type == type1) || (type == type2) || (type == type3)) )
+      if (spaces[i].m_source)
       {
-	 yield += yield_adder;
-	 if (once)
-	    break;
+	 const source_type_t type = spaces[i].m_source->Type();
+	 if ((i != loc) && ((type == type1) || (type == type2) || (type == type3)) )
+	 {
+	    yield += yield_adder;
+	    if (once)
+	       break;
+	 }
       }
    }
 }
@@ -58,16 +63,17 @@ void Source::AddInRange(const std::vector<Space> &spaces,
 void Source::AddInRange(const std::vector<Space> &spaces, 
                         unsigned loc, 
                         Yield &yield,
+			int start, 
+			unsigned end,
                         const Yield &yield_adder,
                         source_class_t source_class,
-			bool once)
+			bool once) const
 {
    unsigned range = yield.m_range;
 
-   for (unsigned i = std::max<int>(0, (int)loc - range); i <= loc + range && (i < spaces.size()); i+= 1)
+   for (unsigned i = std::max<int>(0, start); (i <= end) && (i < spaces.size()); i+= 1)
    {
-      if ((i != loc) && ((spaces[i].m_source->Class() == source_class) || 
-	                 ((source_class == ANIMAL) && (spaces[i].m_source->Class() == FISH))))
+      if ((i != loc) && spaces[i].m_source && (spaces[i].m_source->Class() == source_class))
       {
 	 yield += yield_adder;
 	 if (once)
@@ -78,34 +84,35 @@ void Source::AddInRange(const std::vector<Space> &spaces,
 
 bool Source::NotInRange(const std::vector<Space> &spaces, 
                         unsigned loc, 
-                        unsigned range,
-                        source_class_t source_class)
+			int start,
+			unsigned end,
+                        source_class_t source_class) const
 {
-   for (unsigned i = std::max<int>(0, (int)loc - range); i <= loc + range && (i < spaces.size()); i+= 1)
-      if ((i != loc) && ((spaces[i].m_source->Class() == source_class) || 
-	                 ((source_class == ANIMAL) && (spaces[i].m_source->Class() == FISH))))
+   for (unsigned i = std::max<int>(0, start); (i <= end) && (i < spaces.size()); i+= 1)
+      if ((i != loc) && spaces[i].m_source && (spaces[i].m_source->Class() == source_class))
 	 return false;
    return true;
 }
 
 bool Source::NotInRange(const std::vector<Space> &spaces, 
                         unsigned loc, 
-                        unsigned range,
+			int start,
+			unsigned end,
                         source_type_t type1,
                         source_type_t type2,
-                        source_type_t type3)
+                        source_type_t type3) const
                         
 {
-   for (unsigned i = std::max<int>(0, (int)loc - range); i <= loc + range && (i < spaces.size()); i+= 1)
+   for (unsigned i = std::max<int>(0, start); (i <= end) && (i < spaces.size()); i+= 1)
    {
-      if ((i != loc) && 
+      if ((i != loc) && spaces[i].m_source && 
 	  ((spaces[i].m_source->Type() == type1) || (spaces[i].m_source->Type() == type2) || (spaces[i].m_source->Type() == type3)) )
 	 return false;
    }
    return true;
 }
 
-void Source::GetDanger(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &danger_yield)
+void Source::GetDanger(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &danger_yield) const
 {
    danger_yield.clear();
    danger_yield.resize(spaces.size());
@@ -124,7 +131,7 @@ void Source::GetDanger(std::vector<Space> &spaces, unsigned loc, const Yield &yi
       danger_yield[i] += yield.m_danger;
 }
 
-void Source::GetFood(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &food_yield)
+void Source::GetFood(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &food_yield) const
 {
    food_yield.clear();
    food_yield.resize(spaces.size());
@@ -144,7 +151,7 @@ void Source::GetFood(std::vector<Space> &spaces, unsigned loc, const Yield &yiel
 }
 
 
-void Source::GetTech(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &tech_yield)
+void Source::GetTech(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &tech_yield) const
 {
    tech_yield.clear();
    tech_yield.resize(spaces.size());
@@ -163,7 +170,7 @@ void Source::GetTech(std::vector<Space> &spaces, unsigned loc, const Yield &yiel
       tech_yield[i] += yield.m_tech;
 }
 
-void Source::GetWealth(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &wealth_yield)
+void Source::GetWealth(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &wealth_yield) const
 {
    wealth_yield.clear();
    wealth_yield.resize(spaces.size());
@@ -182,7 +189,7 @@ void Source::GetWealth(std::vector<Space> &spaces, unsigned loc, const Yield &yi
       wealth_yield[i] += yield.m_wealth;
 }
 
-void Source::GetAwe(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &awe_yield)
+void Source::GetAwe(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &awe_yield) const
 {
    awe_yield.clear();
    awe_yield.resize(spaces.size());

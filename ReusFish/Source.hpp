@@ -63,9 +63,9 @@ class Source
       }
       virtual void Create(void) 
       {
-	 m_name = "None";
+	 m_name  = "None";
 	 m_class = SOURCE_CLASS_NONE;
-	 m_type = SOURCE_TYPE_NONE;
+	 m_type  = SOURCE_TYPE_NONE;
 	 m_max_aspects = 0;
 	 m_level = 0;
       };
@@ -98,18 +98,21 @@ class Source
       source_type_t  Type(void)  const {return m_type; }
       unsigned Hash(void) const
       {
-	 unsigned hash = m_class + (m_type << 2) + (m_level << 4);
-	 hash += hash << 7;
-	 hash += hash << 14;
-	 hash += hash << 24;
+	 unsigned this_hash = 0x12345678 + m_class + ((m_type +1)<< 2) + ((m_level +1)<< 4);
+	 unsigned hash = this_hash;
+	 
+	 hash += this_hash << 7;
+	 hash += this_hash << 14;
+	 hash += this_hash << 24;
 	 for (unsigned i = 0; i < m_aspects.size(); i++)
 	 {
-	    hash += m_aspects[i];
-	    hash += m_aspects[i] << 5;
-	    hash += m_aspects[i] << 10;
-	    hash += m_aspects[i] << 15;
-	    hash += m_aspects[i] << 20;
-	    hash += m_aspects[i] << 25;
+	    unsigned aspect = m_aspects[i] + 1;
+	    hash += aspect;
+	    hash += aspect << 5;
+	    hash += aspect << 9;
+	    hash += aspect << 15;
+	    hash += aspect << 19;
+	    hash += aspect << 25;
 	 }
 	 return hash;
       }
@@ -148,8 +151,9 @@ class Source
 	 return count;
       }
       virtual void GetUpgrades (biome_t biome, SourceList &upgrades) const;
+      virtual bool IsValidForBiome(biome_t biome) { return true; }
 
-      virtual Source* Clone() const {return new Source(*this);}
+      virtual Source* Clone() const {if (this) return new Source(*this); else return NULL;}
       
       void Print(void) const
       {
@@ -162,122 +166,131 @@ class Source
       }
 
    protected:
+      void AddInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield, int start, unsigned end,
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3, bool once) const;
+
       void AddInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3, bool once);
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3, bool once) const
+      {
+	 AddInRange(spaces, loc, yield, (int)loc - yield.m_range, loc + yield.m_range, 
+	       yield_adder, type1, type2, type3, once);
+      }
 
       void AddIfInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3) const
       {
 	 AddInRange(spaces, loc, yield, yield_adder, type1, type2, type3, true);
       }
       void AddIfInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2) const
       {
 	 AddInRange(spaces, loc, yield, yield_adder, type1, type2, type2, true);
       }
       void AddIfInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1)
+	    const Yield &yield_adder, source_type_t type1) const
       {
 	 AddInRange(spaces, loc, yield, yield_adder, type1, type1, type1, true);
       }
       void AddAllInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3) const
       {
 	 AddInRange(spaces, loc, yield, yield_adder, type1, type2, type3, false);
       }
       void AddAllInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2) const
       {
 	 AddInRange(spaces, loc, yield, yield_adder, type1, type2, type2, false);
       }
       void AddAllInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1)
+	    const Yield &yield_adder, source_type_t type1) const
       {
 	 AddInRange(spaces, loc, yield, yield_adder, type1, type1, type1, false);
       }
       void AddIfAdjacent(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3) const
       {
-	 unsigned saved_range = yield.m_range;
-	 yield.m_range = 1;
-	 AddInRange(spaces, loc, yield, yield_adder, type1, type2, type3, true);
-	 yield.m_range = saved_range;
+	 AddInRange(spaces, loc, yield, (int)loc - 1, loc + 1, yield_adder, type1, type2, type3, true);
       }
       void AddIfAdjacent(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2) const
       {
 	 AddIfAdjacent(spaces, loc, yield, yield_adder, type1, type2, type2);
       }
       void AddIfAdjacent(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1)
+	    const Yield &yield_adder, source_type_t type1) const
       {
 	 AddIfAdjacent(spaces, loc, yield, yield_adder, type1, type1, type1);
       }
       void AddAllAdjacent(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3) const
       {
-	 unsigned saved_range = yield.m_range;
-	 yield.m_range = 1;
-	 AddInRange(spaces, loc, yield, yield_adder, type1, type2, type3, false);
-	 yield.m_range = saved_range;
+	 AddInRange(spaces, loc, yield, (int)loc - 1, loc + 1, yield_adder, type1, type2, type3, false);
       }
       void AddAllAdjacent(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2) const
       {
 	 AddAllAdjacent(spaces, loc, yield, yield_adder, type1, type2, type2);
       }
       void AddAllAdjacent(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1)
+	    const Yield &yield_adder, source_type_t type1) const
       {
 	 AddAllAdjacent(spaces, loc, yield, yield_adder, type1, type1, type1);
       }
 
       // Same as above, but classes rather than types
-      void AddInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-			      const Yield &yield_adder, source_class_t source_class, bool once);
+      void AddInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield, int start, unsigned end,
+			      const Yield &yield_adder, source_class_t source_class, bool once) const;
+      void AddInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield, 
+			      const Yield &yield_adder, source_class_t source_class, bool once) const
+      {
+	 AddInRange(spaces, loc, yield, (int)loc - yield.m_range, loc + yield.m_range, yield_adder, source_class, once);
+      }
       void AddAllInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-			      const Yield &yield_adder, source_class_t source_class)
+			      const Yield &yield_adder, source_class_t source_class) const
       {
 	 AddInRange(spaces, loc, yield, yield_adder, source_class, false);
       }
       void AddIfInRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-			      const Yield &yield_adder, source_class_t source_class)
+			      const Yield &yield_adder, source_class_t source_class) const
       {
 	 AddInRange(spaces, loc, yield, yield_adder, source_class, true);
       }
 
       void AddIfAdjacent(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_class_t source_class)
+	    const Yield &yield_adder, source_class_t source_class) const
       {
-	 unsigned saved_range = yield.m_range;
-	 yield.m_range = 1;
-	 AddInRange(spaces, loc, yield, yield_adder, source_class, true);
-	 yield.m_range = saved_range;
+	 AddInRange(spaces, loc, yield, (int)loc - 1, loc + 1, yield_adder, source_class, true);
       }
       void AddAllAdjacent(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_class_t source_class)
+	    const Yield &yield_adder, source_class_t source_class) const
       {
-	 unsigned saved_range = yield.m_range;
-	 yield.m_range = 1;
-	 AddInRange(spaces, loc, yield, yield_adder, source_class, false);
-	 yield.m_range = saved_range;
+	 AddInRange(spaces, loc, yield, (int)loc - 1, loc + 1, yield_adder, source_class, false);
       }
 
       // 
-      bool NotInRange(const std::vector<Space> &spaces, unsigned loc, unsigned range, source_class_t source_class);
-      bool NotAdjacent(const std::vector<Space> &spaces, unsigned loc, source_class_t source_class)
+      bool NotInRange(const std::vector<Space> &spaces, unsigned loc, int start, unsigned end, source_class_t source_class) const;
+      bool NotInRange(const std::vector<Space> &spaces, unsigned loc, unsigned range, source_class_t source_class) const
+      {
+	 return NotInRange(spaces, loc, (int)loc - range, loc + range, source_class);
+      }
+      bool NotAdjacent(const std::vector<Space> &spaces, unsigned loc, source_class_t source_class) const
       {
 	 return NotInRange(spaces, loc, 1, source_class);
       }
+      bool NotInRange(const std::vector<Space> &spaces, unsigned loc, int start, unsigned end,
+	              source_type_t type1, source_type_t type2, source_type_t type3) const; 
       bool NotInRange(const std::vector<Space> &spaces, unsigned loc, unsigned range,
-	              source_type_t type1, source_type_t type2, source_type_t type3); 
+	              source_type_t type1, source_type_t type2, source_type_t type3) const 
+      {
+	 return NotInRange(spaces, loc, (int)loc - range, loc + range, type1, type2, type3);
+      }
       bool NotInRange(const std::vector<Space> &spaces, unsigned loc, unsigned range,
-	              source_type_t type1, source_type_t type2)
+	              source_type_t type1, source_type_t type2) const
       {
 	 return NotInRange(spaces, loc, range, type1, type2, type2);
       }
       bool NotInRange(const std::vector<Space> &spaces, unsigned loc, unsigned range,
-	              source_type_t type1)
+	              source_type_t type1) const
       {
 	 return NotInRange(spaces, loc, range, type1, type1, type1);
       }
@@ -288,21 +301,21 @@ class Source
       }
 
       bool NotAdjacent(const std::vector<Space> &spaces, unsigned loc,
-	              source_type_t type1, source_type_t type2)
+	              source_type_t type1, source_type_t type2) const
       {
 	 return NotInRange(spaces, loc, 1, type1, type2);
       }
-      bool NotAdjacent(const std::vector<Space> &spaces, unsigned loc, source_type_t type1)
+      bool NotAdjacent(const std::vector<Space> &spaces, unsigned loc, source_type_t type1) const
       {
 	 return NotInRange(spaces, loc, 1, type1);
       }
 
 
-      void GetFood(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &food_yield);
-      void GetTech(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &tech_yield);
-      void GetWealth(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &wealth_yield);
-      void GetDanger(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &danger_yield);
-      void GetAwe(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &awe_yield);
+      void GetFood(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &food_yield) const;
+      void GetTech(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &tech_yield) const;
+      void GetWealth(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &wealth_yield) const;
+      void GetDanger(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &danger_yield) const;
+      void GetAwe(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &awe_yield) const;
       
 
       void AddUpgrade(source_type_t source_type, Aspects::aspect_t aspect1, Aspects::aspect_t aspect2 = Aspects::ASPECT_T_MAX)
@@ -310,12 +323,12 @@ class Source
 	 m_upgrades.push_back(Upgrade(source_type, aspect1, aspect2));
       }
 
-      std::string                    m_name;
       source_class_t                 m_class;
       source_type_t                  m_type;
-      unsigned                       m_level;
+      unsigned char                  m_level;
+      unsigned char                  m_max_aspects;
+      std::string                    m_name;
       Yield                          m_base_yield;
-      unsigned                       m_max_aspects;
       std::vector<Aspects::aspect_t> m_aspects;
       std::vector<Upgrade>           m_upgrades;
 };
@@ -342,7 +355,7 @@ class SourceList
 	    if (orig.m_sources[i])
 	       m_sources.push_back(orig.m_sources[i]->Clone());
 	    else
-	       m_sources.push_back(new Source());
+	       m_sources.push_back(NULL);
       }
       ~SourceList()
       {

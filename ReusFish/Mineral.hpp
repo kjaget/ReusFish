@@ -12,6 +12,26 @@ class Mineral : public Source
       Mineral() { m_class = MINERAL; }
       Mineral *Clone() const {return new Mineral(*this);}
 
+      void GetUpgrades(biome_t biome, SourceList &upgrades) const
+      {
+	 Source::GetUpgrades(biome, upgrades);
+	 bool changed;
+
+	 do
+	 {
+	    changed = false;
+	    for (auto it = upgrades.m_sources.begin(); it < upgrades.m_sources.end(); it++)
+	    {
+	       if (!(*it)->IsValidForBiome(biome))
+	       {
+		  upgrades.m_sources.erase(it);
+		  changed = true;
+		  break;
+	       }
+	    }
+	 } while (changed);
+	  }
+
    protected :
       typedef unsigned biome_mask_t;
 

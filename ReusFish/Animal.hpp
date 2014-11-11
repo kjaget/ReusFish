@@ -13,14 +13,7 @@ class Animal : public Source
       Animal *Clone() const {return new Animal(*this);}
 };
 
-class Fish : public Animal 
-{
-   public :
-      Fish() { m_class = FISH; }
-      Fish* Clone() const {return new Fish(*this);}
-};
-
-class Mackerel : public Fish
+class Mackerel : public Animal
 {
    public:
       Mackerel()
@@ -102,7 +95,7 @@ class Superior_Mackerel : public Mackerel
       Superior_Mackerel* Clone() const {return new Superior_Mackerel(*this);}
 };
 
-class Clownfish : public Fish
+class Clownfish : public Animal
 {
    public:
       Clownfish()
@@ -200,7 +193,7 @@ class Superior_Clownfish : public Clownfish
       static const unsigned m_wealth_adder = 6;
 };
 
-class Seabass: public Fish
+class Seabass: public Animal
 {
    public:
       Seabass()
@@ -296,7 +289,7 @@ class Superior_Seabass: public Seabass
       Superior_Seabass* Clone() const {return new Superior_Seabass(*this);}
 };
 
-class Parrotfish: public Fish
+class Parrotfish: public Animal
 {
    public:
       Parrotfish()
@@ -394,7 +387,7 @@ class Superior_Parrotfish: public Parrotfish
       Superior_Parrotfish* Clone() const {return new Superior_Parrotfish(*this);}
 };
 
-class Marlin : public Fish
+class Marlin : public Animal
 {
    public:
       Marlin()
@@ -461,7 +454,7 @@ class Great_Marlin : public Marlin
       Great_Marlin* Clone() const {return new Great_Marlin(*this);}
 };
 
-class Anglerfish: public Fish
+class Anglerfish: public Animal
 {
    public:
       Anglerfish()
@@ -528,7 +521,7 @@ class Great_Anglerfish: public Anglerfish
 };
 
 
-class Tuna: public Fish
+class Tuna: public Animal
 {
    public:
       Tuna()
@@ -594,7 +587,7 @@ class Great_Tuna: public Tuna
       Great_Tuna* Clone() const {return new Great_Tuna(*this);}
 };
 
-class WhiteShark: public Fish
+class WhiteShark: public Animal
 {
    public:
       WhiteShark()
@@ -630,7 +623,7 @@ class WhiteShark: public Fish
 };
 
 
-class BlueWhale: public Fish
+class BlueWhale: public Animal
 {
    public:
       BlueWhale()
@@ -893,7 +886,7 @@ class Beaver: public Animal
          AddUpgrade(WISENT, Aspects::GREATER_HUNT, Aspects::GREATER_HERD);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_natura_limit);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, int m_natura_limit);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
 	 GetYield(spaces, loc, yield, 1, 7);
@@ -2371,7 +2364,7 @@ class GilaMonster : public Animal
          AddUpgrade(BOBCAT, Aspects::SUBLIME_EXOTIC, Aspects::SUBLIME_PREDATOR);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_adder, unsigned m_natura_limit);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_adder, int m_natura_limit);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
          GetYield(spaces, loc, yield, 5, 15);
@@ -2896,7 +2889,7 @@ class Tapir : public Animal
          AddUpgrade(ORANGUTAN, Aspects::SUBLIME_HERD, Aspects::SUBLIME_HUNT);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_natura_limit);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, int m_natura_limit);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
          GetYield(spaces, loc, yield, 1, 7);
@@ -3496,7 +3489,7 @@ class Pangolin : public Animal
          AddUpgrade(YAK, Aspects::GREATER_HERD);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_shy_food_adder, unsigned m_natura_limit, unsigned m_peaceful_food_adder, unsigned m_awe_adder);
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_shy_food_adder, int m_natura_limit, unsigned m_peaceful_food_adder, unsigned m_awe_adder);
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       {
          GetYield(spaces, loc, yield, 2, 8, 3, 1);

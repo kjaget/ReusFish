@@ -66,7 +66,7 @@ void Copper::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
    AddIfAdjacent(spaces, loc, yield, Yield(0,m_animal_tech_adder,0,0,0,0), ANIMAL);
-   if (spaces[loc].Biome() == MOUNTAIN)
+   if (biome_list[loc] == MOUNTAIN)
       yield.m_tech += m_mountain_tech_adder;
 }
 
@@ -112,10 +112,11 @@ void Silver::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, do
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
-      if ((spaces[i].m_source->Type() == TOPAZ) ||
+      if (spaces[i].m_source && 
+	 ((spaces[i].m_source->Type() == TOPAZ) ||
           (spaces[i].m_source->Type() == ONYX) ||
           (spaces[i].m_source->Type() == GOLD) ||
-          (spaces[i].m_source->Type() == PLATINUM) )
+          (spaces[i].m_source->Type() == PLATINUM) ))
       {
 	 Yield wealth_yield;
 	 spaces[i].m_source->GetYield(spaces, loc, wealth_yield);
@@ -123,9 +124,10 @@ void Silver::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, do
       }
 
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
-      if ((spaces[i].m_source->Type() == COPPER) ||
+      if (spaces[i].m_source &&
+	    ((spaces[i].m_source->Type() == COPPER) ||
           (spaces[i].m_source->Type() == IRON) ||
-          (spaces[i].m_source->Type() == ALUMINIUM) )
+          (spaces[i].m_source->Type() == ALUMINIUM) ))
       {
 	 Yield tech_yield;
 	 spaces[i].m_source->GetYield(spaces, loc, tech_yield);
@@ -166,9 +168,10 @@ void Zinc::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, doub
    std::vector<unsigned> tech;
    GetTech(spaces, loc, yield, tech);
    for (unsigned i = std::max<int>(0, (int)loc - 3); (i <= loc + 3) && (i < spaces.size()); i+= 1)
-      if ((spaces[i].m_source->Type() == COPPER) ||
+      if (spaces[i].m_source && 
+	    ((spaces[i].m_source->Type() == COPPER) ||
           (spaces[i].m_source->Type() == IRON) ||
-          (spaces[i].m_source->Type() == ALUMINIUM) )
+          (spaces[i].m_source->Type() == ALUMINIUM) ))
 	 spaces[i].m_yield.m_tech += int (m_tech_multiplier * tech[i]);
    AddAllAdjacent(spaces, loc, yield, Yield(0,0,0,0,m_awe_adder,0), COPPER);
 }
@@ -179,7 +182,7 @@ void Ruby::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
-      if (spaces[i].m_source->Class() == PLANT)
+      if (spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
 	 spaces[i].m_yield.m_natura += 15;
 }
 
@@ -200,14 +203,17 @@ void Ruby::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
 
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
    {
-      if (spaces[i].m_source->Class() != MINERAL)
-	 yield.m_wealth += 30;
-      if (spaces[i].m_source->Class() == ANIMAL)
-	 spaces[i].m_yield.m_awe += 5;
-      if (spaces[i].m_source->Class() == PLANT)
+      if (spaces[i].m_source)
       {
-	 spaces[i].m_yield.m_food += 30;
-	 spaces[i].m_yield.m_tech += 30;
+	 if (spaces[i].m_source->Class() != MINERAL)
+	    yield.m_wealth += 30;
+	 if (spaces[i].m_source->Class() == ANIMAL)
+	    spaces[i].m_yield.m_awe += 5;
+	 if (spaces[i].m_source->Class() == PLANT)
+	 {
+	    spaces[i].m_yield.m_food += 30;
+	    spaces[i].m_yield.m_tech += 30;
+	 }
       }
    }
 }
@@ -219,7 +225,7 @@ void Diamond::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
 
    unsigned plant_count = 0;
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
-      if (spaces[i].m_source->Class() == PLANT)
+      if (spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
 	 plant_count += 1;
 
    if (plant_count == 2)
@@ -227,11 +233,11 @@ void Diamond::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
 
    unsigned mineral_count = 0;
    for (unsigned i = std::max<int>(0, (int)loc - 2); (i <= loc + 2) && (i < spaces.size()); i+= 1)
-      if (spaces[i].m_source->Class() == MINERAL)
+      if (spaces[i].m_source && (spaces[i].m_source->Class() == MINERAL))
 	 mineral_count += 1;
 
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
-      if (spaces[i].m_source->Class() == ANIMAL)
+      if (spaces[i].m_source &&(spaces[i].m_source->Class() == ANIMAL))
       {
 	 Yield animal_yield;
 	 spaces[i].m_source->GetYield(spaces, loc, animal_yield);
@@ -273,7 +279,7 @@ void Oil::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    yield.m_wealth += 100;
 
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
-      if (spaces[i].m_source->Class() == PLANT)
+      if (spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
       {
 	 Yield plant_yield;
 	 spaces[i].m_source->GetYield(spaces, loc, plant_yield);
@@ -314,9 +320,10 @@ void Uranium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       yield.m_tech += 250;
 
    for (unsigned i = std::max<int>(0, (int)loc - 2); (i <= loc + 2) && (i < spaces.size()); i+= 1)
-      if ((spaces[i].m_source->Class() == PLANT) ||
+      if (spaces[i].m_source &&
+	    ((spaces[i].m_source->Class() == PLANT) ||
           (spaces[i].m_source->Class() == ANIMAL) ||
-          (spaces[i].m_source->Class() == MINERAL))
+          (spaces[i].m_source->Class() == MINERAL)))
       {
 	 Yield tech_yield;
 	 spaces[i].m_source->GetYield(spaces, loc, tech_yield);

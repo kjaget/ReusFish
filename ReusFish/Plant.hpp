@@ -18,56 +18,45 @@ class Plant : public Source
       Plant *Clone() const {return new Plant(*this);}
    protected:
       void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3) const
       {
-	 unsigned saved_range = yield.m_range;
-	 yield.m_range = yield.m_natura_range;
-	 AddInRange(spaces, loc, yield, yield_adder, type1, type2, type3, true);
-	 yield.m_range = saved_range;
+	 AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, 
+	       yield_adder, type1, type2, type3, true);
       }
       void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2) const
       {
 	 AddIfInNaturaRange(spaces, loc, yield, yield_adder, type1, type2, type2);
       }
       void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1)
+	    const Yield &yield_adder, source_type_t type1) const
       {
 	 AddIfInNaturaRange(spaces, loc, yield, yield_adder, type1, type1, type1);
       }
       void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3) const
       {
-	 unsigned saved_range = yield.m_range;
-	 yield.m_range = yield.m_natura_range;
 	 AddIfInNaturaRange(spaces, loc, yield, yield_adder, type1, type2, type3);
-	 yield.m_range = saved_range;
       }
       void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1, source_type_t type2)
+	    const Yield &yield_adder, source_type_t type1, source_type_t type2) const
       {
 	 AddAllInNaturaRange(spaces, loc, yield, yield_adder, type1, type2, type2);
       }
       void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    const Yield &yield_adder, source_type_t type1)
+	    const Yield &yield_adder, source_type_t type1) const
       {
 	 AddAllInNaturaRange(spaces, loc, yield, yield_adder, type1, type1, type1);
       }
       void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-			      const Yield &yield_adder, source_class_t source_class)
+			      const Yield &yield_adder, source_class_t source_class) const
       {
-	 unsigned saved_range = yield.m_range;
-	 yield.m_range = yield.m_natura_range;
-	 AddInRange(spaces, loc, yield, yield_adder, source_class, false);
-	 yield.m_range = saved_range;
+	 AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, yield_adder, source_class, false);
       }
       void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-			      const Yield &yield_adder, source_class_t source_class)
+			      const Yield &yield_adder, source_class_t source_class) const
       {
-	 unsigned saved_range = yield.m_range;
-	 yield.m_range = yield.m_natura_range;
-	 AddInRange(spaces, loc, yield, yield_adder, source_class, true);
-	 yield.m_range = saved_range;
+	 AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, yield_adder, source_class, true);
       }
 };
 

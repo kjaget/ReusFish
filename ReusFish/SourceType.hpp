@@ -1,7 +1,7 @@
 #ifndef SOURCE_TYPE_INC__
 #define SOURCE_TYPE_INC__
 
-typedef enum SOURCE_TYPE_T
+typedef enum SOURCE_TYPE_T : unsigned char
 {
    SOURCE_TYPE_NONE,
    CITY,

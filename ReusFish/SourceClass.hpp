@@ -1,11 +1,10 @@
 #ifndef SOURCE_CLASS_INC__
 #define SOURCE_CLASS_INC__
 
-typedef enum SOURCE_CLASS_T
+typedef enum SOURCE_CLASS_T : unsigned char
 {
    SOURCE_CLASS_NONE,
    ANIMAL,
-   FISH,
    PLANT,
    MINERAL,
    NON_NATURAL,
