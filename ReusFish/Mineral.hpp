@@ -1362,10 +1362,10 @@ class Zinc : public Mineral
          AddUpgrade(FLUORITE, Aspects::SUBLIME_REACTION, Aspects::SUBLIME_SEISMIC);
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier, unsigned m_awe_adder) const;
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_range, double m_tech_multiplier, unsigned m_awe_adder) const;
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
-         GetYield(spaces, loc, yield, 0.4, 15);
+         GetYield(spaces, loc, yield, 3, 0.4, 15);
       }
       Zinc* Clone() const {return new Zinc(*this);}
 };
@@ -1394,7 +1394,7 @@ class Great_Zinc : public Zinc
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
-         Zinc::GetYield(spaces, loc, yield, 0.5, 25);
+         Zinc::GetYield(spaces, loc, yield, 5, 0.5, 25);
       }
       Great_Zinc* Clone() const {return new Great_Zinc(*this);}
 };

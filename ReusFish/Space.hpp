@@ -9,7 +9,7 @@ class Space
    public:
       Space() : m_source(source_container.Add(new Source())) {}
       Space(Source *source) : m_source(source_container.Add(source)) {}
-      Space(const Source *source) : m_source(source_container.Add(source->Clone())) {}
+      Space(const Source *source) : m_source(source_container.Add(source)) {}
       Space(const Source *source, int aspect) 
       { 
 	 Source *l_source = source->Clone();

@@ -44,6 +44,7 @@ class Mackerel : public Animal
 	 AddUpgrade(PARROTFISH, Aspects::LESSER_HERD, Aspects::LESSER_EXOTIC);
       }
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
       Mackerel* Clone() const {return new Mackerel(*this);}
 };
 
@@ -652,8 +653,8 @@ class BlueWhale: public Animal
          m_upgrades.clear();
       }
 
-
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
       BlueWhale* Clone() const {return new BlueWhale(*this);}
 };
 
@@ -2160,7 +2161,6 @@ class Superior_Javelina : public Javelina
       Superior_Javelina* Clone() const {return new Superior_Javelina(*this);}
 };
 
-//KCJ
 class GreyFox : public Animal
 {
    public:
@@ -2197,6 +2197,7 @@ class GreyFox : public Animal
       {
          GetYield(spaces, loc, yield, 5);
       }
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
       GreyFox* Clone() const {return new GreyFox(*this);}
 };
 
@@ -2298,6 +2299,7 @@ class Coyote : public Animal
       {
          GetYield(spaces, loc, yield, 5);
       }
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
       Coyote* Clone() const {return new Coyote(*this);}
 };
 
@@ -2465,6 +2467,8 @@ class Bobcat : public Animal
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
+
       Bobcat* Clone() const {return new Bobcat(*this);}
 };
 
@@ -2505,6 +2509,8 @@ class Frog : public Animal
       {
          GetYield(spaces, loc, yield, 2);
       }
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
+
       Frog* Clone() const {return new Frog(*this);}
 };
 
@@ -2603,6 +2609,8 @@ class PoisonDartFrog : public Animal
       {
          GetYield(spaces, loc, yield, 2);
       }
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
+
       PoisonDartFrog* Clone() const {return new PoisonDartFrog(*this);}
 };
 
@@ -3061,6 +3069,7 @@ class KomodoDragon : public Animal
       {
          GetYield(spaces, loc, yield, 2);
       }
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
       KomodoDragon* Clone() const {return new KomodoDragon(*this);}
 };
 
@@ -3124,6 +3133,7 @@ class Orangutan : public Animal
       }
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
       Orangutan* Clone() const {return new Orangutan(*this);}
 };
 
@@ -3394,6 +3404,11 @@ class MuskDeer : public Animal
       {
          GetYield(spaces, loc, yield, 1, 2, 10);
       }
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc, unsigned m_danger_limit) const; 
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const
+      {
+	return GetRange(spaces, loc, 2);
+      }
       MuskDeer* Clone() const {return new MuskDeer(*this);}
 };
 
@@ -3424,6 +3439,10 @@ class Great_MuskDeer : public MuskDeer
       {
          MuskDeer::GetYield(spaces, loc, yield, 2, 3, 20);
       }
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const
+      {
+	 return MuskDeer::GetRange(spaces, loc, 3);
+      }
       Great_MuskDeer* Clone() const {return new Great_MuskDeer(*this);}
 };
 
@@ -3453,6 +3472,10 @@ class Superior_MuskDeer : public MuskDeer
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
          MuskDeer::GetYield(spaces, loc, yield, 3, 4, 30);
+      }
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const
+      {
+	 return MuskDeer::GetRange(spaces, loc, 4);
       }
       Superior_MuskDeer* Clone() const {return new Superior_MuskDeer(*this);}
 };
@@ -3661,6 +3684,7 @@ class LangurMonkey : public Animal
       {
          GetYield(spaces, loc, yield, 4, 4);
       }
+      unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
       LangurMonkey* Clone() const {return new LangurMonkey(*this);}
 };
 

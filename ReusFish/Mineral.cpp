@@ -160,14 +160,14 @@ void Aluminium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
    AddAllAdjacent(spaces, loc, yield, Yield(0,m_plant_tech_adder,0,0,0,0), PLANT);
 }
 
-void Zinc::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier, unsigned m_awe_adder) const
+void Zinc::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_range, double m_tech_multiplier, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
    std::vector<unsigned> tech;
-   GetTech(spaces, loc, yield, tech);
-   for (unsigned i = std::max<int>(0, (int)loc - 3); (i <= loc + 3) && (i < spaces.size()); i+= 1)
+   GetTech(spaces, loc, std::max<int>(0, (int)loc - m_range), loc + m_range, yield, tech);
+   for (unsigned i = std::max<int>(0, (int)loc - m_range); (i <= loc + m_range) && (i < spaces.size()); i+= 1)
       if (spaces[i].m_source && 
 	    ((spaces[i].m_source->Type() == COPPER) ||
           (spaces[i].m_source->Type() == IRON) ||
@@ -261,7 +261,7 @@ void Coal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) cons
    AddAllAdjacent(spaces, loc, yield, Yield(0,0,50,0,0,0), COPPER, IRON);
 
    std::vector<unsigned> awe_yield;
-   GetAwe(spaces, loc, yield, awe_yield);
+   GetAwe(spaces, loc, std::max<int>(0, (int)loc - 2), loc + 2, yield, awe_yield);
    unsigned awe = 0;
    for (unsigned i = std::max<int>(0, (int)loc - 2); (i <= loc + 2) && (i < spaces.size()); i+= 1)
       if (i != loc)

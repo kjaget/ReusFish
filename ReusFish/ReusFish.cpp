@@ -57,6 +57,8 @@ class Building1 : public Building
 
       Building1(unsigned start, unsigned end)	
       {
+		  m_start = start;
+		  m_end = end;
 	 Create();
       }
 
@@ -65,16 +67,16 @@ class Building1 : public Building
 	 m_name = "Building 1";
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
 	 Yield dummy_yield;
-	 AddAllInRange(spaces, loc, dummy_yield, Yield(0,10,5,0,0,0), MINERAL);
+	 AddAllInRange(spaces, loc, dummy_yield, m_start, m_end, Yield(0,10,5,0,0,0), MINERAL);
 	 if (dummy_yield.m_tech > 30)
 	    dummy_yield = Yield(0,10*3,5*3,0,0,0);
 	 yield += dummy_yield;
 
 	 std::vector<unsigned> food_yield;
-	 GetFood(spaces, loc, yield, food_yield);
+	 GetFood(spaces, loc, m_start, m_end, yield, food_yield);
 	 unsigned food = 0;
 	 for (unsigned i = m_start; i <= m_end; i++)
 	    food += food_yield[i];
@@ -94,6 +96,8 @@ class Building2 : public Building
 
       Building2(unsigned start, unsigned end)	
       {
+	 m_start = start;
+	 m_end = end;
 	 Create();
       }
 
@@ -102,17 +106,166 @@ class Building2 : public Building
 	 m_name = "Building 2";
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
-	 AddAllInRange(spaces, loc, yield, Yield(0,25,0,0,0,0), COFFEA, TEA_PLANT);
+	 AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), COFFEA, TEA_PLANT);
 
 	 std::vector<unsigned> tech_yield;
-	 GetTech(spaces, loc, yield, tech_yield);
+	 GetTech(spaces, loc, std::max<int>(0, int(loc) - 1), (loc + 1), yield, tech_yield);
 	 unsigned tech = 0;
 	 for (unsigned i = std::max<int>(0, int(loc) - 1); (i <= (loc + 1)) && (i < spaces.size()); i++)
 	    tech += tech_yield[i];
 
-	 yield.m_tech   += tech / 2;
+	 yield.m_tech += tech / 2;
+      }
+};
+
+class Mill: public Building
+{
+   public :
+      Mill()
+      {
+	 Create();
+      }
+
+      Mill(unsigned start, unsigned end)	
+      {
+		  m_start = start;
+		  m_end = end;
+	 Create();
+      }
+
+      virtual void Create(void)
+      {
+	 m_name = "Mill";
+      }
+
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      {
+	 unsigned plant_count = 0;
+	 for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
+	    if (spaces[i].m_source->Class() == PLANT)
+	       plant_count += 1;
+
+	 plant_count = std::min<unsigned>(plant_count,3);
+	 yield.m_food += 15 * plant_count;
+
+	 unsigned animal_count = 0;
+	 for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
+	    if ((spaces[i].m_source->Class() == BOAR) ||
+	       (spaces[i].m_source->Class() == RABBIT))
+	       animal_count += 1;
+
+	 if (animal_count == 1)
+	    yield.m_tech += 100;
+	 else if (animal_count == 2)
+	    yield.m_tech += 50;
+      }
+};
+
+class Circus: public Building
+{
+   public :
+      Circus()
+      {
+	 Create();
+      }
+
+      Circus(unsigned start, unsigned end)	
+      {
+		  m_start = start;
+		  m_end = end;
+	 Create();
+      }
+
+      virtual void Create(void)
+      {
+	 m_name = "Circus";
+      }
+
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      {
+	 bool seen_flag[BIOME_T_MAX] = {0};
+
+	 seen_flag[BIOME_NONE] = true;
+
+	 for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
+	 {
+	    if ((spaces[i].m_source->Class() == ANIMAL) && !seen_flag[biome_list[i]])
+	    {
+	       seen_flag[biome_list[i]] = true;
+	       yield.m_food += 30;
+	       yield.m_tech += 10;
+	       yield.m_wealth += 30;
+	    }
+	 }
+      }
+};
+
+
+class Market: public Building
+{
+   public :
+      Market()
+      {
+	 Create();
+      }
+
+      Market(unsigned start, unsigned end)	
+      {
+		  m_start = start;
+		  m_end = end;
+	 Create();
+      }
+
+      virtual void Create(void)
+      {
+	 m_name = "Market";
+      }
+
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      {
+	 unsigned animal_count = 0;
+	 for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
+	    if (spaces[i].m_source->Class() == ANIMAL)
+	       animal_count += 1;
+
+	 animal_count = std::min<unsigned>(animal_count,3);
+	 yield.m_food += 15 * animal_count;
+
+	 AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,25,0,5,0), GREY_FOX, RATTLESNAKE);
+      }
+};
+class Bank: public Building
+{
+   public :
+      Bank()
+      {
+	 Create();
+      }
+
+      Bank(unsigned start, unsigned end)	
+      {
+		  m_start = start;
+		  m_end = end;
+	 Create();
+      }
+
+      virtual void Create(void)
+      {
+	 m_name = "Bank";
+      }
+
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+      {
+	 AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(25,0,25,0,0,0), LYCHEE, TOPAZ, CHILLI_PEPPER);
+
+	 std::vector<unsigned> wealth_yield;
+	 GetWealth(spaces, loc, (int)loc - 1, loc + 1, yield, wealth_yield);
+	 unsigned food = 0;
+	 for (unsigned i = loc - 1; i <= loc + 1; i++)
+	    if (i != loc)
+	       yield.m_wealth += wealth_yield[i];
       }
 };
 
@@ -129,7 +282,7 @@ class Lighthouse : public Building
 	 m_name = "Lighthouse";
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const 
       {
 	 yield.Reset();
 
@@ -170,7 +323,7 @@ class Harbor : public Building
 	 m_name = "Harbor";
       }
 
-      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+      void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
 	 yield.Reset();
 
@@ -275,6 +428,20 @@ class Landscape
 	 for (unsigned i = start_pos; (i < end_pos) && (i < size()); i++)
 	    wealth += m_spaces[i].m_yield.m_wealth;
 	 return wealth;
+      }
+      unsigned Awe(unsigned start_pos, unsigned end_pos) const
+      {
+	 unsigned awe = 0;
+	 for (unsigned i = start_pos; (i < end_pos) && (i < size()); i++)
+	    awe += m_spaces[i].m_yield.m_awe;
+	 return awe;
+      }
+      unsigned Danger(unsigned start_pos, unsigned end_pos) const
+      {
+	 unsigned danger = 0;
+	 for (unsigned i = start_pos; (i < end_pos) && (i < size()); i++)
+	    danger += m_spaces[i].m_yield.m_danger;
+	 return danger;
       }
       void GetYield(Yield &yield, unsigned start_pos, unsigned end_pos) const
       {
@@ -427,6 +594,8 @@ class Landscape
 	 std::cout << " F:" << Food(m_start, m_end);
 	 std::cout << " T:" << Tech(m_start, m_end);
 	 std::cout << " W:" << Wealth(m_start, m_end);
+	 std::cout << " D:" << Danger(m_start, m_end);
+	 std::cout << " A:" << Awe(m_start, m_end);
 	 std::cout << " H:" << Hash() << std::endl;
 	 for (unsigned i = 0; i < m_spaces.size(); i++)
 	 {
@@ -540,7 +709,7 @@ void initial_moves(Landscape &spaces, int pos)
 
    // For each space which isn't a building, grab the list of possible starting sources
    // for this biome.
-   if (spaces[pos].m_source && (spaces[pos].m_source->Class() != NON_NATURAL))
+   if (spaces[pos].m_source->Class() != NON_NATURAL)
    {
       SourceList source_list = giants.GetSources(biome_list[pos]);
       for (unsigned i = 0; i < source_list.size(); i++)
@@ -597,40 +766,69 @@ int main (int argc, char **argv)
    test_spaces.PrintAll();
    return 0;
 #else
-#if 0
-   Landscape spaces(15, 0, 13, Yield(50,300,75,0,25,0));
+#if 1
+   unsigned city_start = 0;
+   unsigned city_end = 14;
+   Landscape spaces(15, city_start, city_end, Yield(75,75,300,0,0,0));
    unsigned i;
-   for (i = 0; i < 3; i++)
-      biome_list[i] = OCEAN;
-   for (; i < 15; i++)
-      biome_list[i] = SWAMP;
 
-   for (i = 0; i < 3; i++)
+   biome_list[0] = DESERT;
+   for (i = 1; i < 6; i++)
+      biome_list[i] = MOUNTAIN;
+   for (; i < 11; i++)
+   biome_list[i] = DESERT;
+   for (; i < 15; i++)
+      biome_list[i] = MOUNTAIN;
+
+   spaces[0] = Space(new Source());
+   spaces[1] = Space(new Bank(city_start, city_end));
+   for (i = 2; i < 6; i++)
       spaces[i] = Space(new Source());
-   for (; i < 7; i++)
+   for (; i < 10; i++)
       spaces[i] = Space(new City());
-   spaces[i++] = Space(new Building1(0,13));
-   for (; i < 12; i++)
-      spaces[i] = Space(new Source());
-   spaces[i++] = Space(new Building2(0,13));
+   spaces[i++] = Space(new Market(city_start, city_end));
    for (; i < 15; i++)
       spaces[i] = Space(new Source());
 #endif
-#if 1
-   Landscape spaces(2, 0, 2, Yield(50,300,75,0,25,0));
+#if 0
+   unsigned city_start = 0;
+   unsigned city_end = 14;
+   Landscape spaces(16, city_start, city_end, Yield(50,300,75,0,20,0));
    unsigned i;
-   for (i = 0; i < 2; i++)
+
+   for (i = 0; i < 5; i++)
+      biome_list[i] = OCEAN;
+   for (; i < 16; i++)
+      biome_list[i] = SWAMP;
+
+   for (i = 0; i < 5; i++)
+      spaces[i] = Space(new Source());
+   for (; i < 9; i++)
+      spaces[i] = Space(new City());
+   spaces[i++] = Space(new Building1(city_start, city_end));
+   for (; i < 14; i++)
+      spaces[i] = Space(new Source());
+   spaces[i++] = Space(new Building2(city_start, city_end));
+   for (; i < 16; i++)
+      spaces[i] = Space(new Source());
+#endif
+#if 0
+   Landscape spaces(3, 0, 3, Yield(50,300,75,0,20,0));
+   unsigned i;
+   for (i = 0; i < 3; i++)
       biome_list[i] = SWAMP;
    spaces[0] = Space(new Great_Tomato());
-   spaces[1] = Space(new Tomato());
+   spaces[1] = Space(new Building1(0,2));
+   spaces[2] = Space(new Tomato());
    spaces.SetYield();
+   spaces.PrintAll();
    initial_moves(spaces,1);
    remaining_moves(1);
    return 0;
 #endif
 #endif
-   initial_moves(spaces,14);
-   remaining_moves(14);
+   initial_moves(spaces,13);
+   remaining_moves(13);
 
    return 0;
 }

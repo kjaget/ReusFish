@@ -149,7 +149,7 @@ void Sunflower::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
    std::vector<unsigned> food_yield;
-   GetFood(spaces, loc, yield, food_yield);
+   GetFood(spaces, loc, loc - 1, loc + 1, yield, food_yield);
    unsigned food = 0;
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i += 1)
       food += food_yield[i];
@@ -249,7 +249,7 @@ void CardonCactus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yie
    AddAllInNaturaRange(spaces, loc, yield, Yield(25,0,0,0,0,0), MINERAL);
 
    std::vector<unsigned> wealth_yield;
-   GetWealth(spaces, loc, yield, wealth_yield);
+   GetWealth(spaces,std::max<int>(0, (int)loc - m_base_yield.m_natura_range), loc + m_base_yield.m_natura_range, loc, yield, wealth_yield);
 
    unsigned food = 0;
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i += 1)
@@ -300,7 +300,6 @@ void Tomato::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, do
    std::vector<unsigned> food_yield;
    GetFood(spaces, loc, yield, food_yield);
    yield.m_tech = int(m_tech_multiplier * food_yield[loc]);
-
 }
 
 void Pineapple::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const 
@@ -356,7 +355,7 @@ void Coffea::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
    std::vector<unsigned> food_yield;
-   GetFood(spaces, loc, yield, food_yield);
+   GetFood(spaces, loc, loc - 1, loc + 1, yield, food_yield);
    for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i += 1)
       if ((i != loc) && spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
       {
@@ -373,7 +372,7 @@ void Hemp::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
    std::vector<unsigned> awe_yield;
-   GetAwe(spaces, loc, yield, awe_yield);
+   GetAwe(spaces, loc, std::max<int>(0, (int)loc - m_base_yield.m_natura_range), loc + m_base_yield.m_natura_range, yield, awe_yield);
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i+= 1)
       if (i != loc)
 	 yield.m_tech = awe_yield[i] * m_tech_multiplier;
@@ -397,7 +396,7 @@ void CacaoTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    AddIfAdjacent(spaces, loc, yield, Yield(50,0,0,0,0,0), ANIMAL);
 
    std::vector<unsigned> awe_yield;
-   GetAwe(spaces, loc, yield, awe_yield);
+   GetAwe(spaces, loc, std::max<int>(0, (int)loc - m_base_yield.m_natura_range), loc + m_base_yield.m_natura_range, yield, awe_yield);
    unsigned awe = 0;
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i+= 1)
       awe += awe_yield[i];
@@ -508,7 +507,7 @@ void Cinnamomum::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
    std::vector<unsigned>wealth_yield;
-   GetWealth(spaces, loc, yield, wealth_yield);
+   GetWealth(spaces, loc, std::max<int>(0, (int)loc - m_base_yield.m_natura_range), loc + m_base_yield.m_natura_range, yield, wealth_yield);
 
    for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i+= 1)
       if (spaces[i].m_source && (spaces[i].m_source->Class() == PLANT))
