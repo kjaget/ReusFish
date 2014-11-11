@@ -2,14 +2,14 @@
 
 #include "Plant.hpp"
 
-void Blueberry::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Blueberry::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0),APPLE_TREE, DANDELION, STRAWBERRY);
 }
 
-void Strawberry::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder)
+void Strawberry::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -19,21 +19,21 @@ void Strawberry::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 }
 
 
-void AppleTree::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) 
+void AppleTree::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
    AddAllAdjacent(spaces, loc, yield, Yield(0,0,0,0,0,m_natura_adder), ANIMAL);
 }
 
-void AppleTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) 
+void AppleTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddAllAdjacent(spaces, loc, yield, Yield(m_food_adder, 0,0,0,0,0), ANIMAL);
 }
 
-void PearTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder) 
+void PearTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -41,7 +41,7 @@ void PearTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
 }
 
 void CherryTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
-	    unsigned m_mineral_food_adder, unsigned m_silver_food_adder, unsigned m_gold_food_adder)
+	    unsigned m_mineral_food_adder, unsigned m_silver_food_adder, unsigned m_gold_food_adder) const
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -51,7 +51,7 @@ void CherryTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    AddIfAdjacent(spaces, loc, yield, Yield(m_gold_food_adder,0,0,0,0,0), GOLD);
 }
 
-void PlumTree::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) 
+void PlumTree::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
@@ -59,7 +59,7 @@ void PlumTree::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield,
       yield.m_natura += m_natura_adder;
 }
 
-void PlumTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_awe_adder, unsigned m_food_adder) 
+void PlumTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_awe_adder, unsigned m_food_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -69,7 +69,7 @@ void PlumTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
       yield.m_food += m_food_adder;
 }
 
-void OrangeTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) 
+void OrangeTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -88,35 +88,35 @@ void OrangeTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    }
 }
 
-void Dandelion::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder)
+void Dandelion::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const
 {
    yield = m_base_yield;
    GetAspects(0, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,0,0,0,m_natura_adder), PLANT);
 }
 
-void Dandelion::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder)
+void Dandelion::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), PLANT);
 }
 
-void Nightshade::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder)
+void Nightshade::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const
 {
    yield = m_base_yield;
    GetAspects(0, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,0,0,0,m_natura_adder), MINERAL);
 }
 
-void Nightshade::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder)
+void Nightshade::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), PLANT);
 }
 
-void Foxglove::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier)
+void Foxglove::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -124,7 +124,7 @@ void Foxglove::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
    yield.m_tech = int(spaces[loc].m_yield.m_natura * m_tech_multiplier);
 }
 
-void Sunflower::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) 
+void Sunflower::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
@@ -143,7 +143,7 @@ void Sunflower::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield
    }
 }
 
-void Sunflower::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Sunflower::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -158,20 +158,20 @@ void Sunflower::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    yield.m_awe  += food / 5;
 }
 
-void WitheredShrub::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) 
+void WitheredShrub::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,0,0,0,m_natura_adder), MINERAL);
 }
 
-void WitheredShrub::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void WitheredShrub::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 }
 
-void Agave::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Agave::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -179,7 +179,7 @@ void Agave::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
    AddIfAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), PLANT);
 }
 
-void BarrelCactus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_wealth_limit)
+void BarrelCactus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_wealth_limit) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -190,7 +190,7 @@ void BarrelCactus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yie
       yield.m_tech += m_tech_adder;
 }
 
-void DatePalm::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void DatePalm::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -198,7 +198,7 @@ void DatePalm::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
    AddAllInNaturaRange(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), ANIMAL);
 }
 
-void AloeVera::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder)
+void AloeVera::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -206,14 +206,14 @@ void AloeVera::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
    AddAllInNaturaRange(spaces, loc, yield, Yield(0,m_tech_adder,0,0,m_awe_adder,0), ANIMAL);
 }
 
-void DesertLime::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) 
+void DesertLime::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
    AddAllAdjacent(spaces, loc, yield, Yield(0,0,0,0,0,m_natura_adder), PLANT);
 }
 
-void DesertLime::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, unsigned m_tech_adder)
+void DesertLime::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, unsigned m_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -230,7 +230,7 @@ void DesertLime::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), PLANT);
 }
 
-void ChilliPepper::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_tech_adder)
+void ChilliPepper::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -241,7 +241,7 @@ void ChilliPepper::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yie
    AddAllAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), PLATINUM, GOLD);
 }
 
-void CardonCactus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void CardonCactus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -257,7 +257,7 @@ void CardonCactus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yie
 	 yield.m_wealth += wealth_yield[i]/2;
 }
 
-void OpiumPoppy::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void OpiumPoppy::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -271,28 +271,28 @@ void OpiumPoppy::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
       yield.m_tech += 100;
 }
 
-void Elderberry::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) 
+void Elderberry::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,0,0,0,m_natura_adder), ANIMAL);
 }
 
-void Elderberry::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) 
+void Elderberry::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(m_food_adder, 0,0,0,0,0), ANIMAL);
 }
 
-void Peppermint::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) 
+void Peppermint::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), MINERAL);
 }
 
-void Tomato::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier)
+void Tomato::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier) const
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -303,20 +303,20 @@ void Tomato::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, do
 
 }
 
-void Pineapple::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) 
+void Pineapple::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), MINERAL);
 }
 
-void Marshmallow::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder)
+void Marshmallow::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder) const
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,m_awe_adder,0), ANIMAL);
 }
-void Papaya::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, int m_natura_limit) 
+void Papaya::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder, int m_natura_limit) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -327,21 +327,21 @@ void Papaya::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    }
 }
 
-void WhiteWillow::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) 
+void WhiteWillow::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
    AddAllInNaturaRange(spaces, loc, yield, Yield(0,0,0,0,0,m_natura_adder), PLANT);
 }
 
-void WhiteWillow::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) 
+void WhiteWillow::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddAllInNaturaRange(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), PLANT);
 }
 
-void Coffea::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) 
+void Coffea::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
@@ -350,7 +350,7 @@ void Coffea::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, u
 	 spaces[i].m_yield.m_natura += m_natura_adder;
 }
 
-void Coffea::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier, unsigned m_food_adder, unsigned m_tech_adder) 
+void Coffea::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier, unsigned m_food_adder, unsigned m_tech_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -367,7 +367,7 @@ void Coffea::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    AddAllAdjacent(spaces, loc, yield, Yield(m_food_adder,m_tech_adder,0,0,0,0), PLANT);
 }
 
-void Hemp::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier, unsigned m_tech_adder, unsigned m_awe_adder)
+void Hemp::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier, unsigned m_tech_adder, unsigned m_awe_adder) const
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -382,14 +382,14 @@ void Hemp::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
    AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,m_awe_adder,0), SALT, ALUMINIUM);
 }
 
-void CacaoTree::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void CacaoTree::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,0,0,0,25), MINERAL);
 }
 
-void CacaoTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void CacaoTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -405,7 +405,7 @@ void CacaoTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       yield.m_food += 80;
 }
 
-void RubberTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void RubberTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 { 
    yield = m_base_yield;
    const unsigned natura = spaces[loc].m_yield.m_natura;
@@ -429,28 +429,28 @@ void RubberTree::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    AddAllAdjacent(spaces, loc, yield, Yield(0,55,0,0,10,0), OIL, ALUMINIUM, URANIUM);
 }
 
-void Kumquat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder)
+void Kumquat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,m_awe_adder,0), PLANT);
 }
 
-void Ginger::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) 
+void Ginger::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_natura_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
    AddAllAdjacent(spaces, loc, yield, Yield(0,0,0,0,0,m_natura_adder), ANIMAL);
 }
 
-void Ginger::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) 
+void Ginger::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), ANIMAL);
 }
 
-void Dragonfruit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_food_multiplier, double m_awe_multiplier)
+void Dragonfruit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_food_multiplier, double m_awe_multiplier) const
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -459,7 +459,7 @@ void Dragonfruit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
    yield.m_awe  += int(m_awe_multiplier * (spaces[loc].m_yield.m_natura / 2));
 }
 
-void Kiwifruit::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, int m_natura_adder) 
+void Kiwifruit::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, int m_natura_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
@@ -470,7 +470,7 @@ void Kiwifruit::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield
       }
 }
 
-void Kiwifruit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_tech_adder) 
+void Kiwifruit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_tech_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -483,7 +483,7 @@ void Kiwifruit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
       }
 }
 
-void Lychee::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_animal_food_adder) 
+void Lychee::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_animal_food_adder) const 
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -502,7 +502,7 @@ void Lychee::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 }
 
 void Cinnamomum::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
-      double m_wealth_multiplier, unsigned m_plant_food_adder, unsigned m_plant_adjacent_food_adder)
+      double m_wealth_multiplier, unsigned m_plant_food_adder, unsigned m_plant_adjacent_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -519,7 +519,7 @@ void Cinnamomum::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 }
 
 void TeaPlant::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
-	    unsigned m_awe_adder, unsigned m_tech_adder, int m_natura_limit)
+	    unsigned m_awe_adder, unsigned m_tech_adder, int m_natura_limit) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -533,7 +533,7 @@ void TeaPlant::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
    AddAllInNaturaRange(spaces, loc, yield, Yield(0,0,0,0,m_awe_adder,0), TEA_PLANT);
 }
 
-void Ginkgo::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) 
+void Ginkgo::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const 
 { 
    yield = m_base_yield;
    GetAspects(0, yield);
@@ -543,7 +543,7 @@ void Ginkgo::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       yield.m_natura += 15;
 }
 
-void Ginkgo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Ginkgo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 { 
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);

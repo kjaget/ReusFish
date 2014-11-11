@@ -12,7 +12,7 @@
 #include "SourceTypeList.hpp"
 
 class Space;
-class SourceList;
+typedef std::vector<const Source *> SourceList;
 
 // This source upgrades to <new_source> with <aspect1> or <aspect2>
 class Upgrade
@@ -117,8 +117,8 @@ class Source
 	 return hash;
       }
 
-      virtual void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) { yield.Reset(); }
-      virtual void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) { yield.Reset(); }
+      virtual void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const { yield.Reset(); } 
+      virtual void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const { yield.Reset(); }
       void GetAspects(unsigned natura, Yield &yield) const
       {
 	 for (unsigned i = 0; i < m_aspects.size(); i++)
@@ -137,6 +137,12 @@ class Source
 	 }
 	 return false;
       }
+      bool CanAddAspect(Aspects::aspect_t aspect) const
+      {
+	 if (m_aspects.size() < m_max_aspects)
+	    return true;
+	 return false;
+      }
       void RemoveNewestAspect(void)
       {
 	 if (m_aspects.size())
@@ -151,7 +157,7 @@ class Source
 	 return count;
       }
       virtual void GetUpgrades (biome_t biome, SourceList &upgrades) const;
-      virtual bool IsValidForBiome(biome_t biome) { return true; }
+      virtual bool IsValidForBiome(biome_t biome) const { return true; }
 
       virtual Source* Clone() const {if (this) return new Source(*this); else return NULL;}
       
@@ -333,6 +339,8 @@ class Source
       std::vector<Upgrade>           m_upgrades;
 };
 
+
+#if 0
 class SourceList
 {
    public:
@@ -388,4 +396,6 @@ class SourceList
 
       std::vector<Source *> m_sources;
 };
+#endif
+
 #endif

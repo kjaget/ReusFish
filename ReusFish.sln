@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Express 2012 for Windows Desktop
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReusFish", "ReusFish\ReusFish.vcxproj", "{7FD050DB-2591-47BD-B282-44682F1650C5}"
 EndProject
 Global
@@ -14,8 +14,8 @@ Global
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|Win32.ActiveCfg = Release|Win32
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|Win32.Build.0 = Release|Win32
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|Win32.Deploy.0 = Release|Win32
-		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|x64.ActiveCfg = Release|x64
-		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|x64.Build.0 = Release|x64
+		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|x64.ActiveCfg = Debug|Win32
+		{7FD050DB-2591-47BD-B282-44682F1650C5}.Debug|x64.Build.0 = Debug|Win32
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release|Win32.ActiveCfg = Release|Win32
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release|Win32.Build.0 = Release|Win32
 		{7FD050DB-2591-47BD-B282-44682F1650C5}.Release|Win32.Deploy.0 = Release|Win32

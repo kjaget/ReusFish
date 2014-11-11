@@ -10,7 +10,7 @@ class Giant
 {
    public:
       Giant();
-      std::vector<Source *> GetSources(biome_t biome) const;
+      void GetSources(biome_t biome, std::vector<const Source *> &sources) const;
 
    protected:
       unsigned      m_domestic_level;

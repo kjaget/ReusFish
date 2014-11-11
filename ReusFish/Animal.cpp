@@ -2,7 +2,7 @@
 
 #include "Animal.hpp"
 
-void Mackerel::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Mackerel::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    unsigned i;
    yield = m_base_yield;
@@ -22,21 +22,21 @@ void Mackerel::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       yield.m_range = 4;
 }
 
-void Clownfish::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
+void Clownfish::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), CLOWNFISH, PARROTFISH);
 }
 
-void Seabass::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Seabass::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfInRange(spaces, loc, yield, Yield(m_food_adder, 0, 0, 0, 0, 0), MACKEREL, CLOWNFISH);
 }
 
-void Parrotfish::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_tech_adder)
+void Parrotfish::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -56,7 +56,7 @@ void Parrotfish::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    }
 }
 
-void Marlin::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_wealth_adder, unsigned m_tech_adder)
+void Marlin::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_wealth_adder, unsigned m_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -64,7 +64,7 @@ void Marlin::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    AddAllInRange(spaces, loc, yield, Yield(0, m_tech_adder,m_food_wealth_adder,0,0,0), PARROTFISH);
 }
 
-void Anglerfish::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier, unsigned m_awe_adder)
+void Anglerfish::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -87,7 +87,7 @@ void Anglerfish::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
       yield.m_awe += m_awe_adder;
 }
 
-void Tuna::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_food_multiplier, unsigned m_food_adder)
+void Tuna::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_food_multiplier, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -111,7 +111,7 @@ void Tuna::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, doub
    yield.m_food += unsigned(neighboring_wealth.m_wealth * m_food_multiplier);
 }
 
-void WhiteShark::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void WhiteShark::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -122,7 +122,7 @@ void WhiteShark::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    yield.m_wealth += 40 - 2 * danger_yield[loc];
 }
 
-void BlueWhale::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void BlueWhale::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -139,21 +139,21 @@ void BlueWhale::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    AddAllInRange(spaces, loc, yield, Yield(5,0,0,0,5,0), TUNA, SEABASS, MACKEREL);
 }
 
-void Chicken::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Chicken::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfInRange(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), BLUEBERRY);
 }
 
-void Rabbit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Rabbit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfInRange(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), RABBIT);
 }
 
-void Beaver::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, int m_natura_limit)
+void Beaver::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, int m_natura_limit) const
 {
    unsigned i;
    yield = m_base_yield;
@@ -163,14 +163,14 @@ void Beaver::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 	 yield.m_wealth += m_wealth_adder;
 }
 
-void Deer::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder)
+void Deer::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfInRange(spaces, loc, yield, Yield(m_food_adder,0,0,0,m_awe_adder,0), DANDELION, FOXGLOVE,NIGHTSHADE);
 }
 
-void Boar::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_multiplier)
+void Boar::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_multiplier) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -178,7 +178,7 @@ void Boar::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 }
 
 void Wisent::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	            unsigned m_food_multiplier, unsigned m_food_adder, unsigned m_wealth_adder)
+	            unsigned m_food_multiplier, unsigned m_food_adder, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -186,7 +186,7 @@ void Wisent::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
    AddIfInRange(spaces, loc, yield, Yield(m_food_adder,0,m_wealth_adder,0,0,0), DEER, RABBIT);
 }
 
-void Moose::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Moose::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -196,14 +196,14 @@ void Moose::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    AddAllInRange(spaces, loc, yield, Yield(6,0,0,0,0,0), PLANT);
 }
 
-void Stoat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
+void Stoat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
    AddIfInRange(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), MINERAL);
 }
 
-void Fox::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
+void Fox::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -211,7 +211,7 @@ void Fox::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsig
 }
 
 void Wolf::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
-	    unsigned m_animal_wealth_adder, unsigned m_animal_danger_adder, unsigned m_mineral_wealth_adder)
+	    unsigned m_animal_wealth_adder, unsigned m_animal_danger_adder, unsigned m_mineral_wealth_adder) const
 {
    unsigned i;
    yield = m_base_yield;
@@ -227,7 +227,7 @@ void Wolf::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
       }
 }
 
-void Bear::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Bear::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -238,7 +238,7 @@ void Bear::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    AddAllInRange(spaces, loc, yield, Yield(3,0,0,0,0,0), DEER, WISENT, BOAR);
 }
 
-void KangarooRat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void KangarooRat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -246,7 +246,7 @@ void KangarooRat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
    AddIfInRange(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), MINERAL);
 }
 
-void DesertTortoise::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
+void DesertTortoise::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -254,7 +254,7 @@ void DesertTortoise::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &y
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), PLANT);
 }
 
-void Goat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Goat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -266,7 +266,7 @@ void Goat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
       }
 }
 
-void Armadillo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Armadillo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -274,7 +274,7 @@ void Armadillo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
    AddAllInRange(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), MINERAL);
 }
 
-void Rattlesnake::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
+void Rattlesnake::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -282,7 +282,7 @@ void Rattlesnake::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
    AddAllInRange(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), KANGAROO_RAT, ARMADILLO, DESERT_TORTOISE);
 }
 
-void Javelina::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_danger_adder)
+void Javelina::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_danger_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -290,7 +290,7 @@ void Javelina::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
    AddAllInRange(spaces, loc, yield, Yield(m_food_adder,0,0,m_danger_adder,0,0), JAVELINA);
 }
 
-void GreyFox::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
+void GreyFox::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -305,10 +305,10 @@ void GreyFox::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, u
    }
 
    if (m_base_yield.m_wealth >= m_wealth_adder)
-      m_base_yield.m_wealth += m_wealth_adder;
+      yield.m_wealth += m_wealth_adder;
 }
 
-void Coyote::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
+void Coyote::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -318,7 +318,7 @@ void Coyote::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    AddAllInRange(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), JAVELINA, GOAT);
 }
 
-void GilaMonster::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_adder, int m_natura_limit)
+void GilaMonster::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_adder, int m_natura_limit) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -331,7 +331,7 @@ void GilaMonster::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
    AddAllAdjacent(spaces, loc, yield, Yield(0,m_adder,0,0,0,0), MINERAL);
 }
 
-void BigHorn::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void BigHorn::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -346,7 +346,7 @@ void BigHorn::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       }
 }
 
-void Bobcat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Bobcat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -379,7 +379,7 @@ void Bobcat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    }
 }
 
-void Frog::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Frog::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -389,7 +389,7 @@ void Frog::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
       yield.m_range += 1;
 }
 
-void PoisonDartFrog::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
+void PoisonDartFrog::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -399,7 +399,7 @@ void PoisonDartFrog::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &y
       yield.m_range += 1;
 }
 
-void Otter::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder)
+void Otter::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -407,7 +407,7 @@ void Otter::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
    AddIfAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), PLANT);
 }
 
-void Iguana::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_danger_adder)
+void Iguana::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_danger_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -415,7 +415,7 @@ void Iguana::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,m_danger_adder,0,0), MINERAL);
 }
 
-void Tapir::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, int m_natura_limit)
+void Tapir::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, int m_natura_limit) const
 {
    unsigned i;
    yield = m_base_yield;
@@ -425,7 +425,7 @@ void Tapir::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 	 yield.m_food += m_food_adder;
 }
 
-void Buffalo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_food_multiplier, unsigned m_food_adder)
+void Buffalo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_food_multiplier, unsigned m_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -442,7 +442,7 @@ void Buffalo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, d
    }
 }
 
-void KomodoDragon::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
+void KomodoDragon::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -455,7 +455,7 @@ void KomodoDragon::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yie
    AddIfInRange(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), TAPIR);
 }
 
-void Orangutan::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Orangutan::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -488,7 +488,7 @@ void Orangutan::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    }
 }
 
-void Crocodile::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Crocodile::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -506,7 +506,7 @@ void Crocodile::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    }
 }
 
-void Marten::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_danger_adder)
+void Marten::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned m_danger_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -514,7 +514,7 @@ void Marten::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    AddIfAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,m_danger_adder,0,0), MINERAL);
 }
 
-void Monal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder)
+void Monal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -522,7 +522,7 @@ void Monal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,m_awe_adder,0), PLANT);
 }
 
-void MuskDeer::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_danger_limit, unsigned m_tech_limit)
+void MuskDeer::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_danger_limit, unsigned m_tech_limit) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -541,12 +541,12 @@ void MuskDeer::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
 }
 
 void Pangolin::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
-      unsigned m_shy_food_adder, int m_natura_limit, unsigned m_peaceful_food_adder, unsigned m_awe_adder)
+      unsigned m_shy_food_adder, int m_natura_limit, unsigned m_peaceful_food_adder, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
-   if(spaces[loc].m_yield.m_natura >= m_natura_limit)
+   if(spaces[loc].m_yield.m_natura >= m_natura_limit) 
    {
       yield.m_food += m_shy_food_adder;
       yield.m_awe  += m_awe_adder;
@@ -560,7 +560,7 @@ void Pangolin::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
 }
 
 void SnowLeopard::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
-      unsigned m_wealth_adder, unsigned m_peak_wealth_adder, unsigned m_danger_adder) 
+      unsigned m_wealth_adder, unsigned m_peak_wealth_adder, unsigned m_danger_adder) const 
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -570,7 +570,7 @@ void SnowLeopard::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
 }
 
 void LangurMonkey::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
-      unsigned m_wealth_adder, unsigned m_tech_adder)
+      unsigned m_wealth_adder, unsigned m_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -582,7 +582,7 @@ void LangurMonkey::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yie
 }
 
 void Yak::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
-      unsigned m_grazer_food_adder, unsigned m_no_animals_food_adder, unsigned m_one_animal_food_adder)
+      unsigned m_grazer_food_adder, unsigned m_no_animals_food_adder, unsigned m_one_animal_food_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -600,7 +600,7 @@ void Yak::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
       yield.m_food += m_one_animal_food_adder;
 }
 
-void Panda::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Panda::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);

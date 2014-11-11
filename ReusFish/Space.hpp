@@ -2,35 +2,41 @@
 #define SPACE_INC__
 
 #include "Source.hpp"
+#include "SourceContainer.hpp"
 
 class Space
 {
    public:
-      Space() : m_source(NULL) {}
-      Space(Source *source) : m_source(source->Clone()) {}
+      Space() : m_source(source_container.Add(new Source())) {}
+      Space(Source *source) : m_source(source_container.Add(source)) {}
+      Space(const Source *source) : m_source(source_container.Add(source->Clone())) {}
+      Space(const Source *source, int aspect) 
+      { 
+	 Source *l_source = source->Clone();
+	 l_source->AddAspect((Aspects::aspect_t)aspect);
+	 m_source = source_container.Add(l_source);
+      }
+      Space(const Space &space, int aspect) 
+      { 
+	 Source *l_source = space.m_source->Clone();
+	 l_source->AddAspect((Aspects::aspect_t)aspect);
+	 m_source = source_container.Add(l_source);
+      }
       Space(const Space &other)
       {
-		  if (other.m_source)
-	 m_source = other.m_source->Clone();
-		  else
-			  m_source = NULL;
+	 m_source = other.m_source;
 	 m_yield  = other.m_yield;
       }
       Space& operator=(const Space &rhs)
       {
 	 if (this != &rhs)
 	 {
-	    if (m_source)
-	       delete m_source;
-		if (rhs.m_source)
-	    m_source = rhs.m_source->Clone();
-		else
-			m_source = NULL;
+	    m_source = rhs.m_source;
 	    m_yield  = rhs.m_yield;
 	 }
 	 return *this;
       }
-      ~Space() { if (m_source) delete m_source; }
+      ~Space() { }
 
       bool operator==(const Space &rhs) const
       {
@@ -53,8 +59,8 @@ class Space
 	 }
 	 m_yield.Print();
       }
-      Source  *m_source;
-      Yield    m_yield;
+      const Source *m_source;
+      Yield         m_yield;
 };
 
 #endif

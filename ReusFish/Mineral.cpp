@@ -1,7 +1,7 @@
 #include "Mineral.hpp"
 
 
-void Agate::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder)
+void Agate::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -9,7 +9,7 @@ void Agate::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), ANIMAL);
 }
 
-void Quartz::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_wealth_adder)
+void Quartz::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -18,7 +18,7 @@ void Quartz::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), QUARTZ);
 }
 
-void Stone::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder)
+void Stone::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -26,7 +26,7 @@ void Stone::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
    AddIfAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), PLANT);
 }
 
-void Marble::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder)
+void Marble::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -34,7 +34,7 @@ void Marble::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
    AddIfAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,m_wealth_adder,0,0,0), MINERAL);
 }
 
-void Topaz::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder)
+void Topaz::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -42,7 +42,7 @@ void Topaz::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
    AddIfAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,m_awe_adder,0), PLANT);
 }
 
-void Salt::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder, unsigned m_awe_adder)
+void Salt::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -52,7 +52,7 @@ void Salt::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
    AddAllAdjacent(spaces, loc, yield, Yield(0,0,0,0,m_awe_adder,0), ANIMAL);
 }
 
-void Onyx::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_wealth_multiplier)
+void Onyx::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_wealth_multiplier) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -60,7 +60,7 @@ void Onyx::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, doub
    yield.m_wealth += int(spaces[loc].m_yield.m_natura * m_wealth_multiplier);
 }
 
-void Copper::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_animal_tech_adder, unsigned m_mountain_tech_adder)
+void Copper::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_animal_tech_adder, unsigned m_mountain_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -70,7 +70,7 @@ void Copper::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
       yield.m_tech += m_mountain_tech_adder;
 }
 
-void Phosphorus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder)
+void Phosphorus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -78,7 +78,7 @@ void Phosphorus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
    AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,m_awe_adder,0), PLANT);
 }
 
-void Iron::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier)
+void Iron::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_multiplier) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -89,7 +89,7 @@ void Iron::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
    yield.m_tech += m_tech_multiplier * danger[loc];
 }
 
-void Gold::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_rarity, unsigned m_rarity_subtract, unsigned m_wealth_adder)
+void Gold::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_rarity, unsigned m_rarity_subtract, unsigned m_wealth_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -106,7 +106,7 @@ void Gold::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
    AddAllAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), MINERAL);
 }
 
-void Silver::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_wealth_multiplier)
+void Silver::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_wealth_multiplier) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -135,7 +135,7 @@ void Silver::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, do
       }
 }
 
-void Platinum::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder)
+void Platinum::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -144,7 +144,7 @@ void Platinum::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
    AddAllAdjacent(spaces, loc, yield, Yield(0,0,m_wealth_adder,0,0,0), ANIMAL);
 }
 
-void Aluminium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_mineral_tech_adder, unsigned m_plant_tech_adder)
+void Aluminium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_mineral_tech_adder, unsigned m_plant_tech_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -160,7 +160,7 @@ void Aluminium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
    AddAllAdjacent(spaces, loc, yield, Yield(0,m_plant_tech_adder,0,0,0,0), PLANT);
 }
 
-void Zinc::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier, unsigned m_awe_adder)
+void Zinc::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier, unsigned m_awe_adder) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -176,7 +176,7 @@ void Zinc::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, doub
    AddAllAdjacent(spaces, loc, yield, Yield(0,0,0,0,m_awe_adder,0), COPPER);
 }
 
-void Ruby::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Ruby::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -186,7 +186,7 @@ void Ruby::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield)
 	 spaces[i].m_yield.m_natura += 15;
 }
 
-void Ruby::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Ruby::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -218,7 +218,7 @@ void Ruby::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    }
 }
 
-void Diamond::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Diamond::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -245,7 +245,7 @@ void Diamond::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       }
 }
 
-void Coal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Coal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -271,7 +271,7 @@ void Coal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    yield.m_awe    -=     awe;
 }
    
-void Oil::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Oil::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -304,7 +304,7 @@ void Oil::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
    yield.m_food += 5 * animal_count;
 }
 
-void Uranium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Uranium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
@@ -331,7 +331,7 @@ void Uranium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
       }
 }
 
-void Fluorite::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield)
+void Fluorite::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
 {
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
