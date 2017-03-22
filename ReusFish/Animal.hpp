@@ -3412,7 +3412,7 @@ class MuskDeer : public Animal
       bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
       {
 	 bool rc;
-	 if (rc = PostProcess(spaces, loc, yield, 2, 10, 1))
+	 if ((rc = PostProcess(spaces, loc, yield, 2, 10, 1)))
 	 {
 	    global_yield.clear();
 	    global_yield.resize(spaces.size());
@@ -3481,6 +3481,7 @@ class Great_MuskDeer : public MuskDeer
       }
       bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
       {
+		  (void)global_yield;
 	 return MuskDeer::PostProcess(spaces, loc, yield, 3, 20, 2);
       }
       Great_MuskDeer* Clone() const {return new Great_MuskDeer(*this);}
@@ -3519,6 +3520,7 @@ class Superior_MuskDeer : public MuskDeer
       }
       bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
       {
+		  (void)global_yield;
 	 return MuskDeer::PostProcess(spaces, loc, yield, 4, 30, 3);
       }
       Superior_MuskDeer* Clone() const {return new Superior_MuskDeer(*this);}
