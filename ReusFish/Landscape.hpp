@@ -28,13 +28,13 @@ class Landscape
       {
 	 return m_spaces == rhs.m_spaces;
       }
-      unsigned Hash(void) const
+      size_t Hash(void) const
       {
-	 unsigned hash = 0x600DF00D;
+	 size_t hash = 0x600DF00D;
 
 	 for (unsigned i = 0; i < m_spaces.size(); i++)
 	 {
-	    unsigned this_hash = m_spaces[i].Hash();
+	    size_t this_hash = m_spaces[i].Hash();
 	    hash += this_hash << (i%32);
 	    hash += (this_hash & ~0x80000000U) >> (32 - (i%32));
 	 }
