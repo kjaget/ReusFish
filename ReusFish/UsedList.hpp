@@ -47,7 +47,7 @@ class UsedListContainer
 				m_hash += rot_val;
 			}
 		}
-		unsigned Hash(void) const {return m_hash; }
+		size_t Hash(void) const {return m_hash; }
 	protected:
 		const Source **m_list;
 		unsigned char  m_size;

@@ -42,7 +42,7 @@ class Space
       {
 	 return (*m_source == *rhs.m_source);
       }
-      unsigned Hash (void) const
+      size_t Hash (void) const
       {
 	 if (m_source)
 	    return m_source->Hash();

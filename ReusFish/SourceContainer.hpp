@@ -15,7 +15,7 @@ class SourceContainer
       }
       const Source *Add(Source *source)
       {
-	 unsigned hash = source->Hash();
+	 size_t hash = source->Hash();
 	 auto range = m_hash.equal_range(hash);
 	 bool found;
 
@@ -39,7 +39,7 @@ class SourceContainer
       }
       const Source *Add(const Source *source)
       {
-	 unsigned hash = source->Hash();
+	 size_t hash = source->Hash();
 	 auto range = m_hash.equal_range(hash);
 	 bool found;
 
