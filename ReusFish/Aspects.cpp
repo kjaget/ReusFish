@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 
-#include "aspects.hpp"
+#include "Aspects.hpp"
 
 Aspects::Aspects()
 {

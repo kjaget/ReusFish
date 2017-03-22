@@ -6,7 +6,7 @@
 #include <cstring>
 
 #include "Aspects.hpp"
-#include "biome.hpp"
+#include "Biome.hpp"
 #include "SourceClass.hpp"
 #include "SourceType.hpp"
 #include "SourceTypeList.hpp"
@@ -47,12 +47,12 @@ class Source
    public :
       Source() { Create(); }
       Source(const Source &original) :
-	 m_name(original.m_name),
 	 m_class(original.m_class),
 	 m_type(original.m_type),
 	 m_level(original.m_level),
-	 m_base_yield(original.m_base_yield),
 	 m_max_aspects(original.m_max_aspects),
+	 m_name(original.m_name),
+	 m_base_yield(original.m_base_yield),
 	 m_aspects(original.m_aspects),
 	 m_upgrades(original.m_upgrades)
       {}

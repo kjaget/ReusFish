@@ -1,5 +1,5 @@
 #include <iostream>
-#include "yield.hpp"
+#include "Yield.hpp"
 
 Yield::Yield() :
    m_food   (0),
