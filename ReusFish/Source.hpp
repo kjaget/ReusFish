@@ -3,7 +3,7 @@
 
 #include <algorithm>
 #include <iostream>
-#include <string>
+#include <cstring>
 
 #include "Aspects.hpp"
 #include "biome.hpp"

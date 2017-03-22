@@ -5,15 +5,17 @@
 #include <unordered_map>
 
 class Source;
-
+namespace std {
 template <typename T, typename U> 
-struct std::hash<std::pair<T,U> > 
+class hash<pair<T,U> > 
 { 
-   std::size_t operator() (std::pair<T,U> orig) const
+   public:
+   size_t operator() (const std::pair<T,U> &orig) const
    { 
-      return std::hash<T>()(orig.first) + 31 * std::hash<U>()(orig.second); 
+      return hash<size_t>()(static_cast<size_t>(orig.first)) + 31 * hash<size_t>()(static_cast<size_t>(orig.second)); 
    }
 };
+}
 
 template <typename Key1, typename Key2> 
 class SourceFactory

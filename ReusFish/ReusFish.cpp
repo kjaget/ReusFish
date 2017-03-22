@@ -5,6 +5,7 @@
 #include <deque>
 #include <string>
 #include <vector>
+#include <limits>
 
 #include "Aspects.hpp"
 #include "Animal.hpp"
@@ -408,7 +409,7 @@ UsedList<unsigned, Landscape> used_list;
 void remaining_moves(unsigned initial_pos)
 {
    Landscape landscape;
-   int best_score = INT_MIN;
+   int best_score = std::numeric_limits<int>::min();
    bool logging = false;
    unsigned upgrades_added = 0;
    unsigned aspects_added = 0;
@@ -496,7 +497,7 @@ void initial_moves(Landscape &spaces, int pos)
 {
    if (pos < 0)
    {
-      static int best_score = INT_MIN;
+      static int best_score = std::numeric_limits<int>::min();
 
       spaces.SetYield();
       int score = spaces.Score();
