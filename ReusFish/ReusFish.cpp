@@ -39,6 +39,8 @@ class City : public Building
 
       City(unsigned start, unsigned end)	
       {
+		  (void)start;
+		  (void)end;
 	 Create();
       }
 
@@ -70,6 +72,7 @@ class Building1 : public Building
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
+		  (void)mask;
 	 Yield dummy_yield;
 	 AddAllInRange(spaces, loc, dummy_yield, m_start, m_end, Yield(0,10,5,0,0,0), MINERAL);
 	 if (dummy_yield.m_tech > 30)
@@ -109,6 +112,7 @@ class Building2 : public Building
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
+		  (void)mask;
 	 AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), COFFEA, TEA_PLANT);
 
 	 std::vector<unsigned> tech_yield;
@@ -143,6 +147,8 @@ class Mill: public Building
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
+		  (void)mask;
+		  (void)loc;
 	 unsigned plant_count = 0;
 	 for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
 	    if (spaces[i].m_source->Class() == PLANT)
@@ -153,8 +159,8 @@ class Mill: public Building
 
 	 unsigned animal_count = 0;
 	 for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
-	    if ((spaces[i].m_source->Class() == BOAR) ||
-		  (spaces[i].m_source->Class() == RABBIT))
+	    if ((spaces[i].m_source->Type() == BOAR) ||
+		  (spaces[i].m_source->Type() == RABBIT))
 	       animal_count += 1;
 
 	 if (animal_count == 1)
@@ -186,6 +192,8 @@ class Circus: public Building
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
+		  (void)mask;
+		  (void)loc;
 	 bool seen_flag[BIOME_T_MAX] = {0};
 
 	 seen_flag[BIOME_NONE] = true;
@@ -226,6 +234,8 @@ class Market: public Building
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
+		  (void)mask;
+		  (void)loc;
 	 unsigned animal_count = 0;
 	 for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
 	    if (spaces[i].m_source->Class() == ANIMAL)
@@ -270,6 +280,8 @@ class Multinational: public Building
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
+		  (void)mask;
+		  (void)loc;
 	 for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
 	    if ((spaces[i].m_source->Class() == ANIMAL) ||
 	        (spaces[i].m_source->Class() == MINERAL) ||
@@ -307,11 +319,11 @@ class Bank: public Building
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
       {
+		  (void)mask;
 	 AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(25,0,25,0,0,0), LYCHEE, TOPAZ, CHILLI_PEPPER);
 
 	 std::vector<unsigned> wealth_yield;
 	 GetWealth(spaces, loc, (int)loc - 1, loc + 1, yield, wealth_yield);
-	 unsigned food = 0;
 	 for (unsigned i = loc - 1; i <= loc + 1; i++)
 	    if (i != loc)
 	       yield.m_wealth += wealth_yield[i];
@@ -333,6 +345,7 @@ class Lighthouse : public Building
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const 
       {
+		  (void)loc;
 	 yield.Reset();
 
 	 unsigned seen_flag[SOURCE_TYPE_T_MAX] = {0};
@@ -374,6 +387,7 @@ class Harbor : public Building
 
       void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
       {
+		  (void)loc;
 	 yield.Reset();
 
 	 // hard coded city extents for now...
@@ -543,9 +557,9 @@ Yield Landscape::m_goal  = Yield(200, 200, 1250, 0, 0, 0);
 
 int main (int argc, char **argv)
 {
+	(void)argc;
+	(void)argv;
    Landscape spaces(15);
-
-   unsigned i;
 
    biome_list[0] = MOUNTAIN;
    biome_list[1] = MOUNTAIN;

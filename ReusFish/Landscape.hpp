@@ -191,8 +191,8 @@ class Landscape
       int Score(const Yield &goal, unsigned start_pos, unsigned end_pos) const
       {
 	 int score = 0;
-	 unsigned superior_count = 0;
-	 unsigned greater_count = 0;
+	 //unsigned superior_count = 0;
+	 //unsigned greater_count = 0;
 	 Yield yield;
 	 for (unsigned i = start_pos; (i <= end_pos) && (i < size()); i++)
 	 {

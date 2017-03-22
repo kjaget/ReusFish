@@ -12,6 +12,8 @@ class Plant : public Source
       Plant() { m_class = PLANT; m_base_yield.m_natura_range = 2; }
       void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const 
       { 
+		  (void)spaces;
+		  (void)loc;
 	 yield = m_base_yield;
 	 GetAspects(0, yield);
       }
@@ -1282,13 +1284,13 @@ class BarrelCactus : public Plant
       }
       bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
       {
-	 bool rc;
-	 if (rc = PostProcess(spaces, loc, yield, 5, 8))
-	 {
-	    global_yield.clear();
-	    global_yield.resize(spaces.size());
-	 }
-	 return rc;
+		  bool rc = PostProcess(spaces, loc, yield, 5, 8);
+		  if (rc)
+		  {
+			  global_yield.clear();
+			  global_yield.resize(spaces.size());
+		  }
+		  return rc;
       }
       bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_limit, unsigned m_tech_adder)
       {
@@ -1333,6 +1335,7 @@ class Great_BarrelCactus : public BarrelCactus
       Great_BarrelCactus* Clone() const {return new Great_BarrelCactus(*this);}
       bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
       {
+		  (void)global_yield;
 	 return BarrelCactus::PostProcess(spaces, loc, yield, 10, 20);
       }
 };
@@ -1363,6 +1366,7 @@ class Superior_BarrelCactus : public BarrelCactus
       Superior_BarrelCactus* Clone() const {return new Superior_BarrelCactus(*this);}
       bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
       {
+		  (void)global_yield;
 	 return BarrelCactus::PostProcess(spaces, loc, yield, 15, 40);
       }
 };
