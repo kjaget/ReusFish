@@ -80,6 +80,4 @@ class Giants
 
 };
 
-extern Giants giants;
 #endif
-

@@ -208,5 +208,3 @@ SourceList Giants::GetSources(biome_t biome) const
    m_swamp_giant.GetSources(biome, sources);
    return sources;
 }
-
-Giants giants;

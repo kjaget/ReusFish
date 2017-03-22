@@ -507,7 +507,7 @@ void remaining_moves(unsigned initial_pos)
    }
 }
 
-void initial_moves(Landscape &spaces, int pos)
+void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 {
    if (pos < 0)
    {
@@ -542,11 +542,11 @@ void initial_moves(Landscape &spaces, int pos)
       for (unsigned i = 0; i < source_list.size(); i++)
       {
 	 spaces[pos] = Space(source_list[i]);
-	 initial_moves(spaces, pos - 1);
+	 initial_moves(spaces, pos - 1, giants);
       }
    }
    else
-      initial_moves(spaces, pos - 1);
+      initial_moves(spaces, pos - 1, giants);
 }
 
 static unsigned city_start = 0;
@@ -560,6 +560,7 @@ int main (int argc, char **argv)
 	(void)argc;
 	(void)argv;
    Landscape spaces(15);
+   Giants giants;
 
    biome_list[0] = MOUNTAIN;
    biome_list[1] = MOUNTAIN;
@@ -593,7 +594,7 @@ int main (int argc, char **argv)
    spaces[13] = Space(new Source());
    spaces[14] = Space(new Source());
 
-   initial_moves(spaces,12);
+   initial_moves(spaces,12,giants);
    remaining_moves(12);
 
    return 0;
