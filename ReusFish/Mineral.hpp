@@ -54,6 +54,8 @@ class Mineral : public Source
 	       return m_biome_mask & MASK_SWAMP  ? true : false;
 	    case MOUNTAIN :
 	       return m_biome_mask & MASK_MOUNTAIN ? true : false;
+		default:
+		   break;
 	 }
 	 return false;
       }

@@ -3,6 +3,7 @@
 
 void Agate::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -11,6 +12,7 @@ void Agate::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 
 void Quartz::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_wealth_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -20,6 +22,7 @@ void Quartz::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 
 void Stone::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -28,6 +31,7 @@ void Stone::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 
 void Marble::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -36,6 +40,7 @@ void Marble::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 
 void Topaz::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -44,6 +49,7 @@ void Topaz::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 
 void Salt::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_tech_adder, unsigned m_awe_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -54,6 +60,7 @@ void Salt::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 
 void Onyx::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_wealth_multiplier, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -62,6 +69,7 @@ void Onyx::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, doub
 
 void Copper::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_animal_tech_adder, unsigned m_mountain_tech_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -72,6 +80,7 @@ void Copper::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 
 void Phosphorus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_awe_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -93,6 +102,7 @@ void Iron::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 
 void Gold::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_rarity, unsigned m_rarity_subtract, unsigned m_wealth_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -145,6 +155,7 @@ void Silver::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, do
 
 void Platinum::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_adder, unsigned m_awe_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -154,6 +165,7 @@ void Platinum::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
 
 void Aluminium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_mineral_tech_adder, unsigned m_plant_tech_adder, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -198,6 +210,7 @@ void Ruby::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) con
 
 void Ruby::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -233,6 +246,7 @@ void Ruby::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 
 void Diamond::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -292,6 +306,7 @@ void Coal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
    
 void Oil::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -325,6 +340,7 @@ void Oil::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsig
 
 void Uranium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
@@ -352,6 +368,7 @@ void Uranium::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, u
 
 void Fluorite::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
+	(void)mask;
    yield = m_base_yield;
    GetAspects(spaces[loc].m_yield.m_natura, yield);
 
