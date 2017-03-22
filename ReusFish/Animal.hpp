@@ -20,7 +20,7 @@ class Mackerel : public Animal
 			Create();
 		}
 
-		Mackerel(const std::vector<Aspects::aspect_t> aspects)
+		Mackerel(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -55,7 +55,7 @@ class Great_Mackerel : public Mackerel
 			Create();
 		}
 
-		Great_Mackerel(const std::vector<Aspects::aspect_t> aspects)
+		Great_Mackerel(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -79,7 +79,7 @@ class Superior_Mackerel : public Mackerel
 			Create();
 		}
 
-		Superior_Mackerel(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Mackerel(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -103,7 +103,7 @@ class Clownfish : public Animal
 			Create();
 		}
 
-		Clownfish(const std::vector<Aspects::aspect_t> aspects)
+		Clownfish(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -141,7 +141,7 @@ class Great_Clownfish : public Clownfish
 			Create();
 		}
 
-		Great_Clownfish(const std::vector<Aspects::aspect_t> aspects)
+		Great_Clownfish(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -170,7 +170,7 @@ class Superior_Clownfish : public Clownfish
 			Create();
 		}
 
-		Superior_Clownfish(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Clownfish(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -201,7 +201,7 @@ class Seabass: public Animal
 			Create();
 		}
 
-		Seabass(const std::vector<Aspects::aspect_t> aspects)
+		Seabass(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -240,7 +240,7 @@ class Great_Seabass: public Seabass
 			Create();
 		}
 
-		Great_Seabass(const std::vector<Aspects::aspect_t> aspects)
+		Great_Seabass(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -269,7 +269,7 @@ class Superior_Seabass: public Seabass
 			Create();
 		}
 
-		Superior_Seabass(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Seabass(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -297,7 +297,7 @@ class Parrotfish: public Animal
 			Create();
 		}
 
-		Parrotfish(const std::vector<Aspects::aspect_t> aspects)
+		Parrotfish(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -337,7 +337,7 @@ class Great_Parrotfish: public Parrotfish
 			Create();
 		}
 
-		Great_Parrotfish(const std::vector<Aspects::aspect_t> aspects)
+		Great_Parrotfish(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -365,7 +365,7 @@ class Superior_Parrotfish: public Parrotfish
 			Create();
 		}
 
-		Superior_Parrotfish(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Parrotfish(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -395,7 +395,7 @@ class Marlin : public Animal
 			Create();
 		}
 
-		Marlin(const std::vector<Aspects::aspect_t> aspects)
+		Marlin(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -434,7 +434,7 @@ class Great_Marlin : public Marlin
 			Create();
 		}
 
-		Great_Marlin(const std::vector<Aspects::aspect_t> aspects)
+		Great_Marlin(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -462,7 +462,7 @@ class Anglerfish: public Animal
 			Create();
 		}
 
-		Anglerfish(const std::vector<Aspects::aspect_t> aspects)
+		Anglerfish(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -500,7 +500,7 @@ class Great_Anglerfish: public Anglerfish
 			Create();
 		}
 
-		Great_Anglerfish(const std::vector<Aspects::aspect_t> aspects)
+		Great_Anglerfish(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -529,7 +529,7 @@ class Tuna: public Animal
 			Create();
 		}
 
-		Tuna(const std::vector<Aspects::aspect_t> aspects)
+		Tuna(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -567,7 +567,7 @@ class Great_Tuna: public Tuna
 			Create();
 		}
 
-		Great_Tuna(const std::vector<Aspects::aspect_t> aspects)
+		Great_Tuna(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -595,7 +595,7 @@ class WhiteShark: public Animal
 			Create();
 		}
 
-		WhiteShark(const std::vector<Aspects::aspect_t> aspects)
+		WhiteShark(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -630,7 +630,7 @@ class BlueWhale: public Animal
 			Create();
 		}
 
-		BlueWhale(const std::vector<Aspects::aspect_t> aspects)
+		BlueWhale(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -656,6 +656,39 @@ class BlueWhale: public Animal
 		BlueWhale* Clone() const {return new BlueWhale(*this);}
 };
 
+class Dolphin: public Animal
+{
+	public:
+		Dolphin()
+		{
+			Create();
+		}
+
+		Dolphin(const std::vector<Aspects::aspect_t> &aspects)
+		{
+			Create();
+			m_aspects = aspects;
+		}
+
+		void Create(void)
+		{
+			m_name = "Dolphin";
+			m_type = BLUE_WHALE;
+			m_base_yield.m_food  = 2;
+			m_base_yield.m_wealth = 2;
+			m_max_aspects = 7;
+			m_level = 3;
+			AddUpgrades();
+		}
+
+		void AddUpgrades(void)
+		{
+			m_upgrades.clear();
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Dolphin* Clone() const {return new Dolphin(*this);}
+};
 class Chicken : public Animal
 {
 	public:
@@ -664,7 +697,7 @@ class Chicken : public Animal
 			Create();
 		}
 
-		Chicken(const std::vector<Aspects::aspect_t> aspects)
+		Chicken(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -703,7 +736,7 @@ class Great_Chicken : public Chicken
 			Create();
 		}
 
-		Great_Chicken(const std::vector<Aspects::aspect_t> aspects)
+		Great_Chicken(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -732,7 +765,7 @@ class Superior_Chicken : public Chicken
 			Create();
 		}
 
-		Superior_Chicken(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Chicken(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -761,7 +794,7 @@ class Rabbit : public Animal
 			Create();
 		}
 
-		Rabbit(const std::vector<Aspects::aspect_t> aspects)
+		Rabbit(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -800,7 +833,7 @@ class Great_Rabbit : public Rabbit
 			Create();
 		}
 
-		Great_Rabbit(const std::vector<Aspects::aspect_t> aspects)
+		Great_Rabbit(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -829,7 +862,7 @@ class Superior_Rabbit : public Rabbit
 			Create();
 		}
 
-		Superior_Rabbit(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Rabbit(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -858,7 +891,7 @@ class Beaver: public Animal
 			Create();
 		}
 
-		Beaver(const std::vector<Aspects::aspect_t> aspects)
+		Beaver(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -898,7 +931,7 @@ class Great_Beaver: public Beaver
 			Create();
 		}
 
-		Great_Beaver(const std::vector<Aspects::aspect_t> aspects)
+		Great_Beaver(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -928,7 +961,7 @@ class Superior_Beaver: public Beaver
 			Create();
 		}
 
-		Superior_Beaver(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Beaver(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -958,7 +991,7 @@ class Deer: public Animal
 			Create();
 		}
 
-		Deer(const std::vector<Aspects::aspect_t> aspects)
+		Deer(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -996,7 +1029,7 @@ class Great_Deer: public Deer
 			Create();
 		}
 
-		Great_Deer(const std::vector<Aspects::aspect_t> aspects)
+		Great_Deer(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1026,7 +1059,7 @@ class Superior_Deer: public Deer
 			Create();
 		}
 
-		Superior_Deer(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Deer(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1055,7 +1088,7 @@ class Boar : public Animal
 			Create();
 		}
 
-		Boar(const std::vector<Aspects::aspect_t> aspects)
+		Boar(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1096,7 +1129,7 @@ class Great_Boar : public Boar
 			Create();
 		}
 
-		Great_Boar(const std::vector<Aspects::aspect_t> aspects)
+		Great_Boar(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1127,7 +1160,7 @@ class Superior_Boar : public Boar
 			Create();
 		}
 
-		Superior_Boar(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Boar(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1158,7 +1191,7 @@ class Wisent: public Animal
 			Create();
 		}
 
-		Wisent(const std::vector<Aspects::aspect_t> aspects)
+		Wisent(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1199,7 +1232,7 @@ class Great_Wisent: public Wisent
 			Create();
 		}
 
-		Great_Wisent(const std::vector<Aspects::aspect_t> aspects)
+		Great_Wisent(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1229,7 +1262,7 @@ class Moose: public Animal
 			Create();
 		}
 
-		Moose(const std::vector<Aspects::aspect_t> aspects)
+		Moose(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1263,7 +1296,7 @@ class Stoat : public Animal
 			Create();
 		}
 
-		Stoat(const std::vector<Aspects::aspect_t> aspects)
+		Stoat(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1303,7 +1336,7 @@ class Great_Stoat : public Stoat
 			Create();
 		}
 
-		Great_Stoat(const std::vector<Aspects::aspect_t> aspects)
+		Great_Stoat(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1332,7 +1365,7 @@ class Superior_Stoat : public Stoat
 			Create();
 		}
 
-		Superior_Stoat(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Stoat(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1361,7 +1394,7 @@ class Fox : public Animal
 			Create();
 		}
 
-		Fox(const std::vector<Aspects::aspect_t> aspects)
+		Fox(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1401,7 +1434,7 @@ class Great_Fox : public Fox
 			Create();
 		}
 
-		Great_Fox(const std::vector<Aspects::aspect_t> aspects)
+		Great_Fox(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1431,7 +1464,7 @@ class Superior_Fox : public Fox
 			Create();
 		}
 
-		Superior_Fox(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Fox(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1461,7 +1494,7 @@ class Wolf: public Animal
 			Create();
 		}
 
-		Wolf(const std::vector<Aspects::aspect_t> aspects)
+		Wolf(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1502,7 +1535,7 @@ class Great_Wolf: public Wolf
 			Create();
 		}
 
-		Great_Wolf(const std::vector<Aspects::aspect_t> aspects)
+		Great_Wolf(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1532,7 +1565,7 @@ class Bear: public Animal
 			Create();
 		}
 
-		Bear(const std::vector<Aspects::aspect_t> aspects)
+		Bear(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1567,7 +1600,7 @@ class KangarooRat : public Animal
 			Create();
 		}
 
-		KangarooRat(const std::vector<Aspects::aspect_t> aspects)
+		KangarooRat(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1606,7 +1639,7 @@ class Great_KangarooRat : public KangarooRat
 			Create();
 		}
 
-		Great_KangarooRat(const std::vector<Aspects::aspect_t> aspects)
+		Great_KangarooRat(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1635,7 +1668,7 @@ class Superior_KangarooRat : public KangarooRat
 			Create();
 		}
 
-		Superior_KangarooRat(const std::vector<Aspects::aspect_t> aspects)
+		Superior_KangarooRat(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1664,7 +1697,7 @@ class DesertTortoise : public Animal
 			Create();
 		}
 
-		DesertTortoise(const std::vector<Aspects::aspect_t> aspects)
+		DesertTortoise(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1703,7 +1736,7 @@ class Great_DesertTortoise : public DesertTortoise
 			Create();
 		}
 
-		Great_DesertTortoise(const std::vector<Aspects::aspect_t> aspects)
+		Great_DesertTortoise(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1732,7 +1765,7 @@ class Superior_DesertTortoise : public DesertTortoise
 			Create();
 		}
 
-		Superior_DesertTortoise(const std::vector<Aspects::aspect_t> aspects)
+		Superior_DesertTortoise(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1761,7 +1794,7 @@ class Goat : public Animal
 			Create();
 		}
 
-		Goat(const std::vector<Aspects::aspect_t> aspects)
+		Goat(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1800,7 +1833,7 @@ class Great_Goat : public Goat
 			Create();
 		}
 
-		Great_Goat(const std::vector<Aspects::aspect_t> aspects)
+		Great_Goat(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1829,7 +1862,7 @@ class Superior_Goat : public Goat
 			Create();
 		}
 
-		Superior_Goat(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Goat(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1858,7 +1891,7 @@ class Armadillo : public Animal
 			Create();
 		}
 
-		Armadillo(const std::vector<Aspects::aspect_t> aspects)
+		Armadillo(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1898,7 +1931,7 @@ class Great_Armadillo : public Armadillo
 			Create();
 		}
 
-		Great_Armadillo(const std::vector<Aspects::aspect_t> aspects)
+		Great_Armadillo(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1928,7 +1961,7 @@ class Superior_Armadillo : public Armadillo
 			Create();
 		}
 
-		Superior_Armadillo(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Armadillo(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1958,7 +1991,7 @@ class Rattlesnake : public Animal
 			Create();
 		}
 
-		Rattlesnake(const std::vector<Aspects::aspect_t> aspects)
+		Rattlesnake(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2008,7 +2041,7 @@ class Great_Rattlesnake : public Rattlesnake
 			Create();
 		}
 
-		Great_Rattlesnake(const std::vector<Aspects::aspect_t> aspects)
+		Great_Rattlesnake(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2038,7 +2071,7 @@ class Superior_Rattlesnake : public Rattlesnake
 			Create();
 		}
 
-		Superior_Rattlesnake(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Rattlesnake(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2068,7 +2101,7 @@ class Javelina : public Animal
 			Create();
 		}
 
-		Javelina(const std::vector<Aspects::aspect_t> aspects)
+		Javelina(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2106,7 +2139,7 @@ class Great_Javelina : public Javelina
 			Create();
 		}
 
-		Great_Javelina(const std::vector<Aspects::aspect_t> aspects)
+		Great_Javelina(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2135,7 +2168,7 @@ class Superior_Javelina : public Javelina
 			Create();
 		}
 
-		Superior_Javelina(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Javelina(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2164,7 +2197,7 @@ class GreyFox : public Animal
 			Create();
 		}
 
-		GreyFox(const std::vector<Aspects::aspect_t> aspects)
+		GreyFox(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2204,7 +2237,7 @@ class Great_GreyFox : public GreyFox
 			Create();
 		}
 
-		Great_GreyFox(const std::vector<Aspects::aspect_t> aspects)
+		Great_GreyFox(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2234,7 +2267,7 @@ class Superior_GreyFox : public GreyFox
 			Create();
 		}
 
-		Superior_GreyFox(const std::vector<Aspects::aspect_t> aspects)
+		Superior_GreyFox(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2264,7 +2297,7 @@ class Coyote : public Animal
 			Create();
 		}
 
-		Coyote(const std::vector<Aspects::aspect_t> aspects)
+		Coyote(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2306,7 +2339,7 @@ class Great_Coyote : public Coyote
 			Create();
 		}
 
-		Great_Coyote(const std::vector<Aspects::aspect_t> aspects)
+		Great_Coyote(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2337,7 +2370,7 @@ class GilaMonster : public Animal
 			Create();
 		}
 
-		GilaMonster(const std::vector<Aspects::aspect_t> aspects)
+		GilaMonster(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2377,7 +2410,7 @@ class Great_GilaMonster : public GilaMonster
 			Create();
 		}
 
-		Great_GilaMonster(const std::vector<Aspects::aspect_t> aspects)
+		Great_GilaMonster(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2407,7 +2440,7 @@ class BigHorn : public Animal
 			Create();
 		}
 
-		BigHorn(const std::vector<Aspects::aspect_t> aspects)
+		BigHorn(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2440,7 +2473,7 @@ class Bobcat : public Animal
 			Create();
 		}
 
-		Bobcat(const std::vector<Aspects::aspect_t> aspects)
+		Bobcat(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2475,7 +2508,7 @@ class Frog : public Animal
 			Create();
 		}
 
-		Frog(const std::vector<Aspects::aspect_t> aspects)
+		Frog(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2517,7 +2550,7 @@ class Great_Frog : public Frog
 			Create();
 		}
 
-		Great_Frog(const std::vector<Aspects::aspect_t> aspects)
+		Great_Frog(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2546,7 +2579,7 @@ class Superior_Frog : public Frog
 			Create();
 		}
 
-		Superior_Frog(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Frog(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2575,7 +2608,7 @@ class PoisonDartFrog : public Animal
 			Create();
 		}
 
-		PoisonDartFrog(const std::vector<Aspects::aspect_t> aspects)
+		PoisonDartFrog(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2617,7 +2650,7 @@ class Great_PoisonDartFrog : public PoisonDartFrog
 			Create();
 		}
 
-		Great_PoisonDartFrog(const std::vector<Aspects::aspect_t> aspects)
+		Great_PoisonDartFrog(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2646,7 +2679,7 @@ class Superior_PoisonDartFrog : public PoisonDartFrog
 			Create();
 		}
 
-		Superior_PoisonDartFrog(const std::vector<Aspects::aspect_t> aspects)
+		Superior_PoisonDartFrog(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2675,7 +2708,7 @@ class Otter : public Animal
 			Create();
 		}
 
-		Otter(const std::vector<Aspects::aspect_t> aspects)
+		Otter(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2714,7 +2747,7 @@ class Great_Otter : public Otter
 			Create();
 		}
 
-		Great_Otter(const std::vector<Aspects::aspect_t> aspects)
+		Great_Otter(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2743,7 +2776,7 @@ class Superior_Otter : public Otter
 			Create();
 		}
 
-		Superior_Otter(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Otter(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2772,7 +2805,7 @@ class Iguana : public Animal
 			Create();
 		}
 
-		Iguana(const std::vector<Aspects::aspect_t> aspects)
+		Iguana(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2811,7 +2844,7 @@ class Great_Iguana : public Iguana
 			Create();
 		}
 
-		Great_Iguana(const std::vector<Aspects::aspect_t> aspects)
+		Great_Iguana(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2840,7 +2873,7 @@ class Superior_Iguana : public Iguana
 			Create();
 		}
 
-		Superior_Iguana(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Iguana(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2869,7 +2902,7 @@ class Tapir : public Animal
 			Create();
 		}
 
-		Tapir(const std::vector<Aspects::aspect_t> aspects)
+		Tapir(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2908,7 +2941,7 @@ class Great_Tapir : public Tapir
 			Create();
 		}
 
-		Great_Tapir(const std::vector<Aspects::aspect_t> aspects)
+		Great_Tapir(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2938,7 +2971,7 @@ class Superior_Tapir : public Tapir
 			Create();
 		}
 
-		Superior_Tapir(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Tapir(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2968,7 +3001,7 @@ class Buffalo : public Animal
 			Create();
 		}
 
-		Buffalo(const std::vector<Aspects::aspect_t> aspects)
+		Buffalo(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3006,7 +3039,7 @@ class Great_Buffalo : public Buffalo
 			Create();
 		}
 
-		Great_Buffalo(const std::vector<Aspects::aspect_t> aspects)
+		Great_Buffalo(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3035,7 +3068,7 @@ class KomodoDragon : public Animal
 			Create();
 		}
 
-		KomodoDragon(const std::vector<Aspects::aspect_t> aspects)
+		KomodoDragon(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3076,7 +3109,7 @@ class Great_KomodoDragon : public KomodoDragon
 			Create();
 		}
 
-		Great_KomodoDragon(const std::vector<Aspects::aspect_t> aspects)
+		Great_KomodoDragon(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3106,7 +3139,7 @@ class Orangutan : public Animal
 			Create();
 		}
 
-		Orangutan(const std::vector<Aspects::aspect_t> aspects)
+		Orangutan(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3140,7 +3173,7 @@ class Crocodile : public Animal
 			Create();
 		}
 
-		Crocodile(const std::vector<Aspects::aspect_t> aspects)
+		Crocodile(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3175,7 +3208,7 @@ class Marten : public Animal
 			Create();
 		}
 
-		Marten(const std::vector<Aspects::aspect_t> aspects)
+		Marten(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3214,7 +3247,7 @@ class Great_Marten : public Marten
 			Create();
 		}
 
-		Great_Marten(const std::vector<Aspects::aspect_t> aspects)
+		Great_Marten(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3243,7 +3276,7 @@ class Superior_Marten : public Marten
 			Create();
 		}
 
-		Superior_Marten(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Marten(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3272,7 +3305,7 @@ class Monal : public Animal
 			Create();
 		}
 
-		Monal(const std::vector<Aspects::aspect_t> aspects)
+		Monal(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3311,7 +3344,7 @@ class Great_Monal : public Monal
 			Create();
 		}
 
-		Great_Monal(const std::vector<Aspects::aspect_t> aspects)
+		Great_Monal(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3340,7 +3373,7 @@ class Superior_Monal : public Monal
 			Create();
 		}
 
-		Superior_Monal(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Monal(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3369,7 +3402,7 @@ class MuskDeer : public Animal
 			Create();
 		}
 
-		MuskDeer(const std::vector<Aspects::aspect_t> aspects)
+		MuskDeer(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3455,7 +3488,7 @@ class Great_MuskDeer : public MuskDeer
 			Create();
 		}
 
-		Great_MuskDeer(const std::vector<Aspects::aspect_t> aspects)
+		Great_MuskDeer(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3494,7 +3527,7 @@ class Superior_MuskDeer : public MuskDeer
 			Create();
 		}
 
-		Superior_MuskDeer(const std::vector<Aspects::aspect_t> aspects)
+		Superior_MuskDeer(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3533,7 +3566,7 @@ class Pangolin : public Animal
 			Create();
 		}
 
-		Pangolin(const std::vector<Aspects::aspect_t> aspects)
+		Pangolin(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3573,7 +3606,7 @@ class Great_Pangolin : public Pangolin
 			Create();
 		}
 
-		Great_Pangolin(const std::vector<Aspects::aspect_t> aspects)
+		Great_Pangolin(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3603,7 +3636,7 @@ class Superior_Pangolin : public Pangolin
 			Create();
 		}
 
-		Superior_Pangolin(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Pangolin(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3633,7 +3666,7 @@ class SnowLeopard : public Animal
 			Create();
 		}
 
-		SnowLeopard(const std::vector<Aspects::aspect_t> aspects)
+		SnowLeopard(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3672,7 +3705,7 @@ class Great_SnowLeopard : public SnowLeopard
 			Create();
 		}
 
-		Great_SnowLeopard(const std::vector<Aspects::aspect_t> aspects)
+		Great_SnowLeopard(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3702,7 +3735,7 @@ class LangurMonkey : public Animal
 			Create();
 		}
 
-		LangurMonkey(const std::vector<Aspects::aspect_t> aspects)
+		LangurMonkey(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3741,7 +3774,7 @@ class Great_LangurMonkey : public LangurMonkey
 			Create();
 		}
 
-		Great_LangurMonkey(const std::vector<Aspects::aspect_t> aspects)
+		Great_LangurMonkey(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3770,7 +3803,7 @@ class Yak : public Animal
 			Create();
 		}
 
-		Yak(const std::vector<Aspects::aspect_t> aspects)
+		Yak(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3808,7 +3841,7 @@ class Great_Yak : public Yak
 			Create();
 		}
 
-		Great_Yak(const std::vector<Aspects::aspect_t> aspects)
+		Great_Yak(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3837,7 +3870,7 @@ class Panda : public Animal
 			Create();
 		}
 
-		Panda(const std::vector<Aspects::aspect_t> aspects)
+		Panda(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;

@@ -14,50 +14,50 @@ class Plant : public Source
 			(void)spaces;
 			(void)loc;
 			yield = m_base_yield;
-			GetAspects(0, yield);
+			GetAspects(0, yield, YIELD_MASK_NATURA);
 		}
 		Plant *Clone() const {return new Plant(*this);}
 	protected:
 		void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3) const
+				const Yield &yield_adder, unsigned mask, source_type_t type1, source_type_t type2, source_type_t type3) const
 		{
 			AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, 
-					yield_adder, type1, type2, type3, true);
+					yield_adder, mask, type1, type2, type3, true);
 		}
 		void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, source_type_t type1, source_type_t type2) const
+				const Yield &yield_adder, unsigned mask, source_type_t type1, source_type_t type2) const
 		{
-			AddIfInNaturaRange(spaces, loc, yield, yield_adder, type1, type2, type2);
+			AddIfInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type2, type2);
 		}
 		void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, source_type_t type1) const
+				const Yield &yield_adder, unsigned mask, source_type_t type1) const
 		{
-			AddIfInNaturaRange(spaces, loc, yield, yield_adder, type1, type1, type1);
+			AddIfInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type1, type1);
 		}
 		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, source_type_t type1, source_type_t type2, source_type_t type3) const
+				const Yield &yield_adder, unsigned mask, source_type_t type1, source_type_t type2, source_type_t type3) const
 		{
-			AddIfInNaturaRange(spaces, loc, yield, yield_adder, type1, type2, type3);
+			AddIfInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type2, type3);
 		}
 		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, source_type_t type1, source_type_t type2) const
+				const Yield &yield_adder, unsigned mask, source_type_t type1, source_type_t type2) const
 		{
-			AddAllInNaturaRange(spaces, loc, yield, yield_adder, type1, type2, type2);
+			AddAllInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type2, type2);
 		}
 		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, source_type_t type1) const
+				const Yield &yield_adder, unsigned mask, source_type_t type1) const
 		{
-			AddAllInNaturaRange(spaces, loc, yield, yield_adder, type1, type1, type1);
+			AddAllInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type1, type1);
 		}
 		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, source_class_t source_class) const
+				const Yield &yield_adder, unsigned mask, source_class_t source_class) const
 		{
-			AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, yield_adder, source_class, false);
+			AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, yield_adder, mask, source_class, false);
 		}
 		void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, source_class_t source_class) const
+				const Yield &yield_adder, unsigned mask, source_class_t source_class) const
 		{
-			AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, yield_adder, source_class, true);
+			AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, yield_adder, mask, source_class, true);
 		}
 };
 
@@ -2505,11 +2505,7 @@ class Superior_WhiteWillow : public WhiteWillow
 		{
 			WhiteWillow::GetYield(spaces, loc, yield, 32, mask);
 		}
-		void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
-		{
-			WhiteWillow::GetNatura(spaces, loc, yield, 4);
-			AddAllInNaturaRange(spaces, loc, yield, Yield(0,0,0,0,0,4), WHITE_WILLOW);
-		}
+		void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
 		Superior_WhiteWillow* Clone() const {return new Superior_WhiteWillow(*this);}
 };
 

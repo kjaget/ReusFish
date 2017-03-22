@@ -9,7 +9,6 @@
 
 class Aspect
 {
-
 	public :
 		Aspect(void) : m_name("None"), m_resource(SOURCE_CLASS_NONE), m_natura_threshold(0) { }
 		Aspect(const std::string &name, source_class_t resource, const Yield &bonus, unsigned natura_threshold, const Yield &natura_bonus) :
@@ -18,7 +17,8 @@ class Aspect
 			m_bonus(bonus),
 			m_natura_threshold(natura_threshold),
 			m_natura_bonus(natura_bonus)
-	{ }
+		{ 
+		}
 		void Print(void) const
 		{
 			std::cout << m_name;

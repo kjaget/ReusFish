@@ -42,17 +42,21 @@ void Source::AddInRange(const std::vector<Space> &spaces,
 		int start, 
 		unsigned end,
 		const Yield &yield_adder,
+		unsigned mask,
 		source_type_t type1,
 		source_type_t type2,
 		source_type_t type3,
 		bool once) const
 {
+	unsigned adder_mask = yield_adder.GetMask();
+	if ((adder_mask & mask) == 0)
+		return;
 	for (unsigned i = std::max<int>(0, start); (i <= end) && (i < (spaces.size())); i+= 1)
 	{
 		const source_type_t type = spaces[i].m_source->Type();
 		if ((i != loc) && ((type == type1) || (type == type2) || (type == type3)) )
 		{
-			yield += yield_adder;
+			yield.Add(yield_adder, mask);
 			if (once)
 				break;
 		}
@@ -65,14 +69,18 @@ void Source::AddInRange(const std::vector<Space> &spaces,
 		int start, 
 		unsigned end,
 		const Yield &yield_adder,
+		unsigned mask,
 		source_class_t source_class,
 		bool once) const
 {
+	unsigned adder_mask = yield_adder.GetMask();
+	if ((adder_mask & mask) == 0)
+		return;
 	for (unsigned i = std::max<int>(0, start); (i <= end) && (i < spaces.size()); i+= 1)
 	{
 		if ((i != loc) && (spaces[i].m_source->Class() == source_class))
 		{
-			yield += yield_adder;
+			yield.Add(yield_adder, mask);
 			if (once)
 				break;
 		}
