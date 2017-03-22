@@ -8,15 +8,15 @@ set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Ofast -fl
 
 add_executable(reusfish
 Animal.cpp
-Biome.cpp
-Mineral.cpp
-ReusFish.cpp
-source.cpp
-SourceTypeList.cpp
 Aspects.cpp
+Biome.cpp
 Giants.cpp
+Mineral.cpp
 Plant.cpp
+ReusFish.cpp
+Source.cpp
 SourceContainer.cpp
+SourceTypeList.cpp
 Yield.cpp
 )
 

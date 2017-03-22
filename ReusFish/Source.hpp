@@ -379,29 +379,28 @@ class Source
       {
 	 GetFood(spaces, loc, loc, loc, yield, food_yield);
       }
-      void GetFood(std::vector<Space> &spaces, unsigned loc, int start, unsigned end, const Yield &yield, std::vector<unsigned> &food_yield) const;
+      void GetFood(std::vector<Space> &spaces, unsigned loc, int start, int end, const Yield &yield, std::vector<unsigned> &food_yield) const;
       void GetTech(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &tech_yield) const
       {
 	 GetTech(spaces, loc, loc, loc, yield, tech_yield);
       }
-      void GetTech(std::vector<Space> &spaces, unsigned loc, int start, unsigned end, const Yield &yield, std::vector<unsigned> &tech_yield) const;
+      void GetTech(std::vector<Space> &spaces, unsigned loc, int start, int end, const Yield &yield, std::vector<unsigned> &tech_yield) const;
       void GetWealth(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &wealth_yield) const
       {
 	 GetWealth(spaces, loc, loc, loc, yield, wealth_yield);
       }
-      void GetWealth(std::vector<Space> &spaces, unsigned loc, int start, unsigned end, const Yield &yield, std::vector<unsigned> &wealth_yield) const;
+      void GetWealth(std::vector<Space> &spaces, unsigned loc, int start, int end, const Yield &yield, std::vector<unsigned> &wealth_yield) const;
       void GetDanger(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &danger_yield) const
       {
 	 GetDanger(spaces, loc, loc, loc, yield, danger_yield);
       }
-      void GetDanger(std::vector<Space> &spaces, unsigned loc, int start, unsigned end, const Yield &yield, std::vector<unsigned> &danger_yield) const;
+      void GetDanger(std::vector<Space> &spaces, unsigned loc, int start, int end, const Yield &yield, std::vector<unsigned> &danger_yield) const;
       void GetAwe(std::vector<Space> &spaces, unsigned loc, const Yield &yield, std::vector<unsigned> &awe_yield) const
       {
 	 GetAwe(spaces, loc, loc, loc, yield, awe_yield);
       }
-      void GetAwe(std::vector<Space> &spaces, unsigned loc, int start, unsigned end, const Yield &yield, std::vector<unsigned> &awe_yield) const;
+      void GetAwe(std::vector<Space> &spaces, unsigned loc, int start, int end, const Yield &yield, std::vector<unsigned> &awe_yield) const;
       
-
       void AddUpgrade(source_type_t source_type, Aspects::aspect_t aspect1, Aspects::aspect_t aspect2 = Aspects::ASPECT_T_MAX)
       {
 	 m_upgrades.push_back(Upgrade(source_type, aspect1, aspect2));
