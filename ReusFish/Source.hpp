@@ -69,6 +69,10 @@ class Source
 	 m_max_aspects = 0;
 	 m_level = 0;
       };
+
+	  virtual ~Source()
+	  {
+	  }
       
       bool operator==(const Source &rhs) const
       {
@@ -91,17 +95,17 @@ class Source
 
       source_class_t Class(void) const {return m_class;}
       source_type_t  Type(void)  const {return m_type; }
-      unsigned Hash(void) const
+      size_t Hash(void) const
       {
-	 unsigned this_hash = 0x12345678 + m_class + ((m_type +1)<< 2) + ((m_level +1)<< 4);
-	 unsigned hash = this_hash;
+	 size_t this_hash = 0x12345678 + m_class + ((m_type +1)<< 2) + ((m_level +1)<< 4);
+	 size_t hash = this_hash;
 	 
 	 hash += this_hash << 7;
 	 hash += this_hash << 14;
 	 hash += this_hash << 24;
-	 for (unsigned i = 0; i < m_aspects.size(); i++)
+	 for (size_t i = 0; i < m_aspects.size(); i++)
 	 {
-	    unsigned aspect = m_aspects[i] + 1;
+	    size_t aspect = m_aspects[i] + 1;
 	    hash += aspect;
 	    hash += aspect << 5;
 	    hash += aspect << 9;
@@ -119,14 +123,37 @@ class Source
       static const unsigned YIELD_MASK_AWE    = 0x10;
       static const unsigned YIELD_MASK_ALL    = 0xFF;
 
-      virtual void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const { yield.Reset(); } 
-      virtual void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const { yield.Reset(); }
-      virtual unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const { return m_base_yield.m_range; }
-      virtual bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield) { return false; }
+      virtual void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const 
+	  { 
+		  (void)spaces;
+		  (void)loc;
+		  (void)mask;
+		  yield.Reset(); 
+	  } 
+      virtual void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+	  { 
+		  (void)spaces;
+		  (void)loc;
+		  yield.Reset(); 
+	  }
+      virtual unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const
+	  { 
+		  (void)spaces;
+		  (void)loc;
+		  return m_base_yield.m_range; 
+	  }
+      virtual bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield) 
+	  { 
+		(void)spaces;
+		  (void)loc;
+		(void)yield;
+		(void)global_yield;
+		return false; 
+	  }
       virtual void ResetPostProcess(void) { }
       void GetAspects(unsigned natura, Yield &yield) const
       {
-	 for (unsigned i = 0; i < m_aspects.size(); i++)
+	 for (size_t i = 0; i < m_aspects.size(); i++)
 	 {
 	    Yield this_yield;
 	    aspects.Bonus(m_aspects[i], natura, this_yield);
@@ -167,7 +194,7 @@ class Source
 	 return count;
       }
       virtual void GetUpgrades (biome_t biome, SourceList &upgrades) const;
-      virtual bool IsValidForBiome(biome_t biome) const { return true; }
+      virtual bool IsValidForBiome(biome_t biome) const { (void)biome; return true; }
 
       virtual Source* Clone() const {if (this) return new Source(*this); else return NULL;}
       
