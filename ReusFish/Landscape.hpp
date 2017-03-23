@@ -142,7 +142,6 @@ class Landscape
 				changed = false;
 				for (unsigned i = 0; i < m_spaces.size(); i++)
 				{
-
 					if (sources[i]->PostProcess(m_spaces, i, yield, global_yield))
 					{
 						changed = true;

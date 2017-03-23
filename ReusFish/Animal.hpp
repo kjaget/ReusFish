@@ -318,6 +318,7 @@ class Parrotfish: public Animal
 			m_upgrades.clear();
 			AddUpgrade(MARLIN, Aspects::GREATER_HUNT);
 			AddUpgrade(ANGLERFISH, Aspects::GREATER_EXOTIC);
+			AddUpgrade(DOLPHIN, Aspects::SUBLIME_EXOTIC);
 		}
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
@@ -416,6 +417,7 @@ class Marlin : public Animal
 			m_upgrades.clear();
 			AddUpgrade(BLUE_WHALE, Aspects::SUBLIME_HERD);
 			AddUpgrade(WHITE_SHARK, Aspects::SUBLIME_EXOTIC, Aspects::SUBLIME_HERD);
+			AddUpgrade(DOLPHIN, Aspects::SUBLIME_HUNT);
 		}
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
@@ -2728,6 +2730,7 @@ class Otter : public Animal
 		{
 			m_upgrades.clear();
 			AddUpgrade(TAPIR, Aspects::POTENT_HUNT);
+			AddUpgrade(CRANE, Aspects::POTENT_EXOTIC);
 			AddUpgrade(BUFFALO, Aspects::GREATER_HERD);
 		}
 
@@ -2825,6 +2828,7 @@ class Iguana : public Animal
 		{
 			m_upgrades.clear();
 			AddUpgrade(TAPIR, Aspects::POTENT_HUNT);
+			AddUpgrade(CRANE, Aspects::POTENT_EXOTIC);
 			AddUpgrade(KOMODO_DRAGON, Aspects::GREATER_PREDATOR);
 		}
 
@@ -3120,6 +3124,7 @@ class Great_KomodoDragon : public KomodoDragon
 			m_name = "Great Komodo Dragon";
 			m_base_yield.m_wealth = 8;
 			m_base_yield.m_danger = 3;
+			m_base_yield.m_range  = 1;
 			m_max_aspects = 5;
 			m_level = 3;
 		}
@@ -3894,4 +3899,106 @@ class Panda : public Animal
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		Panda* Clone() const {return new Panda(*this);}
+};
+
+class Crane : public Animal
+{
+	public:
+		Crane()
+		{
+			Create();
+		}
+
+		Crane(const std::vector<Aspects::aspect_t> &aspects)
+		{
+			Create();
+			m_aspects = aspects;
+		}
+
+		void Create(void)
+		{
+			m_name = "Crane";
+			m_type = FROG;
+			m_base_yield.m_food = 1;
+			m_base_yield.m_wealth = 3;
+			m_max_aspects = 1;
+			m_level = 1;
+			AddUpgrades();
+		}
+
+		void AddUpgrades(void)
+		{
+			m_upgrades.clear();
+			AddUpgrade(OTTER, Aspects::LESSER_HUNT, Aspects::LESSER_HERD);
+			AddUpgrade(IGUANA, Aspects::LESSER_EXOTIC, Aspects::LESSER_PREDATOR);
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_wealth_adder, unsigned mask = YIELD_MASK_ALL) const;
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
+		{
+			GetYield(spaces, loc, yield, 1, 1, mask);
+		}
+		unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
+
+		Crane* Clone() const {return new Crane(*this);}
+};
+
+class Great_Crane : public Crane
+{
+	public:
+		Great_Crane()
+		{
+			Create();
+		}
+
+		Great_Crane(const std::vector<Aspects::aspect_t> &aspects)
+		{
+			Create();
+			m_aspects = aspects;
+		}
+
+		void Create(void)
+		{
+			m_name = "Great Crane";
+			m_base_yield.m_food = 1; // KCJ - check this
+			m_base_yield.m_wealth = 3;
+			m_max_aspects = 2;
+			m_level = 2;
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
+		{
+			Crane::GetYield(spaces, loc, yield, 2, 2, mask);
+		}
+		Great_Crane* Clone() const {return new Great_Crane(*this);}
+};
+
+class Superior_Crane : public Crane
+{
+	public:
+		Superior_Crane()
+		{
+			Create();
+		}
+
+		Superior_Crane(const std::vector<Aspects::aspect_t> &aspects)
+		{
+			Create();
+			m_aspects = aspects;
+		}
+
+		void Create(void)
+		{
+			m_name = "Superior Crane";
+			m_base_yield.m_food = 1; // KCJ - check this
+			m_base_yield.m_wealth = 3;
+			m_max_aspects = 3;
+			m_level = 3;
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
+		{
+			Crane::GetYield(spaces, loc, yield, 4, 4, mask);
+		}
+		Superior_Crane* Clone() const {return new Superior_Crane(*this);}
 };
