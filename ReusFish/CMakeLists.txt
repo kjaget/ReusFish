@@ -10,6 +10,7 @@ add_executable(reusfish
 Animal.cpp
 Aspects.cpp
 Biome.cpp
+Building.cpp
 Giants.cpp
 Landscape.cpp
 Mineral.cpp
