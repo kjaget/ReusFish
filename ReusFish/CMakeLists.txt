@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 project(reusfish)
 
 add_definitions(-std=c++11 -DZED_SUPPORT -Wall  -Wextra)
@@ -11,6 +11,7 @@ Animal.cpp
 Aspects.cpp
 Biome.cpp
 Giants.cpp
+Landscape.cpp
 Mineral.cpp
 Plant.cpp
 ReusFish.cpp
