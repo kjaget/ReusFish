@@ -52,9 +52,8 @@ class Space
 			if (m_source)
 				m_source->Print();
 			else
-			{
 				std::cout << "City:";
-			}
+
 			m_yield.Print();
 		}
 		const Source *m_source;

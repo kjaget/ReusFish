@@ -191,10 +191,10 @@ void Swamp_Giant::Init(void)
 }
 
 Giants::Giants() :
-	m_ocean_giant (Ocean_Giant (2,1,1,1)),
-	m_forest_giant(Forest_Giant(3,3,2,1)),
-	m_stone_giant (Stone_Giant (2,2,1,1,1)),
-	m_swamp_giant (Swamp_Giant (3,3,1,1,3))
+	m_ocean_giant (Ocean_Giant (1,1,0,0)),
+	m_forest_giant(Forest_Giant(1,1,0,0)),
+	m_stone_giant (Stone_Giant (1,1,0,0,1)),
+	m_swamp_giant (Swamp_Giant (1,1,0,0,0))
 {
 }
 

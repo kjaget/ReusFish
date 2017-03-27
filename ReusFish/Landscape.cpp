@@ -1,13 +1,17 @@
-
-
+#include <climits>
+#include "Building.hpp"
 #include "Landscape.hpp"
 
-Landscape::Landscape() : 
-	m_spaces(18)
+unsigned char Landscape::m_start = 0;
+unsigned char Landscape::m_end = 0;
+Yield Landscape::m_goal;
+
+Landscape::Landscape(void)
 {
 }
 
-Landscape::Landscape(unsigned size) : m_spaces(size)
+Landscape::Landscape(unsigned size) : 
+	m_spaces(size)
 {
 }
 
@@ -106,6 +110,33 @@ void Landscape::Reset(void)
 {
 	for (unsigned i = 0; i < m_spaces.size(); i++)
 		m_spaces[i].m_yield.Reset();
+}
+
+void Landscape::AddSpace(biome_t biome, Source *source)
+{
+	biome_list.push_back(biome);
+	m_spaces.push_back(Space(source));
+}
+
+void Landscape::StartCity(void)
+{
+	m_start = m_spaces.size();
+}
+void Landscape::EndCity(void)
+{
+	m_end = m_spaces.size() - 1;
+	for (auto it = m_spaces.begin(); it != m_spaces.end(); ++it)
+		if (it->m_source->Type() == BUILDING)
+		{
+			Source *new_building = it->m_source->Clone();
+			dynamic_cast<Building *>(new_building)->SetStartEnd(m_start, m_end);
+			*it = Space(new_building);
+		}
+}
+
+void Landscape::SetGoal(const Yield &goal)
+{
+	m_goal = goal;
 }
 
 void Landscape::SetYield(void)

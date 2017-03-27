@@ -28,6 +28,10 @@ class BiomeList
 		{
 			return m_list[i];
 		}
+		void push_back(biome_t biome)
+		{
+			m_list.push_back(biome);
+		}
 		void Print(unsigned int i) const
 		{
 			if (i >= m_list.size())

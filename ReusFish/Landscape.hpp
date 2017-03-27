@@ -1,6 +1,5 @@
 #pragma once
 
-#include <climits>
 #include <vector>
 #include "Space.hpp"
 #include "Yield.hpp"
@@ -21,6 +20,10 @@ class Landscape
 		size_t size(void) const;
 
 		void Reset(void);
+		void AddSpace(biome_t biome, Source *source);
+		void StartCity(void);
+		void EndCity(void);
+		void SetGoal(const Yield &goal);
 		void SetYield(void);
 
 		bool BeatsGoal(void) const;
@@ -40,8 +43,8 @@ class Landscape
 		unsigned Awe(unsigned start_pos, unsigned end_pos) const;
 		unsigned Danger(unsigned start_pos, unsigned end_pos) const;
 
-		std::vector<Space>    m_spaces;
-		static unsigned char  m_start;
-		static unsigned char  m_end;
-		static Yield          m_goal;
+		std::vector<Space>   m_spaces;
+		static unsigned char m_start;
+		static unsigned char m_end;
+		static Yield         m_goal;
 };

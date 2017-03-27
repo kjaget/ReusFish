@@ -56,7 +56,7 @@ class Source
 			m_base_yield(original.m_base_yield),
 			m_aspects(original.m_aspects),
 			m_upgrades(original.m_upgrades)
-	{}
+		{}
 		Source(const std::vector<Aspects::aspect_t> aspects)
 		{
 			Create();
@@ -98,7 +98,7 @@ class Source
 		source_type_t  Type(void)  const {return m_type; }
 		size_t Hash(void) const
 		{
-			size_t this_hash = 0x12345678 + m_class + ((m_type +1)<< 2) + ((m_level +1)<< 4);
+			const size_t this_hash = (size_t)0x1234567812345678ULL + m_class + ((m_type + 1)<< 2) + ((m_level + 1)<< 4);
 			size_t hash = this_hash;
 
 			hash += this_hash << 7;

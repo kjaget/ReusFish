@@ -1,6 +1,7 @@
 #ifndef USEDLIST_INC__
 #define USEDLIST_INC__
 
+#include <climits>
 #include <unordered_map>
 #include <vector>
 
@@ -42,8 +43,9 @@ class UsedListContainer
 			for (unsigned i = 0; i < m_size; i++)
 			{
 				size_t rot_val = (size_t)m_list[i];
-				rot_val = ((rot_val >> i) & ((1 << (31-i)) - 1))|
-					(rot_val << (31 - i));
+				const unsigned size_t_bits_minus_one = CHAR_BIT * sizeof(size_t) - 1;
+				rot_val = ((rot_val >> i) & ((1 << (size_t_bits_minus_one-i)) - 1))|
+					(rot_val << (size_t_bits_minus_one - i));
 				m_hash += rot_val;
 			}
 		}
