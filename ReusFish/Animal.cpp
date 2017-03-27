@@ -438,7 +438,7 @@ void Bobcat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 			if ((i != loc) && !seen_flag[spaces[i].m_source->Class()])
 			{
 				seen_flag[spaces[i].m_source->Class()] = 1;
-				yield.m_wealth += 6;
+				yield.m_wealth += 6; // KCJ or +8?
 			}
 		}
 	}

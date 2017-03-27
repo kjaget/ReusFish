@@ -685,7 +685,7 @@ class Onyx : public Mineral
 		{
 			m_upgrades.clear();
 			AddUpgrade(GOLD, Aspects::GREATER_NOBLE);
-			AddUpgrade(SILVER, Aspects::GREATER_SEISMIC);
+			AddUpgrade(SILVER, Aspects::GREATER_CRYSTAL);
 			AddUpgrade(PLATINUM, Aspects::GREATER_CRYSTAL);
 		}
 
@@ -979,7 +979,7 @@ class Iron : public Mineral
 		void AddUpgrades(void)
 		{
 			m_upgrades.clear();
-			AddUpgrade(SILVER, Aspects::GREATER_CRYSTAL);
+			AddUpgrade(SILVER, Aspects::GREATER_SEISMIC);
 			AddUpgrade(ALUMINIUM, Aspects::GREATER_REACTION);
 			AddUpgrade(ZINC, Aspects::GREATER_SEISMIC);
 		}
@@ -1492,6 +1492,7 @@ class Coal : public Mineral
 			m_max_aspects = 8;
 			m_biome_mask = MASK_FOREST | MASK_MOUNTAIN | MASK_DESERT | MASK_SWAMP;
 			m_level = 3;
+			m_post_processed = false;
 			AddUpgrades();
 		}
 
@@ -1502,6 +1503,16 @@ class Coal : public Mineral
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		Coal* Clone() const {return new Coal(*this);}
+
+		void ResetPostProcessed(void)
+		{
+			m_post_processed = false;
+		}
+		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield);
+
+	private :
+		bool m_post_processed;
+
 };
 
 class Oil : public Mineral
@@ -1610,47 +1621,8 @@ class Fluorite : public Mineral
 		{
 			m_post_processed = 0;
 		}
-		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
-		{
-			unsigned save_post_processed = m_post_processed; 
-			yield.Reset();
-			if (!(M_POST_PROCESSED_TECH & m_post_processed) && (spaces[loc].m_yield.m_tech >= 10))
-			{
-				yield.m_tech += 25;
-				m_post_processed |= M_POST_PROCESSED_TECH;
-			}
-			if (!(M_POST_PROCESSED_FOOD & m_post_processed) && (spaces[loc].m_yield.m_food >= 10))
-			{
-				yield.m_tech += 25;
-				m_post_processed |= M_POST_PROCESSED_FOOD;
-			}
-			if (!(M_POST_PROCESSED_WEALTH & m_post_processed) && (spaces[loc].m_yield.m_wealth >= 10))
-			{
-				yield.m_tech += 25;
-				m_post_processed |= M_POST_PROCESSED_WEALTH;
-			}
-			if (!(M_POST_PROCESSED_DANGER & m_post_processed) && (spaces[loc].m_yield.m_danger >= 10))
-			{
-				yield.m_tech += 25;
-				m_post_processed |= M_POST_PROCESSED_DANGER;
-			}
-			if (!(M_POST_PROCESSED_AWE & m_post_processed) && (spaces[loc].m_yield.m_awe >= 10))
-			{
-				yield.m_tech += 25;
-				m_post_processed |= M_POST_PROCESSED_AWE;
-			}
-			if (!(M_POST_PROCESSED_NATURA & m_post_processed) && (spaces[loc].m_yield.m_natura >= 10))
-			{
-				yield.m_tech += 25;
-				m_post_processed |= M_POST_PROCESSED_NATURA;
-			}
-			if (save_post_processed == m_post_processed)
-				return false;
-			global_yield.clear();
-			global_yield.resize(spaces.size());
-			return true;
+		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield);
 
-		}
 	protected:
 		unsigned char m_post_processed;
 		static const unsigned char M_POST_PROCESSED_FOOD   = 0x01;

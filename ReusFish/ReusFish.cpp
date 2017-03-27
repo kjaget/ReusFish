@@ -41,7 +41,7 @@ void remaining_moves(unsigned initial_pos)
 
 		if (!used_list.Insert(landscape))
 			continue;
-		if ((landscape.Score() > best_score))
+		if (landscape.Score() > best_score)
 		{
 			std::cout << "***************************************************" << std::endl;
 			std::cout << "Upgrades " << upgrades_added << " Aspects " << aspects_added << " Landscapes " << landspaces_processed << std::endl;
@@ -120,7 +120,7 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 		int score = spaces.Score();
 		//if (used_list.Insert(spaces))
 		{
-			if ((score > best_score))
+			if (score > best_score)
 			{
 				std::cout << "***************************************************" << std::endl;
 				if (spaces.BeatsGoal())
@@ -171,6 +171,7 @@ int main (int argc, char **argv)
 	spaces.AddSpace(DESERT,new Shrine());
 	spaces.AddSpace(DESERT,new Source());
 	spaces.EndCity();
+
 
 	initial_moves(spaces,spaces.size()-1,giants);
 	remaining_moves(spaces.size()-1);

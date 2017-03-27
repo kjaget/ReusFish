@@ -3448,8 +3448,8 @@ class MuskDeer : public Animal
 		}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 		{
-			bool rc;
-			if ((rc = PostProcess(spaces, loc, yield, 2, 10, 1)))
+			bool rc = PostProcess(spaces, loc, yield, 2, 10, 1);
+			if (rc)
 			{
 				global_yield.clear();
 				global_yield.resize(spaces.size());

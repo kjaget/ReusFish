@@ -116,6 +116,7 @@ void Silver::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, do
 	yield = m_base_yield;
 	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
 
+	// KCJ - postprocessing?
 	if (mask & YIELD_MASK_WEALTH)
 	{
 		for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
@@ -221,6 +222,7 @@ void Ruby::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 			yield.m_wealth += rarity_adder;
 	}
 
+	// KCJ - postprocess?
 	for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i+= 1)
 	{
 		if (spaces[i].m_source)
@@ -276,31 +278,45 @@ void Coal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 	yield = m_base_yield;
 	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
 
-	if (mask == YIELD_MASK_ALL)
-	{
-		for (unsigned i = 0; i < spaces.size(); i++)
-			if (spaces[i].m_source && 
-					((spaces[i].m_source->Type() == COPPER) ||
-					 (spaces[i].m_source->Type() == IRON)) )
-			{
-				spaces[i].m_yield.m_tech   += 10;
-				spaces[i].m_yield.m_wealth += 10;
-			}
-	}
+	// KCJ - do +10 to copper/iron as postprocessing
+
 	AddAllAdjacent(spaces, loc, yield, Yield(0,0,50,0,0,0), mask, COPPER, IRON);
 
 	if (mask & (YIELD_MASK_TECH | YIELD_MASK_WEALTH | YIELD_MASK_AWE))
 	{
 		std::vector<unsigned> awe_yield;
-		GetAwe(spaces, loc, std::max<int>(0, (int)loc - 2), loc + 2, yield, awe_yield);
+		const unsigned start = std::max<int>(0, (int)loc - 2);
+		const unsigned end   = loc + 2;
+		GetAwe(spaces, loc, start, end, yield, awe_yield);
 		unsigned awe = 0;
-		for (unsigned i = std::max<int>(0, (int)loc - 2); (i <= loc + 2) && (i < spaces.size()); i+= 1)
+		for (unsigned i = start; (i <= end) && (i < spaces.size()); i+= 1)
 			if (i != loc)
 				awe += awe_yield[i];
 		yield.AddTech(2 * awe, mask);
 		yield.AddWealth(2 * awe, mask);
 		yield.AddWealth(-awe, mask);
 	}
+}
+
+bool Coal::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
+{
+	(void)loc;
+	(void)yield;
+	if (m_post_processed)
+		return false;
+
+	for (size_t i = 0; i < spaces.size(); ++i)
+	{
+		source_type_t type = spaces[i].m_source->Type();
+		if ((type == COPPER) || (type == IRON))
+		{
+			global_yield[i].m_wealth += 10;
+			global_yield[i].m_tech   += 10;
+		}
+	}
+
+	m_post_processed = true;
+	return true;
 }
 
 void Oil::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
@@ -387,5 +403,47 @@ void Fluorite::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
 	AddIfInRange(spaces, loc, yield, Yield(0,0,0,0,20,0), mask, PLANT);
 	AddIfInRange(spaces, loc, yield, Yield(0,0,0,0,20,0), mask, MINERAL);
 	yield.m_range = 0;
+}
+
+bool Fluorite::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
+{
+	unsigned save_post_processed = m_post_processed; 
+	yield.Reset();
+	if (!(M_POST_PROCESSED_TECH & m_post_processed) && (spaces[loc].m_yield.m_tech >= 10))
+	{
+		yield.m_tech += 25;
+		m_post_processed |= M_POST_PROCESSED_TECH;
+	}
+	if (!(M_POST_PROCESSED_FOOD & m_post_processed) && (spaces[loc].m_yield.m_food >= 10))
+	{
+		yield.m_tech += 25;
+		m_post_processed |= M_POST_PROCESSED_FOOD;
+	}
+	if (!(M_POST_PROCESSED_WEALTH & m_post_processed) && (spaces[loc].m_yield.m_wealth >= 10))
+	{
+		yield.m_tech += 25;
+		m_post_processed |= M_POST_PROCESSED_WEALTH;
+	}
+	if (!(M_POST_PROCESSED_DANGER & m_post_processed) && (spaces[loc].m_yield.m_danger >= 10))
+	{
+		yield.m_tech += 25;
+		m_post_processed |= M_POST_PROCESSED_DANGER;
+	}
+	if (!(M_POST_PROCESSED_AWE & m_post_processed) && (spaces[loc].m_yield.m_awe >= 10))
+	{
+		yield.m_tech += 25;
+		m_post_processed |= M_POST_PROCESSED_AWE;
+	}
+	if (!(M_POST_PROCESSED_NATURA & m_post_processed) && (spaces[loc].m_yield.m_natura >= 10))
+	{
+		yield.m_tech += 25;
+		m_post_processed |= M_POST_PROCESSED_NATURA;
+	}
+	if (save_post_processed == m_post_processed)
+		return false;
+	global_yield.clear();
+	global_yield.resize(spaces.size());
+	return true;
+
 }
 
