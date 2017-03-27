@@ -52,7 +52,9 @@ void Source::AddInRange(const std::vector<Space> &spaces,
 	if ((adder_mask & mask) == 0)
 		return;
 	unsigned count = 0;
-	for (unsigned i = std::max<int>(0, start); (i <= end) && (i < spaces.size()) && (count < max_count); i+= 1)
+	for (unsigned i = std::max<int>(0, start);
+		 (i <= end) && (i < spaces.size()) && (count < max_count);
+		 i+= 1)
 	{
 		const source_type_t type = spaces[i].m_source->Type();
 		if ((i != loc) && ((type == type1) || (type == type2) || (type == type3)) )
