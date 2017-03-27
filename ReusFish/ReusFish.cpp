@@ -150,17 +150,10 @@ class Mill: public Building
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
 		{
 			(void)loc;
-			if (mask & YIELD_MASK_FOOD)
-			{
-				unsigned plant_count = 0;
-				for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
-					if (spaces[i].m_source->Class() == PLANT)
-						plant_count += 1;
+			AddInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, ANIMAL, 3);
+			AddInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, FOXGLOVE, DANDELION, DANDELION, 2);
 
-				plant_count = std::min<unsigned>(plant_count,3);
-				yield.m_food += 15 * plant_count;
-			}
-
+#if 0
 			if (mask & YIELD_MASK_TECH)
 			{
 				unsigned animal_count = 0;
@@ -174,9 +167,63 @@ class Mill: public Building
 				else if (animal_count == 2)
 					yield.m_tech += 50;
 			}
+#endif
 		}
 };
 
+class Druid: public Building
+{
+	public :
+		Druid()
+		{
+			Create();
+		}
+
+		Druid(unsigned start, unsigned end)	
+		{
+			m_start = start;
+			m_end = end;
+			Create();
+		}
+
+		virtual void Create(void)
+		{
+			m_name = "Druid";
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
+		{
+			(void)loc;
+			AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, MINERAL, 3);
+		}
+};
+
+class Shrine: public Building
+{
+	public :
+		Shrine()
+		{
+			Create();
+		}
+
+		Shrine(unsigned start, unsigned end)	
+		{
+			m_start = start;
+			m_end = end;
+			Create();
+		}
+
+		virtual void Create(void)
+		{
+			m_name = "Shrine";
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
+		{
+			(void)loc;
+			AddInRange(spaces, loc, yield, m_start, m_end, Yield(10,0,5,0,0,0), mask, ANIMAL, 3);
+		}
+};
 class Circus: public Building
 {
 	public :
@@ -573,53 +620,33 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 		initial_moves(spaces, pos - 1, giants);
 }
 
-static unsigned city_start = 0;
-static unsigned city_end = 14;
+static const unsigned city_start = 0;
+static const unsigned city_end = 7;
 unsigned char Landscape::m_start = city_start;
 unsigned char Landscape::m_end   = city_end;
-Yield Landscape::m_goal  = Yield(200, 200, 1250, 0, 0, 0);
+Yield Landscape::m_goal = Yield(15, 0, 15, 0, 0, 0);
 
 int main (int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	Landscape spaces(15);
+	Landscape spaces(8);
 	Giants giants;
 
-	biome_list[0] = MOUNTAIN;
-	biome_list[1] = MOUNTAIN;
-	biome_list[2] = MOUNTAIN;
-	biome_list[3] = MOUNTAIN;
-	biome_list[4] = DESERT;
-	biome_list[5] = DESERT;
-	biome_list[6] = DESERT;
-	biome_list[7] = DESERT;
-	biome_list[8] = DESERT;
-	biome_list[9] = DESERT;
-	biome_list[10] = DESERT;
-	biome_list[11] = MOUNTAIN;
-	biome_list[12] = MOUNTAIN;
-	biome_list[13] = MOUNTAIN;
-	biome_list[14] = MOUNTAIN;
+	for (int i = 0 ; i <= 7; i++)
+		biome_list[i] = DESERT;
 
-	spaces[0] = Space(new Multinational(city_start, city_end));
+	spaces[0] = Space(new Source());
 	spaces[1] = Space(new Source());
-	spaces[2] = Space(new Source());
-	spaces[3] = Space(new Source());
+	spaces[2] = Space(new City());
+	spaces[3] = Space(new City());
 	spaces[4] = Space(new City());
 	spaces[5] = Space(new City());
-	spaces[6] = Space(new City());
-	spaces[7] = Space(new City());
-	spaces[8] = Space(new Market(city_start, city_end));
-	spaces[9] = Space(new Source());
-	spaces[10] = Space(new Source());
-	spaces[11] = Space(new Source());
-	spaces[12] = Space(new Source());
-	spaces[13] = Space(new Source());
-	spaces[14] = Space(new Source());
+	spaces[6] = Space(new Shrine(city_start,city_end));
+	spaces[7] = Space(new Source());
 
-	initial_moves(spaces,12,giants);
-	remaining_moves(12);
+	initial_moves(spaces,7,giants);
+	remaining_moves(7);
 
 	return 0;
 
