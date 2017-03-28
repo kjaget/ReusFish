@@ -8,8 +8,12 @@
 class Mineral : public Source
 {
 	public :
-		Mineral() { m_class = MINERAL; }
-		Mineral *Clone() const {return new Mineral(*this);}
+		Mineral(void) :
+			m_biome_mask(0)
+		{ 
+			m_class = MINERAL;
+		}
+		Mineral *Clone(void) const {return new Mineral(*this);}
 
 		void GetUpgrades(biome_t biome, SourceList &upgrades) const
 		{
@@ -46,13 +50,13 @@ class Mineral : public Source
 			switch (biome)
 			{
 				case FOREST:
-					return m_biome_mask & MASK_FOREST ? true : false;
+					return (m_biome_mask & MASK_FOREST) ? true : false;
 				case DESERT:
-					return m_biome_mask & MASK_DESERT ? true : false;
+					return (m_biome_mask & MASK_DESERT) ? true : false;
 				case SWAMP:
-					return m_biome_mask & MASK_SWAMP  ? true : false;
+					return (m_biome_mask & MASK_SWAMP)  ? true : false;
 				case MOUNTAIN :
-					return m_biome_mask & MASK_MOUNTAIN ? true : false;
+					return (m_biome_mask & MASK_MOUNTAIN) ? true : false;
 				default:
 					break;
 			}
@@ -68,7 +72,7 @@ class Agate: public Mineral
 			Create();
 		}
 
-		Agate(const std::vector<Aspects::aspect_t> aspects)
+		Agate(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -107,7 +111,7 @@ class Great_Agate : public Agate
 			Create();
 		}
 
-		Great_Agate(const std::vector<Aspects::aspect_t> aspects)
+		Great_Agate(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -138,7 +142,7 @@ class Superior_Agate : public Agate
 			Create();
 		}
 
-		Superior_Agate(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Agate(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -169,7 +173,7 @@ class Quartz : public Mineral
 			Create();
 		}
 
-		Quartz(const std::vector<Aspects::aspect_t> aspects)
+		Quartz(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -209,7 +213,7 @@ class Great_Quartz : public Quartz
 			Create();
 		}
 
-		Great_Quartz(const std::vector<Aspects::aspect_t> aspects)
+		Great_Quartz(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -238,7 +242,7 @@ class Superior_Quartz : public Quartz
 			Create();
 		}
 
-		Superior_Quartz(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Quartz(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -267,7 +271,7 @@ class Stone : public Mineral
 			Create();
 		}
 
-		Stone(const std::vector<Aspects::aspect_t> aspects)
+		Stone(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -307,7 +311,7 @@ class Great_Stone : public Stone
 			Create();
 		}
 
-		Great_Stone(const std::vector<Aspects::aspect_t> aspects)
+		Great_Stone(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -336,7 +340,7 @@ class Superior_Stone : public Stone
 			Create();
 		}
 
-		Superior_Stone(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Stone(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -365,7 +369,7 @@ class Marble : public Mineral
 			Create();
 		}
 
-		Marble(const std::vector<Aspects::aspect_t> aspects)
+		Marble(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -405,7 +409,7 @@ class Great_Marble : public Marble
 			Create();
 		}
 
-		Great_Marble(const std::vector<Aspects::aspect_t> aspects)
+		Great_Marble(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -434,7 +438,7 @@ class Superior_Marble : public Marble
 			Create();
 		}
 
-		Superior_Marble(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Marble(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -463,7 +467,7 @@ class Topaz : public Mineral
 			Create();
 		}
 
-		Topaz(const std::vector<Aspects::aspect_t> aspects)
+		Topaz(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -502,7 +506,7 @@ class Great_Topaz : public Topaz
 			Create();
 		}
 
-		Great_Topaz(const std::vector<Aspects::aspect_t> aspects)
+		Great_Topaz(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -531,7 +535,7 @@ class Superior_Topaz : public Topaz
 			Create();
 		}
 
-		Superior_Topaz(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Topaz(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -560,7 +564,7 @@ class Salt : public Mineral
 			Create();
 		}
 
-		Salt(const std::vector<Aspects::aspect_t> aspects)
+		Salt(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -602,7 +606,7 @@ class Great_Salt : public Salt
 			Create();
 		}
 
-		Great_Salt(const std::vector<Aspects::aspect_t> aspects)
+		Great_Salt(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -633,7 +637,7 @@ class Superior_Salt : public Salt
 			Create();
 		}
 
-		Superior_Salt(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Salt(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -664,7 +668,7 @@ class Onyx : public Mineral
 			Create();
 		}
 
-		Onyx(const std::vector<Aspects::aspect_t> aspects)
+		Onyx(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -705,7 +709,7 @@ class Great_Onyx : public Onyx
 			Create();
 		}
 
-		Great_Onyx(const std::vector<Aspects::aspect_t> aspects)
+		Great_Onyx(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -734,7 +738,7 @@ class Superior_Onyx : public Onyx
 			Create();
 		}
 
-		Superior_Onyx(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Onyx(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -763,7 +767,7 @@ class Copper : public Mineral
 			Create();
 		}
 
-		Copper(const std::vector<Aspects::aspect_t> aspects)
+		Copper(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -803,7 +807,7 @@ class Great_Copper : public Copper
 			Create();
 		}
 
-		Great_Copper(const std::vector<Aspects::aspect_t> aspects)
+		Great_Copper(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -832,7 +836,7 @@ class Superior_Copper : public Copper
 			Create();
 		}
 
-		Superior_Copper(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Copper(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -861,7 +865,7 @@ class Phosphorus : public Mineral
 			Create();
 		}
 
-		Phosphorus(const std::vector<Aspects::aspect_t> aspects)
+		Phosphorus(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -901,7 +905,7 @@ class Great_Phosphorus : public Phosphorus
 			Create();
 		}
 
-		Great_Phosphorus(const std::vector<Aspects::aspect_t> aspects)
+		Great_Phosphorus(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -930,7 +934,7 @@ class Superior_Phosphorus : public Phosphorus
 			Create();
 		}
 
-		Superior_Phosphorus(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Phosphorus(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -959,7 +963,7 @@ class Iron : public Mineral
 			Create();
 		}
 
-		Iron(const std::vector<Aspects::aspect_t> aspects)
+		Iron(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1000,7 +1004,7 @@ class Great_Iron : public Iron
 			Create();
 		}
 
-		Great_Iron(const std::vector<Aspects::aspect_t> aspects)
+		Great_Iron(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1029,7 +1033,7 @@ class Superior_Iron : public Iron
 			Create();
 		}
 
-		Superior_Iron(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Iron(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1058,7 +1062,7 @@ class Gold : public Mineral
 			Create();
 		}
 
-		Gold(const std::vector<Aspects::aspect_t> aspects)
+		Gold(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1098,7 +1102,7 @@ class Great_Gold : public Gold
 			Create();
 		}
 
-		Great_Gold(const std::vector<Aspects::aspect_t> aspects)
+		Great_Gold(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1127,7 +1131,7 @@ class Silver : public Mineral
 			Create();
 		}
 
-		Silver(const std::vector<Aspects::aspect_t> aspects)
+		Silver(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1140,7 +1144,7 @@ class Silver : public Mineral
 			m_base_yield.m_tech  = 15;
 			m_base_yield.m_wealth = 15;
 			m_max_aspects = 5;
-			m_biome_mask = MASK_FOREST | MASK_MOUNTAIN | MASK_DESERT | MASK_SWAMP | MASK_MOUNTAIN;
+			m_biome_mask = MASK_FOREST | MASK_MOUNTAIN | MASK_DESERT | MASK_SWAMP;
 			m_level = 2;
 			AddUpgrades();
 		}
@@ -1169,7 +1173,7 @@ class Great_Silver : public Silver
 			Create();
 		}
 
-		Great_Silver(const std::vector<Aspects::aspect_t> aspects)
+		Great_Silver(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1199,7 +1203,7 @@ class Platinum : public Mineral
 			Create();
 		}
 
-		Platinum(const std::vector<Aspects::aspect_t> aspects)
+		Platinum(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1240,7 +1244,7 @@ class Great_Platinum : public Platinum
 			Create();
 		}
 
-		Great_Platinum(const std::vector<Aspects::aspect_t> aspects)
+		Great_Platinum(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1270,7 +1274,7 @@ class Aluminium : public Mineral
 			Create();
 		}
 
-		Aluminium(const std::vector<Aspects::aspect_t> aspects)
+		Aluminium(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1310,7 +1314,7 @@ class Great_Aluminium : public Aluminium
 			Create();
 		}
 
-		Great_Aluminium(const std::vector<Aspects::aspect_t> aspects)
+		Great_Aluminium(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1339,7 +1343,7 @@ class Zinc : public Mineral
 			Create();
 		}
 
-		Zinc(const std::vector<Aspects::aspect_t> aspects)
+		Zinc(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1379,7 +1383,7 @@ class Great_Zinc : public Zinc
 			Create();
 		}
 
-		Great_Zinc(const std::vector<Aspects::aspect_t> aspects)
+		Great_Zinc(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1408,7 +1412,7 @@ class Ruby : public Mineral
 			Create();
 		}
 
-		Ruby(const std::vector<Aspects::aspect_t> aspects)
+		Ruby(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1443,7 +1447,7 @@ class Diamond : public Mineral
 			Create();
 		}
 
-		Diamond(const std::vector<Aspects::aspect_t> aspects)
+		Diamond(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1477,7 +1481,7 @@ class Coal : public Mineral
 			Create();
 		}
 
-		Coal(const std::vector<Aspects::aspect_t> aspects)
+		Coal(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1523,7 +1527,7 @@ class Oil : public Mineral
 			Create();
 		}
 
-		Oil(const std::vector<Aspects::aspect_t> aspects)
+		Oil(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1558,7 +1562,7 @@ class Uranium : public Mineral
 			Create();
 		}
 
-		Uranium(const std::vector<Aspects::aspect_t> aspects)
+		Uranium(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1592,7 +1596,7 @@ class Fluorite : public Mineral
 			Create();
 		}
 
-		Fluorite(const std::vector<Aspects::aspect_t> aspects)
+		Fluorite(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;

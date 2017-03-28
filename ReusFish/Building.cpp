@@ -223,11 +223,10 @@ void Lighthouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 	(void)loc;
 	yield.Reset();
 
-	unsigned seen_flag[SOURCE_TYPE_T_MAX] = {0};
-
 	// hard coded city extents for now...
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH | YIELD_MASK_TECH))
 	{
+		unsigned seen_flag[SOURCE_TYPE_T_MAX] = {0};
 		for (unsigned i = 4; i < 9; i+= 1)
 		{
 			if ((biome_list[i] == OCEAN) && 

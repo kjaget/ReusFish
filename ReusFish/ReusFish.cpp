@@ -114,12 +114,11 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 {
 	if (pos < 0)
 	{
-		static int best_score = std::numeric_limits<int>::min();
-
 		spaces.SetYield();
 		int score = spaces.Score();
 		//if (used_list.Insert(spaces))
 		{
+			static int best_score = std::numeric_limits<int>::min();
 			if (score > best_score)
 			{
 				std::cout << "***************************************************" << std::endl;

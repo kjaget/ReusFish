@@ -256,9 +256,9 @@ void OpiumPoppy::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
 
 	AddAllAdjacent(spaces, loc, yield, Yield(0,50,50,0,-15,0), mask, PLANT);
-	unsigned plant_count = 0;
 	if (mask & YIELD_MASK_TECH)
 	{
+		unsigned plant_count = 0;
 		for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i += 1)
 			if (spaces[i].m_source->Class() == PLANT)
 				plant_count += 1;

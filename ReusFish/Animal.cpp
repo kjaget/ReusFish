@@ -164,10 +164,9 @@ void Dolphin::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, u
 	yield = m_base_yield;
 	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
 
-	unsigned seen_flag[SOURCE_TYPE_T_MAX] = {0};
-
 	if (mask & (YIELD_MASK_TECH | YIELD_MASK_AWE))
 	{
+		unsigned seen_flag[SOURCE_TYPE_T_MAX] = {0};
 		for (unsigned i = std::max<int>(0, (int)loc - yield.m_range); (i <= loc + yield.m_range) && (i < spaces.size()); i+= 1)
 		{
 			if ((i != loc) && 

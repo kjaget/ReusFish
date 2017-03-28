@@ -69,7 +69,7 @@ class Blueberry : public Plant
 			Create();
 		}
 
-		Blueberry(const std::vector<Aspects::aspect_t> aspects)
+		Blueberry(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -109,7 +109,7 @@ class Great_Blueberry : public Blueberry
 			Create();
 		}
 
-		Great_Blueberry(const std::vector<Aspects::aspect_t> aspects)
+		Great_Blueberry(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -140,7 +140,7 @@ class Superior_Blueberry : public Blueberry
 			Create();
 		}
 
-		Superior_Blueberry(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Blueberry(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -171,7 +171,7 @@ class Strawberry : public Plant
 			Create();
 		}
 
-		Strawberry(const std::vector<Aspects::aspect_t> aspects)
+		Strawberry(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -212,7 +212,7 @@ class Great_Strawberry : public Strawberry
 			Create();
 		}
 
-		Great_Strawberry(const std::vector<Aspects::aspect_t> aspects)
+		Great_Strawberry(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -244,7 +244,7 @@ class Superior_Strawberry : public Strawberry
 			Create();
 		}
 
-		Superior_Strawberry(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Strawberry(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -276,7 +276,7 @@ class AppleTree : public Plant
 			Create();
 		}
 
-		AppleTree(const std::vector<Aspects::aspect_t> aspects)
+		AppleTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -321,7 +321,7 @@ class Great_AppleTree : public AppleTree
 			Create();
 		}
 
-		Great_AppleTree(const std::vector<Aspects::aspect_t> aspects)
+		Great_AppleTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -356,7 +356,7 @@ class Superior_AppleTree : public AppleTree
 			Create();
 		}
 
-		Superior_AppleTree(const std::vector<Aspects::aspect_t> aspects)
+		Superior_AppleTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -391,7 +391,7 @@ class PearTree : public Plant
 			Create();
 		}
 
-		PearTree(const std::vector<Aspects::aspect_t> aspects)
+		PearTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -430,7 +430,7 @@ class Great_PearTree : public PearTree
 			Create();
 		}
 
-		Great_PearTree(const std::vector<Aspects::aspect_t> aspects)
+		Great_PearTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -467,7 +467,7 @@ class Superior_PearTree : public PearTree
 			Create();
 		}
 
-		Superior_PearTree(const std::vector<Aspects::aspect_t> aspects)
+		Superior_PearTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -497,7 +497,7 @@ class CherryTree : public Plant
 			Create();
 		}
 
-		CherryTree(const std::vector<Aspects::aspect_t> aspects)
+		CherryTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -537,7 +537,7 @@ class Great_CherryTree : public CherryTree
 			Create();
 		}
 
-		Great_CherryTree(const std::vector<Aspects::aspect_t> aspects)
+		Great_CherryTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -568,7 +568,7 @@ class PlumTree : public Plant
 			Create();
 		}
 
-		PlumTree(const std::vector<Aspects::aspect_t> aspects)
+		PlumTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -616,7 +616,7 @@ class Great_PlumTree : public PlumTree
 			Create();
 		}
 
-		Great_PlumTree(const std::vector<Aspects::aspect_t> aspects)
+		Great_PlumTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -652,7 +652,7 @@ class OrangeTree : public Plant
 			Create();
 		}
 
-		OrangeTree(const std::vector<Aspects::aspect_t> aspects)
+		OrangeTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -686,7 +686,7 @@ class Dandelion : public Plant
 			Create();
 		}
 
-		Dandelion(const std::vector<Aspects::aspect_t> aspects)
+		Dandelion(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -731,7 +731,7 @@ class Great_Dandelion : public Dandelion
 			Create();
 		}
 
-		Great_Dandelion(const std::vector<Aspects::aspect_t> aspects)
+		Great_Dandelion(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -766,7 +766,7 @@ class Superior_Dandelion : public Dandelion
 			Create();
 		}
 
-		Superior_Dandelion(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Dandelion(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -802,7 +802,7 @@ class Nightshade : public Plant
 			Create();
 		}
 
-		Nightshade(const std::vector<Aspects::aspect_t> aspects)
+		Nightshade(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -847,7 +847,7 @@ class Great_Nightshade : public Nightshade
 			Create();
 		}
 
-		Great_Nightshade(const std::vector<Aspects::aspect_t> aspects)
+		Great_Nightshade(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -882,7 +882,7 @@ class Superior_Nightshade : public Nightshade
 			Create();
 		}
 
-		Superior_Nightshade(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Nightshade(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -917,7 +917,7 @@ class Foxglove : public Plant
 			Create();
 		}
 
-		Foxglove(const std::vector<Aspects::aspect_t> aspects)
+		Foxglove(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -956,7 +956,7 @@ class Great_Foxglove : public Foxglove
 			Create();
 		}
 
-		Great_Foxglove(const std::vector<Aspects::aspect_t> aspects)
+		Great_Foxglove(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -987,7 +987,7 @@ class Superior_Foxglove : public Foxglove
 			Create();
 		}
 
-		Superior_Foxglove(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Foxglove(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1018,7 +1018,7 @@ class Sunflower : public Plant
 			Create();
 		}
 
-		Sunflower(const std::vector<Aspects::aspect_t> aspects)
+		Sunflower(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1053,7 +1053,7 @@ class WitheredShrub : public Plant
 			Create();
 		}
 
-		WitheredShrub(const std::vector<Aspects::aspect_t> aspects)
+		WitheredShrub(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1093,7 +1093,7 @@ class Great_WitheredShrub : public WitheredShrub
 			Create();
 		}
 
-		Great_WitheredShrub(const std::vector<Aspects::aspect_t> aspects)
+		Great_WitheredShrub(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1122,7 +1122,7 @@ class Superior_WitheredShrub : public WitheredShrub
 			Create();
 		}
 
-		Superior_WitheredShrub(const std::vector<Aspects::aspect_t> aspects)
+		Superior_WitheredShrub(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1149,7 +1149,7 @@ class Agave : public Plant
 			Create();
 		}
 
-		Agave(const std::vector<Aspects::aspect_t> aspects)
+		Agave(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1189,7 +1189,7 @@ class Great_Agave : public Agave
 			Create();
 		}
 
-		Great_Agave(const std::vector<Aspects::aspect_t> aspects)
+		Great_Agave(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1219,7 +1219,7 @@ class Superior_Agave : public Agave
 			Create();
 		}
 
-		Superior_Agave(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Agave(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1244,12 +1244,14 @@ class Superior_Agave : public Agave
 class BarrelCactus : public Plant
 {
 	public:
-		BarrelCactus()
+		BarrelCactus() :
+			m_post_processed(false)
 		{
 			Create();
 		}
 
-		BarrelCactus(const std::vector<Aspects::aspect_t> aspects)
+		BarrelCactus(const std::vector<Aspects::aspect_t>  &aspects) :
+			m_post_processed(false)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1316,7 +1318,7 @@ class Great_BarrelCactus : public BarrelCactus
 			Create();
 		}
 
-		Great_BarrelCactus(const std::vector<Aspects::aspect_t> aspects)
+		Great_BarrelCactus(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1347,7 +1349,7 @@ class Superior_BarrelCactus : public BarrelCactus
 			Create();
 		}
 
-		Superior_BarrelCactus(const std::vector<Aspects::aspect_t> aspects)
+		Superior_BarrelCactus(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1378,7 +1380,7 @@ class DatePalm : public Plant
 			Create();
 		}
 
-		DatePalm(const std::vector<Aspects::aspect_t> aspects)
+		DatePalm(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1417,7 +1419,7 @@ class Great_DatePalm : public DatePalm
 			Create();
 		}
 
-		Great_DatePalm(const std::vector<Aspects::aspect_t> aspects)
+		Great_DatePalm(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1447,7 +1449,7 @@ class Superior_DatePalm : public DatePalm
 			Create();
 		}
 
-		Superior_DatePalm(const std::vector<Aspects::aspect_t> aspects)
+		Superior_DatePalm(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1477,7 +1479,7 @@ class AloeVera : public Plant
 			Create();
 		}
 
-		AloeVera(const std::vector<Aspects::aspect_t> aspects)
+		AloeVera(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1516,7 +1518,7 @@ class Great_AloeVera : public AloeVera
 			Create();
 		}
 
-		Great_AloeVera(const std::vector<Aspects::aspect_t> aspects)
+		Great_AloeVera(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1546,7 +1548,7 @@ class Superior_AloeVera : public AloeVera
 			Create();
 		}
 
-		Superior_AloeVera(const std::vector<Aspects::aspect_t> aspects)
+		Superior_AloeVera(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1576,7 +1578,7 @@ class DesertLime : public Plant
 			Create();
 		}
 
-		DesertLime(const std::vector<Aspects::aspect_t> aspects)
+		DesertLime(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1620,7 +1622,7 @@ class Great_DesertLime : public DesertLime
 			Create();
 		}
 
-		Great_DesertLime(const std::vector<Aspects::aspect_t> aspects)
+		Great_DesertLime(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1654,7 +1656,7 @@ class ChilliPepper : public Plant
 			Create();
 		}
 
-		ChilliPepper(const std::vector<Aspects::aspect_t> aspects)
+		ChilliPepper(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1694,7 +1696,7 @@ class Great_ChilliPepper : public ChilliPepper
 			Create();
 		}
 
-		Great_ChilliPepper(const std::vector<Aspects::aspect_t> aspects)
+		Great_ChilliPepper(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1725,7 +1727,7 @@ class CardonCactus : public Plant
 			Create();
 		}
 
-		CardonCactus(const std::vector<Aspects::aspect_t> aspects)
+		CardonCactus(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1759,7 +1761,7 @@ class OpiumPoppy : public Plant
 			Create();
 		}
 
-		OpiumPoppy(const std::vector<Aspects::aspect_t> aspects)
+		OpiumPoppy(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1793,7 +1795,7 @@ class Elderberry : public Plant
 			Create();
 		}
 
-		Elderberry(const std::vector<Aspects::aspect_t> aspects)
+		Elderberry(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1838,7 +1840,7 @@ class Great_Elderberry : public Elderberry
 			Create();
 		}
 
-		Great_Elderberry(const std::vector<Aspects::aspect_t> aspects)
+		Great_Elderberry(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1872,7 +1874,7 @@ class Superior_Elderberry : public Elderberry
 			Create();
 		}
 
-		Superior_Elderberry(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Elderberry(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1906,7 +1908,7 @@ class Peppermint : public Plant
 			Create();
 		}
 
-		Peppermint(const std::vector<Aspects::aspect_t> aspects)
+		Peppermint(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1946,7 +1948,7 @@ class Great_Peppermint : public Peppermint
 			Create();
 		}
 
-		Great_Peppermint(const std::vector<Aspects::aspect_t> aspects)
+		Great_Peppermint(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -1976,7 +1978,7 @@ class Superior_Peppermint : public Peppermint
 			Create();
 		}
 
-		Superior_Peppermint(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Peppermint(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2006,7 +2008,7 @@ class Tomato : public Plant
 			Create();
 		}
 
-		Tomato(const std::vector<Aspects::aspect_t> aspects)
+		Tomato(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2047,7 +2049,7 @@ class Great_Tomato : public Tomato
 			Create();
 		}
 
-		Great_Tomato(const std::vector<Aspects::aspect_t> aspects)
+		Great_Tomato(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2078,7 +2080,7 @@ class Superior_Tomato : public Tomato
 			Create();
 		}
 
-		Superior_Tomato(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Tomato(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2109,7 +2111,7 @@ class Pineapple : public Plant
 			Create();
 		}
 
-		Pineapple(const std::vector<Aspects::aspect_t> aspects)
+		Pineapple(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2149,7 +2151,7 @@ class Great_Pineapple : public Pineapple
 			Create();
 		}
 
-		Great_Pineapple(const std::vector<Aspects::aspect_t> aspects)
+		Great_Pineapple(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2179,7 +2181,7 @@ class Superior_Pineapple : public Pineapple
 			Create();
 		}
 
-		Superior_Pineapple(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Pineapple(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2209,7 +2211,7 @@ class Marshmallow : public Plant
 			Create();
 		}
 
-		Marshmallow(const std::vector<Aspects::aspect_t> aspects)
+		Marshmallow(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2249,7 +2251,7 @@ class Great_Marshmallow : public Marshmallow
 			Create();
 		}
 
-		Great_Marshmallow(const std::vector<Aspects::aspect_t> aspects)
+		Great_Marshmallow(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2279,7 +2281,7 @@ class Superior_Marshmallow : public Marshmallow
 			Create();
 		}
 
-		Superior_Marshmallow(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Marshmallow(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2309,7 +2311,7 @@ class Papaya : public Plant
 			Create();
 		}
 
-		Papaya(const std::vector<Aspects::aspect_t> aspects)
+		Papaya(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2348,7 +2350,7 @@ class Great_Papaya : public Papaya
 			Create();
 		}
 
-		Great_Papaya(const std::vector<Aspects::aspect_t> aspects)
+		Great_Papaya(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2378,7 +2380,7 @@ class Superior_Papaya : public Papaya
 			Create();
 		}
 
-		Superior_Papaya(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Papaya(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2408,7 +2410,7 @@ class WhiteWillow : public Plant
 			Create();
 		}
 
-		WhiteWillow(const std::vector<Aspects::aspect_t> aspects)
+		WhiteWillow(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2452,7 +2454,7 @@ class Great_WhiteWillow : public WhiteWillow
 			Create();
 		}
 
-		Great_WhiteWillow(const std::vector<Aspects::aspect_t> aspects)
+		Great_WhiteWillow(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2486,7 +2488,7 @@ class Superior_WhiteWillow : public WhiteWillow
 			Create();
 		}
 
-		Superior_WhiteWillow(const std::vector<Aspects::aspect_t> aspects)
+		Superior_WhiteWillow(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2517,7 +2519,7 @@ class Coffea : public Plant
 			Create();
 		}
 
-		Coffea(const std::vector<Aspects::aspect_t> aspects)
+		Coffea(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2563,7 +2565,7 @@ class Great_Coffea : public Coffea
 			Create();
 		}
 
-		Great_Coffea(const std::vector<Aspects::aspect_t> aspects)
+		Great_Coffea(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2598,7 +2600,7 @@ class Hemp : public Plant
 			Create();
 		}
 
-		Hemp(const std::vector<Aspects::aspect_t> aspects)
+		Hemp(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2637,7 +2639,7 @@ class Great_Hemp : public Hemp
 			Create();
 		}
 
-		Great_Hemp(const std::vector<Aspects::aspect_t> aspects)
+		Great_Hemp(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2667,7 +2669,7 @@ class CacaoTree : public Plant
 			Create();
 		}
 
-		CacaoTree(const std::vector<Aspects::aspect_t> aspects)
+		CacaoTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2702,7 +2704,7 @@ class RubberTree : public Plant
 			Create();
 		}
 
-		RubberTree(const std::vector<Aspects::aspect_t> aspects)
+		RubberTree(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2736,7 +2738,7 @@ class Kumquat : public Plant
 			Create();
 		}
 
-		Kumquat(const std::vector<Aspects::aspect_t> aspects)
+		Kumquat(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2776,7 +2778,7 @@ class Great_Kumquat : public Kumquat
 			Create();
 		}
 
-		Great_Kumquat(const std::vector<Aspects::aspect_t> aspects)
+		Great_Kumquat(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2806,7 +2808,7 @@ class Superior_Kumquat : public Kumquat
 			Create();
 		}
 
-		Superior_Kumquat(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Kumquat(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2836,7 +2838,7 @@ class Ginger : public Plant
 			Create();
 		}
 
-		Ginger(const std::vector<Aspects::aspect_t> aspects)
+		Ginger(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2880,7 +2882,7 @@ class Great_Ginger : public Ginger
 			Create();
 		}
 
-		Great_Ginger(const std::vector<Aspects::aspect_t> aspects)
+		Great_Ginger(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2914,7 +2916,7 @@ class Superior_Ginger : public Ginger
 			Create();
 		}
 
-		Superior_Ginger(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Ginger(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2948,7 +2950,7 @@ class Dragonfruit : public Plant
 			Create();
 		}
 
-		Dragonfruit(const std::vector<Aspects::aspect_t> aspects)
+		Dragonfruit(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -2990,7 +2992,7 @@ class Great_Dragonfruit : public Dragonfruit
 			Create();
 		}
 
-		Great_Dragonfruit(const std::vector<Aspects::aspect_t> aspects)
+		Great_Dragonfruit(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3021,7 +3023,7 @@ class Superior_Dragonfruit : public Dragonfruit
 			Create();
 		}
 
-		Superior_Dragonfruit(const std::vector<Aspects::aspect_t> aspects)
+		Superior_Dragonfruit(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3052,7 +3054,7 @@ class Kiwifruit : public Plant
 			Create();
 		}
 
-		Kiwifruit(const std::vector<Aspects::aspect_t> aspects)
+		Kiwifruit(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3098,7 +3100,7 @@ class Great_Kiwifruit : public Kiwifruit
 			Create();
 		}
 
-		Great_Kiwifruit(const std::vector<Aspects::aspect_t> aspects)
+		Great_Kiwifruit(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3133,7 +3135,7 @@ class Lychee : public Plant
 			Create();
 		}
 
-		Lychee(const std::vector<Aspects::aspect_t> aspects)
+		Lychee(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3172,7 +3174,7 @@ class Great_Lychee : public Lychee
 			Create();
 		}
 
-		Great_Lychee(const std::vector<Aspects::aspect_t> aspects)
+		Great_Lychee(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3202,7 +3204,7 @@ class Cinnamomum : public Plant
 			Create();
 		}
 
-		Cinnamomum(const std::vector<Aspects::aspect_t> aspects)
+		Cinnamomum(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3242,7 +3244,7 @@ class Great_Cinnamomum : public Cinnamomum
 			Create();
 		}
 
-		Great_Cinnamomum(const std::vector<Aspects::aspect_t> aspects)
+		Great_Cinnamomum(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3273,7 +3275,7 @@ class TeaPlant : public Plant
 			Create();
 		}
 
-		TeaPlant(const std::vector<Aspects::aspect_t> aspects)
+		TeaPlant(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3318,7 +3320,7 @@ class Great_TeaPlant : public TeaPlant
 			Create();
 		}
 
-		Great_TeaPlant(const std::vector<Aspects::aspect_t> aspects)
+		Great_TeaPlant(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;
@@ -3353,7 +3355,7 @@ class Ginkgo : public Plant
 			Create();
 		}
 
-		Ginkgo(const std::vector<Aspects::aspect_t> aspects)
+		Ginkgo(const std::vector<Aspects::aspect_t>  &aspects)
 		{
 			Create();
 			m_aspects = aspects;

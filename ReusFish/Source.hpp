@@ -57,7 +57,7 @@ class Source
 			m_aspects(original.m_aspects),
 			m_upgrades(original.m_upgrades)
 		{}
-		Source(const std::vector<Aspects::aspect_t> aspects)
+		Source(const std::vector<Aspects::aspect_t> &aspects)
 		{
 			Create();
 			m_aspects = aspects;

@@ -21,10 +21,10 @@ class Space
 			l_source->AddAspect((Aspects::aspect_t)aspect);
 			m_source = source_container.Add(l_source);
 		}
-		Space(const Space &other)
+		Space(const Space &other) :
+			m_source(other.m_source),
+			m_yield(other.m_yield)
 		{
-			m_source = other.m_source;
-			m_yield  = other.m_yield;
 		}
 		Space& operator=(const Space &rhs)
 		{

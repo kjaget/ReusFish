@@ -4,7 +4,10 @@
 #include "Plant.hpp"
 #include "Giants.hpp"
 
-Giant::Giant() {}
+Giant::Giant():
+	m_domestic_level(0),
+	m_domestic_level2(0)
+{}
 
 void Giant::GetSources(biome_t biome, std::vector<const Source *>&sources) const
 {
