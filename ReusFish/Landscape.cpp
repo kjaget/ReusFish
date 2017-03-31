@@ -130,7 +130,7 @@ void Landscape::EndCity(void)
 		{
 			Source *new_building = it->m_source->Clone();
 			dynamic_cast<Building *>(new_building)->SetStartEnd(m_start, m_end);
-			*it = Space(new_building);
+			it->m_source = new_building;
 		}
 }
 

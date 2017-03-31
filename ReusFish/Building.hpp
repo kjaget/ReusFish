@@ -91,3 +91,38 @@ class Harbor : public Building
 		Harbor* Clone(void) const;
 };
 
+class University: public Building
+{
+	public :
+		University();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		University* Clone(void) const;
+};
+
+
+class Geologist: public Building
+{
+	public :
+		Geologist();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Geologist* Clone(void) const;
+};
+
+class Alchemist: public Building
+{
+	public :
+		Alchemist();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Alchemist* Clone(void) const;
+};
+class Apothecary: public Building
+{
+	public :
+		Apothecary();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Apothecary* Clone(void) const;
+};

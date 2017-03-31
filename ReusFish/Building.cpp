@@ -292,3 +292,85 @@ Harbor* Harbor::Clone(void) const
 {
 	return new Harbor(*this);
 }
+
+University::University(void)
+{
+	m_name = "University";
+}
+
+void University::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(10,5,0,0,0,0), mask, PLANT, 3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, ANIMAL, std::numeric_limits<unsigned>::max());
+}
+University* University::Clone(void) const
+{
+	return new University(*this);
+}
+
+Geologist::Geologist(void)
+{
+	m_name = "Geologist";
+}
+
+void Geologist::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,10,5,0,0,0), mask, MINERAL, 3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,35,0,0,0), mask, ONYX, TOPAZ, TOPAZ, 2);
+}
+Geologist* Geologist::Clone(void) const
+{
+	return new Geologist(*this);
+}
+
+Alchemist::Alchemist(void)
+{
+	m_name = "Alchemist";
+}
+
+void Alchemist::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, MINERAL, 3);
+	for (unsigned i = std::min<int>((int)loc - 2, 0); (i <= (loc + 2)) && (i < spaces.size()); i+= 1)
+		if ((i != loc) && (spaces[i].m_source->Class() == MINERAL))
+		{
+			spaces[i].m_yield.m_wealth = 3 * spaces[i].m_yield.m_tech;
+			spaces[i].m_yield.m_tech = 0;
+		}
+}
+Alchemist* Alchemist::Clone(void) const
+{
+	return new Alchemist(*this);
+}
+
+Apothecary::Apothecary(void)
+{
+	m_name = "Apothecary";
+}
+
+void Apothecary::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_AWE))
+	{
+		for (unsigned i = std::max<int>((int)loc - 2, 0); (i <= (loc + 2)) && (i < spaces.size()); i+= 1)
+		{
+			if ((i != loc) && (spaces[i].m_source->Class() == PLANT))
+			{
+				Yield this_yield;
+				spaces[i].m_source->GetYield(spaces, loc, this_yield, YIELD_MASK_FOOD | YIELD_MASK_TECH);
+				this_yield.m_food *= 1.5;
+				this_yield.m_tech *= 1.5;
+				this_yield.m_awe   = 15;
+				yield += this_yield;
+			}
+		}
+	}
+}
+Apothecary* Apothecary::Clone(void) const
+{
+	return new Apothecary(*this);
+}

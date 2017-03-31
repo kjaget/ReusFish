@@ -11,7 +11,7 @@ class Aspect
 {
 	public :
 		Aspect(void) : m_name("None"), m_resource(SOURCE_CLASS_NONE), m_natura_threshold(0) { }
-		Aspect(const std::string &name, source_class_t resource, const Yield &bonus, unsigned natura_threshold, const Yield &natura_bonus) :
+		Aspect(const char *name, source_class_t resource, const Yield &bonus, unsigned natura_threshold, const Yield &natura_bonus) :
 			m_name(name),
 			m_resource(resource),
 			m_bonus(bonus),
@@ -24,11 +24,11 @@ class Aspect
 			std::cout << m_name;
 		}
 
-		std::string    m_name;
-		source_class_t m_resource;
-		Yield          m_bonus;
-		unsigned       m_natura_threshold;
-		Yield          m_natura_bonus;
+		const char     *m_name;
+		source_class_t  m_resource;
+		Yield           m_bonus;
+		unsigned char   m_natura_threshold;
+		Yield           m_natura_bonus;
 };
 
 class Aspects
@@ -43,7 +43,7 @@ class Aspects
 			ASPECT_CLASS_T_MAX
 		} aspect_class_t;
 
-		typedef enum 
+		typedef enum : unsigned char
 		{
 			LESSER_LEAF,
 			POTENT_LEAF,

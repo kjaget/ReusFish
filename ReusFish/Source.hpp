@@ -23,14 +23,14 @@ class Upgrade
 			m_new_source(SOURCE_TYPE_NONE), 
 			m_aspect1(Aspects::ASPECT_T_MAX),
 			m_aspect2(Aspects::ASPECT_T_MAX) 
-	{}
+		{}
 		Upgrade(source_type_t source_type,
 				Aspects::aspect_t aspect1,
 				Aspects::aspect_t aspect2) : 
 			m_new_source(source_type), 
 			m_aspect1(aspect1), 
 			m_aspect2(aspect2) 
-	{}
+		{}
 
 		bool operator==(const Upgrade &rhs) const
 		{

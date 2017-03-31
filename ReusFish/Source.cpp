@@ -112,9 +112,12 @@ bool Source::NotInRange(const std::vector<Space> &spaces,
 {
 	for (unsigned i = std::max<int>(0, start); (i <= end) && (i < spaces.size()); i+= 1)
 	{
-		if ((i != loc) && 
-				((spaces[i].m_source->Type() == type1) || (spaces[i].m_source->Type() == type2) || (spaces[i].m_source->Type() == type3)) )
-			return false;
+		if (i != loc)
+		{
+			const source_type_t type = spaces[i].m_source->Type();
+			if ((type == type1) || (type == type2) || (type == type3)) 
+				return false;
+		}
 	}
 	return true;
 }

@@ -1,5 +1,4 @@
-#ifndef SOURCE_TYPE_INC__
-#define SOURCE_TYPE_INC__
+#pragma once
 
 typedef enum SOURCE_TYPE_T : unsigned char
 {
@@ -121,7 +120,3 @@ typedef enum SOURCE_TYPE_T : unsigned char
 
    SOURCE_TYPE_T_MAX
 } source_type_t;
-
-
-#endif
-

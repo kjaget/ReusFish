@@ -158,19 +158,28 @@ int main (int argc, char **argv)
 	(void)argv;                 
 	Landscape spaces;
 	Giants giants;
-
-	spaces.SetGoal(Yield(15, 0, 15, 0, 0, 0));
+	
+	spaces.SetGoal(Yield(200, 100, 50, 0, 0, 0));
+	//spaces.AddSpace(OCEAN,new Great_Mackerel());
+	//spaces.AddSpace(OCEAN,new Great_Mackerel());
+	spaces.AddSpace(OCEAN,new Clownfish());
 	spaces.StartCity();
-	spaces.AddSpace(DESERT,new Quartz());
-	spaces.AddSpace(DESERT,new Source());
-	spaces.AddSpace(DESERT,new City());
-	spaces.AddSpace(DESERT,new City());
-	spaces.AddSpace(DESERT,new City());
-	spaces.AddSpace(DESERT,new City());
-	spaces.AddSpace(DESERT,new Shrine());
-	spaces.AddSpace(DESERT,new Source());
+	spaces.AddSpace(OCEAN,new Parrotfish());
+	spaces.AddSpace(FOREST,new Dandelion());
+	spaces.AddSpace(FOREST,new Blueberry());
+	spaces.AddSpace(FOREST,new Chicken());
+	spaces.AddSpace(FOREST,new City());
+	spaces.AddSpace(FOREST,new City());
+	spaces.AddSpace(FOREST,new City());
+	spaces.AddSpace(FOREST,new City());
+	spaces.AddSpace(FOREST,new University());
+	spaces.AddSpace(FOREST,new Chicken());
+	spaces.AddSpace(FOREST,new Agate());
+	spaces.AddSpace(FOREST,new Blueberry());
+	spaces.AddSpace(FOREST,new Apothecary());
 	spaces.EndCity();
-
+	spaces.AddSpace(FOREST,new Source());
+	spaces.AddSpace(FOREST,new Source());
 
 	initial_moves(spaces,spaces.size()-1,giants);
 	remaining_moves(spaces.size()-1);

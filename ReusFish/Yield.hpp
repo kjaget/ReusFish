@@ -1,5 +1,4 @@
-#ifndef INC_YIELD_HPP
-#define INC_YIELD_HPP
+#pragma once
 
 static const unsigned YIELD_MASK_FOOD   = 0x1;
 static const unsigned YIELD_MASK_TECH   = 0x2;
@@ -14,11 +13,11 @@ class Yield
 	public:
 		Yield();
 		Yield(unsigned short food, 
-				unsigned short tech, 
-				unsigned short wealth,
-				unsigned short danger, 
-				unsigned short awe, 
-				short          natura);
+			  unsigned short tech, 
+			  unsigned short wealth,
+			  unsigned short danger, 
+			  unsigned short awe, 
+			  short          natura);
 		Yield(unsigned short food, 
 				unsigned short tech, 
 				unsigned short wealth,
@@ -124,7 +123,4 @@ class Yield
 		unsigned char  m_range;
 		unsigned char  m_natura_range;
 };
-
-
-#endif
 
