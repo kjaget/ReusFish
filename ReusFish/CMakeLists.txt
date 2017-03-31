@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 project(reusfish)
 
 add_definitions(-std=c++11 -DZED_SUPPORT -Wall  -Wextra)
@@ -19,6 +19,7 @@ ReusFish.cpp
 Source.cpp
 SourceContainer.cpp
 SourceTypeList.cpp
+Space.cpp
 Yield.cpp
 )
 

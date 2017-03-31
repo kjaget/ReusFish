@@ -132,6 +132,8 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 			}
 			//if (used_list.Insert(spaces))
 			priority_queue.push(spaces);
+			if ((priority_queue.size() % 100000) == 0)
+				std::cout << priority_queue.size() << std::endl;
 		}
 		return;
 	}
@@ -162,26 +164,27 @@ int main (int argc, char **argv)
 	spaces.SetGoal(Yield(200, 100, 50, 0, 0, 0));
 	//spaces.AddSpace(OCEAN,new Great_Mackerel());
 	//spaces.AddSpace(OCEAN,new Great_Mackerel());
-	spaces.AddSpace(OCEAN,new Clownfish());
+	spaces.AddSpace(OCEAN,new Source());
 	spaces.StartCity();
-	spaces.AddSpace(OCEAN,new Parrotfish());
-	spaces.AddSpace(FOREST,new Dandelion());
-	spaces.AddSpace(FOREST,new Blueberry());
-	spaces.AddSpace(FOREST,new Chicken());
+	spaces.AddSpace(OCEAN,new Source());
+	spaces.AddSpace(FOREST,new Source());
+	spaces.AddSpace(FOREST,new Source());
+	spaces.AddSpace(FOREST,new Source());
 	spaces.AddSpace(FOREST,new City());
 	spaces.AddSpace(FOREST,new City());
 	spaces.AddSpace(FOREST,new City());
 	spaces.AddSpace(FOREST,new City());
 	spaces.AddSpace(FOREST,new University());
-	spaces.AddSpace(FOREST,new Chicken());
-	spaces.AddSpace(FOREST,new Agate());
-	spaces.AddSpace(FOREST,new Blueberry());
+	spaces.AddSpace(FOREST,new Source());
+	spaces.AddSpace(FOREST,new Source());
+	spaces.AddSpace(FOREST,new Source());
 	spaces.AddSpace(FOREST,new Apothecary());
 	spaces.EndCity();
 	spaces.AddSpace(FOREST,new Source());
 	spaces.AddSpace(FOREST,new Source());
 
 	initial_moves(spaces,spaces.size()-1,giants);
+	return 0;
 	remaining_moves(spaces.size()-1);
 
 	return 0;

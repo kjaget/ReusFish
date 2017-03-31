@@ -1,13 +1,15 @@
-#include "Aspects.hpp"
 #include "Animal.hpp"
+#include "Aspects.hpp"
+#include "Giants.hpp"
 #include "Mineral.hpp"
 #include "Plant.hpp"
-#include "Giants.hpp"
+#include "SourceContainer.hpp"
 
 Giant::Giant():
 	m_domestic_level(0),
 	m_domestic_level2(0)
-{}
+{
+}
 
 void Giant::GetSources(biome_t biome, std::vector<const Source *>&sources) const
 {
@@ -194,9 +196,9 @@ void Swamp_Giant::Init(void)
 }
 
 Giants::Giants() :
-	m_ocean_giant (Ocean_Giant (2,1,1,1)),
+	m_ocean_giant (Ocean_Giant (1,1,1,1)),
 	m_forest_giant(Forest_Giant(1,1,1,0)),
-	m_stone_giant (Stone_Giant (2,1,1,1,0)),
+	m_stone_giant (Stone_Giant (1,1,1,1,0)),
 	m_swamp_giant (Swamp_Giant (1,1,1,0,0))
 {
 }
