@@ -283,8 +283,12 @@ void Landscape::Print(void) const
 {
 	for (unsigned i = 0; i < m_spaces.size(); i++)
 	{
+		if (i == m_start)
+			std::cout << "--------" << std::endl;
 		m_spaces[i].Print();
 		std::cout << std::endl;
+		if (i == m_end)
+			std::cout << "--------" << std::endl;
 	}
 }
 void Landscape::PrintAll(void)
@@ -298,6 +302,8 @@ void Landscape::PrintAll(void)
 	std::cout << " H:" << Hash() << std::endl;
 	for (unsigned i = 0; i < m_spaces.size(); i++)
 	{
+		if (i == m_start)
+			std::cout << "--------" << std::endl;
 		biome_list.Print(i);
 		m_spaces[i].Print();
 		if (m_spaces[i].m_source)
@@ -311,6 +317,8 @@ void Landscape::PrintAll(void)
 			yield.Print();
 		}
 		std::cout << std::endl;
+		if (i == m_end)
+			std::cout << "--------" << std::endl;
 	}
 }
 
