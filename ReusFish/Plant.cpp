@@ -485,15 +485,14 @@ void Kiwifruit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
 { 
 	yield = m_base_yield;
 	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
-	AddAllAdjacent(spaces, loc, yield, Yield(m_food_adder, 0,0,0,0,0), mask, ANIMAL);
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_TECH))
 	{
-	for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i+= 1)
-		if ((i != loc) && (spaces[i].m_source->Class() == PLANT))
-		{
-			spaces[i].m_yield.AddFood(m_food_adder, mask);
-			spaces[i].m_yield.AddTech(m_tech_adder, mask);
-		}
+		for (unsigned i = std::max<int>(0, (int)loc - m_base_yield.m_natura_range); (i <= loc + m_base_yield.m_natura_range) && (i < spaces.size()); i+= 1)
+			if ((i != loc) && (spaces[i].m_source->Class() == PLANT))
+			{
+				spaces[i].m_yield.AddFood(m_food_adder, mask);
+				spaces[i].m_yield.AddTech(m_tech_adder, mask);
+			}
 	}
 }
 
