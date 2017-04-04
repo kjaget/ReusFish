@@ -310,7 +310,7 @@ void Landscape::Print(void) const
 			std::cout << "--------" << std::endl;
 	}
 }
-void Landscape::PrintAll(void)
+void Landscape::PrintAll(void) const
 {
 	std::cout << "S:" << Score();
 	std::cout << " F:" << Food(m_start, m_end);

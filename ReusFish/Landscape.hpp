@@ -32,7 +32,7 @@ class Landscape
 		int Score(const Yield &goal) const;
 		int Score(void) const;
 		void Print(void) const;
-		void PrintAll(void);
+		void PrintAll(void) const;
 
 	private:
 		void GetYield(Yield &yield, unsigned start_pos, unsigned end_pos) const;
