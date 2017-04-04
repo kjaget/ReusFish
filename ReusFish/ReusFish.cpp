@@ -21,11 +21,10 @@
 #include "Yield.hpp"
 
 static std::priority_queue<Landscape, std::deque<Landscape> > priority_queue;
-UsedList<unsigned, Landscape> used_list;
+static UsedList<unsigned, Landscape> used_list;
 
 void remaining_moves(unsigned initial_pos)
 {
-	Landscape landscape;
 	int best_score = std::numeric_limits<int>::min();
 	bool logging = false;
 	unsigned upgrades_added = 0;
@@ -34,13 +33,20 @@ void remaining_moves(unsigned initial_pos)
 
 	while (!priority_queue.empty())
 	{
-		landscape = priority_queue.top();
+		// Grab the top scoring landscape off the queue
+		// of those not yet processed
+		Landscape landscape(priority_queue.top());
 		priority_queue.pop();
 		if (priority_queue.size() > 100000000)
 			logging = true;
 
+		// If this has already been tested,
+		// skip it
 		if (!used_list.Insert(landscape))
 			continue;
+
+		// If the score is better than the previous
+		// best, print it out
 		if (landscape.Score() > best_score)
 		{
 			std::cout << "***************************************************" << std::endl;
@@ -54,16 +60,16 @@ void remaining_moves(unsigned initial_pos)
 			landscape.PrintAll();
 			best_score = landscape.Score();
 		}
-		if ((++landspaces_processed % 100000) == 0)
+		if ((++landspaces_processed % 250000) == 0)
 			std::cout << "Upgrades " << upgrades_added << " Aspects " << aspects_added << " Landscapes " << landspaces_processed << std::endl;
 
 		SourceList upgrades;
 		for (int pos = (int)initial_pos; pos >= 0; pos--)
 		{
 			landscape[pos].m_source->GetUpgrades(biome_list[pos], upgrades);
+			Space saved_space(landscape[pos]);
 			for (unsigned i = 0; i < upgrades.size(); i++)
 			{
-				Space saved_space = landscape[pos];
 				landscape[pos] = Space(upgrades[i]);
 				landscape.SetYield();
 				if (logging)
@@ -78,8 +84,8 @@ void remaining_moves(unsigned initial_pos)
 					upgrades_added += 1;
 					priority_queue.push(landscape);
 				}
-				landscape[pos] = saved_space;
 			}
+			landscape[pos] = saved_space;
 
 			for (unsigned aspect = 0; aspect < Aspects::ASPECT_T_MAX ; aspect++)
 			{
@@ -90,8 +96,7 @@ void remaining_moves(unsigned initial_pos)
 						aspects.IsValid((Aspects::aspect_t)aspect, landscape[pos].m_source->Class()) &&
 						landscape[pos].m_source->CanAddAspect((Aspects::aspect_t)aspect))
 				{
-					Space saved_space = landscape[pos];
-					landscape[pos] = Space(landscape[pos], aspect);
+					landscape[pos] = Space(saved_space, aspect);
 					landscape.SetYield();
 					if (logging)
 					{
@@ -100,7 +105,7 @@ void remaining_moves(unsigned initial_pos)
 					}
 					//if (used_list.Insert(landscape))
 					{
-						aspects_added+=1;
+						aspects_added += 1;
 						priority_queue.push(landscape);
 					}
 					landscape[pos] = saved_space;
@@ -110,6 +115,8 @@ void remaining_moves(unsigned initial_pos)
 	}
 }
 
+// Generate all the initial permutations of 
+// starting configs for the landscape.  
 void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 {
 	if (pos < 0)
@@ -132,8 +139,8 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 			}
 			//if (used_list.Insert(spaces))
 			priority_queue.push(spaces);
-			if ((priority_queue.size() % 100000) == 0)
-				std::cout << priority_queue.size() << std::endl;
+			if ((priority_queue.size() % 250000) == 0)
+				std::cout << priority_queue.size() << " initial configs" << std::endl;
 		}
 		return;
 	}
@@ -143,7 +150,7 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 	// for this biome.
 	if (spaces[pos].m_source->Class() != NON_NATURAL)
 	{
-		SourceList source_list = giants.GetSources(biome_list[pos]);
+		SourceList source_list(giants.GetSources(biome_list[pos]));
 		for (unsigned i = 0; i < source_list.size(); i++)
 		{
 			spaces[pos] = Space(source_list[i]);
@@ -161,30 +168,27 @@ int main (int argc, char **argv)
 	Landscape spaces;
 	Giants giants;
 	
-	spaces.SetGoal(Yield(200, 100, 50, 0, 0, 0));
-	//spaces.AddSpace(OCEAN,new Great_Mackerel());
-	//spaces.AddSpace(OCEAN,new Great_Mackerel());
-	spaces.AddSpace(OCEAN,new Source());
+	spaces.SetGoal(Workshop().GetCompletionRequirements());
+	//spaces.AddSpace(MOUNTAIN);
+	//spaces.AddSpace(MOUNTAIN);
 	spaces.StartCity();
-	spaces.AddSpace(OCEAN,new Source());
-	spaces.AddSpace(FOREST,new Source());
-	spaces.AddSpace(FOREST,new Source());
-	spaces.AddSpace(FOREST,new Source());
-	spaces.AddSpace(FOREST,new City());
-	spaces.AddSpace(FOREST,new City());
-	spaces.AddSpace(FOREST,new City());
-	spaces.AddSpace(FOREST,new City());
-	spaces.AddSpace(FOREST,new University());
-	spaces.AddSpace(FOREST,new Source());
-	spaces.AddSpace(FOREST,new Source());
-	spaces.AddSpace(FOREST,new Source());
-	spaces.AddSpace(FOREST,new Apothecary());
+	spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(MOUNTAIN,Workshop());
+	spaces.AddSpace(SWAMP,City());
+	spaces.AddSpace(SWAMP,City());
+	spaces.AddSpace(SWAMP,City());
+	spaces.AddSpace(SWAMP,City());
+	spaces.AddSpace(SWAMP);
+	spaces.AddSpace(SWAMP);
+	spaces.AddSpace(SWAMP);
+	spaces.AddSpace(SWAMP);
 	spaces.EndCity();
-	spaces.AddSpace(FOREST,new Source());
-	spaces.AddSpace(FOREST,new Source());
+	//spaces.AddSpace(OCEAN);
+	//spaces.AddSpace(OCEAN);
+	//spaces.AddSpace(OCEAN);
 
 	initial_moves(spaces,spaces.size()-1,giants);
-	return 0;
 	remaining_moves(spaces.size()-1);
 
 	return 0;

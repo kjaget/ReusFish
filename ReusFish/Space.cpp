@@ -12,13 +12,24 @@ Space::Space(Source *source) :
 }
 
 Space::Space(const Source *source) :
-   	m_source(source_container.Add(source))
+	m_source(source_container.Add(source))
 {
 }
 
+Space::Space(const Source &source) :
+	m_source(source_container.Add(source.Clone()))
+{
+}
 Space::Space(const Source *source, int aspect)
 { 
 	Source *l_source = source->Clone();
+	l_source->AddAspect((Aspects::aspect_t)aspect);
+	m_source = source_container.Add(l_source);
+}
+
+Space::Space(const Source &source, int aspect)
+{
+	Source *l_source = source.Clone();
 	l_source->AddAspect((Aspects::aspect_t)aspect);
 	m_source = source_container.Add(l_source);
 }

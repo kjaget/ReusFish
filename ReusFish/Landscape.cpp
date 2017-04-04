@@ -112,10 +112,16 @@ void Landscape::Reset(void)
 		m_spaces[i].m_yield.Reset();
 }
 
-void Landscape::AddSpace(biome_t biome, Source *source)
+void Landscape::AddSpace(biome_t biome, const Source &source)
 {
 	biome_list.push_back(biome);
 	m_spaces.push_back(Space(source));
+}
+
+void Landscape::AddSpace(biome_t biome)
+{
+	biome_list.push_back(biome);
+	m_spaces.push_back(Space());
 }
 
 void Landscape::StartCity(void)
@@ -143,19 +149,31 @@ void Landscape::SetYield(void)
 {
 	Reset();
 
-	// Calculate natura first since it controls the rest of the 
+	// Since some plants can modify natura of other
+	// spaces accumulate chages across all of m_spaces
+	for (size_t i = 0; i < m_spaces.size(); i++)
+	{
+		if (m_spaces[i].m_source)
+		{
+			Yield yield;
+			m_spaces[i].m_source->GetNatura(m_spaces, i, yield);
+			m_spaces[i].m_yield.m_natura += yield.m_natura;
+			m_spaces[i].m_yield.m_natura_range = yield.m_natura_range;
+		}
+	}
+
+	// Calculate natura first since it controls the rest of the
 	// yield of each space
 	std::vector<Yield> natura_yield(m_spaces.size());
 
-	for (unsigned i = 0; i < m_spaces.size(); i++)
-		if (m_spaces[i].m_source)
-			m_spaces[i].m_source->GetNatura(m_spaces, i, natura_yield[i]);
+	for (size_t i = 0; i < m_spaces.size(); i++)
+		natura_yield[i] = m_spaces[i].m_yield;
 
 	// Natura is the max of all sources in range
-	for (unsigned i = 0; i < m_spaces.size(); i++)
+	for (size_t i = 0; i < m_spaces.size(); i++)
 	{
-		unsigned this_natura = natura_yield[i].m_natura;
-		unsigned this_range  = natura_yield[i].m_natura_range;
+		const unsigned this_natura = natura_yield[i].m_natura;
+		const unsigned this_range  = natura_yield[i].m_natura_range;
 		for (unsigned j = std::max<int>(0, (int)i - this_range); (j <= i + this_range) && (j < m_spaces.size()); j++)
 			m_spaces[j].m_yield.m_natura = std::max<int>(m_spaces[j].m_yield.m_natura, this_natura);
 	}
@@ -168,6 +186,7 @@ void Landscape::SetYield(void)
 		for (unsigned j = std::max<int>(0, (int)i - yield.m_range); (j <= i + yield.m_range) && (j < m_spaces.size()); j++)
 			m_spaces[j].m_yield += yield;
 	}
+
 	// Need a temp non-const copy of Spaces to run post-processing on
 	// Can't use m_spaces since those pointers are consts and point to
 	// a global pool of shared sources.  That doesn't guaratee that each
@@ -310,9 +329,15 @@ void Landscape::PrintAll(void)
 		{
 			std::cout << " :: " ;
 			Yield yield;
-			m_spaces[i].m_source->GetNatura(m_spaces, i, yield);
+			// Need just the yield for this space, but 
+			// this space can change others. We don't want
+			// to modify the actual yield. Operate on
+			// a dummy copy of spaces so global
+			// changes get thrown away
+			std::vector<Space> spaces(m_spaces);
+			spaces[i].m_source->GetNatura(spaces, i, yield);
 			unsigned natura = yield.m_natura;
-			m_spaces[i].m_source->GetYield(m_spaces, i, yield);
+			spaces[i].m_source->GetYield(spaces, i, yield);
 			yield.m_natura = natura;
 			yield.Print();
 		}

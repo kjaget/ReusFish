@@ -20,7 +20,8 @@ class Landscape
 		size_t size(void) const;
 
 		void Reset(void);
-		void AddSpace(biome_t biome, Source *source);
+		void AddSpace(biome_t biome, const Source &source);
+		void AddSpace(biome_t biome);
 		void StartCity(void);
 		void EndCity(void);
 		void SetGoal(const Yield &goal);
