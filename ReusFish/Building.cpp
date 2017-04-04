@@ -374,3 +374,18 @@ Apothecary* Apothecary::Clone(void) const
 {
 	return new Apothecary(*this);
 }
+Workshop::Workshop(void)
+{
+	m_name = "Workshop";
+}
+
+void Workshop::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,20,10,0,0,0), mask, MINERAL, 3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,25,0,0,0), mask, IRON, COPPER,COPPER, 2);
+}
+Workshop* Workshop::Clone(void) const
+{
+	return new Workshop(*this);
+}

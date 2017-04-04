@@ -126,3 +126,11 @@ class Apothecary: public Building
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		Apothecary* Clone(void) const;
 };
+class Workshop: public Building
+{
+	public :
+		Workshop();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Workshop* Clone(void) const;
+};
