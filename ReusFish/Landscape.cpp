@@ -254,6 +254,10 @@ int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos) co
 	score += ScoreHelper(goal.m_danger, yield.m_danger, 5000.0);
 	score += ScoreHelper(goal.m_awe, yield.m_awe, 5000.0);
 	score += ScoreHelper(goal.m_natura, yield.m_natura, 5000.0);
+#if 0
+	if (yield.m_awe > (yield.m_danger + 20))
+		score /= 1.5;
+#endif
 
 #if 0
 	score -= greater_count * 5000/100;
