@@ -4,9 +4,18 @@
 
 Building::Building(void) 
 {
-	m_class = NON_NATURAL; 
-	m_type = BUILDING; 
-	m_start = 0; 
+	m_class = NON_NATURAL;
+	m_type = BUILDING;
+	m_start = 0;
+	m_end = 0;
+}
+
+Building::Building(const Yield &completion_requirements) :
+	m_completion_requirements(completion_requirements)
+{
+	m_class = NON_NATURAL;
+	m_type = BUILDING;
+	m_start = 0;
 	m_end = 0;
 }
 
@@ -15,10 +24,15 @@ Building *Building::Clone(void) const
 	return new Building(*this);
 }
 
-void Building::SetStartEnd(unsigned start, unsigned end)
+void Building::SetStartEnd(unsigned char start, unsigned char end)
 {
 	m_start = start;
 	m_end = end;
+}
+
+const Yield &Building::GetCompletionRequirements(void) const
+{
+	return m_completion_requirements;
 }
 
 City::City(void)
@@ -346,7 +360,8 @@ Alchemist* Alchemist::Clone(void) const
 	return new Alchemist(*this);
 }
 
-Apothecary::Apothecary(void)
+Apothecary::Apothecary(void) :
+	Building(Yield(200, 200, 50, 0, 0, 0))
 {
 	m_name = "Apothecary";
 }
@@ -374,7 +389,8 @@ Apothecary* Apothecary::Clone(void) const
 {
 	return new Apothecary(*this);
 }
-Workshop::Workshop(void)
+Workshop::Workshop(void) :
+	Building(Yield(25, 70, 70, 0, 0, 0))
 {
 	m_name = "Workshop";
 }

@@ -7,13 +7,17 @@ class Building : public Source
 {
 	public :
 		Building(void);
-		void SetStartEnd(unsigned start, unsigned end);
+		Building(const Yield &completion_requirements);
+		void SetStartEnd(unsigned char start, unsigned char end);
+		const Yield &GetCompletionRequirements(void) const;
 
 		virtual Building* Clone(void) const;
 
 	protected:
 		unsigned char m_start;
 		unsigned char m_end;
+	private:
+		Yield         m_completion_requirements;
 };
 
 class City : public Building
