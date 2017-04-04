@@ -1,59 +1,61 @@
-#ifndef SOURCE_FACTORY_INC__
-#define SOURCE_FACTORY_INC__
+#pragma once
 
 #include <functional>
 #include <unordered_map>
 
 class Source;
 namespace std {
-template <typename T, typename U> 
-class hash<pair<T,U> > 
-{ 
-   public:
-   size_t operator() (const std::pair<T,U> &orig) const
-   { 
-      return hash<size_t>()(static_cast<size_t>(orig.first)) + 31 * hash<size_t>()(static_cast<size_t>(orig.second)); 
-   }
-};
+	template <typename T, typename U> 
+		class hash<pair<T,U> > 
+		{ 
+			public:
+				size_t operator() (const std::pair<T,U> &orig) const
+				{ 
+					return hash<size_t>()(static_cast<size_t>(orig.first)) + 31 * hash<size_t>()(static_cast<size_t>(orig.second)); 
+				}
+		};
 }
 
 template <typename Key1, typename Key2> 
 class SourceFactory
 {
-   public:
-      SourceFactory() {};
-      typedef std::function<Source*()> Builder;
+	public:
+		SourceFactory(void)
+	   	{
+		};
 
-      void Register(Key1 key1, Key2 key2, Builder const& builder)
-      {
-	 auto it = m_map.find(std::pair<Key1, Key2>(key1, key2));
-	 if (it == m_map.end()) 
-	    m_map.emplace(std::pair<Key1,Key2>(key1,key2), builder);
-      }
+		typedef std::function<Source*()> Builder;
 
-      bool Get(Key1 key1, Key2 key2, Builder &builder) const {
-	 auto it = m_map.find(std::pair<Key1, Key2>(key1, key2));
-	 if (it == m_map.end()) 
-	    return false;
+		void Register(Key1 key1, Key2 key2, Builder const& builder)
+		{
+			auto it = m_map.find(std::pair<Key1, Key2>(key1, key2));
+			if (it == m_map.end()) 
+				m_map.emplace(std::pair<Key1,Key2>(key1,key2), builder);
+		}
 
-	 builder = it->second;
-	 return true;
-      }
+		bool Get(Key1 key1, Key2 key2, Builder &builder) const {
+			auto it = m_map.find(std::pair<Key1, Key2>(key1, key2));
+			if (it == m_map.end()) 
+				return false;
 
-      Source *Build(Key1 key1, Key2 key2) const 
-      {
-	 auto it = m_map.find(std::pair<Key1, Key2>(key1, key2));
-	 if (it == m_map.end()) 
-	    return NULL;
+			builder = it->second;
+			return true;
+		}
 
-	 return it->second();
-      }
+		Source *Build(Key1 key1, Key2 key2) const 
+		{
+			auto it = m_map.find(std::pair<Key1, Key2>(key1, key2));
+			if (it == m_map.end()) 
+				return NULL;
 
-   private:
-      std::unordered_map<std::pair<Key1, Key2>, Builder> m_map;
+			return it->second();
+		}
+
+	private:
+		std::unordered_map<std::pair<Key1, Key2>, Builder> m_map;
 };
 
-template <typename Derived> Source* SourceBuilder() { return new Derived(); }
-
-#endif
-
+template <typename Derived> Source* SourceBuilder(void)
+{ 
+	return new Derived();
+}

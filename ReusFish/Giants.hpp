@@ -14,8 +14,8 @@ class Giant
 	protected:
 		unsigned      m_domestic_level;
 		unsigned      m_domestic_level2;
-		SourceFactory<biome_t, unsigned> m_source_factory;
-		SourceFactory<biome_t, unsigned> m_source_factory2;
+		SourceFactory<biome_t, unsigned char> m_source_factory;
+		SourceFactory<biome_t, unsigned char> m_source_factory2;
 };
 
 class Ocean_Giant : public Giant

@@ -6,10 +6,7 @@ class Space
 {
 	public:
 		Space(void);
-		Space(Source *source);
-		Space(const Source *source);
 		Space(const Source &source);
-		Space(const Source *source, int aspect);
 		Space(const Source &source, int aspect);
 		Space(const Space &space, int aspect);
 		Space(const Space &other);

@@ -23,13 +23,39 @@
 static std::priority_queue<Landscape, std::deque<Landscape> > priority_queue;
 static UsedList<unsigned, Landscape> used_list;
 
-void remaining_moves(unsigned initial_pos)
+bool process_landscape_score(const Landscape &landscape, int &best_score, unsigned upgrades_added, unsigned aspects_added, unsigned &landscapes_processed)
+{
+	bool rc = false;
+	int score = landscape.Score();
+
+	// If the score is better than the previous
+	// best, print it out
+	if (score > best_score)
+	{
+		std::cout << "***************************************************" << std::endl;
+		std::cout << "Upgrades " << upgrades_added << " Aspects " << aspects_added << " Landscapes " << landscapes_processed << std::endl;
+
+		if (landscape.BeatsGoal())
+		{
+			std::cout << "Beats goal" << std::endl;
+			used_list.Print();
+		}
+		landscape.PrintAll();
+		best_score = score;
+		rc = true;
+	}
+	if ((++landscapes_processed % 250000) == 0)
+		std::cout << "Upgrades " << upgrades_added << " Aspects " << aspects_added << " Landscapes " << landscapes_processed << std::endl;
+	return rc;
+}
+
+
+static void remaining_moves(unsigned initial_pos)
 {
 	int best_score = std::numeric_limits<int>::min();
-	bool logging = false;
 	unsigned upgrades_added = 0;
 	unsigned aspects_added = 0;
-	unsigned landspaces_processed = 0;
+	unsigned landscapes_processed = 0;
 
 	while (!priority_queue.empty())
 	{
@@ -37,80 +63,48 @@ void remaining_moves(unsigned initial_pos)
 		// of those not yet processed
 		Landscape landscape(priority_queue.top());
 		priority_queue.pop();
-		if (priority_queue.size() > 100000000)
-			logging = true;
 
 		// If this has already been tested,
 		// skip it
 		if (!used_list.Insert(landscape))
 			continue;
 
-		// If the score is better than the previous
-		// best, print it out
-		if (landscape.Score() > best_score)
-		{
-			std::cout << "***************************************************" << std::endl;
-			std::cout << "Upgrades " << upgrades_added << " Aspects " << aspects_added << " Landscapes " << landspaces_processed << std::endl;
-
-			if (landscape.BeatsGoal())
-			{
-				std::cout << "Beats goal" << std::endl;
-				used_list.Print();
-			}
-			landscape.PrintAll();
-			best_score = landscape.Score();
-		}
-		if ((++landspaces_processed % 250000) == 0)
-			std::cout << "Upgrades " << upgrades_added << " Aspects " << aspects_added << " Landscapes " << landspaces_processed << std::endl;
-
 		SourceList upgrades;
 		for (int pos = (int)initial_pos; pos >= 0; pos--)
 		{
-			landscape[pos].m_source->GetUpgrades(biome_list[pos], upgrades);
+			// Save current space
 			Space saved_space(landscape[pos]);
-			for (unsigned i = 0; i < upgrades.size(); i++)
-			{
-				landscape[pos] = Space(upgrades[i]);
-				landscape.SetYield();
-				if (logging)
-				{
-					std::cout << "***************************************************" << std::endl;
-					std::cout << "Upgrades " << upgrades_added << " Aspects " << aspects_added << std::endl;
-					landscape.Print();
-				}
-
-				//if (used_list.Insert(landscape))
-				{
-					upgrades_added += 1;
-					priority_queue.push(landscape);
-				}
-			}
-			landscape[pos] = saved_space;
 
 			for (unsigned aspect = 0; aspect < Aspects::ASPECT_T_MAX ; aspect++)
 			{
 				// Skip lesser aspects
 				// Use greater aspect instead of potent one if possible
 				if ((aspect & 3) && 
-						!(((aspect & 3) == 1) && aspects.IsValid((Aspects::aspect_t)(aspect + 1), landscape[pos].m_source->Class())) &&
-						aspects.IsValid((Aspects::aspect_t)aspect, landscape[pos].m_source->Class()) &&
-						landscape[pos].m_source->CanAddAspect((Aspects::aspect_t)aspect))
+					!(((aspect & 3) == 1) && aspects.IsValid((Aspects::aspect_t)(aspect + 1), saved_space.m_source->Class())) &&
+						aspects.IsValid((Aspects::aspect_t)aspect, saved_space.m_source->Class()) &&
+						saved_space.m_source->CanAddAspect((Aspects::aspect_t)aspect))
 				{
 					landscape[pos] = Space(saved_space, aspect);
 					landscape.SetYield();
-					if (logging)
+					aspects_added += 1;
+					priority_queue.push(landscape);
+					process_landscape_score(landscape, best_score, upgrades_added, aspects_added, landscapes_processed);
+
+					// Get list of possible upgrades for current
+					// space
+					landscape[pos].m_source->GetUpgrades(biome_list[pos], upgrades);
+					for (auto it = upgrades.cbegin(); it != upgrades.cend(); ++it)
 					{
-						std::cout << "***************************************************" << std::endl;
-						landscape.Print();
-					}
-					//if (used_list.Insert(landscape))
-					{
-						aspects_added += 1;
+						landscape[pos] = Space(**it);
+						landscape.SetYield();
+
+						upgrades_added += 1;
 						priority_queue.push(landscape);
+						process_landscape_score(landscape, best_score, upgrades_added, aspects_added, landscapes_processed);
 					}
-					landscape[pos] = saved_space;
 				}
 			}
+			landscape[pos] = saved_space;
 		}
 	}
 }
@@ -123,25 +117,21 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 	{
 		spaces.SetYield();
 		int score = spaces.Score();
-		//if (used_list.Insert(spaces))
+		static int best_score = std::numeric_limits<int>::min();
+		if (score > best_score)
 		{
-			static int best_score = std::numeric_limits<int>::min();
-			if (score > best_score)
+			std::cout << "***************************************************" << std::endl;
+			if (spaces.BeatsGoal())
 			{
-				std::cout << "***************************************************" << std::endl;
-				if (spaces.BeatsGoal())
-				{
-					std::cout << "Beats goal" << std::endl;
-					used_list.Print();
-				}
-				spaces.PrintAll();
-				best_score = score;
+				std::cout << "Beats goal" << std::endl;
+				used_list.Print();
 			}
-			//if (used_list.Insert(spaces))
-			priority_queue.push(spaces);
-			if ((priority_queue.size() % 250000) == 0)
-				std::cout << priority_queue.size() << " initial configs" << std::endl;
+			spaces.PrintAll();
+			best_score = score;
 		}
+		priority_queue.push(spaces);
+		if ((priority_queue.size() % 250000) == 0)
+			std::cout << priority_queue.size() << " initial configs" << std::endl;
 		return;
 	}
 
@@ -153,7 +143,7 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 		SourceList source_list(giants.GetSources(biome_list[pos]));
 		for (unsigned i = 0; i < source_list.size(); i++)
 		{
-			spaces[pos] = Space(source_list[i]);
+			spaces[pos] = Space(*source_list[i]);
 			initial_moves(spaces, pos - 1, giants);
 		}
 	}

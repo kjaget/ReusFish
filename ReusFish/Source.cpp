@@ -29,9 +29,17 @@ void Source::GetUpgrades(biome_t biome, SourceList &upgrades) const
 		}
 		if (count >= required_count)
 		{
-			SourceFactory<source_type_t, unsigned>::Builder builder;
+			SourceFactory<source_type_t, unsigned char>::Builder builder;
 			if (source_type_list.Get(m_upgrades[i].m_new_source, m_level, builder))
-				upgrades.push_back(source_container.Add(builder()));
+			{
+				Source *new_source = builder();
+				// Upgraded sources retain the aspects of the
+				// pre-upgraded source. Copy those over here
+				for (auto it = m_aspects.cbegin(); it != m_aspects.cend(); ++it)
+					new_source->AddAspect(*it);
+
+				upgrades.push_back(source_container.Add(new_source));
+			}
 		}
 	}
 }
