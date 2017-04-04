@@ -106,7 +106,7 @@ template <class Key, class T> class UsedList
 		}
 		void Print(void) const
 		{
-			std::cout << "UsedList : Accesses = " << m_accesses << "Hits = " << m_hits << " Collisions = " << m_collisions << " Entries = " << m_entries << " Hash size = " << m_hash.size() << std::endl;
+			std::cout << "UsedList : Accesses = " << m_accesses << " Hits = " << m_hits << " Collisions = " << m_collisions << " Entries = " << m_entries << " Hash size = " << m_hash.size() << std::endl;
 		}
 	protected:
 		std::unordered_map<Key, std::vector<UsedListContainer> > m_hash;
