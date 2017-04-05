@@ -3,8 +3,8 @@
 #include "SourceType.hpp"
 #include "SourceFactory.hpp"
 
-class SourceTypeList : public SourceFactory<source_type_t, unsigned>
+class SourceTypeList : public SourceFactory<source_type_t, unsigned char>
 {
 	public :
-		SourceTypeList();
+		SourceTypeList(void);
 };
