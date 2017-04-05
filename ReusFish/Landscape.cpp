@@ -183,8 +183,10 @@ void Landscape::SetYield(void)
 		Yield yield;
 		m_spaces[i].m_source->GetYield(m_spaces, i, yield);
 		yield.m_natura = 0;
+
 		for (unsigned j = std::max<int>(0, (int)i - yield.m_range); (j <= i + yield.m_range) && (j < m_spaces.size()); j++)
 			m_spaces[j].m_yield += yield;
+
 	}
 
 	// Need a temp non-const copy of Spaces to run post-processing on
@@ -204,14 +206,14 @@ void Landscape::SetYield(void)
 	do
 	{
 		changed = false;
-		for (unsigned i = 0; i < m_spaces.size(); i++)
+		for (size_t i = 0; i < m_spaces.size(); i++)
 		{
 			if (sources[i]->PostProcess(m_spaces, i, yield, global_yield))
 			{
 				changed = true;
 				for (unsigned j = std::max<int>(0, (int)i - yield.m_range); (j <= i + yield.m_range) && (j < m_spaces.size()); j++)
 					m_spaces[j].m_yield += yield;
-				for (unsigned j = 0; j < m_spaces.size(); j++)
+				for (size_t j = 0; j < m_spaces.size(); j++)
 					m_spaces[j].m_yield += global_yield[j];
 			}
 		}

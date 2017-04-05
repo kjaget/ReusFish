@@ -1285,26 +1285,21 @@ class BarrelCactus : public Plant
 		}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 		{
-			bool rc = PostProcess(spaces, loc, yield, 5, 8);
-			if (rc)
-			{
-				global_yield.clear();
-				global_yield.resize(spaces.size());
-			}
-			return rc;
+			return PostProcess(spaces, loc, yield, global_yield, 5, 8);
 		}
-		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_wealth_limit, unsigned m_tech_adder)
+		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield, unsigned m_wealth_limit, unsigned m_tech_adder)
 		{
 			yield.Reset();
 			// Only add extra tech once
-			if (m_post_processed)
-				return false; // nothing changed
-			if (spaces[loc].m_yield.m_wealth >= m_wealth_limit)
+			if (!m_post_processed && (spaces[loc].m_yield.m_wealth >= m_wealth_limit))
 			{
 				yield.m_tech += m_tech_adder;
-				return true; // update using this yield
+				global_yield.clear();
+				global_yield.resize(spaces.size());
+				m_post_processed = true;
+				return true; // indicate changed values
 			}
-			return false; // nothing changed
+			return false; // nothing changed during this call
 		}
 	protected:
 		bool m_post_processed;
@@ -1336,8 +1331,7 @@ class Great_BarrelCactus : public BarrelCactus
 		Great_BarrelCactus* Clone() const {return new Great_BarrelCactus(*this);}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 		{
-			(void)global_yield;
-			return BarrelCactus::PostProcess(spaces, loc, yield, 10, 20);
+			return BarrelCactus::PostProcess(spaces, loc, yield, global_yield, 10, 20);
 		}
 };
 
@@ -1367,8 +1361,7 @@ class Superior_BarrelCactus : public BarrelCactus
 		Superior_BarrelCactus* Clone() const {return new Superior_BarrelCactus(*this);}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 		{
-			(void)global_yield;
-			return BarrelCactus::PostProcess(spaces, loc, yield, 15, 40);
+			return BarrelCactus::PostProcess(spaces, loc, yield, global_yield, 15, 40);
 		}
 };
 
