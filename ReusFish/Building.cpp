@@ -398,10 +398,62 @@ Workshop::Workshop(void) :
 void Workshop::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,20,10,0,0,0), mask, MINERAL, 3);
+	//AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,20,10,0,0,0), mask, MINERAL, 3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,10,5,0,0,0), mask, MINERAL, 3);
 	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,25,0,0,0), mask, IRON, COPPER,COPPER, 2);
 }
 Workshop* Workshop::Clone(void) const
 {
 	return new Workshop(*this);
+}
+
+CustomsHouse::CustomsHouse(void) :
+	Building(Yield(40, 0, 100, 0, 0, 0))
+{
+	m_name = "CustomsHouse";
+}
+
+void CustomsHouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,15,0,0,0), mask, MINERAL, 3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,30,0,0,0), mask, COYOTE, RATTLESNAKE, GREY_FOX, 2);
+}
+CustomsHouse* CustomsHouse::Clone(void) const
+{
+	return new CustomsHouse(*this);
+}
+Temple::Temple(void) :
+	Building(Yield(45, 0, 70, 0, 0, 0))
+{
+	m_name = "Temple";
+}
+
+void Temple::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,0,10,0,0,0), mask, ANIMAL, 3);
+	yield.m_range = 2;
+	AddInRange(spaces, loc, yield, Yield(20,0,20,0,0,0), mask, ANIMAL, 2);
+	yield.m_range = 0;
+}
+Temple* Temple::Clone(void) const
+{
+	return new Temple(*this);
+}
+Cathedral::Cathedral(void) :
+	Building(Yield(120, 0, 120, 0, 25, 0))
+{
+	m_name = "Cathedral";
+}
+
+void Cathedral::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,10,0,0,0,0), mask, ANIMAL, 3);
+	// relics stuff
+}
+Cathedral* Cathedral::Clone(void) const
+{
+	return new Cathedral(*this);
 }

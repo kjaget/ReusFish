@@ -138,3 +138,28 @@ class Workshop: public Building
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		Workshop* Clone(void) const;
 };
+
+class CustomsHouse: public Building
+{
+	public :
+		CustomsHouse();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		CustomsHouse* Clone(void) const;
+};
+class Temple: public Building
+{
+	public :
+		Temple();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Temple* Clone(void) const;
+};
+class Cathedral: public Building
+{
+	public :
+		Cathedral();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Cathedral* Clone(void) const;
+};
