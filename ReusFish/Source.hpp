@@ -1,5 +1,4 @@
-#ifndef SOURCE_INC__
-#define SOURCE_INC__
+#pragma once
 
 #include <algorithm>
 #include <iostream>
@@ -52,6 +51,7 @@ class Source
 			m_type(original.m_type),
 			m_level(original.m_level),
 			m_max_aspects(original.m_max_aspects),
+			m_upgrade_count(0),
 			m_name(original.m_name),
 			m_base_yield(original.m_base_yield),
 			m_aspects(original.m_aspects),
@@ -77,28 +77,20 @@ class Source
 
 		bool operator==(const Source &rhs) const
 		{
-			if (!strcmp(m_name,rhs.m_name) && (m_aspects == rhs.m_aspects))
+			if (!strcmp(m_name,rhs.m_name) && (m_aspects == rhs.m_aspects) && (m_upgrade_count == rhs.m_upgrade_count))
 				return true;
 			return false;
-#if 0
-			if (strcmp(m_name,rhs.m_name)               ||
-					(m_class != rhs.m_class)             ||
-					(m_type != rhs.m_type)               ||
-					(m_level != rhs.m_level)             ||
-					!(m_base_yield == rhs.m_base_yield)  ||
-					(m_max_aspects != rhs.m_max_aspects) ||
-					!(m_aspects == rhs.m_aspects)        ||
-					!(m_upgrades == rhs.m_upgrades))
-				return false;
-			return true;
-#endif
 		}
 
-		source_class_t Class(void) const {return m_class;}
+		source_class_t Class(void) const {return m_class; }
 		source_type_t  Type(void)  const {return m_type; }
+		unsigned char  UpgradeCount(void) const {return m_upgrade_count; }
 		size_t Hash(void) const
 		{
-			const size_t this_hash = (size_t)0x1234567812345678ULL + m_class + ((m_type + 1)<< 2) + ((m_level + 1)<< 4);
+			const size_t this_hash = (size_t)0x1234567812345678ULL + m_class + 
+				((m_type + 1) << 2) + 
+				((m_level + 1) << 4) + 
+				((m_upgrade_count  + 1) << 6);
 			size_t hash = this_hash;
 
 			hash += this_hash << 7;
@@ -182,19 +174,23 @@ class Source
 		unsigned CountAspects(Aspects::aspect_class_t aspect_class) const
 		{
 			unsigned count = 0;
-			for (unsigned i = 0; i < m_aspects.size(); i++)
+			for (size_t i = 0; i < m_aspects.size(); i++)
 				if ((m_aspects[i] & 3U) == (aspect_class & 3U))
 					count += 1;
 			return count;
 		}
 		virtual void GetUpgrades (biome_t biome, SourceList &upgrades) const;
 		virtual bool IsValidForBiome(biome_t biome) const { (void)biome; return true; }
+		void SetUpgradeCount(unsigned char upgrade_count)
+		{
+			m_upgrade_count = upgrade_count;
+		}
 
 		virtual Source* Clone() const {if (this) return new Source(*this); else return NULL;}
 
 		void Print(void) const
 		{
-			std::cout << m_name << ":";
+			std::cout << m_name << "(" << (unsigned)m_upgrade_count << "):";
 			for (unsigned i = 0; i < m_aspects.size(); i++)
 			{
 				aspects.Print(m_aspects[i]);
@@ -404,69 +400,10 @@ class Source
 		source_type_t                  m_type;
 		unsigned char                  m_level;
 		unsigned char                  m_max_aspects;
+		unsigned char                  m_upgrade_count;
 		const char                    *m_name;
 		Yield                          m_base_yield;
 		std::vector<Aspects::aspect_t> m_aspects;
 		std::vector<Upgrade>           m_upgrades;
 };
 
-
-#if 0
-class SourceList
-{
-	public:
-		SourceList() {}
-		SourceList(const SourceList &orig)
-		{
-			DeepCopy(orig);
-		}
-		SourceList& operator=(const SourceList &orig)
-		{
-			for (unsigned i = 0; i < m_sources.size(); i++)
-				if (m_sources[i])
-					delete m_sources[i];
-			m_sources.clear();
-			DeepCopy(orig);
-		}
-		void DeepCopy(const SourceList &orig)
-		{
-			for (unsigned i = 0; i < orig.m_sources.size(); i++)
-				if (orig.m_sources[i])
-					m_sources.push_back(orig.m_sources[i]->Clone());
-				else
-					m_sources.push_back(NULL);
-		}
-		~SourceList()
-		{
-			for (unsigned i = 0; i < m_sources.size(); i++)
-				if (m_sources[i])
-					delete m_sources[i];
-		}
-		const Source *operator[] (const unsigned i) const
-		{
-			return m_sources[i];
-		}
-		Source *operator[] (const unsigned i)
-		{
-			return m_sources[i];
-		}
-		size_t size(void) const
-		{
-			return m_sources.size();
-		}
-
-		void clear(void)
-		{
-			m_sources.clear();
-		}
-
-		void push_back(Source *elem)
-		{
-			m_sources.push_back(elem);
-		}
-
-		std::vector<Source *> m_sources;
-};
-#endif
-
-#endif

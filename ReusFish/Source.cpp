@@ -37,6 +37,7 @@ void Source::GetUpgrades(biome_t biome, SourceList &upgrades) const
 				// pre-upgraded source. Copy those over here
 				for (auto it = m_aspects.cbegin(); it != m_aspects.cend(); ++it)
 					new_source->AddAspect(*it);
+				new_source->SetUpgradeCount(UpgradeCount() + 1);
 
 				upgrades.push_back(source_container.Add(new_source));
 			}
@@ -44,6 +45,7 @@ void Source::GetUpgrades(biome_t biome, SourceList &upgrades) const
 	}
 }
 
+// Add Yield if source types are in range
 void Source::AddInRange(const std::vector<Space> &spaces, 
 		unsigned loc, 
 		Yield &yield,
@@ -73,6 +75,7 @@ void Source::AddInRange(const std::vector<Space> &spaces,
 	}
 }
 
+// Add Yield if source classes are in range
 void Source::AddInRange(const std::vector<Space> &spaces, 
 		unsigned loc, 
 		Yield &yield,
@@ -97,6 +100,7 @@ void Source::AddInRange(const std::vector<Space> &spaces,
 	}
 }
 
+// Check whether or not a source class is in range
 bool Source::NotInRange(const std::vector<Space> &spaces, 
 		unsigned loc, 
 		int start,
@@ -109,6 +113,7 @@ bool Source::NotInRange(const std::vector<Space> &spaces,
 	return true;
 }
 
+// Check whether or not a source type is in range
 bool Source::NotInRange(const std::vector<Space> &spaces, 
 		unsigned loc, 
 		int start,
