@@ -652,11 +652,7 @@ void MuskDeer::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
 unsigned MuskDeer::GetRange(std::vector<Space> &spaces, unsigned loc, unsigned m_danger_limit) const 
 {
 	unsigned range = m_base_yield.m_range;
-	std::vector<unsigned> danger_yield(spaces.size());
-	Yield yield = m_base_yield;
-	GetAspects(spaces[loc].m_yield.m_natura, yield, YIELD_MASK_ALL);
-	GetDanger(spaces, loc, yield, danger_yield);
-	if (danger_yield[loc] >= m_danger_limit)
+	if (spaces[loc].m_yield.m_danger >= m_danger_limit)
 		range += 1;
 
 	return range;

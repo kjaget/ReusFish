@@ -3437,7 +3437,7 @@ class MuskDeer : public Animal
 		{
 			GetYield(spaces, loc, yield, 2, mask);
 		}
-		unsigned GetRange(std::vector<Space> &spaces, unsigned loc, unsigned m_danger_limit) const; 
+		unsigned GetRange(std::vector<Space> &spaces, unsigned loc, unsigned m_danger_limit) const;
 		unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const
 		{
 			return GetRange(spaces, loc, 2);
@@ -3448,15 +3448,9 @@ class MuskDeer : public Animal
 		}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 		{
-			bool rc = PostProcess(spaces, loc, yield, 2, 10, 1);
-			if (rc)
-			{
-				global_yield.clear();
-				global_yield.resize(spaces.size());
-			}
-			return rc;
+			return PostProcess(spaces, loc, yield, global_yield, 2, 10, 1);
 		}
-		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_danger_limit, unsigned m_tech_limit, unsigned m_wealth_adder)
+		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield, unsigned m_danger_limit, unsigned m_tech_limit, unsigned m_wealth_adder)
 		{
 			bool changed = false;
 			yield.Reset();
@@ -3464,13 +3458,13 @@ class MuskDeer : public Animal
 			if (spaces[loc].m_yield.m_danger >= m_danger_limit)
 				yield.m_range += 1;
 
-			size_t start = std::max<int>((int)loc - yield.m_range,0);
-			size_t end   = std::min<size_t> (loc + yield.m_range, spaces.size() - 1); 
+			size_t start = std::max((int)loc - yield.m_range,0);
+			size_t end   = std::min<size_t>(loc + yield.m_range, spaces.size() - 1); 
 
 			if (m_post_processed.size() < (end - start + 1))
 				m_post_processed.resize(end - start + 1, false);
 
-			for (unsigned i = start; i <= end; i+= 1)
+			for (size_t i = start; i <= end; i+= 1)
 				if (!m_post_processed[i - start] && (spaces[i].m_yield.m_tech >= m_tech_limit))
 				{
 					yield.m_wealth += m_wealth_adder;
@@ -3478,6 +3472,11 @@ class MuskDeer : public Animal
 					changed = true;
 				}
 
+			if (changed)
+			{
+				global_yield.clear();
+				global_yield.resize(spaces.size());
+			}
 			return changed;
 		}
 		MuskDeer* Clone() const {return new MuskDeer(*this);}
@@ -3518,8 +3517,7 @@ class Great_MuskDeer : public MuskDeer
 		}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 		{
-			(void)global_yield;
-			return MuskDeer::PostProcess(spaces, loc, yield, 3, 20, 2);
+			return MuskDeer::PostProcess(spaces, loc, yield, global_yield, 3, 20, 2);
 		}
 		Great_MuskDeer* Clone() const {return new Great_MuskDeer(*this);}
 };
@@ -3557,8 +3555,7 @@ class Superior_MuskDeer : public MuskDeer
 		}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 		{
-			(void)global_yield;
-			return MuskDeer::PostProcess(spaces, loc, yield, 4, 30, 3);
+			return MuskDeer::PostProcess(spaces, loc, yield, global_yield, 4, 30, 3);
 		}
 		Superior_MuskDeer* Clone() const {return new Superior_MuskDeer(*this);}
 };
