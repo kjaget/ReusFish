@@ -3,6 +3,7 @@
 #include "Space.hpp"
 
 static SourceTypeList source_type_list;
+
 Source::Source(void)
 {
    	Create();
@@ -13,7 +14,7 @@ Source::Source(const Source &original) :
 	m_type(original.m_type),
 	m_level(original.m_level),
 	m_max_aspects(original.m_max_aspects),
-	m_upgrade_count(0),
+	m_upgrade_count(original.m_upgrade_count),
 	m_name(original.m_name),
 	m_base_yield(original.m_base_yield),
 	m_aspects(original.m_aspects),
@@ -33,6 +34,7 @@ void Source::Create(void)
 	m_class = SOURCE_CLASS_NONE;
 	m_type  = SOURCE_TYPE_NONE;
 	m_max_aspects = 0;
+	m_upgrade_count = 0;
 	m_level = 0;
 }
 
