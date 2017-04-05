@@ -140,9 +140,9 @@ void Stone_Giant::Init(void)
 	m_source_factory2.Register(MOUNTAIN, 2, SourceBuilder<Great_Stone>);
 	m_source_factory2.Register(MOUNTAIN, 3, SourceBuilder<Superior_Stone>);
 
-	m_source_factory2.Register(SWAMP, 1, SourceBuilder<Stone>);
-	m_source_factory2.Register(SWAMP, 2, SourceBuilder<Great_Stone>);
-	m_source_factory2.Register(SWAMP, 3, SourceBuilder<Superior_Stone>);
+	m_source_factory2.Register(SWAMP, 1, SourceBuilder<Marble>);
+	m_source_factory2.Register(SWAMP, 2, SourceBuilder<Great_Marble>);
+	m_source_factory2.Register(SWAMP, 3, SourceBuilder<Superior_Marble>);
 
 	m_source_factory2.Register(DESERT, 1, SourceBuilder<Marble>);
 	m_source_factory2.Register(DESERT, 2, SourceBuilder<Great_Marble>);
@@ -208,10 +208,10 @@ void Swamp_Giant::Init(void)
 }
 
 Giants::Giants(void) :
-	m_ocean_giant (Ocean_Giant (1,1,0,0)),
-	m_forest_giant(Forest_Giant(1,1,1,0)),
-	m_stone_giant (Stone_Giant (1,1,0,0,0)),
-	m_swamp_giant (Swamp_Giant (1,1,1,0,0))
+	m_ocean_giant (Ocean_Giant (1,1,0,1)),
+	m_forest_giant(Forest_Giant(2,1,2,0)),
+	m_stone_giant (Stone_Giant (2,2,0,1,1)),
+	m_swamp_giant (Swamp_Giant (1,2,1,1,0))
 {
 }
 
