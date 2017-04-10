@@ -18,11 +18,28 @@ class Plant : public Source
 		}
 		Plant *Clone() const {return new Plant(*this);}
 	protected:
+
+		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
+				const Yield &yield_adder, unsigned mask, source_type_t type1, source_type_t type2, source_type_t type3, unsigned max_count = std::numeric_limits<unsigned>::max()) const
+		{
+			AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range,
+					yield_adder, mask, type1, type2, type3, type3, type3, type3, type3, max_count);
+		}
+		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
+				const Yield &yield_adder, unsigned mask, source_type_t type1, source_type_t type2, unsigned max_count = std::numeric_limits<unsigned>::max()) const
+		{
+			AddAllInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type2, type2, max_count);
+		}
+		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
+				const Yield &yield_adder, unsigned mask, source_type_t type1, unsigned max_count = std::numeric_limits<unsigned>::max()) const
+		{
+			AddAllInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type1, type1, max_count);
+		}
+
 		void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
 				const Yield &yield_adder, unsigned mask, source_type_t type1, source_type_t type2, source_type_t type3) const
 		{
-			AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, 
-					yield_adder, mask, type1, type2, type3, true);
+			AddAllInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type2, type3, 1);
 		}
 		void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
 				const Yield &yield_adder, unsigned mask, source_type_t type1, source_type_t type2) const
@@ -34,30 +51,19 @@ class Plant : public Source
 		{
 			AddIfInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type1, type1);
 		}
+
+
+		// Source class options
 		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, unsigned mask, source_type_t type1, source_type_t type2, source_type_t type3) const
+				const Yield &yield_adder, unsigned mask, source_class_t source_class, unsigned max_count = std::numeric_limits<unsigned>::max()) const
 		{
-			AddIfInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type2, type3);
+			AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, yield_adder, mask, source_class, max_count);
 		}
-		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, unsigned mask, source_type_t type1, source_type_t type2) const
-		{
-			AddAllInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type2, type2);
-		}
-		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, unsigned mask, source_type_t type1) const
-		{
-			AddAllInNaturaRange(spaces, loc, yield, yield_adder, mask, type1, type1, type1);
-		}
-		void AddAllInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
-				const Yield &yield_adder, unsigned mask, source_class_t source_class) const
-		{
-			AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, yield_adder, mask, source_class, false);
-		}
+
 		void AddIfInNaturaRange(const std::vector<Space> &spaces, unsigned loc, Yield &yield,
 				const Yield &yield_adder, unsigned mask, source_class_t source_class) const
 		{
-			AddInRange(spaces, loc, yield, (int)loc - yield.m_natura_range, loc + yield.m_natura_range, yield_adder, mask, source_class, true);
+			AddAllInNaturaRange(spaces, loc, yield, yield_adder, mask, source_class, 1);
 		}
 };
 
@@ -2024,6 +2030,7 @@ class Tomato : public Plant
 			m_upgrades.clear();
 			AddUpgrade(WHITE_WILLOW, Aspects::POTENT_LEAF);
 			AddUpgrade(COFFEA, Aspects::GREATER_GROWTH);
+			AddUpgrade(BRAZILWOOD, Aspects::SUBLIME_GROWTH);
 		}
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_tech_multiplier, unsigned mask = YIELD_MASK_ALL) const;
@@ -3375,4 +3382,40 @@ class Ginkgo : public Plant
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
 		Ginkgo* Clone() const {return new Ginkgo(*this);}
+};
+
+class Brazilwood : public Plant
+{
+	public:
+		Brazilwood()
+		{
+			Create();
+		}
+
+		Brazilwood(const std::vector<Aspects::aspect_t>  &aspects)
+		{
+			Create();
+			m_aspects = aspects;
+		}
+
+		void Create(void)
+		{
+			m_name = "Brazilwood";
+			m_type = BRAZILWOOD;
+			m_base_yield.m_tech   = 20;
+			m_base_yield.m_wealth = 15;
+			m_base_yield.m_natura = 8;
+			m_max_aspects = 6;
+			m_level = 3;
+			AddUpgrades();
+		}
+
+		void AddUpgrades(void)
+		{
+			m_upgrades.clear();
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
+		Brazilwood* Clone() const {return new Brazilwood(*this);}
 };

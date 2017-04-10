@@ -69,11 +69,11 @@ Mill::Mill(void) :
 
 void Mill::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
-	//AddInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, ANIMAL, 3);
-	//AddInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, PLANT, 3);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, ANIMAL, 3);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, PLANT, 3);
 
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, DEER, WISENT, WISENT, 2);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, FOXGLOVE, DANDELION, DANDELION, 2);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, DEER, WISENT, WISENT, 2);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, FOXGLOVE, DANDELION, DANDELION, 2);
 
 #if 0
 	if (mask & YIELD_MASK_TECH)
@@ -106,13 +106,13 @@ Druid::Druid(void) :
 void Druid::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	// Herbalist
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, PLANT, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, PLANT, 3);
 	// Cook
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, TOMATO, SALT, MARSH_MALLOW, 1);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, TOMATO, SALT, MARSH_MALLOW, 1);
 	// Hermit
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, MINERAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, MINERAL, 3);
 	// Inventor
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, COPPER, IRON, IRON, 1);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, COPPER, IRON, IRON, 1);
 }
 
 Druid *Druid::Clone(void) const
@@ -129,8 +129,8 @@ Shrine::Shrine(void) :
 void Shrine::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	(void)loc;
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(10,0,5,0,0,0), mask, ANIMAL, 3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,0,10,0,0,0), mask, ANIMAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(10,0,5,0,0,0), mask, ANIMAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(5,0,10,0,0,0), mask, ANIMAL, 3);
 }
 
 Shrine *Shrine::Clone(void) const
@@ -148,7 +148,7 @@ Circus::Circus(void) :
 void Circus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	(void)loc;
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,0,25,0,5,0), mask, DEER, GOAT, BOAR, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(5,0,25,0,5,0), mask, DEER, GOAT, BOAR, 3);
 #if 0
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_WEALTH))
 	{
@@ -199,7 +199,7 @@ void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 		}
 	}
 	// Exotic Pet
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,25,0,5,0), mask, GREY_FOX, RATTLESNAKE, RATTLESNAKE, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,25,0,5,0), mask, GREY_FOX, RATTLESNAKE, RATTLESNAKE, 3);
 
 	if (mask & YIELD_MASK_WEALTH)
 	{
@@ -217,7 +217,7 @@ void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 		//Exotic Topaz Trinkets
 		{
 			Yield temp_yield;
-			AddInRange(spaces, loc, temp_yield, m_start, m_end, Yield(0,0,40,0,0,0), mask, TOPAZ, TOPAZ, TOPAZ, std::numeric_limits<unsigned>::max());
+			AddAllInRange(spaces, loc, temp_yield, m_start, m_end, Yield(0,0,40,0,0,0), mask, TOPAZ);
 			if (temp_yield.m_wealth <= 120)
 				yield += temp_yield;
 		}
@@ -326,10 +326,9 @@ void Lighthouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 {
 	yield.Reset();
 
-	// Clear Blue
+	// Clear Blue - verify limit is broken?
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, TUNA, PARROTFISH);
 
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, TUNA, PARROTFISH);
 
 	// hard coded city extents for now...
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH | YIELD_MASK_TECH))
@@ -367,7 +366,7 @@ void Lighthouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 		}
 	}
 	// Amazing reef
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, CLOWNFISH, CLOWNFISH, CLOWNFISH, 2);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, CLOWNFISH, 2);
 }
 
 Lighthouse* Lighthouse::Clone(void) const 
@@ -438,8 +437,8 @@ University::University(void)
 void University::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(10,5,0,0,0,0), mask, PLANT, 3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, ANIMAL, std::numeric_limits<unsigned>::max());
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(10,5,0,0,0,0), mask, PLANT, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, ANIMAL);
 }
 University* University::Clone(void) const
 {
@@ -454,8 +453,8 @@ Geologist::Geologist(void)
 void Geologist::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,10,5,0,0,0), mask, MINERAL, 3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,35,0,0,0), mask, ONYX, TOPAZ, TOPAZ, 2);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,10,5,0,0,0), mask, MINERAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,35,0,0,0), mask, ONYX, TOPAZ, 2);
 }
 Geologist* Geologist::Clone(void) const
 {
@@ -470,7 +469,7 @@ Alchemist::Alchemist(void)
 void Alchemist::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, MINERAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, MINERAL, 3);
 	for (unsigned i = std::min<int>((int)loc - 2, 0); (i <= (loc + 2)) && (i < spaces.size()); i+= 1)
 		if ((i != loc) && (spaces[i].m_source->Class() == MINERAL))
 		{
@@ -521,9 +520,9 @@ Workshop::Workshop(void) :
 void Workshop::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	//AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,20,10,0,0,0), mask, MINERAL, 3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,10,5,0,0,0), mask, MINERAL, 3);
-	//AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,25,0,0,0), mask, IRON, COPPER,COPPER, 2);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,20,10,0,0,0), mask, MINERAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,10,5,0,0,0), mask, MINERAL, 3);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,25,0,0,0), mask, IRON, COPPER,2);
 }
 Workshop* Workshop::Clone(void) const
 {
@@ -539,8 +538,8 @@ CustomsHouse::CustomsHouse(void) :
 void CustomsHouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,15,0,0,0), mask, MINERAL, 3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,30,0,0,0), mask, COYOTE, RATTLESNAKE, GREY_FOX, 2);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,15,0,0,0), mask, MINERAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,30,0,0,0), mask, COYOTE, RATTLESNAKE, GREY_FOX, 2);
 }
 CustomsHouse* CustomsHouse::Clone(void) const
 {
@@ -555,12 +554,11 @@ Temple::Temple(void) :
 void Temple::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(10,0,5,0,0,0), mask, ANIMAL, 3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,10,0,0,0), mask, BOAR,RABBIT,MUSK_DEER,3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,10,0,0,0), mask, JAVELINA,JAVELINA,JAVELINA,3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(10,0,5,0,0,0), mask, ANIMAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,10,0,0,0), mask, BOAR, RABBIT, MUSK_DEER, JAVELINA, 3);
 #if 0
 	yield.m_range = 2;
-	AddInRange(spaces, loc, yield, Yield(20,0,20,0,0,0), mask, ANIMAL, 2);
+	AddAllInRange(spaces, loc, yield, Yield(20,0,20,0,0,0), mask, ANIMAL, 2);
 	yield.m_range = 0;
 #endif
 }
@@ -578,7 +576,7 @@ Cathedral::Cathedral(void) :
 void Cathedral::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,10,0,0,0,0), mask, ANIMAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(5,10,0,0,0,0), mask, ANIMAL, 3);
 	// relics stuff
 }
 Cathedral* Cathedral::Clone(void) const
@@ -596,8 +594,7 @@ BlastFurnace::BlastFurnace(void) :
 void BlastFurnace::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,50,50,0,0,0), mask, IGUANA, BUFFALO,KOMODO_DRAGON, 4);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,50,50,0,0,0), mask, RATTLESNAKE, COYOTE, GILA_MONSTER, 4);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,50,50,0,0,0), mask, IGUANA, BUFFALO,KOMODO_DRAGON, RATTLESNAKE, COYOTE, GILA_MONSTER, 4);
 }
 BlastFurnace* BlastFurnace::Clone(void) const
 {
@@ -613,8 +610,8 @@ Hamlet::Hamlet(void) :
 void Hamlet::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,5,0), mask, ANIMAL, 4);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(75,25,0,0,0,0), mask, WOLF, WISENT, WISENT, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,5,0), mask, ANIMAL, 4);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(75,25,0,0,0,0), mask, WOLF, WISENT, WISENT, 3);
 }
 Hamlet* Hamlet::Clone(void) const
 {
@@ -630,15 +627,10 @@ Barracks::Barracks(void) :
 void Barracks::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,10,0,0,0,0), mask, PLANT, 3);
-	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_AWE))
-	{
-		Yield this_yield;
-		AddInRange(spaces, loc, this_yield, m_start, m_end, Yield(30,0,0,0,-10,0), mask, COPPER,IRON,WHITE_WILLOW,3);
-		AddInRange(spaces, loc, this_yield, m_start, m_end, Yield(30,0,0,0,-10,0), mask, SALT, SALT, SALT,3 - this_yield.m_food/30);
-		yield += this_yield;
-	}
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(5,10,0,0,0,0), mask, PLANT, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,0,0,-10,0), mask, COPPER, IRON, WHITE_WILLOW, SALT, 3);
 }
+
 Barracks* Barracks::Clone(void) const
 {
 	return new Barracks(*this);
@@ -652,7 +644,7 @@ InventorsTower::InventorsTower(void)
 void InventorsTower::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,15,0,-10,0), mask, MINERAL, std::numeric_limits<unsigned>::max());
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,15,0,-10,0), mask, MINERAL);
 }
 InventorsTower* InventorsTower::Clone(void) const
 {
@@ -670,7 +662,7 @@ void Observatory::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
 {
 	yield.Reset();
 	// Licensed Breakthrough
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,45,0,0,0), mask, WHITE_WILLOW, NIGHTSHADE, BARREL_CACTUS, 4);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,45,0,0,0), mask, WHITE_WILLOW, NIGHTSHADE, BARREL_CACTUS, 4);
 
 	// Advanced Equipment
 	bool zinc_seen = false;
@@ -700,7 +692,7 @@ void Observatory::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
 	}
 	AddIfAdjacent(spaces, loc, yield, Yield(0,30,0,0,0,0), ZINC, ALUMINIUM, IRON);
 	// Active Researchers
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, COFFEA,TEA_PLANT,TEA_PLANT, std::numeric_limits<unsigned>::max());
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, COFFEA, TEA_PLANT);
 }
 
 bool Observatory::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
@@ -742,9 +734,9 @@ void Opera::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 		{
 			if (spaces[i].m_source)
 			{
-			source_type_t t = spaces[i].m_source->Type();
-			if ((t == BEAVER) || (t == ARMADILLO) || (t == FOX) || (t == GREY_FOX) || (t == LANGUR_MONKEY) || (t == RABBIT) || (t == GOAT))
-				animal_count += 1;
+				source_type_t t = spaces[i].m_source->Type();
+				if ((t == BEAVER) || (t == ARMADILLO) || (t == FOX) || (t == GREY_FOX) || (t == LANGUR_MONKEY) || (t == RABBIT) || (t == GOAT))
+					animal_count += 1;
 			}
 		}
 		if (animal_count > 0)
@@ -764,39 +756,21 @@ void Opera::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 		}
 	}
 	// Genesis story
-	if (mask & YIELD_MASK_WEALTH)
-	{
-		Yield gs_yield;
-		AddInRange(spaces, loc, gs_yield, m_start, m_end, Yield(0,0,75,0,0,0), mask, BLUEBERRY, APPLE_TREE, STRAWBERRY, 4);
-		AddInRange(spaces, loc, gs_yield, m_start, m_end, Yield(0,0,75,0,0,0), mask, AGAVE, DATE_PALM, DATE_PALM, 4 - gs_yield.m_wealth/75);
-		yield += gs_yield;
-	}
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,75,0,0,0), mask, BLUEBERRY, APPLE_TREE, STRAWBERRY, AGAVE, DATE_PALM, 4);
+	//
 	// Heroics of the Titan Slayer
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(75,0,0,0,0,0), mask, ANIMAL, 4);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(75,0,0,0,0,0), mask, ANIMAL, 4);
 	yield.AddAwe(-20, mask);
 
 	// Inspired Piece
-	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH))
-	{
-		Yield ip_yield;
-		AddInRange(spaces, loc, ip_yield, m_start, m_end, Yield(100,0,100,0,0,0), mask, CARDON_CACTUS, ORANGE_TREE, MOOSE, 2);
-		AddInRange(spaces, loc, ip_yield, m_start, m_end, Yield(100,0,100,0,0,0), mask, BEAR, BIG_HORN, PANDA, 2 - ip_yield.m_wealth/100);
-		AddInRange(spaces, loc, ip_yield, m_start, m_end, Yield(100,0,100,0,0,0), mask, BOBCAT, BOBCAT, BOBCAT, 2 - ip_yield.m_wealth/100);
-		yield += ip_yield;
-	}
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(100,0,100,0,0,0), mask, CARDON_CACTUS, ORANGE_TREE, MOOSE, BEAR, BIG_HORN, PANDA, BOBCAT, 2);
 	// Peculiar Adventures of Maarten
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,60,0), mask, MARTEN, MARTEN, MARTEN, 1);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,60,0), mask, MARTEN, MARTEN, MARTEN, 1);
 
 	// Epic of Bas
-	if (mask & YIELD_MASK_WEALTH)
-	{
-		Yield eb_yield;
-		AddInRange(spaces, loc, eb_yield, m_start, m_end, Yield(0,0,150,0,0,0), mask, WOLF, COYOTE, SNOW_LEOPARD, 1);
-		AddInRange(spaces, loc, eb_yield, m_start, m_end, Yield(100,0,150,0,0,0), mask, BEAR, BEAR, BEAR, 1 - eb_yield.m_wealth/150);
-		yield += eb_yield;
-	}
-
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,150,0,0,0), mask, WOLF, COYOTE, SNOW_LEOPARD, BEAR, 1);
 }
+
 Opera* Opera::Clone(void) const
 {
 	return new Opera(*this);

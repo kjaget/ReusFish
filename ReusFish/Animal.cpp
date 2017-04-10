@@ -405,11 +405,9 @@ void BigHorn::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, u
 	// KCJ const global adder, but can't repeat it since there's
 	// no check for it being applied previously
 	if (mask & YIELD_MASK_FOOD)
-	{
 		for (unsigned i = 0; i < spaces.size(); i+= 1)
 			if ((spaces[i].m_source->Type() == GOAT) || (spaces[i].m_source->Type() == DEER))
 				spaces[i].m_yield.m_food += 3;
-	}
 }
 
 void Bobcat::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
@@ -565,8 +563,7 @@ void Orangutan::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
 	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
 
 	yield.m_range = GetRange(spaces, loc);
-	AddAllInRange(spaces, loc, yield, Yield(0,12,0,0,0,0), mask, RUBBER_TREE, COFFEA, WHITE_WILLOW);
-	AddAllInRange(spaces, loc, yield, Yield(0,12,0,0,0,0), mask, PAPAYA, CACAO_TREE);
+	AddAllInRange(spaces, loc, yield, Yield(0,12,0,0,0,0), mask, RUBBER_TREE, COFFEA, WHITE_WILLOW, PAPAYA, CACAO_TREE, 3);
 
 	yield.AddTech(std::max<unsigned>(36, yield.m_tech), mask);
 

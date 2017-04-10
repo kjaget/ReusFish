@@ -226,10 +226,8 @@ void ChilliPepper::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yie
 	yield = m_base_yield;
 	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
 
-	AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), mask, COPPER, IRON);
-	AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), mask, SALT, ALUMINIUM);
-	AddAllAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), mask, TOPAZ, ONYX);
-	AddAllAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), mask, PLATINUM, GOLD);
+	AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,0,0), mask, COPPER, IRON, SALT, ALUMINIUM);
+	AddAllAdjacent(spaces, loc, yield, Yield(m_food_adder,0,0,0,0,0), mask, TOPAZ, ONYX, PLATINUM, GOLD);
 }
 
 void CardonCactus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
@@ -388,8 +386,7 @@ void Hemp::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 				yield.m_tech = awe_yield[i] * m_tech_multiplier;
 	}
 
-	AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,m_awe_adder,0), mask, IRON, PHOSPHORUS);
-	AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,m_awe_adder,0), mask, SALT, ALUMINIUM);
+	AddAllAdjacent(spaces, loc, yield, Yield(0,m_tech_adder,0,0,m_awe_adder,0), mask, IRON, PHOSPHORUS, SALT, ALUMINIUM);
 }
 
 void CacaoTree::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
@@ -560,7 +557,7 @@ void Ginkgo::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) c
 	GetAspects(0, yield, YIELD_MASK_NATURA);
 
 	if ((loc > 0) && (spaces[loc-1].m_source->Type() == LANGUR_MONKEY) && 
-			((loc+1) < spaces.size()) &&(spaces[loc+1].m_source->Type() == LANGUR_MONKEY))
+		((loc + 1) < spaces.size()) && (spaces[loc+1].m_source->Type() == LANGUR_MONKEY))
 		yield.m_natura += 15;
 }
 
@@ -569,9 +566,31 @@ void Ginkgo::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 	yield = m_base_yield;
 	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
 	if ((mask & YIELD_MASK_FOOD) && 
-			((loc > 0) && (spaces[loc-1].m_source->Type() == LANGUR_MONKEY) && 
-			((loc+1) < spaces.size()) &&(spaces[loc+1].m_source->Type() == LANGUR_MONKEY)))
+		((loc > 0) && (spaces[loc-1].m_source->Type() == LANGUR_MONKEY) && 
+		((loc+1) < spaces.size()) &&(spaces[loc+1].m_source->Type() == LANGUR_MONKEY)))
 		yield.m_food += 100;
 	AddAllInNaturaRange(spaces, loc, yield, Yield(20,20,0,0,0,0), mask, PLANT);
+}
+
+void Brazilwood::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const 
+{ 
+	yield = m_base_yield;
+	GetAspects(0, yield, YIELD_MASK_NATURA);
+	AddAllInNaturaRange(spaces, loc, yield, Yield(0,0,0,0,0,10), YIELD_MASK_NATURA, BRAZILWOOD);
+}
+
+void Brazilwood::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{ 
+	yield = m_base_yield;
+	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
+	Yield this_yield;
+	AddAllInNaturaRange(spaces, loc, this_yield, Yield(0,0,40,0,0,0), mask, BRAZILWOOD, 2);
+	yield += this_yield;
+	if (this_yield.m_wealth > (5 * 40))
+	{
+		yield.AddTech(-100, mask);
+		yield.AddWealth(-100, mask);
+	}
+	AddAllAdjacent(spaces, loc, yield, Yield(0,50,0,0,0,0), mask, ANIMAL);
 }
 

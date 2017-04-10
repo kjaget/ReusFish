@@ -94,6 +94,7 @@ typedef enum SOURCE_TYPE_T : unsigned char
    CINNAMOMUM,
    TEA_PLANT,
    GINKGO,
+   BRAZILWOOD,
 
    AGATE,
    QUARTZ,

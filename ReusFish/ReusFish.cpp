@@ -161,22 +161,23 @@ int main (int argc, char **argv)
 	Landscape spaces;
 	Giants giants;
 	
-	spaces.SetGoal(Observatory().GetCompletionRequirements());
+	spaces.SetGoal(Opera().GetCompletionRequirements());
 	spaces.StartCity();
-	spaces.AddSpace(SWAMP);
-	spaces.AddSpace(SWAMP);
-	spaces.AddSpace(SWAMP, InventorsTower());
-	spaces.AddSpace(SWAMP,City());
-	spaces.AddSpace(SWAMP,City());
-	spaces.AddSpace(SWAMP,City());
-	spaces.AddSpace(SWAMP,City());
-	spaces.AddSpace(SWAMP);
-	spaces.AddSpace(SWAMP);
-	spaces.AddSpace(SWAMP);
-	spaces.AddSpace(SWAMP);
-	spaces.AddSpace(SWAMP);
-	spaces.AddSpace(SWAMP, Observatory());
 	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(FOREST);
+	spaces.AddSpace(FOREST);
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(FOREST,Temple());
+	spaces.AddSpace(FOREST);
+	spaces.AddSpace(FOREST);
+	spaces.AddSpace(FOREST);
+	spaces.AddSpace(FOREST);
+	spaces.AddSpace(FOREST, Opera());
+	spaces.AddSpace(FOREST);
 	spaces.EndCity();
 
 	initial_moves(spaces,spaces.size()-1,giants);
