@@ -61,16 +61,18 @@ City *City::Clone(void) const
 	return new City(*this);
 }
 
-Mill::Mill(void)
+Mill::Mill(void) :
+	Building(Yield(100,40,0,0,0,0))
 {
 	m_name = "Mill";
 }
 
 void Mill::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
-	(void)loc;
 	//AddInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, ANIMAL, 3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, PLANT, 3);
+	//AddInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, PLANT, 3);
+
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, DEER, WISENT, WISENT, 2);
 	AddInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, FOXGLOVE, DANDELION, DANDELION, 2);
 
 #if 0
@@ -79,7 +81,7 @@ void Mill::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 		unsigned animal_count = 0;
 		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
 			if ((spaces[i].m_source->Type() == BOAR) ||
-					(spaces[i].m_source->Type() == RABBIT))
+				(spaces[i].m_source->Type() == RABBIT))
 				animal_count += 1;
 
 		if (animal_count == 1)
@@ -95,15 +97,22 @@ Mill *Mill::Clone(void) const
 	return new Mill(*this);
 }
 
-Druid::Druid(void)
+Druid::Druid(void) :
+	Building(Yield(0,30,0,0,0,0))
 {
 	m_name = "Druid";
 }
 
 void Druid::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
-	(void)loc;
+	// Herbalist
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, PLANT, 3);
+	// Cook
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, TOMATO, SALT, MARSH_MALLOW, 1);
+	// Hermit
 	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, MINERAL, 3);
+	// Inventor
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, COPPER, IRON, IRON, 1);
 }
 
 Druid *Druid::Clone(void) const
@@ -111,7 +120,8 @@ Druid *Druid::Clone(void) const
 	return new Druid(*this);
 }
 
-Shrine::Shrine(void)
+Shrine::Shrine(void) :
+	Building(Yield(15,0,15,0,0,0))
 {
 	m_name = "Shrine";
 }
@@ -120,6 +130,7 @@ void Shrine::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 {
 	(void)loc;
 	AddInRange(spaces, loc, yield, m_start, m_end, Yield(10,0,5,0,0,0), mask, ANIMAL, 3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,0,10,0,0,0), mask, ANIMAL, 3);
 }
 
 Shrine *Shrine::Clone(void) const
@@ -164,44 +175,35 @@ Circus *Circus::Clone(void) const
 	return new Circus(*this);
 }
 
-Market::Market(void)
+Market::Market(void) :
+	Building(Yield(0,0,120,0,0,0))
 {
 	m_name = "Market";
 }
 
 void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
-	(void)loc;
 	// Animal market
 	if (mask & YIELD_MASK_WEALTH)
 	{
-		bool seen_flag[SOURCE_TYPE_T_MAX] = {0};
+		std::array<bool,SOURCE_TYPE_T_MAX> seen_flag = {0};
 		seen_flag[BIOME_NONE] = true;
 
 		for (unsigned i = std::max((int)loc - 2,0); (i <= loc + 2) && (i < spaces.size()); i+= 1)
 		{
-			if ((biome_list[i] = DESERT) && (spaces[i].m_source->Class() == ANIMAL) && !seen_flag[i])
+			if ((i != loc) && (biome_list[i] = DESERT) && spaces[i].m_source && (spaces[i].m_source->Class() == ANIMAL) && !seen_flag[i])
 			{
 				seen_flag[i] = true;
 				yield.m_wealth += 25;
 			}
 		}
 	}
+	// Exotic Pet
 	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,25,0,5,0), mask, GREY_FOX, RATTLESNAKE, RATTLESNAKE, 3);
 
 	if (mask & YIELD_MASK_WEALTH)
 	{
-		unsigned topaz_count = 0;
-		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
-			if (spaces[i].m_source->Type() == TOPAZ)
-				topaz_count += 1;
-		if (topaz_count <= 3)
-			yield.m_wealth += 40 * topaz_count;
-	}
-
-	// Salt Merchants
-	if (mask & YIELD_MASK_WEALTH)
-	{
+		// Salt Merchants
 		unsigned salt_count = 0;
 		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
 			if (spaces[i].m_source->Type() == SALT)
@@ -212,12 +214,20 @@ void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 			yield.m_wealth += 25;
 		if (salt_count > 2)
 			yield.m_wealth += 15;
-	}
+		//Exotic Topaz Trinkets
+		{
+			Yield temp_yield;
+			AddInRange(spaces, loc, temp_yield, m_start, m_end, Yield(0,0,40,0,0,0), mask, TOPAZ, TOPAZ, TOPAZ, std::numeric_limits<unsigned>::max());
+			if (temp_yield.m_wealth <= 120)
+				yield += temp_yield;
+		}
 
-	if (mask & YIELD_MASK_WEALTH)
+		// Prized Preys 
 		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
 			if (spaces[i].m_yield.m_danger >= 2)
 				yield.m_wealth += 10;
+	}
+
 }
 
 Market *Market::Clone(void) const
@@ -225,7 +235,9 @@ Market *Market::Clone(void) const
 	return new Market(*this);
 }
 
-Bank::Bank(void)
+Bank::Bank(void) :
+	Building(Yield(75,75,300,0,0,0)),
+	m_post_processed(false)
 {
 	m_name = "Bank";
 }
@@ -233,54 +245,129 @@ Bank::Bank(void)
 void Bank::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	(void)mask;
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(25,0,25,0,0,0), mask, LYCHEE, TOPAZ, CHILLI_PEPPER);
 
-	if (mask & YIELD_MASK_WEALTH)
+#if 0
+	// Protectionism
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,50,0,0,0), mask, GOLD, MUSK_DEER, COYOTE, 3);
+	for (unsigned i = m_start; (mask & YIELD_MASK_WEALTH) && (i <= m_end) && (i < spaces.size()); i+= 1)
 	{
-		std::vector<unsigned> wealth_yield;
-		GetWealth(spaces, loc, (int)loc - 1, loc + 1, yield, wealth_yield);
-		for (unsigned i = loc - 1; i <= loc + 1; i++)
-			if (i != loc)
-				yield.m_wealth += wealth_yield[i];
+		if (spaces[i].m_source)
+		{
+			const source_class_t c = spaces[i].m_source->Class();
+			if ((c == ANIMAL) || (c == PLANT) || (c == MINERAL))
+				yield.m_wealth += 5;
+		}
+
 	}
+
+#endif
+#if 0
+	// Development Aid
+	yield.AddWealth(60,mask);
+	for (unsigned i = m_start; (mask & YIELD_MASK_WEALTH | YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_AWE) && (i <= m_end) && (i < spaces.size()); i+= 1)
+	{
+		if (spaces[i].m_source)
+		{
+			const source_type_t t = spaces[i].m_source->Type();
+			if (t == DESERT_LIME)
+			{
+				yield.AddFood(45, mask);
+				yield.AddWealth(-15, mask);
+			}
+			else if (t == SILVER)
+			{
+				yield.AddFood(45, tech);
+				yield.AddWealth(-15, mask);
+			}
+			else if (t == COYOTE)
+			{
+				yield.AddWealth(75-15, mask);
+			}
+			else if (t == PLATINUM)
+			{
+				yield.AddWealth(-15, mask);
+				yield.AddAwe(15, tech);
+			}
+		}
+	}
+#endif
+	// Local investment - see also PostProcess
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(25,0,25,0,0,0), mask, LYCHEE, TOPAZ, CHILLI_PEPPER);
+}
+
+bool Bank::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
+{
+	yield.Reset();
+	if (!m_post_processed)
+	{
+		// Local investment - see also Yield
+		for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i++)
+			if (i != loc) 
+				yield.m_wealth += spaces[i].m_yield.m_wealth;
+		global_yield.clear();
+		global_yield.resize(spaces.size());
+		m_post_processed = true;
+		return true; // indicate changed values
+	}
+	return false; // nothing changed during this call
 }
 Bank *Bank::Clone(void) const
 {
 	return new Bank(*this);
 }
 
-Lighthouse::Lighthouse()
+Lighthouse::Lighthouse(void) :
+	Building(Yield(300, 50, 200, 0, 0,0))
 {
 	m_name = "Lighthouse";
 }
 
 void Lighthouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const 
 {
-	(void)loc;
 	yield.Reset();
+
+	// Clear Blue
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, TUNA, PARROTFISH);
+
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, TUNA, PARROTFISH);
 
 	// hard coded city extents for now...
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH | YIELD_MASK_TECH))
 	{
-		unsigned seen_flag[SOURCE_TYPE_T_MAX] = {0};
-		for (unsigned i = 4; i < 9; i+= 1)
+		unsigned marlin_seabass_count = 0;
+		for (unsigned i = m_start; i < m_end; i+= 1)
 		{
 			if ((biome_list[i] == OCEAN) && 
-					(spaces[i].m_source->Class() == ANIMAL) && 
-					(spaces[i].m_source->Type() !=  SOURCE_TYPE_NONE))
+				spaces[i].m_source &&
+				(spaces[i].m_source->Class() == ANIMAL))
 			{
-				yield.AddTech(5, mask);
-				yield.AddWealth(5, mask);
-				if (spaces[i].m_source->Type() == ANGLERFISH)
-					yield.AddWealth(50, mask);
-				if (!seen_flag[spaces[i].m_source->Type()])
+				const source_type_t t = spaces[i].m_source->Type();
+				// Deep Sea
+				if (t != SOURCE_TYPE_NONE)
 				{
-					seen_flag[spaces[i].m_source->Type()] = 1;
-					yield.AddFood(35, mask);
+					yield.AddTech(5, mask);
+					yield.AddWealth(5, mask);
 				}
+				if (t == ANGLERFISH)
+					yield.AddWealth(50, mask);
+				else if ((t == MARLIN) || (t == SEABASS))
+					marlin_seabass_count += 1;
 			}
 		}
+		// Fishing Sport
+		if (marlin_seabass_count <= 2)
+		{
+			yield.AddFood(50, mask);
+			yield.AddWealth(100, mask);
+		}
+		else if (marlin_seabass_count <= 4)
+		{
+			yield.AddFood(100, mask);
+			yield.AddWealth(50, mask);
+		}
 	}
+	// Amazing reef
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, CLOWNFISH, CLOWNFISH, CLOWNFISH, 2);
 }
 
 Lighthouse* Lighthouse::Clone(void) const 
@@ -288,7 +375,8 @@ Lighthouse* Lighthouse::Clone(void) const
 	return new Lighthouse(*this);
 }
 
-Harbor::Harbor(void)
+Harbor::Harbor(void) :
+	Building(Yield(90, 0, 50, 0, 0, 0))
 {
 	m_name = "Harbor";
 }
@@ -298,32 +386,45 @@ void Harbor::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 	(void)loc;
 	yield.Reset();
 
-	// hard coded city extents for now...
-	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH))
+	// Fishing Trade
+	for (unsigned i = m_start; i < m_end; i+= 1)
 	{
-		for (unsigned i = 4; i < 9; i+= 1)
+		if (spaces[i].m_source)
 		{
-			if ((biome_list[i] == OCEAN) && (spaces[i].m_source->Class() == ANIMAL) && (spaces[i].m_source->Type() !=  SOURCE_TYPE_NONE))
-			{
-				yield.AddFood(5, mask);
+			const source_class_t c = spaces[i].m_source->Class();
+			if ((c == ANIMAL) || (c == PLANT) || (c == MINERAL))
 				yield.AddWealth(5, mask);
-				if (i >= 7)
-					yield.AddFood(10, mask);
-			}
-		}
-		for (unsigned i = 0; i < spaces.size(); i+= 1)
-		{
-			if (spaces[i].m_source->Type() == SEABASS)
-			{
-				Yield this_yield;
-				spaces[i].m_source->GetYield(spaces, i, yield);
-				for (unsigned j = std::max<int>(0, (int)i - yield.m_range); (j < (i + yield.m_range)) && (j < spaces.size()); j++)
-					if ((j >= 4) && (j <= 17))
-						yield.AddFood(yield.m_food * 0.5, mask);
-			}
 		}
 	}
 }
+
+bool Harbor::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
+{
+	(void)loc;
+	yield.Reset();
+	if (!m_post_processed)
+	{
+		global_yield.clear();
+		global_yield.resize(spaces.size());
+		for (size_t i = 0; i < spaces.size(); i++)
+			if (spaces[i].m_source && 
+				(spaces[i].m_source->Type() == SEABASS))
+			{
+				const unsigned range = spaces[i].m_yield.m_range;
+				for (unsigned j = std::max<int>(0, (int)i - range); (j < (i + range)) && (j < spaces.size()); j++)
+					global_yield[j].m_food += spaces[i].m_source->Level() + 1;
+				Yield this_yield;
+				std::vector<Space> s(spaces);
+				spaces[i].m_source->GetYield(s, i, this_yield, YIELD_MASK_FOOD);
+				this_yield.m_food += spaces[i].m_source->Level() + 1;
+				yield.m_food += this_yield.m_food / 2;
+			}
+		m_post_processed = true;
+		return true; // indicate changed values
+	}
+	return false; // nothing changed during this call
+}
+
 Harbor* Harbor::Clone(void) const
 {
 	return new Harbor(*this);
@@ -530,8 +631,13 @@ void Barracks::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
 {
 	yield.Reset();
 	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,10,0,0,0,0), mask, PLANT, 3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,0,0,-10,0), mask, COPPER,IRON,WHITE_WILLOW,3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,0,0,-10,0), mask, SALT, SALT, SALT,3);
+	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_AWE))
+	{
+		Yield this_yield;
+		AddInRange(spaces, loc, this_yield, m_start, m_end, Yield(30,0,0,0,-10,0), mask, COPPER,IRON,WHITE_WILLOW,3);
+		AddInRange(spaces, loc, this_yield, m_start, m_end, Yield(30,0,0,0,-10,0), mask, SALT, SALT, SALT,3 - this_yield.m_food/30);
+		yield += this_yield;
+	}
 }
 Barracks* Barracks::Clone(void) const
 {
@@ -563,6 +669,37 @@ Observatory::Observatory(void) :
 void Observatory::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
+	// Licensed Breakthrough
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,45,0,0,0), mask, WHITE_WILLOW, NIGHTSHADE, BARREL_CACTUS, 4);
+
+	// Advanced Equipment
+	bool zinc_seen = false;
+	bool aluminium_seen = false;
+	bool iron_seen = false;
+	for (unsigned i = m_start; (mask & YIELD_MASK_TECH) && (i < m_end); i++)
+	{
+		if (spaces[i].m_source)
+		{
+			source_type_t t = spaces[i].m_source->Type();
+			if (!zinc_seen && (t == ZINC))
+			{
+				yield.m_tech += 30;
+				zinc_seen = true;
+			}
+			if (!aluminium_seen && (t == ALUMINIUM))
+			{
+				yield.m_tech += 30;
+				aluminium_seen = true;
+			}
+			if (!iron_seen && (t == IRON))
+			{
+				yield.m_tech += 30;
+				iron_seen = true;
+			}
+		}
+	}
+	AddIfAdjacent(spaces, loc, yield, Yield(0,30,0,0,0,0), ZINC, ALUMINIUM, IRON);
+	// Active Researchers
 	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, COFFEA,TEA_PLANT,TEA_PLANT, std::numeric_limits<unsigned>::max());
 }
 
@@ -585,4 +722,82 @@ bool Observatory::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yi
 Observatory* Observatory::Clone(void) const
 {
 	return new Observatory(*this);
+}
+
+Opera::Opera(void) :
+	Building(Yield(850,0,850,0,0,0))
+{
+	m_name = "Opera";
+}
+
+void Opera::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+
+	// Fables
+	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH))
+	{
+		unsigned animal_count = 0;
+		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
+		{
+			if (spaces[i].m_source)
+			{
+			source_type_t t = spaces[i].m_source->Type();
+			if ((t == BEAVER) || (t == ARMADILLO) || (t == FOX) || (t == GREY_FOX) || (t == LANGUR_MONKEY) || (t == RABBIT) || (t == GOAT))
+				animal_count += 1;
+			}
+		}
+		if (animal_count > 0)
+		{
+			yield.AddFood(75, mask);
+			yield.AddWealth(75, mask);
+		}
+		if (animal_count > 1)
+		{
+			yield.AddFood(50, mask);
+			yield.AddWealth(50, mask);
+		}
+		if (animal_count > 2)
+		{
+			yield.AddFood(25, mask);
+			yield.AddWealth(25, mask);
+		}
+	}
+	// Genesis story
+	if (mask & YIELD_MASK_WEALTH)
+	{
+		Yield gs_yield;
+		AddInRange(spaces, loc, gs_yield, m_start, m_end, Yield(0,0,75,0,0,0), mask, BLUEBERRY, APPLE_TREE, STRAWBERRY, 4);
+		AddInRange(spaces, loc, gs_yield, m_start, m_end, Yield(0,0,75,0,0,0), mask, AGAVE, DATE_PALM, DATE_PALM, 4 - gs_yield.m_wealth/75);
+		yield += gs_yield;
+	}
+	// Heroics of the Titan Slayer
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(75,0,0,0,0,0), mask, ANIMAL, 4);
+	yield.AddAwe(-20, mask);
+
+	// Inspired Piece
+	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH))
+	{
+		Yield ip_yield;
+		AddInRange(spaces, loc, ip_yield, m_start, m_end, Yield(100,0,100,0,0,0), mask, CARDON_CACTUS, ORANGE_TREE, MOOSE, 2);
+		AddInRange(spaces, loc, ip_yield, m_start, m_end, Yield(100,0,100,0,0,0), mask, BEAR, BIG_HORN, PANDA, 2 - ip_yield.m_wealth/100);
+		AddInRange(spaces, loc, ip_yield, m_start, m_end, Yield(100,0,100,0,0,0), mask, BOBCAT, BOBCAT, BOBCAT, 2 - ip_yield.m_wealth/100);
+		yield += ip_yield;
+	}
+	// Peculiar Adventures of Maarten
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,60,0), mask, MARTEN, MARTEN, MARTEN, 1);
+
+	// Epic of Bas
+	if (mask & YIELD_MASK_WEALTH)
+	{
+		Yield eb_yield;
+		AddInRange(spaces, loc, eb_yield, m_start, m_end, Yield(0,0,150,0,0,0), mask, WOLF, COYOTE, SNOW_LEOPARD, 1);
+		AddInRange(spaces, loc, eb_yield, m_start, m_end, Yield(100,0,150,0,0,0), mask, BEAR, BEAR, BEAR, 1 - eb_yield.m_wealth/150);
+		yield += eb_yield;
+	}
+
+}
+Opera* Opera::Clone(void) const
+{
+	return new Opera(*this);
 }

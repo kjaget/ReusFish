@@ -79,7 +79,10 @@ class Bank: public Building
 		Bank(void);
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield);
 		Bank *Clone(void) const;
+	private:
+		bool m_post_processed;
 };
 
 class Lighthouse : public Building
@@ -96,7 +99,10 @@ class Harbor : public Building
 	public:
 		Harbor(void);
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield);
 		Harbor* Clone(void) const;
+	private:
+		bool m_post_processed;
 };
 
 class University: public Building
@@ -207,10 +213,21 @@ class Observatory: public Building
 		Observatory();
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
-		void ResetPostProcessed(void);
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield);
 		
 		Observatory* Clone(void) const;
+
+	private:
+		bool m_post_processed;
+};
+class Opera: public Building
+{
+	public :
+		Opera();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		
+		Opera* Clone(void) const;
 
 	private:
 		bool m_post_processed;
