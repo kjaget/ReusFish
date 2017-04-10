@@ -53,6 +53,7 @@ class Source
 		bool operator==(const Source &rhs) const;
 		source_class_t Class(void) const;
 		source_type_t  Type(void)  const;
+		unsigned char  Level(void) const;
 		unsigned char  UpgradeCount(void) const;
 		size_t Hash(void) const;
 

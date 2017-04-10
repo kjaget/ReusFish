@@ -59,6 +59,11 @@ source_type_t Source::Type(void) const
 	return m_type;
 }
 
+unsigned char Source::Level(void) const
+{
+	return m_level;
+}
+
 unsigned char Source::UpgradeCount(void) const
 {
 	return m_upgrade_count;
