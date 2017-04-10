@@ -16,13 +16,13 @@ class Yield
 			  unsigned short tech, 
 			  unsigned short wealth,
 			  unsigned short danger, 
-			  unsigned short awe, 
+			  short          awe, 
 			  short          natura);
 		Yield(unsigned short food, 
 				unsigned short tech, 
 				unsigned short wealth,
 				unsigned short danger, 
-				unsigned short awe, 
+				short          awe, 
 				short          natura, 
 				unsigned char  range,
 				unsigned char  natura_range);
@@ -45,8 +45,8 @@ class Yield
 		unsigned short m_tech;
 		unsigned short m_wealth;
 		unsigned short m_danger;
-		unsigned short m_awe;
-		short m_natura;
+		short          m_awe;
+		short          m_natura;
 		unsigned char  m_range;
 		unsigned char  m_natura_range;
 };

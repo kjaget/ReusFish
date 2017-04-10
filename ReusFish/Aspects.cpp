@@ -7,70 +7,70 @@ Aspects::Aspects(void)
 {
 	m_aspects.resize(ASPECT_T_MAX);
 
-	m_aspects[LESSER_LEAF] =  Aspect("Lesser Leaf",  PLANT, Yield(0,2,0,0,0,1),  0, Yield());
-	m_aspects[POTENT_LEAF] =  Aspect("Potent Leaf",  PLANT, Yield(0,4,0,0,0,2),  0, Yield());
-	m_aspects[GREATER_LEAF] = Aspect("Greater Leaf", PLANT, Yield(0,8,0,0,0,3),  0, Yield());
-	m_aspects[SUBLIME_LEAF] = Aspect("Sublime Leaf", PLANT, Yield(0,12,0,0,0,4), 0, Yield());
+	m_aspects[LESSER_LEAF] =  Aspect("L.Leaf",  PLANT, Yield(0,2,0,0,0,1),  0, Yield());
+	m_aspects[POTENT_LEAF] =  Aspect("P.Leaf",  PLANT, Yield(0,4,0,0,0,2),  0, Yield());
+	m_aspects[GREATER_LEAF] = Aspect("G.Leaf", PLANT, Yield(0,8,0,0,0,3),  0, Yield());
+	m_aspects[SUBLIME_LEAF] = Aspect("S.Leaf", PLANT, Yield(0,12,0,0,0,4), 0, Yield());
 
-	m_aspects[LESSER_HUNT] =  Aspect("Lesser Hunt",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(1,0,0,0,0,0));
-	m_aspects[POTENT_HUNT] =  Aspect("Potent Hunt",  ANIMAL, Yield(1,0,0,1,0,0), 7, Yield(2,0,0,1,0,0));
-	m_aspects[GREATER_HUNT] = Aspect("Greater Hunt", ANIMAL, Yield(2,0,0,2,0,0),14, Yield(3,0,0,2,0,0));
-	m_aspects[SUBLIME_HUNT] = Aspect("Sublime Hunt", ANIMAL, Yield(3,0,0,2,0,0),30, Yield(4,0,0,2,0,0)); 
+	m_aspects[LESSER_HUNT] =  Aspect("L.Hunt",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(1,0,0,0,0,0));
+	m_aspects[POTENT_HUNT] =  Aspect("P.Hunt",  ANIMAL, Yield(1,0,0,1,0,0), 7, Yield(2,0,0,1,0,0));
+	m_aspects[GREATER_HUNT] = Aspect("G.Hunt", ANIMAL, Yield(2,0,0,2,0,0),14, Yield(3,0,0,2,0,0));
+	m_aspects[SUBLIME_HUNT] = Aspect("S.Hunt", ANIMAL, Yield(3,0,0,2,0,0),30, Yield(4,0,0,2,0,0)); 
 
-	m_aspects[LESSER_FRUIT] =  Aspect("Lesser Fruit",  PLANT, Yield(3,0,0,0,0,0),  0, Yield());
-	m_aspects[POTENT_FRUIT] =  Aspect("Potent Fruit",  PLANT, Yield(5,0,0,0,0,0),  7, Yield(7,0,0,0,0,0));
-	m_aspects[GREATER_FRUIT] = Aspect("Greater Fruit", PLANT, Yield(10,0,0,0,0,0),14, Yield(13,0,0,0,0,0));
-	m_aspects[SUBLIME_FRUIT] = Aspect("Sublime Fruit", PLANT, Yield(15,0,0,0,0,0),30, Yield(20,0,0,0,0,0)); 
+	m_aspects[LESSER_FRUIT] =  Aspect("L.Fruit",  PLANT, Yield(3,0,0,0,0,0),  0, Yield());
+	m_aspects[POTENT_FRUIT] =  Aspect("P.Fruit",  PLANT, Yield(5,0,0,0,0,0),  7, Yield(7,0,0,0,0,0));
+	m_aspects[GREATER_FRUIT] = Aspect("G.Fruit", PLANT, Yield(10,0,0,0,0,0),14, Yield(13,0,0,0,0,0));
+	m_aspects[SUBLIME_FRUIT] = Aspect("S.Fruit", PLANT, Yield(15,0,0,0,0,0),30, Yield(20,0,0,0,0,0)); 
 
-	m_aspects[LESSER_GROWTH] =  Aspect("Lesser Growth",  PLANT, Yield(2,0,0,0,0,1), 0, Yield());
-	m_aspects[POTENT_GROWTH] =  Aspect("Potent Growth",  PLANT, Yield(4,0,0,1,0,2), 0, Yield());
-	m_aspects[GREATER_GROWTH] = Aspect("Greater Growth", PLANT, Yield(8,0,0,2,0,3), 0, Yield());
-	m_aspects[SUBLIME_GROWTH] = Aspect("Sublime Growth", PLANT, Yield(12,0,0,2,0,4),0, Yield()); 
+	m_aspects[LESSER_GROWTH] =  Aspect("L.Growth",  PLANT, Yield(2,0,0,0,0,1), 0, Yield());
+	m_aspects[POTENT_GROWTH] =  Aspect("P.Growth",  PLANT, Yield(4,0,0,1,0,2), 0, Yield());
+	m_aspects[GREATER_GROWTH] = Aspect("G.Growth", PLANT, Yield(8,0,0,2,0,3), 0, Yield());
+	m_aspects[SUBLIME_GROWTH] = Aspect("S.Growth", PLANT, Yield(12,0,0,2,0,4),0, Yield()); 
 
-	m_aspects[LESSER_HERD] =  Aspect("Lesser Herd",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(1,0,0,0,0,0));
-	m_aspects[POTENT_HERD] =  Aspect("Potent Herd",  ANIMAL, Yield(1,0,0,0,0,0), 7, Yield(2,0,0,0,0,0));
-	m_aspects[GREATER_HERD] = Aspect("Greater Herd", ANIMAL, Yield(2,0,0,0,0,0),14, Yield(3,0,0,0,0,0));
-	m_aspects[SUBLIME_HERD] = Aspect("Sublime Herd", ANIMAL, Yield(3,0,0,0,0,0),30, Yield(4,0,0,0,0,0)); 
+	m_aspects[LESSER_HERD] =  Aspect("L.Herd",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(1,0,0,0,0,0));
+	m_aspects[POTENT_HERD] =  Aspect("P.Herd",  ANIMAL, Yield(1,0,0,0,0,0), 7, Yield(2,0,0,0,0,0));
+	m_aspects[GREATER_HERD] = Aspect("G.Herd", ANIMAL, Yield(2,0,0,0,0,0),14, Yield(3,0,0,0,0,0));
+	m_aspects[SUBLIME_HERD] = Aspect("S.Herd", ANIMAL, Yield(3,0,0,0,0,0),30, Yield(4,0,0,0,0,0)); 
 
-	m_aspects[LESSER_CRYSTAL] =  Aspect("Lesser Crystal",  MINERAL, Yield(0,0,1,0,1,0),  0, Yield());
-	m_aspects[POTENT_CRYSTAL] =  Aspect("Potent Crystal",  MINERAL, Yield(0,0,3,0,1,0),  7, Yield(0,0,6,0,2,0));
-	m_aspects[GREATER_CRYSTAL] = Aspect("Greater Crystal", MINERAL, Yield(0,0,6,0,2,0), 14, Yield(0,0,10,0,3,0));
-	m_aspects[SUBLIME_CRYSTAL] = Aspect("Sublime Crystal", MINERAL, Yield(0,0,10,0,3,0),30, Yield(0,0,15,0,5,0)); 
+	m_aspects[LESSER_CRYSTAL] =  Aspect("L.Crystal",  MINERAL, Yield(0,0,1,0,1,0),  0, Yield());
+	m_aspects[POTENT_CRYSTAL] =  Aspect("P.Crystal",  MINERAL, Yield(0,0,3,0,1,0),  7, Yield(0,0,6,0,2,0));
+	m_aspects[GREATER_CRYSTAL] = Aspect("G.Crystal", MINERAL, Yield(0,0,6,0,2,0), 14, Yield(0,0,10,0,3,0));
+	m_aspects[SUBLIME_CRYSTAL] = Aspect("S.Crystal", MINERAL, Yield(0,0,10,0,3,0),30, Yield(0,0,15,0,5,0)); 
 
-	m_aspects[LESSER_EXOTIC] =  Aspect("Lesser Exotic",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(0,0,1,0,0,0));
-	m_aspects[POTENT_EXOTIC] =  Aspect("Potent Exotic",  ANIMAL, Yield(0,0,1,0,0,0), 7, Yield(0,0,2,0,0,0));
-	m_aspects[GREATER_EXOTIC] = Aspect("Greater Exotic", ANIMAL, Yield(0,0,2,0,0,0),14, Yield(0,0,3,0,0,0));
-	m_aspects[SUBLIME_EXOTIC] = Aspect("Sublime Exotic", ANIMAL, Yield(0,0,3,0,0,0),30, Yield(0,0,4,0,0,0)); 
+	m_aspects[LESSER_EXOTIC] =  Aspect("L.Exotic",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(0,0,1,0,0,0));
+	m_aspects[POTENT_EXOTIC] =  Aspect("P.Exotic",  ANIMAL, Yield(0,0,1,0,0,0), 7, Yield(0,0,2,0,0,0));
+	m_aspects[GREATER_EXOTIC] = Aspect("G.Exotic", ANIMAL, Yield(0,0,2,0,0,0),14, Yield(0,0,3,0,0,0));
+	m_aspects[SUBLIME_EXOTIC] = Aspect("S.Exotic", ANIMAL, Yield(0,0,3,0,0,0),30, Yield(0,0,4,0,0,0)); 
 
-	m_aspects[LESSER_NOBLE] =  Aspect("Lesser Noble",  MINERAL, Yield(0,0,3,0,0,0), 0, Yield());
-	m_aspects[POTENT_NOBLE] =  Aspect("Potent Noble",  MINERAL, Yield(0,0,5,0,0,0), 7, Yield(0,0,7,0,0,0));
-	m_aspects[GREATER_NOBLE] = Aspect("Greater Noble", MINERAL, Yield(0,0,10,0,0,0),14, Yield(0,0,13,0,0,0));
-	m_aspects[SUBLIME_NOBLE] = Aspect("Sublime Noble", MINERAL, Yield(0,0,15,0,0,0),30, Yield(0,0,20,0,0,0)); 
+	m_aspects[LESSER_NOBLE] =  Aspect("L.Noble",  MINERAL, Yield(0,0,3,0,0,0), 0, Yield());
+	m_aspects[POTENT_NOBLE] =  Aspect("P.Noble",  MINERAL, Yield(0,0,5,0,0,0), 7, Yield(0,0,7,0,0,0));
+	m_aspects[GREATER_NOBLE] = Aspect("G.Noble", MINERAL, Yield(0,0,10,0,0,0),14, Yield(0,0,13,0,0,0));
+	m_aspects[SUBLIME_NOBLE] = Aspect("S.Noble", MINERAL, Yield(0,0,15,0,0,0),30, Yield(0,0,20,0,0,0)); 
 
-	m_aspects[LESSER_SEISMIC] =  Aspect("Lesser Seismic",  MINERAL, Yield(0,1,0,0,1,0),  0, Yield());
-	m_aspects[POTENT_SEISMIC] =  Aspect("Potent Seismic",  MINERAL, Yield(0,3,0,0,1,0),  7, Yield(0, 6,0,0,2,0));
-	m_aspects[GREATER_SEISMIC] = Aspect("Greater Seismic", MINERAL, Yield(0,6,0,0,2,0), 14, Yield(0,10,0,0,3,0));
-	m_aspects[SUBLIME_SEISMIC] = Aspect("Sublime Seismic", MINERAL, Yield(0,10,0,0,3,0),30, Yield(0,15,0,0,5,0)); 
+	m_aspects[LESSER_SEISMIC] =  Aspect("L.Seismic",  MINERAL, Yield(0,1,0,0,1,0),  0, Yield());
+	m_aspects[POTENT_SEISMIC] =  Aspect("P.Seismic",  MINERAL, Yield(0,3,0,0,1,0),  7, Yield(0, 6,0,0,2,0));
+	m_aspects[GREATER_SEISMIC] = Aspect("G.Seismic", MINERAL, Yield(0,6,0,0,2,0), 14, Yield(0,10,0,0,3,0));
+	m_aspects[SUBLIME_SEISMIC] = Aspect("S.Seismic", MINERAL, Yield(0,10,0,0,3,0),30, Yield(0,15,0,0,5,0)); 
 
-	m_aspects[LESSER_TOXIC] =  Aspect("Lesser Toxic",  PLANT, Yield(0,3,0,0,0,0),  0, Yield());
-	m_aspects[POTENT_TOXIC] =  Aspect("Potent Toxic",  PLANT, Yield(0,5,0,0,0,0),  7, Yield(0, 7,0,0,0,0));
-	m_aspects[GREATER_TOXIC] = Aspect("Greater Toxic", PLANT, Yield(0,10,0,0,0,0),14, Yield(0,13,0,0,0,0));
-	m_aspects[SUBLIME_TOXIC] = Aspect("Sublime Toxic", PLANT, Yield(0,15,0,0,0,0),30, Yield(0,20,0,0,0,0)); 
+	m_aspects[LESSER_TOXIC] =  Aspect("L.Toxic",  PLANT, Yield(0,3,0,0,0,0),  0, Yield());
+	m_aspects[POTENT_TOXIC] =  Aspect("P.Toxic",  PLANT, Yield(0,5,0,0,0,0),  7, Yield(0, 7,0,0,0,0));
+	m_aspects[GREATER_TOXIC] = Aspect("G.Toxic", PLANT, Yield(0,10,0,0,0,0),14, Yield(0,13,0,0,0,0));
+	m_aspects[SUBLIME_TOXIC] = Aspect("S.Toxic", PLANT, Yield(0,15,0,0,0,0),30, Yield(0,20,0,0,0,0)); 
 
-	m_aspects[LESSER_PREDATOR] =  Aspect("Lesser Predator",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(0,0,1,0,0,0));
-	m_aspects[POTENT_PREDATOR] =  Aspect("Potent Predator",  ANIMAL, Yield(0,0,2,1,0,0), 7, Yield(0,0,2,1,0,0));
-	m_aspects[GREATER_PREDATOR] = Aspect("Greater Predator", ANIMAL, Yield(0,0,3,2,0,0),14, Yield(0,0,3,2,0,0));
-	m_aspects[SUBLIME_PREDATOR] = Aspect("Sublime Predator", ANIMAL, Yield(0,0,4,2,0,0),30, Yield(0,0,4,2,0,0)); 
+	m_aspects[LESSER_PREDATOR] =  Aspect("L.Predator",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(0,0,1,0,0,0));
+	m_aspects[POTENT_PREDATOR] =  Aspect("P.Predator",  ANIMAL, Yield(0,0,2,1,0,0), 7, Yield(0,0,2,1,0,0));
+	m_aspects[GREATER_PREDATOR] = Aspect("G.Predator", ANIMAL, Yield(0,0,3,2,0,0),14, Yield(0,0,3,2,0,0));
+	m_aspects[SUBLIME_PREDATOR] = Aspect("S.Predator", ANIMAL, Yield(0,0,4,2,0,0),30, Yield(0,0,4,2,0,0)); 
 
-	m_aspects[LESSER_REACTION] =  Aspect("Lesser Reaction",  MINERAL, Yield(0, 3,0,0,0,0), 0, Yield());
-	m_aspects[POTENT_REACTION] =  Aspect("Potent Reaction",  MINERAL, Yield(0, 5,0,0,0,0), 7, Yield(0, 7,0,0,0,0));
-	m_aspects[GREATER_REACTION] = Aspect("Greater Reaction", MINERAL, Yield(0,10,0,0,0,0),14, Yield(0,13,0,0,0,0));
-	m_aspects[SUBLIME_REACTION] = Aspect("Sublime Reaction", MINERAL, Yield(0,15,0,0,0,0),30, Yield(0,20,0,0,0,0)); 
+	m_aspects[LESSER_REACTION] =  Aspect("L.Reaction",  MINERAL, Yield(0, 3,0,0,0,0), 0, Yield());
+	m_aspects[POTENT_REACTION] =  Aspect("P.Reaction",  MINERAL, Yield(0, 5,0,0,0,0), 7, Yield(0, 7,0,0,0,0));
+	m_aspects[GREATER_REACTION] = Aspect("G.Reaction", MINERAL, Yield(0,10,0,0,0,0),14, Yield(0,13,0,0,0,0));
+	m_aspects[SUBLIME_REACTION] = Aspect("S.Reaction", MINERAL, Yield(0,15,0,0,0,0),30, Yield(0,20,0,0,0,0)); 
 
-	m_aspects[LESSER_EXOTIC] =  Aspect("Lesser Exotic",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(0,0,1,0,0,0));
-	m_aspects[POTENT_EXOTIC] =  Aspect("Potent Exotic",  ANIMAL, Yield(0,0,1,0,0,0), 7, Yield(0,0,2,0,0,0));
-	m_aspects[GREATER_EXOTIC] = Aspect("Greater Exotic", ANIMAL, Yield(0,0,2,0,0,0),14, Yield(0,0,3,0,0,0));
-	m_aspects[SUBLIME_EXOTIC] = Aspect("Sublime Exotic", ANIMAL, Yield(0,0,3,0,0,0),30, Yield(0,0,4,0,0,0)); 
+	m_aspects[LESSER_EXOTIC] =  Aspect("L.Exotic",  ANIMAL, Yield(0,0,0,0,0,0), 3, Yield(0,0,1,0,0,0));
+	m_aspects[POTENT_EXOTIC] =  Aspect("P.Exotic",  ANIMAL, Yield(0,0,1,0,0,0), 7, Yield(0,0,2,0,0,0));
+	m_aspects[GREATER_EXOTIC] = Aspect("G.Exotic", ANIMAL, Yield(0,0,2,0,0,0),14, Yield(0,0,3,0,0,0));
+	m_aspects[SUBLIME_EXOTIC] = Aspect("S.Exotic", ANIMAL, Yield(0,0,3,0,0,0),30, Yield(0,0,4,0,0,0)); 
 
 	m_enabled.resize(ASPECT_T_MAX, false);
 }

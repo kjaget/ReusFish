@@ -78,9 +78,9 @@ unsigned Landscape::Wealth(unsigned start_pos, unsigned end_pos) const
 	return wealth;
 }
 
-unsigned Landscape::Awe(unsigned start_pos, unsigned end_pos) const
+int Landscape::Awe(unsigned start_pos, unsigned end_pos) const
 {
-	unsigned awe = 0;
+	int awe = 0;
 	for (unsigned i = start_pos; (i <= end_pos) && (i < size()); i++)
 		awe += m_spaces[i].m_yield.m_awe;
 	return awe;
@@ -224,6 +224,16 @@ void Landscape::SetYield(void)
 		delete sources[i];
 }
 
+std::array<unsigned char, SOURCE_CLASS_T_MAX> Landscape::CountClasses(void) const
+{
+	std::array<unsigned char, SOURCE_CLASS_T_MAX> class_count{};
+	for (unsigned i = m_start; (i <= m_end) && (i < size()); i++)
+		if (m_spaces[i].m_source)
+			class_count[m_spaces[i].m_source->Class()] += 1;
+	return class_count;
+}
+
+
 bool Landscape::BeatsGoal(void) const
 {
 	Yield yield;
@@ -259,11 +269,16 @@ int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos) co
 	//unsigned superior_count = 0;
 	//unsigned greater_count = 0;
 	Yield yield;
+	auto class_count = CountClasses();
+
 	for (unsigned i = start_pos; (i <= end_pos) && (i < size()); i++)
 	{
 		if (m_spaces[i].m_source)
 		{
 			yield += m_spaces[i].m_yield;
+			if (m_spaces[i].m_source && (m_spaces[i].m_source->Type() == BUILDING))
+				if (!dynamic_cast<const Building *>(m_spaces[i].m_source)->CheckClassCompletion(class_count))
+					return std::numeric_limits<int>::min();
 			//      superior_count += m_spaces[i].m_source->CountAspects(Aspects::SUBLIME);
 			//      greater_count  += m_spaces[i].m_source->CountAspects(Aspects::GREATER);
 		}

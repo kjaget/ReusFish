@@ -38,10 +38,12 @@ class Landscape
 		void GetYield(Yield &yield, unsigned start_pos, unsigned end_pos) const;
 		void GetYield(Yield &yield) const;
 		int ScoreHelper(unsigned goal, unsigned val, double multiplier) const;
+		std::array<unsigned char, SOURCE_CLASS_T_MAX> CountClasses(void) const;
+
 		unsigned Food(unsigned start_pos, unsigned end_pos) const;
 		unsigned Tech(unsigned start_pos, unsigned end_pos) const;
 		unsigned Wealth(unsigned start_pos, unsigned end_pos) const;
-		unsigned Awe(unsigned start_pos, unsigned end_pos) const;
+		int      Awe(unsigned start_pos, unsigned end_pos) const;
 		unsigned Danger(unsigned start_pos, unsigned end_pos) const;
 
 		std::vector<Space>   m_spaces;

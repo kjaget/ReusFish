@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Source.hpp"
+#include "Source.hpp"
 #include "Space.hpp"
 
 class Building : public Source
@@ -10,6 +11,8 @@ class Building : public Source
 		Building(const Yield &completion_requirements);
 		void SetStartEnd(unsigned char start, unsigned char end);
 		const Yield &GetCompletionRequirements(void) const;
+		bool CheckClassCompletion(const std::array<unsigned char, SOURCE_CLASS_T_MAX> &class_count) const;
+		void SetClassCompletionCount(source_class_t source_class, unsigned char count);
 
 		virtual Building* Clone(void) const;
 
@@ -18,6 +21,7 @@ class Building : public Source
 		unsigned char m_end;
 	private:
 		Yield         m_completion_requirements;
+		std::array<unsigned char, SOURCE_TYPE_T_MAX> m_completion_class_count;
 };
 
 class City : public Building
@@ -162,4 +166,52 @@ class Cathedral: public Building
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		Cathedral* Clone(void) const;
+};
+
+class BlastFurnace: public Building
+{
+	public :
+		BlastFurnace();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		BlastFurnace* Clone(void) const;
+};
+
+class Hamlet: public Building
+{
+	public :
+		Hamlet();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Hamlet* Clone(void) const;
+};
+class Barracks: public Building
+{
+	public :
+		Barracks();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Barracks* Clone(void) const;
+};
+class InventorsTower: public Building
+{
+	public :
+		InventorsTower();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		InventorsTower* Clone(void) const;
+};
+class Observatory: public Building
+{
+	public :
+		Observatory();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		void ResetPostProcessed(void);
+		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield);
+		
+		Observatory* Clone(void) const;
+
+	private:
+		bool m_post_processed;
 };

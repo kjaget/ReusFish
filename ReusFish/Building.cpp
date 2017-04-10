@@ -2,7 +2,8 @@
 #include "Building.hpp"
 #include "SourceType.hpp"
 
-Building::Building(void) 
+Building::Building(void) :
+	m_completion_class_count(std::array<unsigned char, SOURCE_TYPE_T_MAX>{0})
 {
 	m_class = NON_NATURAL;
 	m_type = BUILDING;
@@ -11,7 +12,8 @@ Building::Building(void)
 }
 
 Building::Building(const Yield &completion_requirements) :
-	m_completion_requirements(completion_requirements)
+	m_completion_requirements(completion_requirements),
+	m_completion_class_count(std::array<unsigned char, SOURCE_TYPE_T_MAX>{0})
 {
 	m_class = NON_NATURAL;
 	m_type = BUILDING;
@@ -35,6 +37,20 @@ const Yield &Building::GetCompletionRequirements(void) const
 	return m_completion_requirements;
 }
 
+bool Building::CheckClassCompletion(const std::array<unsigned char, SOURCE_CLASS_T_MAX> &class_count) const
+{
+	for (int i = 0; i < SOURCE_CLASS_T_MAX; i++)
+		if (class_count[i] < m_completion_class_count[i])
+			return false;
+	return true;
+}
+
+void Building::SetClassCompletionCount(source_class_t source_class, unsigned char count)
+{
+	if (source_class < SOURCE_CLASS_T_MAX)
+		m_completion_class_count[source_class] = count;
+}
+
 City::City(void)
 {
 	m_name = "City";
@@ -53,7 +69,8 @@ Mill::Mill(void)
 void Mill::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	(void)loc;
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, ANIMAL, 3);
+	//AddInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, ANIMAL, 3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, PLANT, 3);
 	AddInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, FOXGLOVE, DANDELION, DANDELION, 2);
 
 #if 0
@@ -110,14 +127,18 @@ Shrine *Shrine::Clone(void) const
 	return new Shrine(*this);
 }
 
-Circus::Circus(void)
+Circus::Circus(void) :
+	Building(Yield(200, 0, 200, 0, 0, 0))
 {
 	m_name = "Circus";
+	SetClassCompletionCount(ANIMAL, 5);
 }
 
 void Circus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	(void)loc;
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,0,25,0,5,0), mask, DEER, GOAT, BOAR, 3);
+#if 0
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_WEALTH))
 	{
 		bool seen_flag[BIOME_T_MAX] = {0};
@@ -135,6 +156,7 @@ void Circus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 			}
 		}
 	}
+#endif
 }
 
 Circus *Circus::Clone(void) const
@@ -400,7 +422,7 @@ void Workshop::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
 	yield.Reset();
 	//AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,20,10,0,0,0), mask, MINERAL, 3);
 	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,10,5,0,0,0), mask, MINERAL, 3);
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,25,0,0,0), mask, IRON, COPPER,COPPER, 2);
+	//AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,25,0,0,0), mask, IRON, COPPER,COPPER, 2);
 }
 Workshop* Workshop::Clone(void) const
 {
@@ -424,7 +446,7 @@ CustomsHouse* CustomsHouse::Clone(void) const
 	return new CustomsHouse(*this);
 }
 Temple::Temple(void) :
-	Building(Yield(45, 0, 70, 0, 0, 0))
+	Building(Yield(70, 0, 70, 0, 0, 0))
 {
 	m_name = "Temple";
 }
@@ -432,15 +454,20 @@ Temple::Temple(void) :
 void Temple::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,0,10,0,0,0), mask, ANIMAL, 3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(10,0,5,0,0,0), mask, ANIMAL, 3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,10,0,0,0), mask, BOAR,RABBIT,MUSK_DEER,3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,10,0,0,0), mask, JAVELINA,JAVELINA,JAVELINA,3);
+#if 0
 	yield.m_range = 2;
 	AddInRange(spaces, loc, yield, Yield(20,0,20,0,0,0), mask, ANIMAL, 2);
 	yield.m_range = 0;
+#endif
 }
 Temple* Temple::Clone(void) const
 {
 	return new Temple(*this);
 }
+
 Cathedral::Cathedral(void) :
 	Building(Yield(120, 0, 120, 0, 25, 0))
 {
@@ -456,4 +483,106 @@ void Cathedral::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
 Cathedral* Cathedral::Clone(void) const
 {
 	return new Cathedral(*this);
+}
+
+BlastFurnace::BlastFurnace(void) :
+	Building(Yield(50, 175, 175, 0, 0, 0))
+{
+	m_name = "BlastFurnace";
+	SetClassCompletionCount(MINERAL, 5);
+}
+
+void BlastFurnace::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,50,50,0,0,0), mask, IGUANA, BUFFALO,KOMODO_DRAGON, 4);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,50,50,0,0,0), mask, RATTLESNAKE, COYOTE, GILA_MONSTER, 4);
+}
+BlastFurnace* BlastFurnace::Clone(void) const
+{
+	return new BlastFurnace(*this);
+}
+
+Hamlet::Hamlet(void) :
+	Building(Yield(300,60,60,0,0,0))
+{
+	m_name = "Hamlet";
+}
+
+void Hamlet::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,5,0), mask, ANIMAL, 4);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(75,25,0,0,0,0), mask, WOLF, WISENT, WISENT, 3);
+}
+Hamlet* Hamlet::Clone(void) const
+{
+	return new Hamlet(*this);
+}
+
+Barracks::Barracks(void) :
+	Building(Yield(0,0,0,0,0,0))
+{
+	m_name = "Barracks";
+}
+
+void Barracks::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(5,10,0,0,0,0), mask, PLANT, 3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,0,0,-10,0), mask, COPPER,IRON,WHITE_WILLOW,3);
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,0,0,-10,0), mask, SALT, SALT, SALT,3);
+}
+Barracks* Barracks::Clone(void) const
+{
+	return new Barracks(*this);
+}
+
+InventorsTower::InventorsTower(void)
+{
+	m_name = "InventorsTower";
+}
+
+void InventorsTower::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,15,0,-10,0), mask, MINERAL, std::numeric_limits<unsigned>::max());
+}
+InventorsTower* InventorsTower::Clone(void) const
+{
+	return new InventorsTower(*this);
+}
+
+Observatory::Observatory(void) :
+	Building(Yield(50,300,75,0,0,0)),
+	m_post_processed(false)
+{
+	m_name = "Observatory";
+}
+
+void Observatory::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, COFFEA,TEA_PLANT,TEA_PLANT, std::numeric_limits<unsigned>::max());
+}
+
+bool Observatory::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
+{
+	yield.Reset();
+	if (!m_post_processed)
+	{
+		for (unsigned i = std::max<int>(0, (int)loc - 2); (i <= loc + 2) && (i < spaces.size()); i++)
+			if ((i != loc) && spaces[i].m_source && (spaces[i].m_source->Type() != BUILDING))
+				yield.m_tech += spaces[i].m_yield.m_tech/2;
+		global_yield.clear();
+		global_yield.resize(spaces.size());
+		m_post_processed = true;
+		return true; // indicate changed values
+	}
+	return false; // nothing changed during this call
+}
+
+Observatory* Observatory::Clone(void) const
+{
+	return new Observatory(*this);
 }

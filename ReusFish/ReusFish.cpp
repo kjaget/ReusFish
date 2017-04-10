@@ -117,6 +117,9 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 	{
 		spaces.SetYield();
 		int score = spaces.Score();
+		// Doesn't have enough of a required class
+		if (score == std::numeric_limits<int>::min())
+			return;
 		static int best_score = std::numeric_limits<int>::min();
 		if (score > best_score)
 		{
@@ -141,7 +144,7 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 	if (spaces[pos].m_source->Class() != NON_NATURAL)
 	{
 		SourceList source_list(giants.GetSources(biome_list[pos]));
-		for (unsigned i = 0; i < source_list.size(); i++)
+		for (size_t i = 0; i < source_list.size(); i++)
 		{
 			spaces[pos] = Space(*source_list[i]);
 			initial_moves(spaces, pos - 1, giants);
@@ -158,13 +161,11 @@ int main (int argc, char **argv)
 	Landscape spaces;
 	Giants giants;
 	
-	spaces.SetGoal(Workshop().GetCompletionRequirements());
-	//spaces.AddSpace(MOUNTAIN);
-	//spaces.AddSpace(MOUNTAIN);
+	spaces.SetGoal(Observatory().GetCompletionRequirements());
 	spaces.StartCity();
-	spaces.AddSpace(MOUNTAIN);
-	spaces.AddSpace(MOUNTAIN);
-	spaces.AddSpace(MOUNTAIN,Workshop());
+	spaces.AddSpace(SWAMP);
+	spaces.AddSpace(SWAMP);
+	spaces.AddSpace(SWAMP, InventorsTower());
 	spaces.AddSpace(SWAMP,City());
 	spaces.AddSpace(SWAMP,City());
 	spaces.AddSpace(SWAMP,City());
@@ -173,10 +174,10 @@ int main (int argc, char **argv)
 	spaces.AddSpace(SWAMP);
 	spaces.AddSpace(SWAMP);
 	spaces.AddSpace(SWAMP);
+	spaces.AddSpace(SWAMP);
+	spaces.AddSpace(SWAMP, Observatory());
+	spaces.AddSpace(OCEAN);
 	spaces.EndCity();
-	//spaces.AddSpace(OCEAN);
-	//spaces.AddSpace(OCEAN);
-	//spaces.AddSpace(OCEAN);
 
 	initial_moves(spaces,spaces.size()-1,giants);
 	remaining_moves(spaces.size()-1);

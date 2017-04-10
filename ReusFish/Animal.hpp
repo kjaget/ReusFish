@@ -1348,7 +1348,7 @@ class Great_Stoat : public Stoat
 		{
 			m_name = "Great Stoat";
 			m_base_yield.m_wealth = 2;
-			m_max_aspects = 3;
+			m_max_aspects = 2;
 			m_level = 2;
 		}
 
