@@ -52,10 +52,10 @@ class UsedListContainer
 			{
 				const unsigned size_t_bits_minus_one = CHAR_BIT * sizeof(size_t) - 1;
 				size_t rot_val = (size_t)m_list[i];
-				rot_val = ((rot_val >> i) & ((1 << (size_t_bits_minus_one - i)) - 1))|
-						   (rot_val << (size_t_bits_minus_one - i));
+				rot_val = ((rot_val >> (3*i)) & ((1 << (size_t_bits_minus_one - 3*i)) - 1))|
+						   (rot_val << (size_t_bits_minus_one - 3*i));
 				m_hash += rot_val;
-				m_hash += (size_t)(m_blist[i] + 63) * i;
+				m_hash += (size_t)(m_blist[i] + 63) * (3*i);
 			}
 		}
 		size_t Hash(void) const {return m_hash; }
