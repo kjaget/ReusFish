@@ -465,8 +465,8 @@ void Dragonfruit::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
 	yield = m_base_yield;
 	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
 
-	yield.AddFood(m_food_multiplier * (spaces[loc].m_yield.m_natura / 2), mask);
-	yield.AddAwe(m_awe_multiplier * (spaces[loc].m_yield.m_natura / 2), mask);
+	yield.AddFood(m_food_multiplier * spaces[loc].m_yield.m_natura, mask);
+	yield.AddAwe(m_awe_multiplier * spaces[loc].m_yield.m_natura, mask);
 }
 
 void Kiwifruit::GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield, int m_natura_adder) const 

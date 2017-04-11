@@ -321,6 +321,7 @@ void Landscape::Print(void) const
 	{
 		if (i == m_start)
 			std::cout << "--------" << std::endl;
+		biome_list.Print(i);
 		m_spaces[i].Print();
 		std::cout << std::endl;
 		if (i == m_end)

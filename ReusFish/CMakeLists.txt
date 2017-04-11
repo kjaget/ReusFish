@@ -23,3 +23,19 @@ Space.cpp
 Yield.cpp
 )
 
+add_executable(check_upgrade_tree
+check_upgrade_tree.cpp
+Animal.cpp
+Aspects.cpp
+Biome.cpp
+Building.cpp
+Giants.cpp
+Landscape.cpp
+Mineral.cpp
+Plant.cpp
+Source.cpp
+SourceContainer.cpp
+SourceTypeList.cpp
+Space.cpp
+Yield.cpp
+)

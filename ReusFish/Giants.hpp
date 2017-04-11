@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "Biome.hpp"
+#include "Source.hpp"
 #include "SourceFactory.hpp"
 
 class Giant

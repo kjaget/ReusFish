@@ -202,16 +202,16 @@ void Swamp_Giant::Init(void)
 	m_source_factory2.Register(SWAMP, 2, SourceBuilder<Great_PoisonDartFrog>);
 	m_source_factory2.Register(SWAMP, 3, SourceBuilder<Superior_PoisonDartFrog>);
 
-	m_source_factory.Register(MOUNTAIN, 1, SourceBuilder<Monal>);
-	m_source_factory.Register(MOUNTAIN, 2, SourceBuilder<Great_Monal>);
-	m_source_factory.Register(MOUNTAIN, 3, SourceBuilder<Superior_Monal>);
+	m_source_factory2.Register(MOUNTAIN, 1, SourceBuilder<Monal>);
+	m_source_factory2.Register(MOUNTAIN, 2, SourceBuilder<Great_Monal>);
+	m_source_factory2.Register(MOUNTAIN, 3, SourceBuilder<Superior_Monal>);
 }
 
 Giants::Giants(void) :
-	m_ocean_giant (Ocean_Giant (2,1,1,2)),
-	m_forest_giant(Forest_Giant(3,1,2,1)),
-	m_stone_giant (Stone_Giant (2,2,0,2,1)),
-	m_swamp_giant (Swamp_Giant (2,2,0,1,1))
+	m_ocean_giant (Ocean_Giant (1,3,3,3)),
+	m_forest_giant(Forest_Giant(1,3,3,3)),
+	m_stone_giant (Stone_Giant (1,1,3,3,3)),
+	m_swamp_giant (Swamp_Giant (1,1,3,3,3))
 {
 }
 

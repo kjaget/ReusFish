@@ -16,6 +16,9 @@ class UsedListContainer
 			m_list = new const Source *[m_size];
 			for (unsigned i = 0; i < m_size; i++)
 				m_list[i] = landscape[i].m_source;
+			m_blist = new biome_t[m_size];
+			for (unsigned i = 0; i < m_size; i++)
+				m_blist[i] = biome_list[i]; // KCJ - warning, globals
 			SetHash();
 		}
 		UsedListContainer(const UsedListContainer &orig)
@@ -23,37 +26,44 @@ class UsedListContainer
 			m_size = orig.m_size;
 			m_list = new const Source *[m_size];
 			memcpy(m_list, orig.m_list, m_size * sizeof (*m_list));
+			m_blist = new biome_t[m_size];
+			memcpy(m_blist, orig.m_blist, m_size * sizeof (*m_blist));
 			m_hash = orig.m_hash;
 		}
 		~UsedListContainer()
 		{
 			delete [] m_list;
+			delete [] m_blist;
 		}
 		bool operator==(const UsedListContainer &rhs) const
 		{
 			if (m_size != rhs.m_size)
 				return false;
 			for (unsigned i = 0; i < m_size; i++)
-				if (m_list[i] != rhs.m_list[i])
+				if ((m_list[i]  != rhs.m_list[i]) ||
+					(m_blist[i] != rhs.m_blist[i]))
 					return false;
 			return true;
 		}
 		void SetHash(void)
 		{
+			m_hash = 0;
 			for (unsigned i = 0; i < m_size; i++)
 			{
-				size_t rot_val = (size_t)m_list[i];
 				const unsigned size_t_bits_minus_one = CHAR_BIT * sizeof(size_t) - 1;
-				rot_val = ((rot_val >> i) & ((1 << (size_t_bits_minus_one-i)) - 1))|
-					(rot_val << (size_t_bits_minus_one - i));
+				size_t rot_val = (size_t)m_list[i];
+				rot_val = ((rot_val >> i) & ((1 << (size_t_bits_minus_one - i)) - 1))|
+						   (rot_val << (size_t_bits_minus_one - i));
 				m_hash += rot_val;
+				m_hash += (size_t)(m_blist[i] + 63) * i;
 			}
 		}
 		size_t Hash(void) const {return m_hash; }
 	protected:
 		const Source **m_list;
-		unsigned char  m_size;
+		biome_t       *m_blist;
 		size_t         m_hash;
+		unsigned char  m_size;
 };
 
 template <class Key, class T> class UsedList

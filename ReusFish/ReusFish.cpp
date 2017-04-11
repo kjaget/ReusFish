@@ -21,7 +21,7 @@
 #include "Yield.hpp"
 
 static std::priority_queue<Landscape, std::deque<Landscape> > priority_queue;
-static UsedList<unsigned, Landscape> used_list;
+static UsedList<size_t, Landscape> used_list;
 
 bool process_landscape_score(const Landscape &landscape, int &best_score, unsigned upgrades_added, unsigned aspects_added, unsigned &landscapes_processed)
 {
@@ -38,14 +38,17 @@ bool process_landscape_score(const Landscape &landscape, int &best_score, unsign
 		if (landscape.BeatsGoal())
 		{
 			std::cout << "Beats goal" << std::endl;
-			used_list.Print();
 		}
+		used_list.Print();
 		landscape.PrintAll();
 		best_score = score;
 		rc = true;
 	}
 	if ((++landscapes_processed % 250000) == 0)
+	{
 		std::cout << "Upgrades " << upgrades_added << " Aspects " << aspects_added << " Landscapes " << landscapes_processed << std::endl;
+		used_list.Print();
+	}
 	return rc;
 }
 
@@ -79,7 +82,7 @@ static void remaining_moves(unsigned initial_pos)
 			{
 				// Skip lesser aspects
 				// Use greater aspect instead of potent one if possible
-				if ((aspect & 3) && 
+				if ((aspect & 3) &&
 					!(((aspect & 3) == 1) && aspects.IsValid((Aspects::aspect_t)(aspect + 1), saved_space.m_source->Class())) &&
 						aspects.IsValid((Aspects::aspect_t)aspect, saved_space.m_source->Class()) &&
 						saved_space.m_source->CanAddAspect((Aspects::aspect_t)aspect))
@@ -144,9 +147,9 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants)
 	if (spaces[pos].m_source->Class() != NON_NATURAL)
 	{
 		SourceList source_list(giants.GetSources(biome_list[pos]));
-		for (size_t i = 0; i < source_list.size(); i++)
+		for(auto it = source_list.cbegin(); it != source_list.cend(); ++it)
 		{
-			spaces[pos] = Space(*source_list[i]);
+			spaces[pos] = Space(**it);
 			initial_moves(spaces, pos - 1, giants);
 		}
 	}

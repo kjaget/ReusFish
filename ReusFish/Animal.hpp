@@ -3924,8 +3924,6 @@ class Crane : public Animal
 		void AddUpgrades(void)
 		{
 			m_upgrades.clear();
-			AddUpgrade(OTTER, Aspects::LESSER_HUNT, Aspects::LESSER_HERD);
-			AddUpgrade(IGUANA, Aspects::LESSER_EXOTIC, Aspects::LESSER_PREDATOR);
 		}
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_tech_adder, unsigned m_wealth_adder, unsigned mask = YIELD_MASK_ALL) const;
@@ -3933,7 +3931,6 @@ class Crane : public Animal
 		{
 			GetYield(spaces, loc, yield, 1, 1, mask);
 		}
-		unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const; 
 
 		Crane* Clone() const {return new Crane(*this);}
 };

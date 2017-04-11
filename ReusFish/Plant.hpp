@@ -1123,6 +1123,8 @@ class Superior_WitheredShrub : public WitheredShrub
 		void Create(void)
 		{
 			m_name = "Superior Withered Shrub";
+			m_base_yield.m_natura = 10;
+			m_max_aspects = 3;
 			m_level = 3;
 		}
 
@@ -2961,7 +2963,7 @@ class Dragonfruit : public Plant
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, double m_food_multiplier, double m_awe_multiplier, unsigned mask = YIELD_MASK_ALL) const;
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
 		{
-			GetYield(spaces, loc, yield, 2.0, 1.0, mask);
+			GetYield(spaces, loc, yield, 1.0, 0.5, mask);
 		}
 		Dragonfruit* Clone() const {return new Dragonfruit(*this);}
 };
@@ -2986,13 +2988,13 @@ class Great_Dragonfruit : public Dragonfruit
 			m_base_yield.m_food   = 8;
 			m_base_yield.m_tech   = 20;
 			m_base_yield.m_natura = 2;
-			m_max_aspects = 2;
+			m_max_aspects = 3;
 			m_level = 2;
 		}
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
 		{
-			Dragonfruit::GetYield(spaces, loc, yield, 3.0, 1.5, mask);
+			Dragonfruit::GetYield(spaces, loc, yield, 1.5, 0.75, mask);
 		}
 		Great_Dragonfruit* Clone() const {return new Great_Dragonfruit(*this);}
 };
@@ -3017,13 +3019,13 @@ class Superior_Dragonfruit : public Dragonfruit
 			m_base_yield.m_food   = 16;
 			m_base_yield.m_tech   = 40;
 			m_base_yield.m_natura = 4;
-			m_max_aspects = 2;
+			m_max_aspects = 4;
 			m_level = 3;
 		}
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
 		{
-			Dragonfruit::GetYield(spaces, loc, yield, 4.0, 2.0, mask);
+			Dragonfruit::GetYield(spaces, loc, yield, 2.0, 1.0, mask);
 		}
 		Superior_Dragonfruit* Clone() const {return new Superior_Dragonfruit(*this);}
 };
@@ -3107,6 +3109,42 @@ class Great_Kiwifruit : public Kiwifruit
 			Kiwifruit::GetNatura(spaces, loc, yield, -5);
 		}
 		Great_Kiwifruit* Clone() const {return new Great_Kiwifruit(*this);}
+};
+
+class Superior_Kiwifruit : public Kiwifruit
+{
+	public:
+		Superior_Kiwifruit()
+		{
+			Create();
+		}
+
+		Superior_Kiwifruit(const std::vector<Aspects::aspect_t>  &aspects)
+		{
+			Create();
+			m_aspects = aspects;
+		}
+
+		void Create(void)
+		{
+			m_name = "Superior Kiwifruit";
+			m_base_yield.m_food   = 15;
+			m_base_yield.m_tech   = 10;
+			m_base_yield.m_natura = 3;
+			m_max_aspects = 3;
+			m_level = 2;
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
+		{
+			Kiwifruit::GetYield(spaces, loc, yield, 20, 40, mask);
+		}
+		void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
+		{
+			Kiwifruit::GetNatura(spaces, loc, yield, -7);
+		}
+		// KCJ Need to add Miner's Fruit
+		Superior_Kiwifruit* Clone() const {return new Superior_Kiwifruit(*this);}
 };
 
 class Lychee : public Plant
