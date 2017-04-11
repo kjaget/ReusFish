@@ -675,7 +675,7 @@ class Dolphin: public Animal
 		void Create(void)
 		{
 			m_name = "Dolphin";
-			m_type = BLUE_WHALE;
+			m_type = DOLPHIN;
 			m_base_yield.m_food  = 2;
 			m_base_yield.m_wealth = 2;
 			m_max_aspects = 7;
@@ -1817,6 +1817,7 @@ class Goat : public Animal
 			m_upgrades.clear();
 			AddUpgrade(JAVELINA, Aspects::POTENT_HUNT);
 			AddUpgrade(COYOTE, Aspects::GREATER_PREDATOR);
+			AddUpgrade(BULL, Aspects::SUBLIME_HUNT);
 		}
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_food_adder, unsigned mask = YIELD_MASK_ALL) const;
@@ -3422,6 +3423,7 @@ class MuskDeer : public Animal
 			m_max_aspects = 2;
 			m_level = 1;
 			AddUpgrades();
+			m_post_processed.clear();
 		}
 
 		void AddUpgrades(void)
@@ -3441,10 +3443,6 @@ class MuskDeer : public Animal
 		unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const
 		{
 			return GetRange(spaces, loc, 2);
-		}
-		void ResetPostProcessed(void)
-		{
-			m_post_processed.clear();
 		}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 		{
@@ -3915,7 +3913,7 @@ class Crane : public Animal
 		void Create(void)
 		{
 			m_name = "Crane";
-			m_type = FROG;
+			m_type = CRANE;
 			m_base_yield.m_food = 1;
 			m_base_yield.m_wealth = 3;
 			m_max_aspects = 1;
@@ -3999,3 +3997,39 @@ class Superior_Crane : public Crane
 		}
 		Superior_Crane* Clone() const {return new Superior_Crane(*this);}
 };
+
+class Bull : public Animal
+{
+	public:
+		Bull()
+		{
+			Create();
+		}
+
+		Bull(const std::vector<Aspects::aspect_t> &aspects)
+		{
+			Create();
+			m_aspects = aspects;
+		}
+
+		void Create(void)
+		{
+			m_name = "Bull";
+			m_type = BULL;
+			m_base_yield.m_food = 5;
+			m_base_yield.m_wealth = 5;
+			m_base_yield.m_danger = 1;
+			m_max_aspects = 6;
+			m_level = 3;
+			AddUpgrades();
+		}
+
+		void AddUpgrades(void)
+		{
+			m_upgrades.clear();
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Bull* Clone() const {return new Bull(*this);}
+};
+

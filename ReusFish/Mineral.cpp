@@ -447,3 +447,15 @@ bool Fluorite::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield
 
 }
 
+void NaturalGas::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield = m_base_yield;
+	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
+
+	yield.m_range = 3;
+	AddIfInRange(spaces, loc, yield, Yield(0,-100,-100,0,0,0), mask, NATURAL_GAS);
+	AddAllInRange(spaces, loc, yield, Yield(0,0,50,0,0,0), mask, ANIMAL);
+	AddAllInRange(spaces, loc, yield, Yield(0,50,0,0,0,0), mask, PLANT);
+
+	yield.m_range = 0;
+}

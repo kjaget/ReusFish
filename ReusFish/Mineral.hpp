@@ -120,7 +120,6 @@ class Great_Agate : public Agate
 		void Create(void)
 		{
 			m_name = "Great Agate";
-			m_type = AGATE;
 			m_base_yield.m_wealth = 15;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -151,7 +150,6 @@ class Superior_Agate : public Agate
 		void Create(void)
 		{
 			m_name = "Superior Agate";
-			m_type = AGATE;
 			m_base_yield.m_wealth = 20;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -1365,6 +1363,7 @@ class Zinc : public Mineral
 			m_upgrades.clear();
 			AddUpgrade(URANIUM, Aspects::SUBLIME_REACTION);
 			AddUpgrade(FLUORITE, Aspects::SUBLIME_REACTION, Aspects::SUBLIME_SEISMIC);
+			AddUpgrade(NATURAL_GAS, Aspects::SUBLIME_SEISMIC);
 		}
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned m_range, double m_tech_multiplier, unsigned m_awe_adder, unsigned mask = YIELD_MASK_ALL) const;
@@ -1508,10 +1507,6 @@ class Coal : public Mineral
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		Coal* Clone() const {return new Coal(*this);}
 
-		void ResetPostProcessed(void)
-		{
-			m_post_processed = false;
-		}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield);
 
 	private :
@@ -1538,7 +1533,7 @@ class Oil : public Mineral
 			m_name = "Oil";
 			m_type = OIL;
 			m_base_yield.m_wealth = 15;
-			m_base_yield.m_wealth = 25;
+			m_base_yield.m_tech   = 25;
 			m_max_aspects = 8;
 			m_biome_mask = MASK_SWAMP;
 			m_level = 3;
@@ -1621,10 +1616,6 @@ class Fluorite : public Mineral
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		Fluorite* Clone() const {return new Fluorite(*this); }
-		void ResetPostProcessed(void)
-		{
-			m_post_processed = 0;
-		}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield);
 
 	protected:
@@ -1637,3 +1628,37 @@ class Fluorite : public Mineral
 		static const unsigned char M_POST_PROCESSED_NATURA = 0x20;
 };
 
+class NaturalGas : public Mineral
+{
+	public:
+		NaturalGas()
+		{
+			Create();
+		}
+
+		NaturalGas(const std::vector<Aspects::aspect_t> &aspects)
+		{
+			Create();
+			m_aspects = aspects;
+		}
+
+		void Create(void)
+		{
+			m_name = "Natural Gas";
+			m_type = NATURAL_GAS;
+			m_base_yield.m_tech   = 20;
+			m_base_yield.m_wealth = 20;
+			m_max_aspects = 8;
+			m_biome_mask = MASK_MOUNTAIN;
+			m_level = 3;
+			AddUpgrades();
+		}
+
+		void AddUpgrades(void)
+		{
+			m_upgrades.clear();
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		NaturalGas* Clone() const {return new NaturalGas(*this);}
+};

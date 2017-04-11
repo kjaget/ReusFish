@@ -123,10 +123,6 @@ bool Source::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &
 	return false;
 }
 
-void Source::ResetPostProcess(void)
-{
-}
-
 void Source::GetAspects(unsigned natura, Yield &yield, unsigned mask) const
 {
 	for (size_t i = 0; i < m_aspects.size(); i++)

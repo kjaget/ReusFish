@@ -594,3 +594,17 @@ void Brazilwood::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 	AddAllAdjacent(spaces, loc, yield, Yield(0,50,0,0,0,0), mask, ANIMAL);
 }
 
+void Oak::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{ 
+	yield = m_base_yield;
+	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
+	AddIfInNaturaRange(spaces, loc, yield, Yield(80,0,0,0,0,25), mask, MINERAL);
+
+	for (unsigned i = std::max<int>(0, (int)loc - yield.m_natura_range); (i <= loc + yield.m_natura_range) && (i < spaces.size()); i += 1)
+		if (spaces[i].m_source && (spaces[i].m_source->Class() == ANIMAL))
+		{
+			spaces[i].m_yield.m_food += 6;
+			spaces[i].m_yield.m_awe  += 2;
+		}
+}
+

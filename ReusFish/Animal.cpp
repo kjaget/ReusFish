@@ -762,3 +762,23 @@ void Crane::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 	AddIfAdjacent(spaces, loc, yield, Yield(0,m_tech_adder, m_wealth_adder,0,0,0), mask, FROG, POISON_DART_FROG);
 	AddIfAdjacent(spaces, loc, yield, Yield(0,m_tech_adder, m_wealth_adder,0,0,0), mask, IGUANA, KOMODO_DRAGON);
 }
+
+void Bull::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield = m_base_yield;
+	GetAspects(spaces[loc].m_yield.m_natura, yield, mask);
+	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH))
+	{
+		for (unsigned i = std::max<int>(0, (int)loc - yield.m_range); (i <= loc + yield.m_range) && (i < spaces.size()); i+= 1)
+		{
+			if (spaces[i].m_source->Class() == PLANT)
+			{
+				spaces[i].m_yield.AddFood(30, mask);
+				spaces[i].m_yield.AddWealth(30, mask);
+				Yield this_yield;
+				spaces[i].m_source->GetYield(spaces, i, this_yield, YIELD_MASK_AWE);
+				yield.m_wealth += this_yield.m_awe;
+			}
+		}
+	}
+}

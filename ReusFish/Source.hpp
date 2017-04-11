@@ -61,7 +61,6 @@ class Source
 		virtual void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
 		virtual unsigned GetRange(std::vector<Space> &spaces, unsigned loc) const;
 		virtual bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield) ;
-		virtual void ResetPostProcess(void);
 		void GetAspects(unsigned natura, Yield &yield, unsigned mask) const;
 		bool AddAspect(Aspects::aspect_t aspect);
 		bool CanAddAspect(Aspects::aspect_t aspect) const;

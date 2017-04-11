@@ -45,6 +45,7 @@ typedef enum SOURCE_TYPE_T : unsigned char
    LANGUR_MONKEY,
    YAK,
    PANDA,
+   BULL,
    MACKEREL, 
    SEABASS, 
    CLOWNFISH, 
@@ -55,6 +56,7 @@ typedef enum SOURCE_TYPE_T : unsigned char
    WHITE_SHARK, 
    DOLPHIN,
    BLUE_WHALE,
+
    BLUEBERRY,
    STRAWBERRY,
    APPLE_TREE,
@@ -95,6 +97,7 @@ typedef enum SOURCE_TYPE_T : unsigned char
    TEA_PLANT,
    GINKGO,
    BRAZILWOOD,
+   OAK,
 
    AGATE,
    QUARTZ,
@@ -117,7 +120,7 @@ typedef enum SOURCE_TYPE_T : unsigned char
    ZINC,
    URANIUM,
    FLUORITE,
-
+   NATURAL_GAS,
 
    SOURCE_TYPE_T_MAX
 } source_type_t;

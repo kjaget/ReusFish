@@ -128,6 +128,7 @@ void Landscape::StartCity(void)
 {
 	m_start = m_spaces.size();
 }
+
 void Landscape::EndCity(void)
 {
 	m_end = m_spaces.size() - 1;
@@ -136,7 +137,7 @@ void Landscape::EndCity(void)
 		{
 			Source *new_building = it->m_source->Clone();
 			dynamic_cast<Building *>(new_building)->SetStartEnd(m_start, m_end);
-			it->m_source = new_building;
+			*it = Space(*new_building);
 		}
 }
 
@@ -150,7 +151,7 @@ void Landscape::SetYield(void)
 	Reset();
 
 	// Since some plants can modify natura of other
-	// spaces accumulate chages across all of m_spaces
+	// spaces so accumulate chages across all of m_spaces
 	for (size_t i = 0; i < m_spaces.size(); i++)
 	{
 		if (m_spaces[i].m_source)
@@ -232,7 +233,6 @@ std::array<unsigned char, SOURCE_CLASS_T_MAX> Landscape::CountClasses(void) cons
 			class_count[m_spaces[i].m_source->Class()] += 1;
 	return class_count;
 }
-
 
 bool Landscape::BeatsGoal(void) const
 {

@@ -124,7 +124,6 @@ class Great_Blueberry : public Blueberry
 		void Create(void)
 		{
 			m_name = "Great Blueberry";
-			m_type = BLUEBERRY;
 			m_base_yield.m_food = 10;
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 2;
@@ -155,7 +154,6 @@ class Superior_Blueberry : public Blueberry
 		void Create(void)
 		{
 			m_name = "Superior Blueberry";
-			m_type = BLUEBERRY;
 			m_base_yield.m_food = 20;
 			m_base_yield.m_natura = 3;
 			m_max_aspects = 3;
@@ -227,7 +225,6 @@ class Great_Strawberry : public Strawberry
 		void Create(void)
 		{
 			m_name = "Great Strawberry";
-			m_type = STRAWBERRY;
 			m_base_yield.m_food = 10;
 			m_base_yield.m_tech = 6;
 			m_base_yield.m_natura = 6;
@@ -259,7 +256,6 @@ class Superior_Strawberry : public Strawberry
 		void Create(void)
 		{
 			m_name = "Superior Strawberry";
-			m_type = STRAWBERRY;
 			m_base_yield.m_food = 20;
 			m_base_yield.m_tech = 8;
 			m_base_yield.m_natura = 9;
@@ -336,7 +332,6 @@ class Great_AppleTree : public AppleTree
 		void Create(void)
 		{
 			m_name = "Great AppleTree";
-			m_type = APPLE_TREE;
 			m_base_yield.m_food = 10;
 			m_base_yield.m_natura = 6;
 			m_max_aspects = 3;
@@ -371,7 +366,6 @@ class Superior_AppleTree : public AppleTree
 		void Create(void)
 		{
 			m_name = "Superior AppleTree";
-			m_type = APPLE_TREE;
 			m_base_yield.m_food = 20;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 4;
@@ -445,7 +439,6 @@ class Great_PearTree : public PearTree
 		void Create(void)
 		{
 			m_name = "Great PearTree";
-			m_type = PEAR_TREE;
 			m_base_yield.m_food = 10;
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 4;
@@ -482,7 +475,6 @@ class Superior_PearTree : public PearTree
 		void Create(void)
 		{
 			m_name = "Superior PearTree";
-			m_type = PEAR_TREE;
 			m_base_yield.m_food = 20;
 			m_base_yield.m_natura = 4;
 			m_max_aspects = 5;
@@ -524,6 +516,7 @@ class CherryTree : public Plant
 		{
 			m_upgrades.clear();
 			AddUpgrade(ORANGE_TREE, Aspects::SUBLIME_FRUIT);
+			AddUpgrade(OAK, Aspects::SUBLIME_GROWTH);
 		}
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const
@@ -552,7 +545,6 @@ class Great_CherryTree : public CherryTree
 		void Create(void)
 		{
 			m_name = "Great CherryTree";
-			m_type = CHERRY_TREE;
 			m_base_yield.m_food = 20;
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 5;
@@ -597,6 +589,7 @@ class PlumTree : public Plant
 			m_upgrades.clear();
 			AddUpgrade(ORANGE_TREE, Aspects::SUBLIME_FRUIT);
 			AddUpgrade(SUNFLOWER, Aspects::SUBLIME_TOXIC);
+			AddUpgrade(OAK, Aspects::SUBLIME_GROWTH, Aspects::SUBLIME_GROWTH);
 		}
 
 		void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const
@@ -631,7 +624,6 @@ class Great_PlumTree : public PlumTree
 		void Create(void)
 		{
 			m_name = "Great PlumTree";
-			m_type = PLUM_TREE;
 			m_base_yield.m_food = 30;
 			m_base_yield.m_tech = 30;
 			m_base_yield.m_natura = 10;
@@ -746,7 +738,6 @@ class Great_Dandelion : public Dandelion
 		void Create(void)
 		{
 			m_name = "Great Dandelion";
-			m_type = DANDELION;
 			m_base_yield.m_tech = 10;
 			m_base_yield.m_natura = 4;
 			m_max_aspects = 2;
@@ -781,7 +772,6 @@ class Superior_Dandelion : public Dandelion
 		void Create(void)
 		{
 			m_name = "Superior Dandelion";
-			m_type = DANDELION;
 			m_base_yield.m_tech = 20;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 3;
@@ -862,7 +852,6 @@ class Great_Nightshade : public Nightshade
 		void Create(void)
 		{
 			m_name = "Great Nightshade";
-			m_type = NIGHTSHADE;
 			m_base_yield.m_tech = 10;
 			m_base_yield.m_natura = 4;
 			m_max_aspects = 3;
@@ -897,7 +886,6 @@ class Superior_Nightshade : public Nightshade
 		void Create(void)
 		{
 			m_name = "Superior Nightshade";
-			m_type = NIGHTSHADE;
 			m_base_yield.m_tech = 20;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 4;
@@ -971,7 +959,6 @@ class Great_Foxglove : public Foxglove
 		void Create(void)
 		{
 			m_name = "Great Foxglove";
-			m_type = FOXGLOVE;
 			m_base_yield.m_tech = 12;
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 4;
@@ -1002,7 +989,6 @@ class Superior_Foxglove : public Foxglove
 		void Create(void)
 		{
 			m_name = "Superior Foxglove";
-			m_type = FOXGLOVE;
 			m_base_yield.m_tech = 24;
 			m_base_yield.m_natura = 3;
 			m_max_aspects = 5;
@@ -1271,8 +1257,8 @@ class BarrelCactus : public Plant
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 2;
 			m_level = 1;
-			ResetPostProcess();
 			AddUpgrades();
+			m_post_processed = false;
 		}
 
 		void AddUpgrades(void)
@@ -1285,10 +1271,6 @@ class BarrelCactus : public Plant
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		BarrelCactus* Clone() const {return new BarrelCactus(*this);}
 
-		void ResetPostProcessed(void)
-		{
-			m_post_processed = false;
-		}
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 		{
 			return PostProcess(spaces, loc, yield, global_yield, 5, 8);
@@ -3418,4 +3400,38 @@ class Brazilwood : public Plant
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		void GetNatura(std::vector<Space> &spaces, unsigned loc, Yield &yield) const;
 		Brazilwood* Clone() const {return new Brazilwood(*this);}
+};
+
+class Oak : public Plant
+{
+	public:
+		Oak()
+		{
+			Create();
+		}
+
+		Oak(const std::vector<Aspects::aspect_t>  &aspects)
+		{
+			Create();
+			m_aspects = aspects;
+		}
+
+		void Create(void)
+		{
+			m_name = "Oak";
+			m_type = OAK;
+			m_base_yield.m_food   = 20;
+			m_base_yield.m_natura = 5;
+			m_max_aspects = 7;
+			m_level = 3;
+			AddUpgrades();
+		}
+
+		void AddUpgrades(void)
+		{
+			m_upgrades.clear();
+		}
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Oak* Clone() const {return new Oak(*this);}
 };

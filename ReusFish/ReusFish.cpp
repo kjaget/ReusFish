@@ -162,6 +162,7 @@ int main (int argc, char **argv)
 	Giants giants;
 	
 	spaces.SetGoal(Opera().GetCompletionRequirements());
+	spaces.AddSpace(OCEAN);
 	spaces.StartCity();
 	spaces.AddSpace(OCEAN);
 	spaces.AddSpace(OCEAN);
