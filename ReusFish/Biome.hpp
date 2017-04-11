@@ -14,31 +14,23 @@ typedef enum BIOME_T
 	BIOME_T_MAX
 } biome_t;
 
-class BiomeList
+class BiomeList : public std::vector<biome_t>
 {
 	public:
-		biome_t &operator [] (unsigned i)
+		biome_t &operator [] (size_t i)
 		{
-			if (i >= m_list.size())
-				m_list.resize(i + 1);
+			if (i >= size())
+				resize(i + 1);
 
-			return m_list[i];
+			return at(i);
 		}
-		const biome_t &operator [] (unsigned i) const
+		void Print(size_t i) const
 		{
-			return m_list[i];
-		}
-		void push_back(biome_t biome)
-		{
-			m_list.push_back(biome);
-		}
-		void Print(unsigned int i) const
-		{
-			if (i >= m_list.size())
+			if (i >= size())
 				std::cout << "Undef:";
 			else
 			{
-				switch(m_list[i])
+				switch(at(i))
 				{
 					case DESERT:
 						std::cout << "Desert:";
@@ -61,13 +53,6 @@ class BiomeList
 				}
 			}
 		}
-		size_t size(void) const
-		{
-			return m_list.size();
-		}
-
-	protected:
-		std::vector<biome_t> m_list;
 };
 
 extern BiomeList biome_list;
