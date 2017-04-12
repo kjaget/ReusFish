@@ -79,12 +79,13 @@ class RunState
 			return true;
 		}
 
-		bool CheckScore(const Landscape &landscape)
+
+		bool CheckScore(Landscape &landscape)
 		{
 			bool rc = false;
-			const int score = landscape.Score();
 			m_landscapes_processed += 1;
 
+			int score = landscape.Score();
 			// If the score is better than the previous
 			// best, print it out
 			if (score > m_best_score)
@@ -98,7 +99,7 @@ class RunState
 				rc = true;
 			}
 
-			if ((score > m_best_score) || ((m_landscapes_processed % 250000) == 0))
+			if (rc || ((m_landscapes_processed % 250000) == 0))
 			{
 				Print();
 				m_used_list.Print();
@@ -113,7 +114,7 @@ class RunState
 			std::cout << " Initials=" << m_initials;
 			std::cout << " Base=" << m_base;
 			std::cout << " Landscapes=" << m_landscapes_processed;
-			std::cout << " Early Out=" << m_early_out << std::endl;
+			std::cout << " Early Out=" << m_early_out;
 			std::cout << " Not Enough=" << m_not_enough<< std::endl;
 		}
 
@@ -157,6 +158,8 @@ static void remaining_moves(unsigned initial_pos, const Giants &giants, RunState
 #endif
 
 	Landscape landscape;
+	SourceList source_list;
+	SourceList upgrades;
 	// Grab the top scoring landscape off the queue
 	// of those not yet processed
 	while (run_state.GetBest(landscape))
@@ -166,7 +169,6 @@ static void remaining_moves(unsigned initial_pos, const Giants &giants, RunState
 		landscape.Print();
 #endif
 
-		SourceList upgrades;
 		for (int pos = (int)initial_pos; pos >= 0; pos--)
 		{
 			// Save current space
@@ -212,7 +214,7 @@ static void remaining_moves(unsigned initial_pos, const Giants &giants, RunState
 							Space another_space(landscape[i]);
 							if ((i != (unsigned)pos) && (landscape[i].m_source->Class() != NON_NATURAL))
 							{
-								SourceList source_list(giants.GetSources(biome_list[i]));
+								giants.GetSources(biome_list[i], source_list);
 								for (auto its = source_list.cbegin(); its != source_list.cend(); ++its)
 								{
 #if 0
@@ -255,7 +257,8 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants, RunState &r
 	// for this biome.
 	if (spaces[pos].m_source->Class() != NON_NATURAL)
 	{
-		SourceList source_list(giants.GetSources(biome_list[pos]));
+		SourceList source_list;
+		giants.GetSources(biome_list[pos], source_list);
 		for(auto it = source_list.cbegin(); it != source_list.cend(); ++it)
 		{
 			spaces[pos] = Space(**it);
@@ -281,7 +284,7 @@ int main (int argc, char **argv)
 #if 1
 	//spaces.AddSpace(MOUNTAIN);
 	//spaces.AddSpace(DESERT);
-	spaces.AddSpace(DESERT);
+	//spaces.AddSpace(DESERT);
 	spaces.AddSpace(DESERT, Market());
 	spaces.AddSpace(DESERT,City());
 	spaces.AddSpace(DESERT,City());
@@ -289,8 +292,8 @@ int main (int argc, char **argv)
 	spaces.AddSpace(DESERT,City());
 	spaces.AddSpace(DESERT);
 	spaces.AddSpace(DESERT);
-	spaces.AddSpace(MOUNTAIN);
 	//spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(MOUNTAIN);
 	spaces.EndCity();
 	//spaces.AddSpace(MOUNTAIN);
 	//spaces.AddSpace(MOUNTAIN);

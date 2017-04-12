@@ -11,7 +11,7 @@ Giant::Giant(void) :
 {
 }
 
-void Giant::GetSources(biome_t biome, std::vector<const Source *>&sources) const
+void Giant::GetSources(biome_t biome, SourceList &sources) const
 {
 	SourceFactory<biome_t, unsigned>::Builder builder;
 	if (m_source_factory.Get(biome, m_domestic_level, builder))
@@ -208,21 +208,20 @@ void Swamp_Giant::Init(void)
 }
 
 Giants::Giants(void) :
-	m_ocean_giant (Ocean_Giant (1,3,3,3)),
-	m_forest_giant(Forest_Giant(1,3,3,3)),
-	m_stone_giant (Stone_Giant (1,1,3,3,3)),
-	m_swamp_giant (Swamp_Giant (1,1,3,3,3))
+	m_ocean_giant (Ocean_Giant (1,1,0,1)),
+	m_forest_giant(Forest_Giant(1,1,1,0)),
+	m_stone_giant (Stone_Giant (1,1,0,1,0)),
+	m_swamp_giant (Swamp_Giant (1,1,0,1,0))
 {
 }
 
-SourceList Giants::GetSources(biome_t biome) const
+void Giants::GetSources(biome_t biome, SourceList &sources) const
 {
-	SourceList sources;
+	sources.clear();
 
 	//sources.push_back(source_container.Add(new Source()));
 	m_ocean_giant.GetSources(biome, sources);
 	m_forest_giant.GetSources(biome, sources);
 	m_stone_giant.GetSources(biome, sources);
 	m_swamp_giant.GetSources(biome, sources);
-	return sources;
 }

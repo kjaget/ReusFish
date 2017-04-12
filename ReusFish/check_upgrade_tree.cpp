@@ -114,9 +114,10 @@ int main(void)
 	UsedList<size_t, Landscape> used_list;
 	vector<pair<biome_t, const Source*>> found_list;
 
+	SourceList source_list;
 	for (auto itb = biome_types.cbegin(); itb != biome_types.cend(); ++itb)
 	{
-		const SourceList source_list(giants.GetSources(*itb));
+		giants.GetSources(*itb, source_list);
 		for(auto its = source_list.cbegin(); its != source_list.cend(); ++its)
 			permuteAspects(*itb, Source(**its), found_list, used_list);
 	}

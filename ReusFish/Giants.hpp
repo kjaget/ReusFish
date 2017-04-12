@@ -10,7 +10,7 @@ class Giant
 {
 	public:
 		Giant();
-		void GetSources(biome_t biome, std::vector<const Source *> &sources) const;
+		void GetSources(biome_t biome, SourceList &sources) const;
 
 	protected:
 		unsigned      m_domestic_level;
@@ -70,7 +70,7 @@ class Giants
 {
 	public:
 		Giants();
-		SourceList GetSources(biome_t biome) const;
+		void GetSources(biome_t biome, SourceList &list) const;
 
 	private:
 		Ocean_Giant  m_ocean_giant;
