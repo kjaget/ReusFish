@@ -242,7 +242,7 @@ void Landscape::SetYield(void)
 
 std::array<unsigned char, SOURCE_CLASS_T_MAX> Landscape::CountClasses(void) const
 {
-	std::array<unsigned char, SOURCE_CLASS_T_MAX> class_count{};
+	std::array<unsigned char, SOURCE_CLASS_T_MAX> class_count{0};
 	for (unsigned i = m_start; (i <= m_end) && (i < size()); i++)
 		if (m_spaces[i].m_source)
 			class_count[m_spaces[i].m_source->Class()] += 1;
@@ -307,14 +307,15 @@ int Landscape::ScoreHelper(unsigned goal, unsigned val, double multiplier) const
 		score = multiplier * val * 0.25;
 	return score;
 }
+
 int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos)
 {
 	if (!m_score_dirty)
 		return m_score;
 
 	int score = 0;
-	//unsigned superior_count = 0;
-	//unsigned greater_count = 0;
+	unsigned sublime_count = 0;
+	unsigned greater_count = 0;
 	Yield yield;
 	std::array<unsigned char, SOURCE_CLASS_T_MAX> class_count;
 	bool class_count_valid = false;
@@ -335,8 +336,9 @@ int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos)
 					}
 					if (!dynamic_cast<const Building *>(m_spaces[i].m_source)->CheckClassCompletion(class_count))
 						return std::numeric_limits<int>::min();
-					//      superior_count += m_spaces[i].m_source->CountAspects(Aspects::SUBLIME);
-					//      greater_count  += m_spaces[i].m_source->CountAspects(Aspects::GREATER);
+
+					sublime_count += m_spaces[i].m_source->CountAspects(Aspects::SUBLIME);
+					greater_count  += m_spaces[i].m_source->CountAspects(Aspects::GREATER);
 				}
 			}
 		}
@@ -344,24 +346,20 @@ int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos)
 
 	unsigned total_goal = goal.m_food + goal.m_tech + goal.m_wealth + goal.m_danger + goal.m_awe + goal.m_natura;
 
-	score += ScoreHelper(goal.m_food, yield.m_food, 5000.0) * (double)goal.m_food/total_goal;
-	score += ScoreHelper(goal.m_tech, yield.m_tech, 5000.0) * (double)goal.m_tech/total_goal;
-	score += ScoreHelper(goal.m_wealth, yield.m_wealth, 5000.0) * (double)goal.m_wealth/total_goal;
-	score += ScoreHelper(goal.m_danger, yield.m_danger, 5000.0) * (double)goal.m_danger/total_goal;
-	score += ScoreHelper(goal.m_awe, yield.m_awe, 5000.0) * (double)goal.m_awe/total_goal;
-	score += ScoreHelper(goal.m_natura, yield.m_natura, 5000.0) * (double)goal.m_natura/total_goal;
+	const double scale = 100000;
+	score += ScoreHelper(goal.m_food, yield.m_food, scale) * (double)goal.m_food/total_goal;
+	score += ScoreHelper(goal.m_tech, yield.m_tech, scale) * (double)goal.m_tech/total_goal;
+	score += ScoreHelper(goal.m_wealth, yield.m_wealth, scale) * (double)goal.m_wealth/total_goal;
+	score += ScoreHelper(goal.m_danger, yield.m_danger, scale) * (double)goal.m_danger/total_goal;
+	score += ScoreHelper(goal.m_awe, yield.m_awe, scale) * (double)goal.m_awe/total_goal;
+	score += ScoreHelper(goal.m_natura, yield.m_natura, scale) * (double)goal.m_natura/total_goal;
 #if 0
 	if (yield.m_awe > (yield.m_danger + 20))
 		score /= 1.5;
 #endif
 
-#if 0
-	score -= greater_count * 5000/100;
-	int delta = score - INT_MIN;
-
-	delta = (int)((double)delta * (1. - 0.01 * superior_count - 0.005 * greater_count));
-	score = delta - INT_MIN;
-#endif
+	score -= (sublime_count) * (scale / 5000);
+	score -= (greater_count) * (scale / 15000);
 	m_score_dirty = false;
 	m_score = score;
 	return score;
