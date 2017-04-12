@@ -137,7 +137,7 @@ void Landscape::EndCity(void)
 		{
 			Source *new_building = it->m_source->Clone();
 			dynamic_cast<Building *>(new_building)->SetStartEnd(m_start, m_end);
-			*it = Space(*new_building);
+			it->m_source = new_building;
 		}
 }
 
@@ -244,6 +244,7 @@ bool Landscape::BeatsGoal(void) const
 	return false;
 }
 
+#if 0
 int Landscape::ScoreHelper(unsigned goal, unsigned val, double multiplier) const
 {
 	int score = 0;
@@ -261,6 +262,34 @@ int Landscape::ScoreHelper(unsigned goal, unsigned val, double multiplier) const
 		else
 			score = int((double)val / goal * multiplier);
 	}
+	return score;
+}
+#endif
+
+int Landscape::ScoreHelper(unsigned goal, unsigned val, double multiplier) const
+{
+	int score = 0;
+	const float goal_threshold = 1.5;
+	if (goal)
+	{
+		// Give linear improvement until goal is hit. At that point,
+		// additional yield doesn't matter that much
+		if (val > (goal * 2. * goal_threshold))
+		{
+		}
+		else if (val > (goal * goal_threshold))
+		{
+			// Penalize going too far over the goal
+			double delta = (goal * 2. * goal_threshold - val) / (goal * goal_threshold);
+			score = int(multiplier * pow(delta, 0.5));
+		}
+		else if (val > goal)
+			score = multiplier + (val-goal)*.1;
+		else
+			score = int(multiplier * pow((double)val / goal, 1./3.));
+	}
+	else
+		score = multiplier * val * 0.25;
 	return score;
 }
 int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos) const
@@ -284,12 +313,14 @@ int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos) co
 		}
 	}
 
-	score += ScoreHelper(goal.m_food, yield.m_food, 5000.0);
-	score += ScoreHelper(goal.m_tech, yield.m_tech, 5000.0);
-	score += ScoreHelper(goal.m_wealth, yield.m_wealth, 5000.0);
-	score += ScoreHelper(goal.m_danger, yield.m_danger, 5000.0);
-	score += ScoreHelper(goal.m_awe, yield.m_awe, 5000.0);
-	score += ScoreHelper(goal.m_natura, yield.m_natura, 5000.0);
+	unsigned total_goal = goal.m_food + goal.m_tech + goal.m_wealth + goal.m_danger + goal.m_awe + goal.m_natura;
+
+	score += ScoreHelper(goal.m_food, yield.m_food, 5000.0) * (double)goal.m_food/total_goal;
+	score += ScoreHelper(goal.m_tech, yield.m_tech, 5000.0) * (double)goal.m_tech/total_goal;
+	score += ScoreHelper(goal.m_wealth, yield.m_wealth, 5000.0) * (double)goal.m_wealth/total_goal;
+	score += ScoreHelper(goal.m_danger, yield.m_danger, 5000.0) * (double)goal.m_danger/total_goal;
+	score += ScoreHelper(goal.m_awe, yield.m_awe, 5000.0) * (double)goal.m_awe/total_goal;
+	score += ScoreHelper(goal.m_natura, yield.m_natura, 5000.0) * (double)goal.m_natura/total_goal;
 #if 0
 	if (yield.m_awe > (yield.m_danger + 20))
 		score /= 1.5;
