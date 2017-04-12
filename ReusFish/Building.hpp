@@ -14,6 +14,7 @@ class Building : public Source
 		const Yield &GetCompletionRequirements(void) const;
 		bool CheckClassCompletion(const std::array<unsigned char, SOURCE_CLASS_T_MAX> &class_count) const;
 		void SetClassCompletionCount(source_class_t source_class, unsigned char count);
+		bool NeedsClassCount(void) const;
 
 		virtual Building* Clone(void) const;
 
@@ -22,6 +23,7 @@ class Building : public Source
 		unsigned char m_end;
 	private:
 		Yield         m_completion_requirements;
+		bool          m_needs_class_count;
 		std::array<unsigned char, SOURCE_TYPE_T_MAX> m_completion_class_count;
 };
 

@@ -3,6 +3,7 @@
 #include "SourceType.hpp"
 
 Building::Building(void) :
+	m_needs_class_count(false),
 	m_completion_class_count(std::array<unsigned char, SOURCE_TYPE_T_MAX>{0})
 {
 	m_class = NON_NATURAL;
@@ -13,6 +14,7 @@ Building::Building(void) :
 
 Building::Building(const Yield &completion_requirements) :
 	m_completion_requirements(completion_requirements),
+	m_needs_class_count(false),
 	m_completion_class_count(std::array<unsigned char, SOURCE_TYPE_T_MAX>{0})
 {
 	m_class = NON_NATURAL;
@@ -24,7 +26,10 @@ Building::Building(const Yield &completion_requirements) :
 Building::Building(const Building &other) :
 	Source(other),
 	m_start(other.m_start),
-	m_end(other.m_end)
+	m_end(other.m_end),
+	m_completion_requirements(other.m_completion_requirements),
+	m_needs_class_count(other.m_needs_class_count),
+	m_completion_class_count(other.m_completion_class_count)
 {
 }
 
@@ -55,7 +60,15 @@ bool Building::CheckClassCompletion(const std::array<unsigned char, SOURCE_CLASS
 void Building::SetClassCompletionCount(source_class_t source_class, unsigned char count)
 {
 	if (source_class < SOURCE_CLASS_T_MAX)
+	{
+		m_needs_class_count = true;
 		m_completion_class_count[source_class] = count;
+	}
+}
+
+bool Building::NeedsClassCount(void) const
+{
+	return m_needs_class_count;
 }
 
 City::City(void)
