@@ -21,6 +21,13 @@ Building::Building(const Yield &completion_requirements) :
 	m_end = 0;
 }
 
+Building::Building(const Building &other) :
+	Source(other),
+	m_start(other.m_start),
+	m_end(other.m_end)
+{
+}
+
 Building *Building::Clone(void) const
 {
 	return new Building(*this);
@@ -183,6 +190,10 @@ Market::Market(void) :
 
 void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
+	// Pelt Traders
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,15,0,0,0), mask, ANIMAL, 3);
+
+#if 0
 	// Animal market
 	if (mask & YIELD_MASK_WEALTH)
 	{
@@ -201,8 +212,10 @@ void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 	// Exotic Pet
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,25,0,5,0), mask, GREY_FOX, RATTLESNAKE, RATTLESNAKE, 3);
 
+#endif
 	if (mask & YIELD_MASK_WEALTH)
 	{
+#if 0
 		// Salt Merchants
 		unsigned salt_count = 0;
 		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
@@ -221,8 +234,9 @@ void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 			if (temp_yield.m_wealth <= 120)
 				yield += temp_yield;
 		}
+#endif
 
-		// Prized Preys 
+		// Prized Preys - KCJ redo as post processing?
 		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
 			if (spaces[i].m_yield.m_danger >= 2)
 				yield.m_wealth += 10;
@@ -555,7 +569,7 @@ void Temple::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 {
 	yield.Reset();
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(10,0,5,0,0,0), mask, ANIMAL, 3);
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,10,0,0,0), mask, BOAR, RABBIT, MUSK_DEER, JAVELINA, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,10,0,0,0), mask, BOAR, RABBIT, GOAT, MUSK_DEER, JAVELINA, 3);
 #if 0
 	yield.m_range = 2;
 	AddAllInRange(spaces, loc, yield, Yield(20,0,20,0,0,0), mask, ANIMAL, 2);
@@ -774,4 +788,26 @@ void Opera::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 Opera* Opera::Clone(void) const
 {
 	return new Opera(*this);
+}
+
+Tradepost::Tradepost(void) :
+	Building(Yield(0, 0, 30, 0, 0, 0))
+{
+	m_name = "Tradepost";
+}
+
+void Tradepost::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,15,0,0,0), mask, ANIMAL, 3);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(30,0,10,0,0,0), mask, BOAR, RABBIT, GOAT, MUSK_DEER, JAVELINA, 3);
+#if 0
+	yield.m_range = 2;
+	AddAllInRange(spaces, loc, yield, Yield(20,0,20,0,0,0), mask, ANIMAL, 2);
+	yield.m_range = 0;
+#endif
+}
+Tradepost* Tradepost::Clone(void) const
+{
+	return new Tradepost(*this);
 }

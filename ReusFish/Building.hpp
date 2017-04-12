@@ -8,6 +8,7 @@ class Building : public Source
 {
 	public :
 		Building(void);
+		Building(const Building &other);
 		Building(const Yield &completion_requirements);
 		void SetStartEnd(unsigned char start, unsigned char end);
 		const Yield &GetCompletionRequirements(void) const;
@@ -231,4 +232,12 @@ class Opera: public Building
 
 	private:
 		bool m_post_processed;
+};
+class Tradepost: public Building
+{
+	public :
+		Tradepost();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Tradepost* Clone(void) const;
 };
