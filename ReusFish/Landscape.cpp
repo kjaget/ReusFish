@@ -6,22 +6,27 @@ unsigned char Landscape::m_start = 0;
 unsigned char Landscape::m_end = 0;
 Yield Landscape::m_goal;
 
-Landscape::Landscape(void)
+Landscape::Landscape(void) :
+	m_score_dirty(true)
 {
 }
 
 Landscape::Landscape(unsigned size) : 
-	m_spaces(size)
+	m_spaces(size),
+	m_score_dirty(true)
 {
 }
 
 bool Landscape::operator<(const Landscape &rhs) const
 {
-	return Score() < rhs.Score();
+	if (m_score_dirty || rhs.m_score_dirty)
+		std::cout << "!!!!===== Landscape score dirty in operator < " << std::endl;
+	return m_score < rhs.m_score;
 }
 
 Space &Landscape::operator [] (const unsigned i)
 {
+	m_score_dirty = true;
 	return m_spaces[i];
 }
 
@@ -39,7 +44,7 @@ size_t Landscape::Hash(void) const
 {
 	size_t hash = (size_t)0x600DF00D600DF00DULL;
 
-	for (unsigned i = 0; i < m_spaces.size(); i++)
+	for (size_t i = 0; i < m_spaces.size(); i++)
 	{
 		const unsigned size_t_bits = CHAR_BIT * sizeof(size_t);
 		size_t this_hash = m_spaces[i].Hash();
@@ -108,29 +113,34 @@ void Landscape::GetYield(Yield &yield) const
 
 void Landscape::Reset(void)
 {
+	m_score_dirty = true;
 	for (unsigned i = 0; i < m_spaces.size(); i++)
 		m_spaces[i].m_yield.Reset();
 }
 
 void Landscape::AddSpace(biome_t biome, const Source &source)
 {
+	m_score_dirty = true;
 	biome_list.push_back(biome);
 	m_spaces.push_back(Space(source));
 }
 
 void Landscape::AddSpace(biome_t biome)
 {
+	m_score_dirty = true;
 	biome_list.push_back(biome);
 	m_spaces.push_back(Space());
 }
 
 void Landscape::StartCity(void)
 {
+	m_score_dirty = true;
 	m_start = m_spaces.size();
 }
 
 void Landscape::EndCity(void)
 {
+	m_score_dirty = true;
 	m_end = m_spaces.size() - 1;
 	for (auto it = m_spaces.begin(); it != m_spaces.end(); ++it)
 		if (it->m_source->Type() == BUILDING)
@@ -143,11 +153,14 @@ void Landscape::EndCity(void)
 
 void Landscape::SetGoal(const Yield &goal)
 {
+	m_score_dirty = true;
 	m_goal = goal;
 }
 
 void Landscape::SetYield(void)
 {
+	if (!m_score_dirty)
+		return;
 	Reset();
 
 	// Since some plants can modify natura of other
@@ -223,6 +236,8 @@ void Landscape::SetYield(void)
 
 	for (unsigned i = 0; i < m_spaces.size(); i++)
 		delete sources[i];
+
+	Score();
 }
 
 std::array<unsigned char, SOURCE_CLASS_T_MAX> Landscape::CountClasses(void) const
@@ -292,24 +307,38 @@ int Landscape::ScoreHelper(unsigned goal, unsigned val, double multiplier) const
 		score = multiplier * val * 0.25;
 	return score;
 }
-int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos) const
+int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos)
 {
+	if (!m_score_dirty)
+		return m_score;
+
 	int score = 0;
 	//unsigned superior_count = 0;
 	//unsigned greater_count = 0;
 	Yield yield;
-	auto class_count = CountClasses();
-
+	std::array<unsigned char, SOURCE_CLASS_T_MAX> class_count;
+	bool class_count_valid = false;
 	for (unsigned i = start_pos; (i <= end_pos) && (i < size()); i++)
 	{
 		if (m_spaces[i].m_source)
 		{
 			yield += m_spaces[i].m_yield;
 			if (m_spaces[i].m_source && (m_spaces[i].m_source->Type() == BUILDING))
-				if (!dynamic_cast<const Building *>(m_spaces[i].m_source)->CheckClassCompletion(class_count))
-					return std::numeric_limits<int>::min();
-			//      superior_count += m_spaces[i].m_source->CountAspects(Aspects::SUBLIME);
-			//      greater_count  += m_spaces[i].m_source->CountAspects(Aspects::GREATER);
+			{
+				const Building *building = dynamic_cast<const Building *>(m_spaces[i].m_source);
+				if (building->NeedsClassCount())
+				{
+					if (!class_count_valid)
+					{
+						class_count = CountClasses();
+						class_count_valid = true;
+					}
+					if (!dynamic_cast<const Building *>(m_spaces[i].m_source)->CheckClassCompletion(class_count))
+						return std::numeric_limits<int>::min();
+					//      superior_count += m_spaces[i].m_source->CountAspects(Aspects::SUBLIME);
+					//      greater_count  += m_spaces[i].m_source->CountAspects(Aspects::GREATER);
+				}
+			}
 		}
 	}
 
@@ -333,15 +362,17 @@ int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos) co
 	delta = (int)((double)delta * (1. - 0.01 * superior_count - 0.005 * greater_count));
 	score = delta - INT_MIN;
 #endif
+	m_score_dirty = false;
+	m_score = score;
 	return score;
 }
 
-int Landscape::Score(const Yield &goal) const
+int Landscape::Score(const Yield &goal)
 {
 	return Score(goal, m_start, m_end);
 }
 
-int Landscape::Score(void) const
+int Landscape::Score(void)
 {
 	return Score(m_goal, m_start, m_end);
 }
@@ -361,7 +392,9 @@ void Landscape::Print(void) const
 }
 void Landscape::PrintAll(void) const
 {
-	std::cout << "S:" << Score();
+	std::cout << "S:" << m_score;
+	if (m_score_dirty)
+		std::cout << "!" << std::endl;
 	std::cout << " F:" << Food(m_start, m_end);
 	std::cout << " T:" << Tech(m_start, m_end);
 	std::cout << " W:" << Wealth(m_start, m_end);

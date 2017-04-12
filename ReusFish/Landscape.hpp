@@ -28,9 +28,9 @@ class Landscape
 		void SetYield(void);
 
 		bool BeatsGoal(void) const;
-		int Score(const Yield &goal, unsigned start_pos, unsigned end_pos) const;
-		int Score(const Yield &goal) const;
-		int Score(void) const;
+		int Score(const Yield &goal, unsigned start_pos, unsigned end_pos);
+		int Score(const Yield &goal);
+		int Score(void);
 		void Print(void) const;
 		void PrintAll(void) const;
 
@@ -47,6 +47,8 @@ class Landscape
 		unsigned Danger(unsigned start_pos, unsigned end_pos) const;
 
 		std::vector<Space>   m_spaces;
+		int                  m_score;
+		bool                 m_score_dirty;
 		static unsigned char m_start;
 		static unsigned char m_end;
 		static Yield         m_goal;
