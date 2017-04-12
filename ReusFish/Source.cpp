@@ -151,15 +151,15 @@ bool Source::CanAddAspect(Aspects::aspect_t aspect) const
 #if 0
 	if (m_aspects.size() >= std::min<unsigned>(3, m_max_aspects))
 		return false;
-	if (CountAspects(Aspects::SUBLIME) >= std::max<unsigned>(2, m_max_aspects/2))
+	if (CountAspects(Aspects::SUBLIME) >= std::max<unsigned>(3, m_max_aspects/2))
 		return false;
-#endif
 	unsigned count = 0;
 	for (unsigned i = 0; i < m_aspects.size(); i++)
 		if (m_aspects[i] == aspect)
 			count += 1;
 	if (count >= 2)
 		return false;
+#endif
 
 	return true;
 }
