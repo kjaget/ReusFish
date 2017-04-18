@@ -89,11 +89,11 @@ Mill::Mill(void) :
 
 void Mill::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
-	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, ANIMAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, ANIMAL, 3);
 	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, PLANT, 3);
 
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, DEER, WISENT, WISENT, 2);
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, FOXGLOVE, DANDELION, DANDELION, 2);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, DEER, WISENT, 2);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,0,0), mask, FOXGLOVE, DANDELION, 2);
 
 #if 0
 	if (mask & YIELD_MASK_TECH)
@@ -168,8 +168,8 @@ Circus::Circus(void) :
 void Circus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	(void)loc;
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(5,0,25,0,5,0), mask, DEER, GOAT, BOAR, 3);
-#if 0
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(5,0,25,0,5,0), mask, DEER, GOAT, BOAR, 3);
+#if 1
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_WEALTH))
 	{
 		bool seen_flag[BIOME_T_MAX] = {0};
@@ -182,8 +182,8 @@ void Circus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 			{
 				seen_flag[biome_list[i]] = true;
 				yield.AddFood(30, mask);
-				yield.AddTech(10, mask);
 				yield.AddWealth(30, mask);
+				yield.AddAwe(10, mask);
 			}
 		}
 	}
@@ -255,7 +255,7 @@ void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 				yield.m_wealth += 10;
 	}
 
-}
+} 
 
 Market *Market::Clone(void) const
 {
@@ -288,10 +288,10 @@ void Bank::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 	}
 
 #endif
-#if 0
+#if 1
 	// Development Aid
 	yield.AddWealth(60,mask);
-	for (unsigned i = m_start; (mask & YIELD_MASK_WEALTH | YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_AWE) && (i <= m_end) && (i < spaces.size()); i+= 1)
+	for (unsigned i = m_start; (mask & (YIELD_MASK_WEALTH | YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_AWE) && (i <= m_end)) && (i < spaces.size()); i+= 1)
 	{
 		if (spaces[i].m_source)
 		{
@@ -303,7 +303,7 @@ void Bank::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 			}
 			else if (t == SILVER)
 			{
-				yield.AddFood(45, tech);
+				yield.AddTech(45, mask);
 				yield.AddWealth(-15, mask);
 			}
 			else if (t == COYOTE)
@@ -313,29 +313,31 @@ void Bank::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 			else if (t == PLATINUM)
 			{
 				yield.AddWealth(-15, mask);
-				yield.AddAwe(15, tech);
+				yield.AddAwe(15, mask);
 			}
 		}
 	}
 #endif
 	// Local investment - see also PostProcess
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(25,0,25,0,0,0), mask, LYCHEE, TOPAZ, CHILLI_PEPPER);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(25,0,25,0,0,0), mask, LYCHEE, TOPAZ, CHILLI_PEPPER);
 }
 
 bool Bank::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 {
+#if 0
 	yield.Reset();
 	if (!m_post_processed)
 	{
 		// Local investment - see also Yield
 		for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i++)
-			if (i != loc) 
+			if (i != loc)
 				yield.m_wealth += spaces[i].m_yield.m_wealth;
 		global_yield.clear();
 		global_yield.resize(spaces.size());
 		m_post_processed = true;
 		return true; // indicate changed values
 	}
+#endif
 	return false; // nothing changed during this call
 }
 Bank *Bank::Clone(void) const
@@ -547,9 +549,10 @@ Workshop::Workshop(void) :
 void Workshop::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,5,10,0,0,0), mask, MINERAL, 3);
 	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,20,10,0,0,0), mask, MINERAL, 3);
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,10,5,0,0,0), mask, MINERAL, 3);
-	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,25,0,0,0), mask, IRON, COPPER,2);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,10,5,0,0,0), mask, MINERAL, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,25,0,0,0), mask, IRON, COPPER, 2);
 }
 Workshop* Workshop::Clone(void) const
 {
@@ -637,8 +640,9 @@ Hamlet::Hamlet(void) :
 void Hamlet::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,5,0), mask, ANIMAL, 4);
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(75,25,0,0,0,0), mask, WOLF, WISENT, WISENT, 3);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,5,0), mask, ANIMAL, 4);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(75,25,0,0,0,0), mask, WOLF, WISENT, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(45,0,30,0,0,0), mask, TUNA, MARLIN, 3);
 }
 Hamlet* Hamlet::Clone(void) const
 {
@@ -753,6 +757,28 @@ void Opera::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 {
 	yield.Reset();
 
+	// Diverse show
+#if 1
+	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_WEALTH))
+	{
+		bool seen_flag[BIOME_T_MAX] = {0};
+
+		seen_flag[BIOME_NONE] = true;
+
+		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
+		{
+			if ((spaces[i].m_source->Class() == ANIMAL) && !seen_flag[biome_list[i]])
+			{
+				seen_flag[biome_list[i]] = true;
+				yield.AddFood(30, mask);
+				yield.AddWealth(30, mask);
+				yield.AddAwe(10, mask);
+			}
+		}
+	}
+#endif
+
+#if 0
 	// Fables
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH))
 	{
@@ -782,9 +808,11 @@ void Opera::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 			yield.AddWealth(25, mask);
 		}
 	}
+#endif
 	// Genesis story
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,75,0,0,0), mask, BLUEBERRY, APPLE_TREE, STRAWBERRY, AGAVE, DATE_PALM, 4);
-	//
+	
+#if 0
 	// Heroics of the Titan Slayer
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(75,0,0,0,0,0), mask, ANIMAL, 4);
 	yield.AddAwe(-20, mask);
@@ -793,6 +821,7 @@ void Opera::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, uns
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(100,0,100,0,0,0), mask, CARDON_CACTUS, ORANGE_TREE, MOOSE, BEAR, BIG_HORN, PANDA, BOBCAT, 2);
 	// Peculiar Adventures of Maarten
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,60,0), mask, MARTEN, MARTEN, MARTEN, 1);
+#endif
 
 	// Epic of Bas
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,150,0,0,0), mask, WOLF, COYOTE, SNOW_LEOPARD, BEAR, 1);
@@ -823,4 +852,57 @@ void Tradepost::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
 Tradepost* Tradepost::Clone(void) const
 {
 	return new Tradepost(*this);
+}
+
+Multinational::Multinational(void) :
+	Building(Yield(200, 1250, 200, 0, 0, 0))
+{
+	m_name = "Multinational";
+}
+
+void Multinational::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+	// Development Aid
+	yield.AddWealth(60,mask);
+	for (unsigned i = m_start; (mask & (YIELD_MASK_WEALTH | YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_AWE) && (i <= m_end)) && (i < spaces.size()); i+= 1)
+	{
+		if (spaces[i].m_source)
+		{
+			const source_type_t t = spaces[i].m_source->Type();
+			if (t == DESERT_LIME)
+			{
+				yield.AddFood(45, mask);
+				yield.AddWealth(-15, mask);
+			}
+			else if (t == SILVER)
+			{
+				yield.AddTech(45, mask);
+				yield.AddWealth(-15, mask);
+			}
+			else if (t == COYOTE)
+			{
+				yield.AddWealth(75-15, mask);
+			}
+			else if (t == PLATINUM)
+			{
+				yield.AddWealth(-15, mask);
+				yield.AddAwe(15, mask);
+			}
+		}
+	}
+	unsigned pyramid_count = 0;
+	yield.AddAwe(-20, mask);
+	for (size_t i = 0; (mask & YIELD_MASK_WEALTH) && (i < spaces.size()); i+= 1)
+		if ((i != loc) && (spaces[i].m_source->Class() == MINERAL))
+		{
+			spaces[i].m_yield.AddWealth(-10, mask);
+			if (++pyramid_count < 8)
+				yield.m_wealth += 50;
+
+		}
+}
+Multinational* Multinational::Clone(void) const
+{
+	return new Multinational(*this);
 }

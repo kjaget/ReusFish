@@ -243,3 +243,11 @@ class Tradepost: public Building
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		Tradepost* Clone(void) const;
 };
+class Multinational: public Building
+{
+	public :
+		Multinational();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Multinational* Clone(void) const;
+};

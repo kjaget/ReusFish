@@ -278,25 +278,26 @@ int main (int argc, char **argv)
 	RunState run_state;
 
 
-	spaces.SetGoal(Market().GetCompletionRequirements());
-	//spaces.AddSpace(MOUNTAIN);
-	spaces.StartCity();
+	Yield y(Opera().GetCompletionRequirements());
+	y.Add(Yield(0,0,0,0,80,0), YIELD_MASK_ALL);
+	spaces.SetGoal(y);
 #if 1
-	//spaces.AddSpace(MOUNTAIN);
-	//spaces.AddSpace(DESERT);
-	//spaces.AddSpace(DESERT);
-	spaces.AddSpace(DESERT, Market());
-	spaces.AddSpace(DESERT,City());
-	spaces.AddSpace(DESERT,City());
-	spaces.AddSpace(DESERT,City());
-	spaces.AddSpace(DESERT,City());
-	spaces.AddSpace(DESERT);
-	spaces.AddSpace(DESERT);
-	//spaces.AddSpace(MOUNTAIN);
+	spaces.StartCity();
 	spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(DESERT);
+	spaces.AddSpace(DESERT);
+	spaces.AddSpace(DESERT,City());
+	spaces.AddSpace(DESERT,City());
+	spaces.AddSpace(DESERT,City());
+	spaces.AddSpace(DESERT,City());
+	spaces.AddSpace(FOREST, Mill());
+	spaces.AddSpace(FOREST);
+	spaces.AddSpace(FOREST);
+	spaces.AddSpace(FOREST);
+	spaces.AddSpace(FOREST, Opera());
+	spaces.AddSpace(FOREST);
 	spaces.EndCity();
-	//spaces.AddSpace(MOUNTAIN);
-	//spaces.AddSpace(MOUNTAIN);
 #endif
 	//
 #if 0

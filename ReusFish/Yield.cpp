@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "Yield.hpp"
 
 Yield::Yield() :
@@ -139,7 +140,14 @@ void Yield::AddTech(int adder, unsigned mask)
 void Yield::AddWealth(int adder, unsigned mask)
 {
 	if (mask & YIELD_MASK_WEALTH)
-		m_wealth += adder;
+	{
+		if ((adder > 0) && ((unsigned short)(adder + m_wealth) < m_wealth) )
+			m_wealth = std::numeric_limits<unsigned short>::max();
+		else if ((adder < 0) && ((unsigned short)(adder + m_wealth) > m_wealth) )
+			m_wealth = std::numeric_limits<unsigned short>::min();
+		else
+			m_wealth += adder;
+	}
 }
 void Yield::AddDanger(int adder, unsigned mask)
 {
