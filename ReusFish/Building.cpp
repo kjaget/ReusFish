@@ -906,3 +906,115 @@ Multinational* Multinational::Clone(void) const
 {
 	return new Multinational(*this);
 }
+
+Castle::Castle(void) :
+	Building(Yield(1250, 100, 300, 0, 0, 0))
+{
+	m_name = "Castle";
+}
+
+void Castle::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+
+	// Rappresentante
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(45,0,30,0,0,0), mask, TUNA, MARLIN, 2);
+
+	Yield temp_yield;
+	AddAllInRange(spaces, loc, temp_yield, m_start, m_end, Yield(1,0,0,0,0,0), mask, STOAT, BEAR, WOLF, 3);
+	if (temp_yield.m_food > 0)
+	{
+		yield.AddFood(100,mask);
+		yield.AddWealth(50, mask);
+	}
+	if (temp_yield.m_food > 1)
+	{
+		yield.AddFood(75,mask);
+		yield.AddWealth(25, mask);
+	}
+	if (temp_yield.m_food > 2)
+	{
+		yield.AddFood(50,mask);
+		yield.AddWealth(15, mask);
+	}
+
+	// Prince of Orange
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(150,0,50,0,0,0), mask, ORANGE_TREE, 1);
+
+}
+Castle* Castle::Clone(void) const
+{
+	return new Castle(*this);
+}
+
+Hospital::Hospital(void) :
+	Building(Yield(750, 750, 200, 0, 150, 0))
+{
+	m_name = "Hospital";
+	SetClassCompletionCount(PLANT,3);
+}
+
+void Hospital::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+
+	Yield temp_yield;
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,0,0), mask, STOAT, BEAR, WOLF, 3);
+
+	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_TECH))
+	{
+		unsigned plant_count = 0;
+		std::array<bool, SOURCE_TYPE_T_MAX> sources_seen{false};
+		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
+		{
+			if (spaces[i].m_source)
+			{
+				source_type_t t = spaces[i].m_source->Type();
+				if (((biome_list[i] == FOREST) || (biome_list[i]== SWAMP)) &&
+					(spaces[i].m_source->Class() == PLANT) && !sources_seen[t])
+				{
+					sources_seen[t] = true;
+					plant_count += 1;
+				}
+				if ((t == PLUM_TREE) || (t == CHERRY_TREE) || (t == HEMP) || (t == COFFEA))
+				{
+					spaces[i].m_yield.AddNatura(10, mask);
+					spaces[i].m_yield.AddAwe(5, mask);
+				}
+			}
+		}
+		yield.AddFood(30 * plant_count, mask);
+		yield.AddTech(30 * plant_count, mask);
+	}
+
+	// Medical Equipment
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(75,75,0,0,0,0), mask, SALT, ALUMINIUM, ZINC, URANIUM, FLUORITE, 3);
+	AddIfAdjacent(spaces, loc, yield, Yield(75,75,0,0,0,0), SALT, ALUMINIUM, ZINC, URANIUM, FLUORITE);
+
+}
+Hospital* Hospital::Clone(void) const
+{
+	return new Hospital(*this);
+}
+
+CanalTown::CanalTown(void) :
+	Building(Yield(750, 750, 200, 0, 150, 0))
+{
+	m_name = "CanalTown";
+}
+
+void CanalTown::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+
+
+	Yield temp_yield;
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(45,0,30,0,0,0), mask, TUNA, MARLIN, 3);
+
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(50,0,50,0,0,0), mask, FOX, GREY_FOX, WOLF, SNOW_LEOPARD, LANGUR_MONKEY, BOBCAT, BEAR, 6);
+
+}
+CanalTown* CanalTown::Clone(void) const
+{
+	return new CanalTown(*this);
+}
