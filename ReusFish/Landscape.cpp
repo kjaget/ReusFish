@@ -304,7 +304,7 @@ int Landscape::ScoreHelper(unsigned goal, unsigned val, double multiplier) const
 			score = int(multiplier * pow((double)val / goal, 1./3.));
 	}
 	else
-		score = multiplier * val * 0.25;
+		score = multiplier * val * 0.1;
 	return score;
 }
 
@@ -354,7 +354,7 @@ int Landscape::Score(const Yield &goal, unsigned start_pos, unsigned end_pos)
 	score += ScoreHelper(goal.m_awe, yield.m_awe, scale) * (double)goal.m_awe/total_goal;
 	score += ScoreHelper(goal.m_natura, yield.m_natura, scale) * (double)goal.m_natura/total_goal;
 #if 1
-	if (yield.m_danger > (yield.m_awe + 30))
+	if (yield.m_danger > (goal.m_danger + 10))
 		score /= 1.25;
 #endif
 
