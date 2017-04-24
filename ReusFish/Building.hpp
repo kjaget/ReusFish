@@ -64,7 +64,11 @@ class Circus: public Building
 	public :
 		Circus(void);
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield);
 		Circus *Clone(void) const;
+	private:
+		std::vector<bool> m_post_processed;
+		std::vector<unsigned> m_total_danger;
 };
 
 
@@ -274,4 +278,20 @@ class CanalTown: public Building
 
 		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
 		CanalTown* Clone(void) const;
+};
+class Plantation: public Building
+{
+	public :
+		Plantation();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		Plantation* Clone(void) const;
+};
+class NaturePark: public Building
+{
+	public :
+		NaturePark();
+
+		void GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask = YIELD_MASK_ALL) const;
+		NaturePark* Clone(void) const;
 };

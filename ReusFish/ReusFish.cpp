@@ -151,7 +151,7 @@ class RunState
 		UsedList<size_t, Landscape> m_used_list;
 };
 
-static void remaining_moves(unsigned initial_pos, const Giants &giants, RunState &run_state)
+static void remaining_moves(unsigned initial_pos, const Giants &giants, RunState &run_state, bool only_one = false)
 {
 #ifdef VERBOSE
 	std::cout << "remaining_moves(" << initial_pos<< ")" << std::endl;
@@ -160,6 +160,8 @@ static void remaining_moves(unsigned initial_pos, const Giants &giants, RunState
 	Landscape landscape;
 	SourceList source_list;
 	SourceList upgrades;
+	static int level;
+	level += 1;
 	// Grab the top scoring landscape off the queue
 	// of those not yet processed
 	while (run_state.GetBest(landscape))
@@ -195,18 +197,19 @@ static void remaining_moves(unsigned initial_pos, const Giants &giants, RunState
 					!(((aspect & 3) == 1) && aspects.IsValid((Aspects::aspect_t)(aspect + 1), saved_space.m_source->Class())) )
 				{
 					landscape[pos] = Space(saved_space, aspect);
-					if (run_state.AddNewAspect(landscape))
-						remaining_moves(initial_pos, giants, run_state);
+					run_state.AddNewAspect(landscape);
 
 					// Get list of possible upgrades for current
 					// space
 					landscape[pos].m_source->GetUpgrades(biome_list[pos], upgrades);
 					for (auto it = upgrades.cbegin(); it != upgrades.cend(); ++it)
 					{
+						// Check that upgrade doesn't lead to a 
+						// lesser version of a source available through
+						// another path?
 						landscape[pos] = Space(**it);
 
-						if (run_state.AddNewUpgrade(landscape))
-							remaining_moves(initial_pos, giants, run_state);
+						run_state.AddNewUpgrade(landscape);
 
 						const unsigned range = 2;
 						for (size_t i = std::max<int>((int)pos - range, 0); (i < (pos + range)) && (i < landscape.size()); i++)
@@ -223,8 +226,7 @@ static void remaining_moves(unsigned initial_pos, const Giants &giants, RunState
 									std::cout << std::endl;
 #endif
 									landscape[i] = Space(**its);
-									if (run_state.AddNewInitial(landscape))
-										remaining_moves(initial_pos, giants, run_state);
+									run_state.AddNewInitial(landscape);
 
 								}
 							}
@@ -235,9 +237,12 @@ static void remaining_moves(unsigned initial_pos, const Giants &giants, RunState
 			}
 			landscape[pos] = saved_space;
 		}
+		if (only_one)
+			break;
 	}
-	std::cout << "Returing from remaining_moves()" << std::endl;
+	std::cout << "Returing from remaining_moves(" << level << ")" << std::endl;
 	run_state.Print();
+	level -= 1;
 }
 
 // Generate all the initial permutations of 
@@ -248,7 +253,8 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants, RunState &r
 	{
 		// All spaces filled with something so add them
 		// to the list of base states to check
-		run_state.AddNewBase(spaces);
+		if (run_state.AddNewBase(spaces))
+			remaining_moves(spaces.size() - 1, giants, run_state, true);
 		return;
 	}
 
@@ -277,27 +283,54 @@ int main (int argc, char **argv)
 	Giants giants;
 	RunState run_state;
 
+	Yield y(Lighthouse().GetCompletionRequirements());
+	y.Add(Yield(0,0,0,20,0,0), YIELD_MASK_ALL);
+	spaces.SetGoal(y);
 
-	Yield y(Opera().GetCompletionRequirements());
-	y.Add(Yield(0,0,0,0,80,0), YIELD_MASK_ALL);
+	spaces.StartCity();
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(FOREST, Temple());
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN, Lighthouse());
+	spaces.EndCity();
+
+#if 0
+	Yield y(Castle().GetCompletionRequirements());
+	y.Add(Yield(0,0,0,0,60,0), YIELD_MASK_ALL);
 	spaces.SetGoal(y);
 #if 1
+	spaces.AddSpace(OCEAN);
 	spaces.StartCity();
-	spaces.AddSpace(MOUNTAIN);
-	spaces.AddSpace(MOUNTAIN);
-	spaces.AddSpace(DESERT);
-	spaces.AddSpace(DESERT);
-	spaces.AddSpace(DESERT,City());
-	spaces.AddSpace(DESERT,City());
-	spaces.AddSpace(DESERT,City());
-	spaces.AddSpace(DESERT,City());
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(FOREST,City());
+	spaces.AddSpace(FOREST,City());
 	spaces.AddSpace(FOREST, Mill());
 	spaces.AddSpace(FOREST);
 	spaces.AddSpace(FOREST);
+	spaces.AddSpace(FOREST, Castle());
 	spaces.AddSpace(FOREST);
-	spaces.AddSpace(FOREST, Opera());
+	spaces.AddSpace(FOREST);
 	spaces.AddSpace(FOREST);
 	spaces.EndCity();
+#endif
 #endif
 	//
 #if 0

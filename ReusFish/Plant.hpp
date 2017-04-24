@@ -1280,12 +1280,13 @@ class BarrelCactus : public Plant
 		bool PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield, unsigned m_wealth_limit, unsigned m_tech_adder)
 		{
 			yield.Reset();
+			for (auto it = global_yield.begin(); it != global_yield.end(); ++it)
+				it->Reset();
+
 			// Only add extra tech once
 			if (!m_post_processed && (spaces[loc].m_yield.m_wealth >= m_wealth_limit))
 			{
 				yield.m_tech += m_tech_adder;
-				global_yield.clear();
-				global_yield.resize(spaces.size());
 				m_post_processed = true;
 				return true; // indicate changed values
 			}

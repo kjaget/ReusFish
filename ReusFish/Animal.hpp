@@ -3452,6 +3452,9 @@ class MuskDeer : public Animal
 		{
 			bool changed = false;
 			yield.Reset();
+			for (auto it = global_yield.begin(); it != global_yield.end(); ++it)
+				it->Reset();
+
 			yield.m_range = m_base_yield.m_range;
 			if (spaces[loc].m_yield.m_danger >= m_danger_limit)
 				yield.m_range += 1;
@@ -3470,11 +3473,6 @@ class MuskDeer : public Animal
 					changed = true;
 				}
 
-			if (changed)
-			{
-				global_yield.clear();
-				global_yield.resize(spaces.size());
-			}
 			return changed;
 		}
 		MuskDeer* Clone() const {return new MuskDeer(*this);}

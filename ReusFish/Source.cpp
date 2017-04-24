@@ -210,7 +210,7 @@ void Source::GetUpgrades(biome_t biome, SourceList &upgrades) const
 {
 	(void)biome;
 	upgrades.clear();
-	for (unsigned i = 0; i < m_upgrades.size(); i++)
+	for (size_t i = 0; i < m_upgrades.size(); i++)
 	{
 		unsigned required_count;
 		unsigned count = 0;
@@ -220,7 +220,7 @@ void Source::GetUpgrades(biome_t biome, SourceList &upgrades) const
 			required_count = 2;
 		else
 			required_count = 1;
-		for (unsigned j = 0; j < m_aspects.size(); j++)
+		for (size_t j = 0; j < m_aspects.size(); j++)
 		{
 			if (aspects.CanUpgrade(m_upgrades[i].m_aspect1, m_aspects[j]) ||
 				((m_upgrades[i].m_aspect2 != Aspects::ASPECT_T_MAX) &&
@@ -236,7 +236,7 @@ void Source::GetUpgrades(biome_t biome, SourceList &upgrades) const
 			{
 				Source *new_source = builder();
 				// Upgraded sources retain the aspects of the
-				// pre-upgraded source. Copy those over here
+				// pre-upgraded source? Copy those over here
 				for (auto it = m_aspects.cbegin(); it != m_aspects.cend(); ++it)
 					new_source->AddAspect(*it);
 				new_source->SetUpgradeCount(UpgradeCount() + 1);

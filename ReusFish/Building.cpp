@@ -189,6 +189,49 @@ void Circus::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 	}
 #endif
 }
+bool Circus::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
+{
+	yield.Reset();
+	for (auto it = global_yield.begin(); it != global_yield.end(); ++it)
+		it->Reset();
+	if (m_post_processed.size() != spaces.size())
+	{
+		m_post_processed.resize(spaces.size());
+		m_total_danger.resize(spaces.size());
+		for (size_t i = 0; i < spaces.size(); i++)
+		{
+			m_post_processed[i] = false;
+			m_total_danger[i] = 0;
+		}
+	}
+			
+	bool rc = false;
+	//
+	for (unsigned i = m_start; i <= m_end; i++)
+	{
+		
+		int delta = (int)spaces[i].m_yield.m_danger - m_total_danger[i];
+		if (delta)
+		{
+			yield.m_food   += 2*delta;
+			yield.m_danger += delta;
+			m_total_danger[i] = spaces[i].m_yield.m_danger;
+			rc = true;
+		}
+
+		if (!m_post_processed[i] && spaces[i].m_source)
+		{
+			if (spaces[i].m_yield.m_danger >= 2)
+			{
+				global_yield[i].m_danger += 1;
+				m_post_processed[i] = true;
+				rc = true;
+			}
+		}
+	}
+
+	return rc;
+}
 
 Circus *Circus::Clone(void) const
 {
@@ -326,14 +369,14 @@ bool Bank::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yi
 {
 #if 0
 	yield.Reset();
+	for (auto it = global_yield.begin(); it != global_yield.end(); ++it)
+		it->Reset();
 	if (!m_post_processed)
 	{
 		// Local investment - see also Yield
 		for (unsigned i = std::max<int>(0, (int)loc - 1); (i <= loc + 1) && (i < spaces.size()); i++)
 			if (i != loc)
 				yield.m_wealth += spaces[i].m_yield.m_wealth;
-		global_yield.clear();
-		global_yield.resize(spaces.size());
 		m_post_processed = true;
 		return true; // indicate changed values
 	}
@@ -358,7 +401,12 @@ void Lighthouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 	// Clear Blue - verify limit is broken?
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, TUNA, PARROTFISH);
 
+	Yield temp_yield;
+	temp_yield.m_range = 2;
+	AddAllInRange(spaces, loc, yield, Yield(0,0,0,0,20,0), mask, CLOWNFISH,2);
+	yield.Add(temp_yield, mask);
 
+#if 0
 	// hard coded city extents for now...
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH | YIELD_MASK_TECH))
 	{
@@ -394,8 +442,7 @@ void Lighthouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 			yield.AddWealth(50, mask);
 		}
 	}
-	// Amazing reef
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, CLOWNFISH, 2);
+#endif
 }
 
 Lighthouse* Lighthouse::Clone(void) const 
@@ -432,8 +479,8 @@ bool Harbor::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &
 	yield.Reset();
 	if (!m_post_processed)
 	{
-		global_yield.clear();
-		global_yield.resize(spaces.size());
+		for (auto it = global_yield.begin(); it != global_yield.end(); ++it)
+			it->Reset();
 		for (size_t i = 0; i < spaces.size(); i++)
 			if (spaces[i].m_source && 
 				(spaces[i].m_source->Type() == SEABASS))
@@ -729,13 +776,13 @@ void Observatory::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
 bool Observatory::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 {
 	yield.Reset();
+	for (auto it = global_yield.begin(); it != global_yield.end(); ++it)
+		it->Reset();
 	if (!m_post_processed)
 	{
 		for (unsigned i = std::max<int>(0, (int)loc - 2); (i <= loc + 2) && (i < spaces.size()); i++)
 			if ((i != loc) && spaces[i].m_source && (spaces[i].m_source->Type() != BUILDING))
 				yield.m_tech += spaces[i].m_yield.m_tech/2;
-		global_yield.clear();
-		global_yield.resize(spaces.size());
 		m_post_processed = true;
 		return true; // indicate changed values
 	}
@@ -988,8 +1035,8 @@ void Hospital::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
 	}
 
 	// Medical Equipment
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(75,75,0,0,0,0), mask, SALT, ALUMINIUM, ZINC, URANIUM, FLUORITE, 3);
-	AddIfAdjacent(spaces, loc, yield, Yield(75,75,0,0,0,0), SALT, ALUMINIUM, ZINC, URANIUM, FLUORITE);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(75,75,0,0,0,0), mask, SALT, ALUMINIUM, ZINC, URANIUM, FLUORITE, 3);
+	//AddIfAdjacent(spaces, loc, yield, Yield(75,75,0,0,0,0), SALT, ALUMINIUM, ZINC, URANIUM, FLUORITE);
 
 }
 Hospital* Hospital::Clone(void) const
@@ -1007,8 +1054,6 @@ void CanalTown::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
 {
 	yield.Reset();
 
-
-	Yield temp_yield;
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(45,0,30,0,0,0), mask, TUNA, MARLIN, 3);
 
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(50,0,50,0,0,0), mask, FOX, GREY_FOX, WOLF, SNOW_LEOPARD, LANGUR_MONKEY, BOBCAT, BEAR, 6);
@@ -1017,4 +1062,57 @@ void CanalTown::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield,
 CanalTown* CanalTown::Clone(void) const
 {
 	return new CanalTown(*this);
+}
+
+Plantation::Plantation(void)
+{
+	m_name = "Plantation";
+}
+
+void Plantation::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	yield.Reset();
+
+
+	Yield temp_yield;
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(15,0,0,0,0,0), mask, ANIMAL, 3);
+
+	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_AWE))
+	{
+		Yield temp_yield;
+		AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(1,0,0,0,0,0), mask, APPLE_TREE, 1);
+		AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(1,0,0,0,0,0), mask, STRAWBERRY, 1);
+		AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(1,0,0,0,0,0), mask, PEAR_TREE, 1);
+		if (temp_yield.m_food >= 2)
+		{
+			yield.m_food += 20;
+			yield.m_awe += 10;
+		}
+		if (temp_yield.m_food >= 3)
+		{
+			yield.m_food += 40;
+			yield.m_awe += 20;
+		}
+	}
+}
+Plantation* Plantation::Clone(void) const
+{
+	return new Plantation(*this);
+}
+NaturePark::NaturePark(void)
+{
+	m_name = "NaturePark";
+}
+
+void NaturePark::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
+{
+	(void)loc;
+	yield.AddWealth(90, mask);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, KUMQUAT, DRAGONFRUIT);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,5,0), mask, KUMQUAT, DRAGONFRUIT, LYCHEE);
+}
+
+NaturePark *NaturePark::Clone(void) const
+{
+	return new NaturePark(*this);
 }
