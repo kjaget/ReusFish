@@ -23,6 +23,7 @@ Source.cpp
 SourceContainer.cpp
 SourceTypeList.cpp
 Space.cpp
+UsedList.cpp
 Yield.cpp
 )
 
@@ -41,5 +42,6 @@ Source.cpp
 SourceContainer.cpp
 SourceTypeList.cpp
 Space.cpp
+UsedList.cpp
 Yield.cpp
 )
