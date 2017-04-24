@@ -11,6 +11,5 @@ typedef enum SOURCE_CLASS_T : unsigned char
    SOURCE_CLASS_T_MAX
 } source_class_t;
 
-
 #endif
 

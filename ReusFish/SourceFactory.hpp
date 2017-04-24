@@ -1,19 +1,20 @@
 #pragma once
 
+#include <iostream>
 #include <functional>
 #include <unordered_map>
 
 class Source;
 namespace std {
-	template <typename T, typename U> 
-		class hash<pair<T,U> > 
-		{ 
-			public:
-				size_t operator() (const std::pair<T,U> &orig) const
-				{ 
-					return hash<size_t>()(static_cast<size_t>(orig.first)) + 31 * hash<size_t>()(static_cast<size_t>(orig.second)); 
-				}
-		};
+	template <typename T, typename U>
+	class hash<pair<T,U> >
+	{
+		public:
+			size_t operator() (const std::pair<T,U> &orig) const
+			{
+				return hash<size_t>()(static_cast<size_t>(orig.first)) + 31 * hash<size_t>()(static_cast<size_t>(orig.second));
+			}
+	};
 }
 
 template <typename Key1, typename Key2> 

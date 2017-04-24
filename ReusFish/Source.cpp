@@ -1,5 +1,7 @@
+#include <cstring>
 #include "Source.hpp"
 #include "SourceContainer.hpp"
+#include "SourceTypeList.hpp"
 #include "Space.hpp"
 
 static SourceTypeList source_type_list;
@@ -77,18 +79,18 @@ size_t Source::Hash(void) const
 		((m_upgrade_count  + 1) << 6);
 	size_t hash = this_hash;
 
-	hash += this_hash << 7;
 	hash += this_hash << 14;
-	hash += this_hash << 24;
+	hash += this_hash << 28;
+	hash += this_hash << 48;
 	for (size_t i = 0; i < m_aspects.size(); i++)
 	{
 		size_t aspect = m_aspects[i] + 1;
 		hash += aspect;
-		hash += aspect << 5;
-		hash += aspect << 9;
-		hash += aspect << 15;
-		hash += aspect << 19;
-		hash += aspect << 25;
+		hash += aspect << 10;
+		hash += aspect << 18;
+		hash += aspect << 30;
+		hash += aspect << 38;
+		hash += aspect << 50;
 	}
 	return hash;
 }
@@ -235,13 +237,25 @@ void Source::GetUpgrades(biome_t biome, SourceList &upgrades) const
 			if (source_type_list.Get(m_upgrades[i].m_new_source, m_level, builder))
 			{
 				Source *new_source = builder();
-				// Upgraded sources retain the aspects of the
-				// pre-upgraded source? Copy those over here
-				for (auto it = m_aspects.cbegin(); it != m_aspects.cend(); ++it)
-					new_source->AddAspect(*it);
-				new_source->SetUpgradeCount(UpgradeCount() + 1);
+				if (new_source->Level() >= source_type_list.GetBestSourceLevel(m_upgrades[i].m_new_source))
+				{
+					// Upgraded sources retain the aspects of the
+					// pre-upgraded source? Copy those over here
+					for (auto it = m_aspects.cbegin(); it != m_aspects.cend(); ++it)
+						new_source->AddAspect(*it);
+					new_source->SetUpgradeCount(UpgradeCount() + 1);
 
-				upgrades.push_back(source_container.Add(new_source));
+					bool found = false;
+					for (auto it = upgrades.cbegin(); !found && (it != upgrades.cend()); ++it)
+						if (**it == *new_source)
+							found = true;
+
+					//std::cout << "Adding S:";
+					//new_source->Print();
+					//std::cout << std::endl;
+					if (!found)
+						upgrades.push_back(source_container.Add(new_source));
+				}
 			}
 		}
 	}

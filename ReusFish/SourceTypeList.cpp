@@ -1,9 +1,12 @@
 #include "SourceTypeList.hpp"
 #include "Animal.hpp"
+#include "EnumerateSources.hpp"
 #include "Mineral.hpp"
 #include "Plant.hpp"
 
-SourceTypeList::SourceTypeList()
+SourceTypeList::SourceTypeList(void) :
+	m_best_sources{0},
+	m_init(0)
 {
 	Register(BLUEBERRY, 1, SourceBuilder<Blueberry>);
 	Register(BLUEBERRY, 2, SourceBuilder<Great_Blueberry>);
@@ -268,3 +271,30 @@ SourceTypeList::SourceTypeList()
 	Register(FLUORITE, 3, SourceBuilder<Fluorite>);
 	Register(NATURAL_GAS, 3, SourceBuilder<NaturalGas>);
 }
+
+unsigned SourceTypeList::GetBestSourceLevel(source_type_t t)
+{
+	//return 0;
+	if (m_init < 2)
+	{
+		// Get list of highest source level for
+		// each type. This is used to filter out cases
+		// where 2 giants can create types at different levels
+		// and the program wastes time processing the lower
+		// level one
+		if (m_init == 0)
+		{
+			m_init = 1;
+			std::cout << "Starting init" << std::endl;
+			enumerateSources(m_best_sources);
+			std::cout << "Ended init" << std::endl;
+			m_init = 2;
+		}
+		else if (m_init == 1)
+			return 0;
+	}
+	if (t > SOURCE_TYPE_T_MAX)
+		return 0;
+	return m_best_sources[t];
+}
+

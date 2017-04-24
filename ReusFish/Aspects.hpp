@@ -2,7 +2,6 @@
 #define ASPECTS_INC__
 
 #include <iostream>
-#include <string>
 #include <vector>
 #include "SourceClass.hpp"
 #include "Yield.hpp"

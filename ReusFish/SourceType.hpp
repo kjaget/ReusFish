@@ -3,7 +3,6 @@
 typedef enum SOURCE_TYPE_T : unsigned char
 {
    SOURCE_TYPE_NONE,
-   CITY,
    BUILDING,
    CHICKEN,
    RABBIT,

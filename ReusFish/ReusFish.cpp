@@ -288,27 +288,19 @@ int main (int argc, char **argv)
 	spaces.SetGoal(y);
 
 	spaces.StartCity();
+	spaces.AddSpace(DESERT);
 	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(FOREST, Temple());
 	spaces.AddSpace(FOREST,City());
 	spaces.AddSpace(FOREST,City());
 	spaces.AddSpace(FOREST,City());
 	spaces.AddSpace(FOREST,City());
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN, Lighthouse());
 	spaces.EndCity();
 
 #if 0
 	Yield y(Castle().GetCompletionRequirements());
 	y.Add(Yield(0,0,0,0,60,0), YIELD_MASK_ALL);
 	spaces.SetGoal(y);
-#if 1
+
 	spaces.AddSpace(OCEAN);
 	spaces.StartCity();
 	spaces.AddSpace(OCEAN);
@@ -330,16 +322,6 @@ int main (int argc, char **argv)
 	spaces.AddSpace(FOREST);
 	spaces.AddSpace(FOREST);
 	spaces.EndCity();
-#endif
-#endif
-	//
-#if 0
-	std::vector<Aspects::aspect_t> a;
-	a.push_back(Aspects::POTENT_PREDATOR);
-	spaces.AddSpace(DESERT, Rattlesnake(a));
-	priority_queue.push(spaces);
-	remaining_moves(0, giants);
-	return 0;
 #endif
 
 	initial_moves(spaces,spaces.size()-1, giants, run_state);

@@ -2,6 +2,7 @@
 #define USEDLIST_INC__
 
 #include <climits>
+#include <cstring>
 #include <unordered_map>
 #include <vector>
 

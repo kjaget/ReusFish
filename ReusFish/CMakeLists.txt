@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE )
 project(reusfish)
 
 add_definitions(-std=c++11 -DZED_SUPPORT -Wall  -Wextra)
@@ -13,6 +13,7 @@ Animal.cpp
 Aspects.cpp
 Biome.cpp
 Building.cpp
+EnumerateSources.cpp
 Giants.cpp
 Landscape.cpp
 Mineral.cpp
@@ -31,6 +32,7 @@ Animal.cpp
 Aspects.cpp
 Biome.cpp
 Building.cpp
+EnumerateSources.cpp
 Giants.cpp
 Landscape.cpp
 Mineral.cpp

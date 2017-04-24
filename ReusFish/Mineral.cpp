@@ -301,7 +301,10 @@ void Coal::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 bool Coal::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 {
 	(void)loc;
-	(void)yield;
+	yield.Reset();
+	for (auto it = global_yield.begin(); it != global_yield.end(); ++it)
+		it->Reset();
+
 	if (m_post_processed)
 		return false;
 
@@ -408,7 +411,11 @@ void Fluorite::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, 
 bool Fluorite::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield &yield, std::vector<Yield> &global_yield)
 {
 	unsigned save_post_processed = m_post_processed; 
+
 	yield.Reset();
+	for (auto it = global_yield.begin(); it != global_yield.end(); ++it)
+		it->Reset();
+
 	if (!(M_POST_PROCESSED_TECH & m_post_processed) && (spaces[loc].m_yield.m_tech >= 10))
 	{
 		yield.m_tech += 25;
@@ -441,8 +448,6 @@ bool Fluorite::PostProcess(const std::vector<Space> &spaces, unsigned loc, Yield
 	}
 	if (save_post_processed == m_post_processed)
 		return false;
-	global_yield.clear();
-	global_yield.resize(spaces.size());
 	return true;
 
 }

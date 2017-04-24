@@ -2,16 +2,15 @@
 
 #include <algorithm>
 #include <iostream>
-#include <cstring>
 #include <limits>
 
 #include "Aspects.hpp"
 #include "Biome.hpp"
 #include "SourceClass.hpp"
 #include "SourceType.hpp"
-#include "SourceTypeList.hpp"
 
 class Space;
+class Source;
 typedef std::vector<const Source *> SourceList;
 
 // This source upgrades to <new_source> with <aspect1> or <aspect2>

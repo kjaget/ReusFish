@@ -1,5 +1,6 @@
 #include "Animal.hpp"
 #include "Aspects.hpp"
+#include "EnumerateSources.hpp"
 #include "Giants.hpp"
 #include "Mineral.hpp"
 #include "Plant.hpp"
@@ -11,23 +12,30 @@ Giant::Giant(void) :
 {
 }
 
-void Giant::GetSources(biome_t biome, SourceList &sources) const
+void Giant::AddSource(Source *source, const std::array<unsigned, SOURCE_TYPE_T_MAX> &best_sources, SourceList &sources) const
+{
+	if (source->Level() >= best_sources[source->Type()])
+	{
+		for (auto it = sources.cbegin(); it != sources.cend(); ++it)
+			if (**it == *source)
+				return;
+		sources.push_back(source_container.Add(source));
+	}
+}
+
+void Giant::GetSources(biome_t biome, const std::array<unsigned, SOURCE_TYPE_T_MAX> &best_sources, SourceList &sources) const
 {
 	SourceFactory<biome_t, unsigned>::Builder builder;
 	if (m_source_factory.Get(biome, m_domestic_level, builder))
-		sources.push_back(source_container.Add(builder()));
+		AddSource(builder(), best_sources, sources);
 	if (m_source_factory2.Get(biome, m_domestic_level2, builder))
-		sources.push_back(source_container.Add(builder()));
-}
-
-Ocean_Giant::Ocean_Giant(void)
-{
+		AddSource(builder(), best_sources, sources);
 }
 
 Ocean_Giant::Ocean_Giant(unsigned domestic_level,
-		unsigned growth_level,
-		unsigned herd_level,
-		unsigned crystal_level)
+						 unsigned growth_level,
+						 unsigned herd_level,
+						 unsigned crystal_level)
 {
 	m_domestic_level = domestic_level;
 	m_domestic_level2 = 0;
@@ -60,10 +68,6 @@ void Ocean_Giant::Init(void)
 	m_source_factory.Register(MOUNTAIN, 3, SourceBuilder<Superior_Marten>);
 }
 
-Forest_Giant::Forest_Giant(void)
-{
-}
-
 Forest_Giant::Forest_Giant(unsigned domestic_level,
 						   unsigned leaf_level,
 						   unsigned fruit_level,
@@ -94,10 +98,6 @@ void Forest_Giant::Init(void)
 	m_source_factory.Register(MOUNTAIN, 1, SourceBuilder<Kumquat>);
 	m_source_factory.Register(MOUNTAIN, 2, SourceBuilder<Great_Kumquat>);
 	m_source_factory.Register(MOUNTAIN, 3, SourceBuilder<Superior_Kumquat>);
-}
-
-Stone_Giant::Stone_Giant(void)
-{
 }
 
 Stone_Giant::Stone_Giant(unsigned domestic_level,
@@ -148,10 +148,6 @@ void Stone_Giant::Init(void)
 	m_source_factory2.Register(DESERT, 2, SourceBuilder<Great_Stone>);
 	m_source_factory2.Register(DESERT, 3, SourceBuilder<Superior_Stone>);
 
-}
-
-Swamp_Giant::Swamp_Giant(void)
-{
 }
 
 Swamp_Giant::Swamp_Giant(unsigned domestic_level,
@@ -207,12 +203,15 @@ void Swamp_Giant::Init(void)
 	m_source_factory2.Register(MOUNTAIN, 3, SourceBuilder<Superior_Monal>);
 }
 
-Giants::Giants(void) :
-	m_ocean_giant (Ocean_Giant (2,1,1,1)),
-	m_forest_giant(Forest_Giant(2,1,2,1)),
-	m_stone_giant (Stone_Giant (2,1,1,2,0)),
-	m_swamp_giant (Swamp_Giant (2,2,0,1,1))
+Giants::Giants(bool skip_lower_level_sources) :
+	m_ocean_giant (Ocean_Giant (2,3,3,3)),
+	m_forest_giant(Forest_Giant(2,3,3,3)),
+	m_stone_giant (Stone_Giant (1,1,3,3,3)),
+	m_swamp_giant (Swamp_Giant (1,1,3,3,3)),
+	m_best_source_level{0}
 {
+	if (!skip_lower_level_sources)
+		enumerateSources(m_best_source_level);
 }
 
 void Giants::GetSources(biome_t biome, SourceList &sources) const
@@ -220,8 +219,8 @@ void Giants::GetSources(biome_t biome, SourceList &sources) const
 	sources.clear();
 
 	//sources.push_back(source_container.Add(new Source()));
-	m_ocean_giant.GetSources(biome, sources);
-	m_forest_giant.GetSources(biome, sources);
-	m_stone_giant.GetSources(biome, sources);
-	m_swamp_giant.GetSources(biome, sources);
+	m_ocean_giant.GetSources(biome,  m_best_source_level, sources);
+	m_forest_giant.GetSources(biome, m_best_source_level, sources);
+	m_stone_giant.GetSources(biome,  m_best_source_level, sources);
+	m_swamp_giant.GetSources(biome,  m_best_source_level, sources);
 }
