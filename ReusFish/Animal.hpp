@@ -2152,7 +2152,7 @@ class Great_Javelina : public Javelina
 		{
 			m_name = "Great Javelina";
 			m_base_yield.m_food = 5;
-			m_max_aspects = 4;
+			m_max_aspects = 3;
 			m_level = 2;
 		}
 

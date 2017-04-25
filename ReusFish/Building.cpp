@@ -271,7 +271,7 @@ void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 #endif
 	if (mask & YIELD_MASK_WEALTH)
 	{
-#if 0
+#if 1
 		// Salt Merchants
 		unsigned salt_count = 0;
 		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
@@ -292,10 +292,12 @@ void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 		}
 #endif
 
+#if 0
 		// Prized Preys - KCJ redo as post processing?
 		for (unsigned i = m_start; (i <= m_end) && (i < spaces.size()); i+= 1)
 			if (spaces[i].m_yield.m_danger >= 2)
 				yield.m_wealth += 10;
+#endif
 	}
 
 } 
@@ -505,7 +507,8 @@ Harbor* Harbor::Clone(void) const
 	return new Harbor(*this);
 }
 
-University::University(void)
+University::University(void) :
+	Building(Yield(60,60,20,0,0,0))
 {
 	m_name = "University";
 }
@@ -514,23 +517,26 @@ void University::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 {
 	yield.Reset();
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(10,5,0,0,0,0), mask, PLANT, 3);
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, ANIMAL);
+//	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, ANIMAL);
 }
 University* University::Clone(void) const
 {
 	return new University(*this);
 }
 
-Geologist::Geologist(void)
+Geologist::Geologist(void) :
+	Building(Yield(0, 75, 65, 0, 0, 0))
 {
 	m_name = "Geologist";
+	SetClassCompletionCount(MINERAL, 3);
 }
 
 void Geologist::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,10,5,0,0,0), mask, MINERAL, 3);
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,35,0,0,0), mask, ONYX, TOPAZ, 2);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,35,0,0,0), mask, ONYX, TOPAZ, 2);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,35,0,0,0), mask, PHOSPHORUS, IRON, 2);
 }
 Geologist* Geologist::Clone(void) const
 {
@@ -671,7 +677,7 @@ BlastFurnace::BlastFurnace(void) :
 void BlastFurnace::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,50,50,0,0,0), mask, IGUANA, BUFFALO,KOMODO_DRAGON, RATTLESNAKE, COYOTE, GILA_MONSTER, 4);
+//	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,50,50,0,0,0), mask, IGUANA, BUFFALO,KOMODO_DRAGON, RATTLESNAKE, COYOTE, GILA_MONSTER, 4);
 }
 BlastFurnace* BlastFurnace::Clone(void) const
 {

@@ -91,7 +91,7 @@ class Agate: public Mineral
 
 		void AddUpgrades(void)
 		{
-			AddUpgrade(SALT, Aspects::LESSER_SEISMIC, Aspects::LESSER_CRYSTAL);
+			AddUpgrade(SALT, Aspects::LESSER_SEISMIC);
 			AddUpgrade(TOPAZ, Aspects::LESSER_NOBLE);
 		}
 
@@ -289,7 +289,7 @@ class Stone : public Mineral
 		void AddUpgrades(void)
 		{
 			m_upgrades.clear();
-			AddUpgrade(SALT, Aspects::LESSER_SEISMIC, Aspects::LESSER_CRYSTAL);
+			AddUpgrade(SALT, Aspects::LESSER_CRYSTAL);
 			AddUpgrade(COPPER, Aspects::LESSER_REACTION);
 		}
 
