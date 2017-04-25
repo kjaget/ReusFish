@@ -78,5 +78,5 @@ class Giants
 		Stone_Giant  m_stone_giant;
 		Swamp_Giant  m_swamp_giant;
 
-		std::array<unsigned, SOURCE_TYPE_T_MAX> m_best_source_level;
+		std::array<SourceList, BIOME_T_MAX> m_source_lists;
 };

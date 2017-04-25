@@ -204,23 +204,29 @@ void Swamp_Giant::Init(void)
 }
 
 Giants::Giants(bool skip_lower_level_sources) :
-	m_ocean_giant (Ocean_Giant (2,3,3,3)),
-	m_forest_giant(Forest_Giant(2,3,3,3)),
-	m_stone_giant (Stone_Giant (1,1,3,3,3)),
-	m_swamp_giant (Swamp_Giant (1,1,3,3,3)),
-	m_best_source_level{0}
+	m_ocean_giant (Ocean_Giant (1,1,0,0)),
+	m_forest_giant(Forest_Giant(2,2,1,0)),
+	m_stone_giant (Stone_Giant (1,2,1,0,1)),
+	m_swamp_giant (Swamp_Giant (2,1,1,0,1))
 {
+	std::array<unsigned, SOURCE_TYPE_T_MAX> best_source_level{0};
 	if (!skip_lower_level_sources)
-		enumerateSources(m_best_source_level);
+		enumerateSources(best_source_level);
+
+	// Cache source lists for each biome
+	for (biome_t i = BIOME_NONE; i < BIOME_T_MAX; i = (biome_t)((int)i + 1))
+	{
+		SourceList sources;
+		sources.push_back(source_container.Add(new Source()));
+		m_ocean_giant.GetSources(i,  best_source_level, sources);
+		m_forest_giant.GetSources(i, best_source_level, sources);
+		m_stone_giant.GetSources(i,  best_source_level, sources);
+		m_swamp_giant.GetSources(i,  best_source_level, sources);
+		m_source_lists[i] = sources;
+	}
 }
 
 void Giants::GetSources(biome_t biome, SourceList &sources) const
 {
-	sources.clear();
-
-	//sources.push_back(source_container.Add(new Source()));
-	m_ocean_giant.GetSources(biome,  m_best_source_level, sources);
-	m_forest_giant.GetSources(biome, m_best_source_level, sources);
-	m_stone_giant.GetSources(biome,  m_best_source_level, sources);
-	m_swamp_giant.GetSources(biome,  m_best_source_level, sources);
+	sources = m_source_lists[biome];
 }
