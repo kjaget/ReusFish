@@ -1,30 +1,30 @@
 #pragma once
 
-#include <climits>
-#include <cstring>
 #include <unordered_map>
 #include <vector>
 
 #include "Landscape.hpp"
 
+// T is the input type
+// S is the storage type
+template <class T, class S>
 class UsedListContainer
 {
 	public:
-		UsedListContainer(const Landscape &landscape);
-		UsedListContainer(const UsedListContainer &orig);
+		UsedListContainer(const T &t_in);
+		UsedListContainer(const UsedListContainer<T, S> &orig);
 		~UsedListContainer();
-		bool operator==(const UsedListContainer &rhs) const;
+		bool operator==(const UsedListContainer<T, S> &rhs) const;
 		void SetHash(void);
 		size_t Hash(void) const;
 
-	protected:
-		const Source **m_list;
-		biome_t       *m_blist;
-		size_t         m_hash;
-		unsigned char  m_size;
+	private :
+		S      *m_list;
+		size_t  m_size;
+		size_t  m_hash;
 };
 
-template <class Key, class T> class UsedList
+template <class Key, class T, class S = T> class UsedList
 {
 	public:
 		UsedList(void);
@@ -32,7 +32,7 @@ template <class Key, class T> class UsedList
 		bool Insert(const T &entry);
 		void Print(void) const;
 	protected:
-		std::unordered_map<Key, std::vector<UsedListContainer> > m_hash;
+		std::unordered_map<Key, std::vector<UsedListContainer<T,S>> > m_hash;
 		unsigned m_entries;
 		unsigned m_accesses;
 		unsigned m_hits;

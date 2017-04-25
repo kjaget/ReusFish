@@ -148,7 +148,7 @@ class RunState
 		unsigned m_not_enough;
 
 		std::priority_queue<Landscape, std::deque<Landscape>> m_priority_queue;
-		UsedList<size_t, Landscape> m_used_list;
+		UsedList<size_t, Landscape, const Source *> m_used_list;
 };
 
 static void remaining_moves(unsigned initial_pos, const Giants &giants, RunState &run_state, bool only_one = false)
@@ -277,50 +277,21 @@ void initial_moves(Landscape &spaces, int pos, const Giants &giants, RunState &r
 
 int main (int argc, char **argv)
 {                               
-	(void)argc;                 
-	(void)argv;                 
+	(void)argc;
+	(void)argv;
 	Landscape spaces;
 	Giants giants;
 	RunState run_state;
 
-	Yield y(Lighthouse().GetCompletionRequirements());
-	y.Add(Yield(0,0,0,20,0,0), YIELD_MASK_ALL);
-	spaces.SetGoal(y);
-
-	spaces.StartCity();
-	spaces.AddSpace(DESERT);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(FOREST,City());
-	spaces.AddSpace(FOREST,City());
-	spaces.AddSpace(FOREST,City());
-	spaces.AddSpace(FOREST,City());
-	spaces.EndCity();
-
-#if 0
+#if 1
 	Yield y(Castle().GetCompletionRequirements());
 	y.Add(Yield(0,0,0,0,60,0), YIELD_MASK_ALL);
 	spaces.SetGoal(y);
 
-	spaces.AddSpace(OCEAN);
 	spaces.StartCity();
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(OCEAN);
-	spaces.AddSpace(FOREST,City());
-	spaces.AddSpace(FOREST,City());
-	spaces.AddSpace(FOREST,City());
-	spaces.AddSpace(FOREST,City());
-	spaces.AddSpace(FOREST, Mill());
-	spaces.AddSpace(FOREST);
-	spaces.AddSpace(FOREST);
-	spaces.AddSpace(FOREST, Castle());
-	spaces.AddSpace(FOREST);
-	spaces.AddSpace(FOREST);
-	spaces.AddSpace(FOREST);
+	spaces.AddSpace(DESERT);
+	spaces.AddSpace(DESERT);
+	spaces.AddSpace(MOUNTAIN);
 	spaces.EndCity();
 #endif
 

@@ -4,25 +4,26 @@
 
 using namespace std;
 
-void permuteAspects(biome_t biome, 
-		const Space &space, 
-		std::vector<std::pair<biome_t, const Source *>> &found_list, 
-		UsedList<size_t, Landscape> &used_list);
-void generateUpgrades(std::vector<pair<biome_t, 
-		const Source *>> &found_list, 
-		UsedList<size_t, Landscape> &used_list);
+// A single source on a given biometype
+typedef pair<biome_t, const Source *> Tile;
 
-void permuteAspects(biome_t biome, const Space &space, vector<pair<biome_t, const Source *>> &found_list, UsedList<size_t, Landscape> &used_list)
+static void permuteAspects(biome_t biome, 
+					const Space &space,
+					vector<Tile> &found_list,
+					UsedList<size_t, Tile> &used_list);
+static void generateUpgrades(vector<Tile> &found_list,
+					  UsedList<size_t, Tile> &used_list);
+
+static void permuteAspects(biome_t biome, const Space &space, 
+					vector<Tile> &found_list, 
+					UsedList<size_t, Tile> &used_list)
 {
-	Landscape landscape(1);
-	biome_list[0] = biome;
-	landscape[0] = Space(*space.m_source);
+	Tile tile = make_pair(biome, space.m_source);
 
-	if (used_list.Insert(landscape))
-		found_list.push_back(make_pair(biome, space.m_source));
+	if (used_list.Insert(tile))
+		found_list.push_back(tile);
 
 	//cout << "permuteAspects : " << endl;
-	//landscape.Print();
 	for (unsigned aspect = 0; aspect < Aspects::ASPECT_T_MAX ; aspect++)
 	{
 		// Skip lesser aspects
@@ -32,48 +33,33 @@ void permuteAspects(biome_t biome, const Space &space, vector<pair<biome_t, cons
 			aspects.IsValid((Aspects::aspect_t)aspect, space.m_source->Class()) &&
 			!(((aspect & 3) == 1) && aspects.IsValid((Aspects::aspect_t)(aspect + 1), space.m_source->Class()))) 
 		{
-			biome_list[0] = biome;
-			landscape[0] = Space(*space.m_source, aspect);
+			Space this_space(*space.m_source, aspect);
 			//cout << "       permuteAspects seeing if used : " << endl;
 			//landscape.Print();
-
-			if (used_list.Insert(landscape))
+			tile = make_pair(biome, this_space.m_source);
+			if (used_list.Insert(tile))
 			{
-				//cout << "     permuteAspects : added" << endl;
-				found_list.push_back(make_pair(biome, landscape[0].m_source));
-				permuteAspects(biome, landscape[0], found_list, used_list);
+				found_list.push_back(tile);
+				permuteAspects(biome, this_space, found_list, used_list);
 			}
 		}
 	}
 }
 
-void generateUpgrades(vector<pair<biome_t, const Source *>> &found_list, UsedList<size_t, Landscape> &used_list)
+static void generateUpgrades(vector<Tile> &found_list, 
+					  UsedList<size_t, Tile> &used_list)
 {
-	vector<pair<biome_t, const Source *>> new_found_list;
-	Landscape landscape(1);
+	vector<Tile> new_found_list;
 	SourceList upgrades;
 
 	for (auto its = found_list.cbegin(); its != found_list.cend(); ++its)
 	{
-		biome_list[0] = its->first;
-		//cout << "Checking upgrades for ";
-		//biome_list.Print(0);
-		//cout << ":";
-		//its->second->Print();
-		//cout << endl;
 		its->second->GetUpgrades(its->first, upgrades);
 		for (auto itu = upgrades.cbegin(); itu != upgrades.cend(); ++itu)
 		{
-		//	(*itu)->Print();
-		//	cout << endl;
-			landscape[0] = Space(**itu);
-			if (used_list.Insert(landscape))
-			{
-		//		cout << "Adding ";
-		//		landscape.Print();
-		//		cout << "to new found list" << endl;
-				new_found_list.push_back(make_pair(its->first, landscape[0].m_source));
-			}
+			Tile biome_space_pair(its->first, *itu);
+			if (used_list.Insert(biome_space_pair))
+				new_found_list.push_back(biome_space_pair);
 		}
 	}
 	found_list.insert(found_list.end(), new_found_list.begin(), new_found_list.end());
@@ -92,16 +78,15 @@ void enumerateSources(array<unsigned, SOURCE_TYPE_T_MAX> &best_source_level)
 	biome_types.push_back(SWAMP);
 	biome_types.push_back(MOUNTAIN);
 
-	Landscape landscape(biome_types.size());
-	UsedList<size_t, Landscape> used_list;
-	vector<pair<biome_t, const Source*>> found_list;
+	UsedList<size_t, Tile> used_list;
+	vector<Tile> found_list;
 
 	SourceList source_list;
 	for (auto itb = biome_types.cbegin(); itb != biome_types.cend(); ++itb)
 	{
 		giants.GetSources(*itb, source_list);
 		for(auto its = source_list.cbegin(); its != source_list.cend(); ++its)
-			permuteAspects(*itb, Source(**its), found_list, used_list);
+			permuteAspects(*itb, Space(**its), found_list, used_list);
 	}
 
 	size_t saved_size;
@@ -120,19 +105,9 @@ void enumerateSources(array<unsigned, SOURCE_TYPE_T_MAX> &best_source_level)
 
 	for(auto its = found_list.cbegin(); its != found_list.cend(); ++its)
 	{
-#if 0
-		Landscape landscape(1);
-		biome_list[0] = its->first;
-		landscape[0] = Space(*its->second);
-		cout << " ** " << endl;
-		landscape.Print();
-#endif
-
 		const source_type_t t = its->second->Type();
 		const unsigned source_level = its->second->Level();
 		if (source_level > best_source_level[t])
 			best_source_level[t] = source_level;
 	}
-	biome_list.clear();
 }
-
