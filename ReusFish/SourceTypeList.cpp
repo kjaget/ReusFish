@@ -274,7 +274,6 @@ SourceTypeList::SourceTypeList(void) :
 
 unsigned SourceTypeList::GetBestSourceLevel(source_type_t t)
 {
-	//return 0;
 	if (m_init < 2)
 	{
 		// Get list of highest source level for
