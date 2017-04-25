@@ -14,8 +14,6 @@ class UsedListContainer
 {
 	public:
 		UsedListContainer(const T &t_in);
-		UsedListContainer(const UsedListContainer<T, S> &orig);
-		~UsedListContainer();
 		bool operator==(const UsedListContainer<T, S> &rhs) const;
 		void SetHash(void);
 		size_t Hash(void) const;

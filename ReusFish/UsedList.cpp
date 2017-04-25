@@ -6,12 +6,6 @@
 #include "UsedList.hpp"
 
 template <class T, class S>
-UsedListContainer<T,S>::~UsedListContainer()
-{
-	//delete [] m_list;
-}
-
-template <class T, class S>
 bool UsedListContainer<T,S>::operator==(const UsedListContainer<T, S> &rhs) const
 {
 	if (m_size != rhs.m_size)
@@ -39,12 +33,7 @@ void UsedListContainer<Landscape, const Source *>::SetHash(void)
 template <>
 void UsedListContainer<std::pair<biome_t, const Source *>, std::pair<biome_t, const Source *>>::SetHash(void)
 {
-	m_hash = 0;
-	const unsigned size_t_bits_minus_one = CHAR_BIT * sizeof(size_t) - 1;
-	size_t rot_val = (size_t)m_list[0].second;
-	rot_val = ((rot_val >> (3*i)) & ((1 << (size_t_bits_minus_one - 3*i)) - 1))|
-			   (rot_val << (size_t_bits_minus_one - 3*i));
-	m_hash += rot_val;
+	m_hash =  (size_t)m_list[0].second;
 	m_hash += m_list[0].first * 65535ULL;
 }
 
@@ -66,17 +55,6 @@ UsedListContainer<T, S>::UsedListContainer(const T &t_in)
 	m_list[0] = t_in;
 	SetHash();
 }
-
-// Might not need to be explicitly written since it
-// is just a shallow copy?
-template <class T, class S>
-UsedListContainer<T,S>::UsedListContainer(const UsedListContainer<T, S> &orig) :
-	m_list(orig.m_list),
-	m_size(orig.m_size),
-	m_hash(orig.m_hash)
-{
-}
-
 
 template <class T, class S>
 size_t UsedListContainer<T,S>::Hash(void) const
