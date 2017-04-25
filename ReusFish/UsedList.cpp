@@ -1,12 +1,14 @@
 #include <climits>
 #include <cstring>
 
+#include "boost/make_shared.hpp"
+
 #include "UsedList.hpp"
 
 template <class T, class S>
 UsedListContainer<T,S>::~UsedListContainer()
 {
-	delete [] m_list;
+	//delete [] m_list;
 }
 
 template <class T, class S>
@@ -14,7 +16,7 @@ bool UsedListContainer<T,S>::operator==(const UsedListContainer<T, S> &rhs) cons
 {
 	if (m_size != rhs.m_size)
 		return false;
-	for (unsigned i = 0; i < m_size; i++)
+	for (size_t i = 0; i < m_size; i++)
 		if (m_list[i] != rhs.m_list[i])
 			return false;
 	return true;
@@ -38,22 +40,19 @@ template <>
 void UsedListContainer<std::pair<biome_t, const Source *>, std::pair<biome_t, const Source *>>::SetHash(void)
 {
 	m_hash = 0;
-	for (size_t i = 0; i < m_size; i++)
-	{
-		const unsigned size_t_bits_minus_one = CHAR_BIT * sizeof(size_t) - 1;
-		size_t rot_val = (size_t)m_list[i].second;
-		rot_val = ((rot_val >> (3*i)) & ((1 << (size_t_bits_minus_one - 3*i)) - 1))|
-				   (rot_val << (size_t_bits_minus_one - 3*i));
-		m_hash += rot_val;
-		m_hash += m_list[i].first * 65535ULL;
-	}
+	const unsigned size_t_bits_minus_one = CHAR_BIT * sizeof(size_t) - 1;
+	size_t rot_val = (size_t)m_list[0].second;
+	rot_val = ((rot_val >> (3*i)) & ((1 << (size_t_bits_minus_one - 3*i)) - 1))|
+			   (rot_val << (size_t_bits_minus_one - 3*i));
+	m_hash += rot_val;
+	m_hash += m_list[0].first * 65535ULL;
 }
 
 template <>
 UsedListContainer<Landscape, const Source *>::UsedListContainer(const Landscape &t_in)
 {
 	m_size = t_in.size();
-	m_list = new const Source *[m_size];
+	m_list = boost::make_shared<const Source *[]>(m_size);
 	for (size_t i = 0; i < m_size; i++)
 		m_list[i] = t_in[i].m_source;
 	SetHash();
@@ -63,18 +62,19 @@ template <class T, class S>
 UsedListContainer<T, S>::UsedListContainer(const T &t_in)
 {
 	m_size = 1;
-	m_list = new S[m_size];
+	m_list = boost::make_shared<S[]>(m_size);
 	m_list[0] = t_in;
 	SetHash();
 }
 
+// Might not need to be explicitly written since it
+// is just a shallow copy?
 template <class T, class S>
-UsedListContainer<T,S>::UsedListContainer(const UsedListContainer<T, S> &orig)
+UsedListContainer<T,S>::UsedListContainer(const UsedListContainer<T, S> &orig) :
+	m_list(orig.m_list),
+	m_size(orig.m_size),
+	m_hash(orig.m_hash)
 {
-	m_size = orig.m_size;
-	m_list = new S[m_size];
-	memcpy(m_list, orig.m_list, m_size * sizeof (S));
-	m_hash = orig.m_hash;
 }
 
 

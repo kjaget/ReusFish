@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include <boost/shared_ptr.hpp>
+
 #include "Landscape.hpp"
 
 // T is the input type
@@ -19,9 +21,9 @@ class UsedListContainer
 		size_t Hash(void) const;
 
 	private :
-		S      *m_list;
-		size_t  m_size;
-		size_t  m_hash;
+		boost::shared_ptr<S[]> m_list;
+		size_t                 m_size;
+		size_t                 m_hash;
 };
 
 template <class Key, class T, class S = T> class UsedList
