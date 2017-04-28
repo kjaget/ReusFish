@@ -123,7 +123,7 @@ class Great_Blueberry : public Blueberry
 
 		void Create(void)
 		{
-			m_name = "Great Blueberry";
+			m_name = "G.Blueberry";
 			m_base_yield.m_food = 10;
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 2;
@@ -153,7 +153,7 @@ class Superior_Blueberry : public Blueberry
 
 		void Create(void)
 		{
-			m_name = "Superior Blueberry";
+			m_name = "S.Blueberry";
 			m_base_yield.m_food = 20;
 			m_base_yield.m_natura = 3;
 			m_max_aspects = 3;
@@ -224,7 +224,7 @@ class Great_Strawberry : public Strawberry
 
 		void Create(void)
 		{
-			m_name = "Great Strawberry";
+			m_name = "G.Strawberry";
 			m_base_yield.m_food = 10;
 			m_base_yield.m_tech = 6;
 			m_base_yield.m_natura = 6;
@@ -255,7 +255,7 @@ class Superior_Strawberry : public Strawberry
 
 		void Create(void)
 		{
-			m_name = "Superior Strawberry";
+			m_name = "S.Strawberry";
 			m_base_yield.m_food = 20;
 			m_base_yield.m_tech = 8;
 			m_base_yield.m_natura = 9;
@@ -331,7 +331,7 @@ class Great_AppleTree : public AppleTree
 
 		void Create(void)
 		{
-			m_name = "Great AppleTree";
+			m_name = "G.AppleTree";
 			m_base_yield.m_food = 10;
 			m_base_yield.m_natura = 6;
 			m_max_aspects = 3;
@@ -365,7 +365,7 @@ class Superior_AppleTree : public AppleTree
 
 		void Create(void)
 		{
-			m_name = "Superior AppleTree";
+			m_name = "S.AppleTree";
 			m_base_yield.m_food = 20;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 4;
@@ -438,7 +438,7 @@ class Great_PearTree : public PearTree
 
 		void Create(void)
 		{
-			m_name = "Great PearTree";
+			m_name = "G.PearTree";
 			m_base_yield.m_food = 10;
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 4;
@@ -474,7 +474,7 @@ class Superior_PearTree : public PearTree
 
 		void Create(void)
 		{
-			m_name = "Superior PearTree";
+			m_name = "S.PearTree";
 			m_base_yield.m_food = 20;
 			m_base_yield.m_natura = 4;
 			m_max_aspects = 5;
@@ -544,7 +544,7 @@ class Great_CherryTree : public CherryTree
 
 		void Create(void)
 		{
-			m_name = "Great CherryTree";
+			m_name = "G.CherryTree";
 			m_base_yield.m_food = 20;
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 5;
@@ -623,7 +623,7 @@ class Great_PlumTree : public PlumTree
 
 		void Create(void)
 		{
-			m_name = "Great PlumTree";
+			m_name = "G.PlumTree";
 			m_base_yield.m_food = 30;
 			m_base_yield.m_tech = 30;
 			m_base_yield.m_natura = 10;
@@ -737,7 +737,7 @@ class Great_Dandelion : public Dandelion
 
 		void Create(void)
 		{
-			m_name = "Great Dandelion";
+			m_name = "G.Dandelion";
 			m_base_yield.m_tech = 10;
 			m_base_yield.m_natura = 4;
 			m_max_aspects = 2;
@@ -771,7 +771,7 @@ class Superior_Dandelion : public Dandelion
 
 		void Create(void)
 		{
-			m_name = "Superior Dandelion";
+			m_name = "S.Dandelion";
 			m_base_yield.m_tech = 20;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 3;
@@ -851,7 +851,7 @@ class Great_Nightshade : public Nightshade
 
 		void Create(void)
 		{
-			m_name = "Great Nightshade";
+			m_name = "G.Nightshade";
 			m_base_yield.m_tech = 10;
 			m_base_yield.m_natura = 4;
 			m_max_aspects = 3;
@@ -885,7 +885,7 @@ class Superior_Nightshade : public Nightshade
 
 		void Create(void)
 		{
-			m_name = "Superior Nightshade";
+			m_name = "S.Nightshade";
 			m_base_yield.m_tech = 20;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 4;
@@ -958,7 +958,7 @@ class Great_Foxglove : public Foxglove
 
 		void Create(void)
 		{
-			m_name = "Great Foxglove";
+			m_name = "G.Foxglove";
 			m_base_yield.m_tech = 12;
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 4;
@@ -988,7 +988,7 @@ class Superior_Foxglove : public Foxglove
 
 		void Create(void)
 		{
-			m_name = "Superior Foxglove";
+			m_name = "S.Foxglove";
 			m_base_yield.m_tech = 24;
 			m_base_yield.m_natura = 3;
 			m_max_aspects = 5;
@@ -1093,7 +1093,7 @@ class Great_WitheredShrub : public WitheredShrub
 
 		void Create(void)
 		{
-			m_name = "Great Withered Shrub";
+			m_name = "G.Withered Shrub";
 			m_base_yield.m_natura = 5;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -1122,7 +1122,7 @@ class Superior_WitheredShrub : public WitheredShrub
 
 		void Create(void)
 		{
-			m_name = "Superior Withered Shrub";
+			m_name = "S.Withered Shrub";
 			m_base_yield.m_natura = 10;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -1191,7 +1191,7 @@ class Great_Agave : public Agave
 
 		void Create(void)
 		{
-			m_name = "Great Agave";
+			m_name = "G.Agave";
 			m_base_yield.m_food = 10;
 			m_base_yield.m_natura = 4;
 			m_max_aspects = 3;
@@ -1221,7 +1221,7 @@ class Superior_Agave : public Agave
 
 		void Create(void)
 		{
-			m_name = "Superior Agave";
+			m_name = "S.Agave";
 			m_base_yield.m_food = 20;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 4;
@@ -1312,7 +1312,7 @@ class Great_BarrelCactus : public BarrelCactus
 
 		void Create(void)
 		{
-			m_name = "Great Barrel Cactus";
+			m_name = "G.Barrel Cactus";
 			m_base_yield.m_tech   = 10;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 3;
@@ -1342,7 +1342,7 @@ class Superior_BarrelCactus : public BarrelCactus
 
 		void Create(void)
 		{
-			m_name = "Superior Barrel Cactus";
+			m_name = "S.Barrel Cactus";
 			m_base_yield.m_tech   = 20;
 			m_base_yield.m_natura = 16;
 			m_max_aspects = 4;
@@ -1411,7 +1411,7 @@ class Great_DatePalm : public DatePalm
 
 		void Create(void)
 		{
-			m_name = "Great Date Palm";
+			m_name = "G.Date Palm";
 			m_base_yield.m_food   = 12;
 			m_base_yield.m_natura = 7;
 			m_max_aspects = 4;
@@ -1441,7 +1441,7 @@ class Superior_DatePalm : public DatePalm
 
 		void Create(void)
 		{
-			m_name = "Superior Date Palm";
+			m_name = "S.Date Palm";
 			m_base_yield.m_food   = 20;
 			m_base_yield.m_natura = 12;
 			m_max_aspects = 5;
@@ -1510,7 +1510,7 @@ class Great_AloeVera : public AloeVera
 
 		void Create(void)
 		{
-			m_name = "Great Aloe Vera";
+			m_name = "G.Aloe Vera";
 			m_base_yield.m_food   = 20;
 			m_base_yield.m_natura = 6;
 			m_max_aspects = 4;
@@ -1540,7 +1540,7 @@ class Superior_AloeVera : public AloeVera
 
 		void Create(void)
 		{
-			m_name = "Superior Aloe Vera";
+			m_name = "S.Aloe Vera";
 			m_base_yield.m_food   = 40;
 			m_base_yield.m_natura = 12;
 			m_max_aspects = 5;
@@ -1614,7 +1614,7 @@ class Great_DesertLime : public DesertLime
 
 		void Create(void)
 		{
-			m_name = "Great Desert Lime";
+			m_name = "G.Desert Lime";
 			m_base_yield.m_food   = 30;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 5;
@@ -1688,7 +1688,7 @@ class Great_ChilliPepper : public ChilliPepper
 
 		void Create(void)
 		{
-			m_name = "Great Chilli Pepper";
+			m_name = "G.Chilli Pepper";
 			m_base_yield.m_food   = 16;
 			m_base_yield.m_tech   = 16;
 			m_base_yield.m_natura = 8;
@@ -1832,7 +1832,7 @@ class Great_Elderberry : public Elderberry
 
 		void Create(void)
 		{
-			m_name = "Great Elderberry";
+			m_name = "G.Elderberry";
 			m_base_yield.m_food   = 10;
 			m_base_yield.m_natura = 4;
 			m_max_aspects = 2;
@@ -1866,7 +1866,7 @@ class Superior_Elderberry : public Elderberry
 
 		void Create(void)
 		{
-			m_name = "Superior Elderberry";
+			m_name = "S.Elderberry";
 			m_base_yield.m_food   = 20;
 			m_base_yield.m_natura = 6;
 			m_max_aspects = 3;
@@ -1940,7 +1940,7 @@ class Great_Peppermint : public Peppermint
 
 		void Create(void)
 		{
-			m_name = "Great Peppermint";
+			m_name = "G.Peppermint";
 			m_base_yield.m_tech   = 12;
 			m_base_yield.m_natura = 3;
 			m_max_aspects = 2;
@@ -1970,7 +1970,7 @@ class Superior_Peppermint : public Peppermint
 
 		void Create(void)
 		{
-			m_name = "Superior Peppermint";
+			m_name = "S.Peppermint";
 			m_base_yield.m_tech   = 24;
 			m_base_yield.m_natura = 6;
 			m_max_aspects = 3;
@@ -2042,7 +2042,7 @@ class Great_Tomato : public Tomato
 
 		void Create(void)
 		{
-			m_name = "Great Tomato";
+			m_name = "G.Tomato";
 			m_base_yield.m_food   = 10;
 			m_base_yield.m_tech   = 2;
 			m_base_yield.m_natura = 3;
@@ -2073,7 +2073,7 @@ class Superior_Tomato : public Tomato
 
 		void Create(void)
 		{
-			m_name = "Superior Tomato";
+			m_name = "S.Tomato";
 			m_base_yield.m_food   = 20;
 			m_base_yield.m_tech   = 4;
 			m_base_yield.m_natura = 6;
@@ -2144,7 +2144,7 @@ class Great_Pineapple : public Pineapple
 
 		void Create(void)
 		{
-			m_name = "Great Pineapple";
+			m_name = "G.Pineapple";
 			m_base_yield.m_food   = 14;
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 2;
@@ -2174,7 +2174,7 @@ class Superior_Pineapple : public Pineapple
 
 		void Create(void)
 		{
-			m_name = "Superior Pineapple";
+			m_name = "S.Pineapple";
 			m_base_yield.m_food   = 28;
 			m_base_yield.m_natura = 4;
 			m_max_aspects = 2;
@@ -2244,7 +2244,7 @@ class Great_Marshmallow : public Marshmallow
 
 		void Create(void)
 		{
-			m_name = "Great Marshmallow";
+			m_name = "G.Marshmallow";
 			m_base_yield.m_tech   = 8;
 			m_base_yield.m_natura = 6;
 			m_max_aspects = 3;
@@ -2274,7 +2274,7 @@ class Superior_Marshmallow : public Marshmallow
 
 		void Create(void)
 		{
-			m_name = "Superior Marshmallow";
+			m_name = "S.Marshmallow";
 			m_base_yield.m_tech   = 16;
 			m_base_yield.m_natura = 14;
 			m_max_aspects = 4;
@@ -2343,7 +2343,7 @@ class Great_Papaya : public Papaya
 
 		void Create(void)
 		{
-			m_name = "Great Papaya";
+			m_name = "G.Papaya";
 			m_base_yield.m_food   = 12;
 			m_base_yield.m_natura = 6;
 			m_max_aspects = 4;
@@ -2373,7 +2373,7 @@ class Superior_Papaya : public Papaya
 
 		void Create(void)
 		{
-			m_name = "Superior Papaya";
+			m_name = "S.Papaya";
 			m_base_yield.m_food   = 24;
 			m_base_yield.m_natura = 12;
 			m_max_aspects = 5;
@@ -2447,7 +2447,7 @@ class Great_WhiteWillow : public WhiteWillow
 
 		void Create(void)
 		{
-			m_name = "Great White Willow";
+			m_name = "G.White Willow";
 			m_base_yield.m_tech   = 12;
 			m_base_yield.m_natura = 3;
 			m_max_aspects = 4;
@@ -2481,7 +2481,7 @@ class Superior_WhiteWillow : public WhiteWillow
 
 		void Create(void)
 		{
-			m_name = "Superior White Willow";
+			m_name = "S.White Willow";
 			m_base_yield.m_tech   = 24;
 			m_base_yield.m_natura = 6;
 			m_max_aspects = 5;
@@ -2558,7 +2558,7 @@ class Great_Coffea : public Coffea
 
 		void Create(void)
 		{
-			m_name = "Great Coffea";
+			m_name = "G.Coffea";
 			m_base_yield.m_food   = 30;
 			m_base_yield.m_tech   = 16;
 			m_base_yield.m_natura = 10;
@@ -2632,7 +2632,7 @@ class Great_Hemp : public Hemp
 
 		void Create(void)
 		{
-			m_name = "Great Hemp";
+			m_name = "G.Hemp";
 			m_base_yield.m_tech   = 16;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 5;
@@ -2771,7 +2771,7 @@ class Great_Kumquat : public Kumquat
 
 		void Create(void)
 		{
-			m_name = "Great Kumquat";
+			m_name = "G.Kumquat";
 			m_base_yield.m_food   = 10;
 			m_base_yield.m_natura = 2;
 			m_max_aspects = 2;
@@ -2801,7 +2801,7 @@ class Superior_Kumquat : public Kumquat
 
 		void Create(void)
 		{
-			m_name = "Superior Kumquat";
+			m_name = "S.Kumquat";
 			m_base_yield.m_food   = 20;
 			m_base_yield.m_natura = 4;
 			m_max_aspects = 3;
@@ -2875,7 +2875,7 @@ class Great_Ginger : public Ginger
 
 		void Create(void)
 		{
-			m_name = "Great Ginger";
+			m_name = "G.Ginger";
 			m_base_yield.m_tech   = 10;
 			m_base_yield.m_natura = 6;
 			m_max_aspects = 2;
@@ -2909,7 +2909,7 @@ class Superior_Ginger : public Ginger
 
 		void Create(void)
 		{
-			m_name = "Superior Ginger";
+			m_name = "S.Ginger";
 			m_base_yield.m_tech   = 20;
 			m_base_yield.m_natura = 5;
 			m_max_aspects = 3;
@@ -2985,7 +2985,7 @@ class Great_Dragonfruit : public Dragonfruit
 
 		void Create(void)
 		{
-			m_name = "Great Dragonfruit";
+			m_name = "G.Dragonfruit";
 			m_base_yield.m_food   = 8;
 			m_base_yield.m_tech   = 20;
 			m_base_yield.m_natura = 2;
@@ -3016,7 +3016,7 @@ class Superior_Dragonfruit : public Dragonfruit
 
 		void Create(void)
 		{
-			m_name = "Superior Dragonfruit";
+			m_name = "S.Dragonfruit";
 			m_base_yield.m_food   = 16;
 			m_base_yield.m_tech   = 40;
 			m_base_yield.m_natura = 4;
@@ -3093,7 +3093,7 @@ class Great_Kiwifruit : public Kiwifruit
 
 		void Create(void)
 		{
-			m_name = "Great Kiwifruit";
+			m_name = "G.Kiwifruit";
 			m_base_yield.m_food   = 15;
 			m_base_yield.m_tech   = 10;
 			m_base_yield.m_natura = 3;
@@ -3128,7 +3128,7 @@ class Superior_Kiwifruit : public Kiwifruit
 
 		void Create(void)
 		{
-			m_name = "Superior Kiwifruit";
+			m_name = "S.Kiwifruit";
 			m_base_yield.m_food   = 15;
 			m_base_yield.m_tech   = 10;
 			m_base_yield.m_natura = 3;
@@ -3203,7 +3203,7 @@ class Great_Lychee : public Lychee
 
 		void Create(void)
 		{
-			m_name = "Great Lychee";
+			m_name = "G.Lychee";
 			m_base_yield.m_food   = 20;
 			m_base_yield.m_natura = 8;
 			m_max_aspects = 5;
@@ -3273,7 +3273,7 @@ class Great_Cinnamomum : public Cinnamomum
 
 		void Create(void)
 		{
-			m_name = "Great Cinnamomum";
+			m_name = "G.Cinnamomum";
 			m_base_yield.m_food   = 30;
 			m_base_yield.m_wealth = 30;
 			m_base_yield.m_natura = 2;
@@ -3349,7 +3349,7 @@ class Great_TeaPlant : public TeaPlant
 
 		void Create(void)
 		{
-			m_name = "Great Tea Plant";
+			m_name = "G.Tea Plant";
 			m_base_yield.m_tech   = 20;
 			m_base_yield.m_awe    = 10;
 			m_base_yield.m_natura = 14;

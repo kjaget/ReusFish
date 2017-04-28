@@ -283,15 +283,46 @@ int main (int argc, char **argv)
 	Giants giants;
 	RunState run_state;
 
-#if 1
-	Yield y(Castle().GetCompletionRequirements());
-	y.Add(Yield(0,0,0,0,60,0), YIELD_MASK_ALL);
+	Yield y(Lighthouse().GetCompletionRequirements());
+	y.Add(Yield(0,0,0,25,0,0), YIELD_MASK_ALL);
 	spaces.SetGoal(y);
-
 	spaces.StartCity();
-	spaces.AddSpace(DESERT);
-	spaces.AddSpace(DESERT);
+#if 0
+	spaces.AddSpace(MOUNTAIN, Bank());
 	spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(DESERT);
+	spaces.AddSpace(DESERT, Geologist());
+	spaces.AddSpace(DESERT, City());
+	spaces.AddSpace(DESERT, City());
+	spaces.AddSpace(DESERT, City());
+	spaces.AddSpace(DESERT, City());
+	spaces.AddSpace(FOREST, University());
+	spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(MOUNTAIN);
+	spaces.AddSpace(MOUNTAIN);
+	spaces.EndCity();
+#endif
+
+#if 1
+	spaces.StartCity();
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN, Lighthouse());
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN, Harbor());
+	spaces.AddSpace(FOREST, City());
+	spaces.AddSpace(FOREST, City());
+	spaces.AddSpace(FOREST, City());
+	spaces.AddSpace(FOREST, City());
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
+	spaces.AddSpace(OCEAN);
 	spaces.EndCity();
 #endif
 

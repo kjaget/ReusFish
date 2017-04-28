@@ -246,10 +246,10 @@ Market::Market(void) :
 
 void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
+#if 0
 	// Pelt Traders
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,15,0,0,0), mask, ANIMAL, 3);
 
-#if 0
 	// Animal market
 	if (mask & YIELD_MASK_WEALTH)
 	{
@@ -258,7 +258,7 @@ void Market::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 
 		for (unsigned i = std::max((int)loc - 2,0); (i <= loc + 2) && (i < spaces.size()); i+= 1)
 		{
-			if ((i != loc) && (biome_list[i] = DESERT) && spaces[i].m_source && (spaces[i].m_source->Class() == ANIMAL) && !seen_flag[i])
+			if ((i != loc) && (biome_list[i] == DESERT) && spaces[i].m_source && (spaces[i].m_source->Class() == ANIMAL) && !seen_flag[i])
 			{
 				seen_flag[i] = true;
 				yield.m_wealth += 25;
@@ -318,7 +318,7 @@ void Bank::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 {
 	(void)mask;
 
-#if 0
+#if 1
 	// Protectionism
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,50,0,0,0), mask, GOLD, MUSK_DEER, COYOTE, 3);
 	for (unsigned i = m_start; (mask & YIELD_MASK_WEALTH) && (i <= m_end) && (i < spaces.size()); i+= 1)
@@ -333,7 +333,7 @@ void Bank::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsi
 	}
 
 #endif
-#if 1
+#if 0
 	// Development Aid
 	yield.AddWealth(60,mask);
 	for (unsigned i = m_start; (mask & (YIELD_MASK_WEALTH | YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_AWE) && (i <= m_end)) && (i < spaces.size()); i+= 1)
@@ -401,15 +401,16 @@ void Lighthouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 	yield.Reset();
 
 	// Clear Blue - verify limit is broken?
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, TUNA, PARROTFISH);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(35,0,0,0,5,0), mask, TUNA, PARROTFISH);
 
+#if 0
 	Yield temp_yield;
 	temp_yield.m_range = 2;
 	AddAllInRange(spaces, loc, yield, Yield(0,0,0,0,20,0), mask, CLOWNFISH,2);
 	yield.Add(temp_yield, mask);
+#endif
 
-#if 0
-	// hard coded city extents for now...
+#if 1
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_WEALTH | YIELD_MASK_TECH))
 	{
 		unsigned marlin_seabass_count = 0;
@@ -428,10 +429,13 @@ void Lighthouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 				}
 				if (t == ANGLERFISH)
 					yield.AddWealth(50, mask);
+#if 0
 				else if ((t == MARLIN) || (t == SEABASS))
 					marlin_seabass_count += 1;
+#endif
 			}
 		}
+#if 0
 		// Fishing Sport
 		if (marlin_seabass_count <= 2)
 		{
@@ -443,6 +447,7 @@ void Lighthouse::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 			yield.AddFood(100, mask);
 			yield.AddWealth(50, mask);
 		}
+#endif
 	}
 #endif
 }
@@ -516,7 +521,30 @@ University::University(void) :
 void University::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(10,5,0,0,0,0), mask, PLANT, 3);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(10,5,0,0,0,0), mask, PLANT, 3);
+#if 1
+	if (mask & YIELD_MASK_TECH)
+	{
+		std::array<bool,SOURCE_TYPE_T_MAX> seen_flag = {0};
+
+		for (unsigned i = m_start; i <= m_end; i+= 1)
+		{
+			if ((i != loc) && ((biome_list[i] == SWAMP) || (biome_list[i] == FOREST)) && spaces[i].m_source && (spaces[i].m_source->Class() == PLANT) && !seen_flag[i])
+			{
+				seen_flag[i] = true;
+				yield.m_tech += 15;
+			}
+			if (spaces[i].m_source && ((spaces[i].m_source->Type() == DANDELION) || (spaces[i].m_source->Type() == PEPPERMINT)))
+			{
+				std::vector<unsigned> tech_yield;
+				Yield temp_yield;
+				GetTech(spaces, i, temp_yield, tech_yield);
+
+				yield.m_tech += tech_yield[0]/2;
+			}
+		}
+	}
+#endif
 //	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,15,0,0,0,0), mask, ANIMAL);
 }
 University* University::Clone(void) const
@@ -567,12 +595,14 @@ Alchemist* Alchemist::Clone(void) const
 Apothecary::Apothecary(void) :
 	Building(Yield(200, 200, 50, 0, 0, 0))
 {
+	SetClassCompletionCount(PLANT, 3);
 	m_name = "Apothecary";
 }
 
 void Apothecary::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, unsigned mask) const
 {
 	yield.Reset();
+#if 0
 	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_AWE))
 	{
 		for (unsigned i = std::max<int>((int)loc - 2, 0); (i <= (loc + 2)) && (i < spaces.size()); i+= 1)
@@ -585,6 +615,31 @@ void Apothecary::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield
 				this_yield.m_tech *= 1.5;
 				this_yield.m_awe   = 15;
 				yield += this_yield;
+			}
+		}
+	}
+#endif
+	if (mask & (YIELD_MASK_FOOD | YIELD_MASK_TECH | YIELD_MASK_AWE | YIELD_MASK_NATURA))
+	{
+		std::array<bool,SOURCE_TYPE_T_MAX> seen_flag = {0};
+
+		for (unsigned i = m_start; i <= m_end; i+= 1)
+		{
+			if (spaces[i].m_source)
+			{
+				if ((i != loc) && ((biome_list[i] == SWAMP) || (biome_list[i] == FOREST)) && (spaces[i].m_source->Class() == PLANT) && !seen_flag[i])
+				{
+					seen_flag[i] = true;
+					yield.AddFood(30, mask);
+					yield.AddTech(30, mask);
+				}
+
+				source_type_t t = spaces[i].m_source->Type();
+				if ((t == PLUM_TREE) || (t == CHERRY_TREE) || (t == HEMP) || (t == COFFEA))
+				{
+					spaces[i].m_yield.AddNatura(10, mask);
+					spaces[i].m_yield.AddAwe(5, mask);
+				}
 			}
 		}
 	}
@@ -695,7 +750,8 @@ void Hamlet::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yield, un
 	yield.Reset();
 	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,0,0,5,0), mask, ANIMAL, 4);
 	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(75,25,0,0,0,0), mask, WOLF, WISENT, 3);
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(45,0,30,0,0,0), mask, TUNA, MARLIN, 3);
+	//AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(45,0,30,0,0,0), mask, TUNA, MARLIN, 3);
+	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(60,0,0,0,0,0), mask, CHERRY_TREE, PLUM_TREE, 3);
 }
 Hamlet* Hamlet::Clone(void) const
 {
@@ -746,8 +802,9 @@ void Observatory::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
 {
 	yield.Reset();
 	// Licensed Breakthrough
-	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,45,0,0,0), mask, WHITE_WILLOW, NIGHTSHADE, BARREL_CACTUS, 4);
+//	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,0,45,0,0,0), mask, WHITE_WILLOW, NIGHTSHADE, BARREL_CACTUS, 4);
 
+#if 0
 	// Advanced Equipment
 	bool zinc_seen = false;
 	bool aluminium_seen = false;
@@ -775,6 +832,7 @@ void Observatory::GetYield(std::vector<Space> &spaces, unsigned loc, Yield &yiel
 		}
 	}
 	AddIfAdjacent(spaces, loc, yield, Yield(0,30,0,0,0,0), ZINC, ALUMINIUM, IRON);
+#endif
 	// Active Researchers
 	AddAllInRange(spaces, loc, yield, m_start, m_end, Yield(0,25,0,0,0,0), mask, COFFEA, TEA_PLANT);
 }

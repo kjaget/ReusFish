@@ -119,7 +119,7 @@ class Great_Agate : public Agate
 
 		void Create(void)
 		{
-			m_name = "Great Agate";
+			m_name = "G.Agate";
 			m_base_yield.m_wealth = 15;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -149,7 +149,7 @@ class Superior_Agate : public Agate
 
 		void Create(void)
 		{
-			m_name = "Superior Agate";
+			m_name = "S.Agate";
 			m_base_yield.m_wealth = 20;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -219,7 +219,7 @@ class Great_Quartz : public Quartz
 
 		void Create(void)
 		{
-			m_name = "Great Quartz";
+			m_name = "G.Quartz";
 			m_base_yield.m_wealth = 15;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -248,7 +248,7 @@ class Superior_Quartz : public Quartz
 
 		void Create(void)
 		{
-			m_name = "Superior Quartz";
+			m_name = "S.Quartz";
 			m_base_yield.m_wealth = 20;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -317,7 +317,7 @@ class Great_Stone : public Stone
 
 		void Create(void)
 		{
-			m_name = "Great Stone";
+			m_name = "G.Stone";
 			m_base_yield.m_tech = 15;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -346,7 +346,7 @@ class Superior_Stone : public Stone
 
 		void Create(void)
 		{
-			m_name = "Superior Stone";
+			m_name = "S.Stone";
 			m_base_yield.m_tech = 20;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -415,7 +415,7 @@ class Great_Marble : public Marble
 
 		void Create(void)
 		{
-			m_name = "Great Marble";
+			m_name = "G.Marble";
 			m_base_yield.m_tech = 15;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -444,7 +444,7 @@ class Superior_Marble : public Marble
 
 		void Create(void)
 		{
-			m_name = "Superior Marble";
+			m_name = "S.Marble";
 			m_base_yield.m_tech = 20;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -512,7 +512,7 @@ class Great_Topaz : public Topaz
 
 		void Create(void)
 		{
-			m_name = "Great Topaz";
+			m_name = "G.Topaz";
 			m_base_yield.m_wealth = 15;
 			m_max_aspects = 3;
 			m_level = 2;
@@ -541,7 +541,7 @@ class Superior_Topaz : public Topaz
 
 		void Create(void)
 		{
-			m_name = "Superior Topaz";
+			m_name = "S.Topaz";
 			m_base_yield.m_wealth = 20;
 			m_max_aspects = 4;
 			m_level = 3;
@@ -612,7 +612,7 @@ class Great_Salt : public Salt
 
 		void Create(void)
 		{
-			m_name = "Great Salt";
+			m_name = "G.Salt";
 			m_base_yield.m_food   = 10;
 			m_base_yield.m_tech   = 10;
 			m_base_yield.m_wealth = 10;
@@ -643,7 +643,7 @@ class Superior_Salt : public Salt
 
 		void Create(void)
 		{
-			m_name = "Superior Salt";
+			m_name = "S.Salt";
 			m_base_yield.m_food   = 15;
 			m_base_yield.m_tech   = 15;
 			m_base_yield.m_wealth = 15;
@@ -715,7 +715,7 @@ class Great_Onyx : public Onyx
 
 		void Create(void)
 		{
-			m_name = "Great Onyx";
+			m_name = "G.Onyx";
 			m_base_yield.m_wealth = 16;
 			m_max_aspects = 4;
 			m_level = 2;
@@ -744,7 +744,7 @@ class Superior_Onyx : public Onyx
 
 		void Create(void)
 		{
-			m_name = "Superior Onyx";
+			m_name = "S.Onyx";
 			m_base_yield.m_wealth = 18;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -813,7 +813,7 @@ class Great_Copper : public Copper
 
 		void Create(void)
 		{
-			m_name = "Great Copper";
+			m_name = "G.Copper";
 			m_base_yield.m_tech = 15;
 			m_max_aspects = 3;
 			m_level = 2;
@@ -842,7 +842,7 @@ class Superior_Copper : public Copper
 
 		void Create(void)
 		{
-			m_name = "Superior Copper";
+			m_name = "S.Copper";
 			m_base_yield.m_tech = 20;
 			m_max_aspects = 4;
 			m_level = 3;
@@ -911,7 +911,7 @@ class Great_Phosphorus : public Phosphorus
 
 		void Create(void)
 		{
-			m_name = "Great Phosphorus";
+			m_name = "G.Phosphorus";
 			m_base_yield.m_tech = 20;
 			m_max_aspects = 4;
 			m_level = 2;
@@ -940,7 +940,7 @@ class Superior_Phosphorus : public Phosphorus
 
 		void Create(void)
 		{
-			m_name = "Superior Phosphorus";
+			m_name = "S.Phosphorus";
 			m_base_yield.m_tech = 25;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -1010,7 +1010,7 @@ class Great_Iron : public Iron
 
 		void Create(void)
 		{
-			m_name = "Great Iron";
+			m_name = "G.Iron";
 			m_base_yield.m_tech = 20;
 			m_max_aspects = 4;
 			m_level = 2;
@@ -1039,7 +1039,7 @@ class Superior_Iron : public Iron
 
 		void Create(void)
 		{
-			m_name = "Superior Iron";
+			m_name = "S.Iron";
 			m_base_yield.m_tech = 25;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -1108,7 +1108,7 @@ class Great_Gold : public Gold
 
 		void Create(void)
 		{
-			m_name = "Great Gold";
+			m_name = "G.Gold";
 			m_base_yield.m_tech = 30;
 			m_max_aspects = 6;
 			m_level = 3;
@@ -1179,7 +1179,7 @@ class Great_Silver : public Silver
 
 		void Create(void)
 		{
-			m_name = "Great Silver";
+			m_name = "G.Silver";
 			m_base_yield.m_tech  = 20;
 			m_base_yield.m_wealth = 20;
 			m_max_aspects = 6;
@@ -1250,7 +1250,7 @@ class Great_Platinum : public Platinum
 
 		void Create(void)
 		{
-			m_name = "Great Platinum";
+			m_name = "G.Platinum";
 			m_base_yield.m_wealth = 20;
 			m_base_yield.m_awe    = 8;
 			m_max_aspects = 6; // KCJ check
@@ -1320,7 +1320,7 @@ class Great_Aluminium : public Aluminium
 
 		void Create(void)
 		{
-			m_name = "Great Aluminium";
+			m_name = "G.Aluminium";
 			m_base_yield.m_tech = 25;
 			m_max_aspects = 6;
 			m_level = 3;
@@ -1390,7 +1390,7 @@ class Great_Zinc : public Zinc
 
 		void Create(void)
 		{
-			m_name = "Great Zinc";
+			m_name = "G.Zinc";
 			m_base_yield.m_tech = 25;
 			m_max_aspects = 6;
 			m_level = 3;

@@ -63,7 +63,7 @@ class Great_Mackerel : public Mackerel
 
 		void Create(void)
 		{
-			m_name = "Great Mackerel";
+			m_name = "G.Mackerel";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 1;
 			m_level = 2;
@@ -87,7 +87,7 @@ class Superior_Mackerel : public Mackerel
 
 		void Create(void)
 		{
-			m_name = "Superior Mackerel";
+			m_name = "S.Mackerel";
 			m_base_yield.m_food = 8;
 			m_max_aspects = 2;
 			m_level = 3;
@@ -149,7 +149,7 @@ class Great_Clownfish : public Clownfish
 
 		void Create(void)
 		{
-			m_name = "Great Clownfish";
+			m_name = "G.Clownfish";
 			m_base_yield.m_wealth = 4;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -178,7 +178,7 @@ class Superior_Clownfish : public Clownfish
 
 		void Create(void)
 		{
-			m_name = "Superior Clownfish";
+			m_name = "S.Clownfish";
 			m_base_yield.m_wealth = 8;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -248,7 +248,7 @@ class Great_Seabass: public Seabass
 
 		void Create(void)
 		{
-			m_name = "Great Seabass";
+			m_name = "G.Seabass";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 3;
 			m_level = 2;
@@ -277,7 +277,7 @@ class Superior_Seabass: public Seabass
 
 		void Create(void)
 		{
-			m_name = "Superior Seabass";
+			m_name = "S.Seabass";
 			m_base_yield.m_food = 8;
 			m_max_aspects = 4;
 			m_level = 3;
@@ -346,7 +346,7 @@ class Great_Parrotfish: public Parrotfish
 
 		void Create(void)
 		{
-			m_name = "Great Parrotfish";
+			m_name = "G.Parrotfish";
 			m_base_yield.m_wealth = 3;
 			m_max_aspects = 3;
 			m_level = 2;
@@ -374,7 +374,7 @@ class Superior_Parrotfish: public Parrotfish
 
 		void Create(void)
 		{
-			m_name = "Superior Parrotfish";
+			m_name = "S.Parrotfish";
 			m_base_yield.m_wealth = 6;
 			m_max_aspects = 4;
 			m_level = 3;
@@ -444,7 +444,7 @@ class Great_Marlin : public Marlin
 
 		void Create(void)
 		{
-			m_name = "Great Marlin";
+			m_name = "G.Marlin";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -510,7 +510,7 @@ class Great_Anglerfish: public Anglerfish
 
 		void Create(void)
 		{
-			m_name = "Great Anglerfish";
+			m_name = "G.Anglerfish";
 			m_base_yield.m_wealth = 12;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -577,7 +577,7 @@ class Great_Tuna: public Tuna
 
 		void Create(void)
 		{
-			m_name = "Great Tuna";
+			m_name = "G.Tuna";
 			m_base_yield.m_food = 8;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -746,7 +746,7 @@ class Great_Chicken : public Chicken
 
 		void Create(void)
 		{
-			m_name = "Great Chicken";
+			m_name = "G.Chicken";
 			m_base_yield.m_food = 2;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -775,7 +775,7 @@ class Superior_Chicken : public Chicken
 
 		void Create(void)
 		{
-			m_name = "Superior Chicken";
+			m_name = "S.Chicken";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -843,7 +843,7 @@ class Great_Rabbit : public Rabbit
 
 		void Create(void)
 		{
-			m_name = "Great Rabbit";
+			m_name = "G.Rabbit";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 3;
 			m_level = 2;
@@ -872,7 +872,7 @@ class Superior_Rabbit : public Rabbit
 
 		void Create(void)
 		{
-			m_name = "Superior Rabbit";
+			m_name = "S.Rabbit";
 			m_base_yield.m_food = 8;
 			m_max_aspects = 4;
 			m_level = 3;
@@ -941,7 +941,7 @@ class Great_Beaver: public Beaver
 
 		void Create(void)
 		{
-			m_name = "Great Beaver";
+			m_name = "G.Beaver";
 			m_base_yield.m_food   = 4;
 			m_base_yield.m_wealth = 2;
 			m_max_aspects = 3;
@@ -971,7 +971,7 @@ class Superior_Beaver: public Beaver
 
 		void Create(void)
 		{
-			m_name = "Superior Beaver";
+			m_name = "S.Beaver";
 			m_base_yield.m_food   = 8;
 			m_base_yield.m_wealth = 4;
 			m_max_aspects = 4;
@@ -1039,7 +1039,7 @@ class Great_Deer: public Deer
 
 		void Create(void)
 		{
-			m_name = "Great Deer";
+			m_name = "G.Deer";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 4;
 			m_level = 2;
@@ -1069,7 +1069,7 @@ class Superior_Deer: public Deer
 
 		void Create(void)
 		{
-			m_name = "Superior Deer";
+			m_name = "S.Deer";
 			m_base_yield.m_food = 8;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -1139,7 +1139,7 @@ class Great_Boar : public Boar
 
 		void Create(void)
 		{
-			m_name = "Great Boar";
+			m_name = "G.Boar";
 			m_base_yield.m_food   = 6;
 			m_base_yield.m_wealth = 2;
 			m_base_yield.m_danger = 2;
@@ -1170,7 +1170,7 @@ class Superior_Boar : public Boar
 
 		void Create(void)
 		{
-			m_name = "Superior Boar";
+			m_name = "S.Boar";
 			m_base_yield.m_food   = 8;
 			m_base_yield.m_wealth = 4;
 			m_base_yield.m_danger = 3;
@@ -1242,7 +1242,7 @@ class Great_Wisent: public Wisent
 
 		void Create(void)
 		{
-			m_name = "Great Wisent";
+			m_name = "G.Wisent";
 			m_base_yield.m_food   = 6;
 			m_base_yield.m_wealth = 3;
 			m_max_aspects = 5;
@@ -1346,7 +1346,7 @@ class Great_Stoat : public Stoat
 
 		void Create(void)
 		{
-			m_name = "Great Stoat";
+			m_name = "G.Stoat";
 			m_base_yield.m_wealth = 2;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -1375,7 +1375,7 @@ class Superior_Stoat : public Stoat
 
 		void Create(void)
 		{
-			m_name = "Superior Stoat";
+			m_name = "S.Stoat";
 			m_base_yield.m_wealth = 4;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -1444,7 +1444,7 @@ class Great_Fox : public Fox
 
 		void Create(void)
 		{
-			m_name = "Great Fox";
+			m_name = "G.Fox";
 			m_base_yield.m_wealth = 2;
 			m_base_yield.m_danger = 2;
 			m_max_aspects = 3;
@@ -1474,7 +1474,7 @@ class Superior_Fox : public Fox
 
 		void Create(void)
 		{
-			m_name = "Superior Fox";
+			m_name = "S.Fox";
 			m_base_yield.m_wealth = 4;
 			m_base_yield.m_danger = 3;
 			m_max_aspects = 4;
@@ -1545,7 +1545,7 @@ class Great_Wolf: public Wolf
 
 		void Create(void)
 		{
-			m_name = "Great Wolf";
+			m_name = "G.Wolf";
 			m_base_yield.m_wealth = 12;
 			m_base_yield.m_danger = 2;
 			m_max_aspects = 5;
@@ -1649,7 +1649,7 @@ class Great_KangarooRat : public KangarooRat
 
 		void Create(void)
 		{
-			m_name = "Great Kangaroo Rat";
+			m_name = "G.Kangaroo Rat";
 			m_base_yield.m_food = 2;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -1678,7 +1678,7 @@ class Superior_KangarooRat : public KangarooRat
 
 		void Create(void)
 		{
-			m_name = "Superior Kangaroo Rat";
+			m_name = "S.Kangaroo Rat";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 2;
 			m_level = 3;
@@ -1746,7 +1746,7 @@ class Great_DesertTortoise : public DesertTortoise
 
 		void Create(void)
 		{
-			m_name = "Great Desert Tortoise";
+			m_name = "G.Desert Tortoise";
 			m_base_yield.m_wealth = 2;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -1775,7 +1775,7 @@ class Superior_DesertTortoise : public DesertTortoise
 
 		void Create(void)
 		{
-			m_name = "Superior Desert Tortoise";
+			m_name = "S.Desert Tortoise";
 			m_base_yield.m_wealth = 4;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -1844,7 +1844,7 @@ class Great_Goat : public Goat
 
 		void Create(void)
 		{
-			m_name = "Great Goat";
+			m_name = "G.Goat";
 			m_base_yield.m_food = 3;
 			m_max_aspects = 3;
 			m_level = 2;
@@ -1873,7 +1873,7 @@ class Superior_Goat : public Goat
 
 		void Create(void)
 		{
-			m_name = "Superior Goat";
+			m_name = "S.Goat";
 			m_base_yield.m_food = 6;
 			m_max_aspects = 4;
 			m_level = 3;
@@ -1942,7 +1942,7 @@ class Great_Armadillo : public Armadillo
 
 		void Create(void)
 		{
-			m_name = "Great Armadillo";
+			m_name = "G.Armadillo";
 			m_base_yield.m_food  = 2;
 			m_base_yield.m_wealth = 6;
 			m_max_aspects = 3;
@@ -1972,7 +1972,7 @@ class Superior_Armadillo : public Armadillo
 
 		void Create(void)
 		{
-			m_name = "Superior Armadillo";
+			m_name = "S.Armadillo";
 			m_base_yield.m_food  = 4;
 			m_base_yield.m_wealth = 12;
 			m_max_aspects = 4;
@@ -2052,7 +2052,7 @@ class Great_Rattlesnake : public Rattlesnake
 
 		void Create(void)
 		{
-			m_name = "Great Rattlesnake";
+			m_name = "G.Rattlesnake";
 			m_base_yield.m_wealth = 5;
 			m_base_yield.m_danger = 1;
 			m_max_aspects = 3;
@@ -2082,7 +2082,7 @@ class Superior_Rattlesnake : public Rattlesnake
 
 		void Create(void)
 		{
-			m_name = "Superior Rattlesnake";
+			m_name = "S.Rattlesnake";
 			m_base_yield.m_wealth = 10;
 			m_base_yield.m_danger = 2;
 			m_max_aspects = 4;
@@ -2150,7 +2150,7 @@ class Great_Javelina : public Javelina
 
 		void Create(void)
 		{
-			m_name = "Great Javelina";
+			m_name = "G.Javelina";
 			m_base_yield.m_food = 5;
 			m_max_aspects = 3;
 			m_level = 2;
@@ -2179,7 +2179,7 @@ class Superior_Javelina : public Javelina
 
 		void Create(void)
 		{
-			m_name = "Superior Javelina";
+			m_name = "S.Javelina";
 			m_base_yield.m_food = 12;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -2248,7 +2248,7 @@ class Great_GreyFox : public GreyFox
 
 		void Create(void)
 		{
-			m_name = "Great Grey Fox";
+			m_name = "G.Grey Fox";
 			m_base_yield.m_food = 2;
 			m_base_yield.m_wealth = 4;
 			m_max_aspects = 4;
@@ -2278,7 +2278,7 @@ class Superior_GreyFox : public GreyFox
 
 		void Create(void)
 		{
-			m_name = "Superior Grey Fox";
+			m_name = "S.Grey Fox";
 			m_base_yield.m_food = 4;
 			m_base_yield.m_wealth = 8;
 			m_max_aspects = 5;
@@ -2350,7 +2350,7 @@ class Great_Coyote : public Coyote
 
 		void Create(void)
 		{
-			m_name = "Great Coyote";
+			m_name = "G.Coyote";
 			m_base_yield.m_food   = 6;
 			m_base_yield.m_wealth = 10;
 			m_base_yield.m_danger = 3;
@@ -2421,7 +2421,7 @@ class Great_GilaMonster : public GilaMonster
 
 		void Create(void)
 		{
-			m_name = "Great Gila Monster";
+			m_name = "G.Gila Monster";
 			m_base_yield.m_tech   = 10;
 			m_base_yield.m_wealth = 20;
 			m_max_aspects = 5;
@@ -2561,7 +2561,7 @@ class Great_Frog : public Frog
 
 		void Create(void)
 		{
-			m_name = "Great Frog";
+			m_name = "G.Frog";
 			m_base_yield.m_food = 2;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -2590,7 +2590,7 @@ class Superior_Frog : public Frog
 
 		void Create(void)
 		{
-			m_name = "Superior Frog";
+			m_name = "S.Frog";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -2661,7 +2661,7 @@ class Great_PoisonDartFrog : public PoisonDartFrog
 
 		void Create(void)
 		{
-			m_name = "Great Poison Dart Frog";
+			m_name = "G.Poison Dart Frog";
 			m_base_yield.m_food = 2;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -2690,7 +2690,7 @@ class Superior_PoisonDartFrog : public PoisonDartFrog
 
 		void Create(void)
 		{
-			m_name = "Superior Poison Dart Frog";
+			m_name = "S.Poison Dart Frog";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -2759,7 +2759,7 @@ class Great_Otter : public Otter
 
 		void Create(void)
 		{
-			m_name = "Great Otter";
+			m_name = "G.Otter";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 3;
 			m_level = 2;
@@ -2788,7 +2788,7 @@ class Superior_Otter : public Otter
 
 		void Create(void)
 		{
-			m_name = "Superior Otter";
+			m_name = "S.Otter";
 			m_base_yield.m_food = 8;
 			m_max_aspects = 4;
 			m_level = 3;
@@ -2857,7 +2857,7 @@ class Great_Iguana : public Iguana
 
 		void Create(void)
 		{
-			m_name = "Great Iguana";
+			m_name = "G.Iguana";
 			m_base_yield.m_wealth = 4;
 			m_max_aspects = 3;
 			m_level = 2;
@@ -2886,7 +2886,7 @@ class Superior_Iguana : public Iguana
 
 		void Create(void)
 		{
-			m_name = "Superior Iguana";
+			m_name = "S.Iguana";
 			m_base_yield.m_wealth = 8;
 			m_max_aspects = 4;
 			m_level = 3;
@@ -2954,7 +2954,7 @@ class Great_Tapir : public Tapir
 
 		void Create(void)
 		{
-			m_name = "Great Tapir";
+			m_name = "G.Tapir";
 			m_base_yield.m_food   = 2;
 			m_base_yield.m_wealth = 4;
 			m_max_aspects = 4;
@@ -2984,7 +2984,7 @@ class Superior_Tapir : public Tapir
 
 		void Create(void)
 		{
-			m_name = "Superior Tapir";
+			m_name = "S.Tapir";
 			m_base_yield.m_food   = 4;
 			m_base_yield.m_wealth = 8;
 			m_max_aspects = 3;
@@ -3052,7 +3052,7 @@ class Great_Buffalo : public Buffalo
 
 		void Create(void)
 		{
-			m_name = "Great Buffalo";
+			m_name = "G.Buffalo";
 			m_base_yield.m_food = 8;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -3122,7 +3122,7 @@ class Great_KomodoDragon : public KomodoDragon
 
 		void Create(void)
 		{
-			m_name = "Great Komodo Dragon";
+			m_name = "G.Komodo Dragon";
 			m_base_yield.m_wealth = 8;
 			m_base_yield.m_danger = 3;
 			m_base_yield.m_range  = 1;
@@ -3261,7 +3261,7 @@ class Great_Marten : public Marten
 
 		void Create(void)
 		{
-			m_name = "Great Marten";
+			m_name = "G.Marten";
 			m_base_yield.m_food = 2;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -3290,7 +3290,7 @@ class Superior_Marten : public Marten
 
 		void Create(void)
 		{
-			m_name = "Superior Marten";
+			m_name = "S.Marten";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 1;
 			m_level = 3;
@@ -3358,7 +3358,7 @@ class Great_Monal : public Monal
 
 		void Create(void)
 		{
-			m_name = "Great Monal";
+			m_name = "G.Monal";
 			m_base_yield.m_wealth = 2;
 			m_max_aspects = 2;
 			m_level = 2;
@@ -3387,7 +3387,7 @@ class Superior_Monal : public Monal
 
 		void Create(void)
 		{
-			m_name = "Superior Monal";
+			m_name = "S.Monal";
 			m_base_yield.m_wealth = 4;
 			m_max_aspects = 3;
 			m_level = 3;
@@ -3496,7 +3496,7 @@ class Great_MuskDeer : public MuskDeer
 
 		void Create(void)
 		{
-			m_name = "Great Musk Deer";
+			m_name = "G.Musk Deer";
 			m_base_yield.m_food   = 4;
 			m_base_yield.m_wealth = 2;
 			m_max_aspects = 3;
@@ -3534,7 +3534,7 @@ class Superior_MuskDeer : public MuskDeer
 
 		void Create(void)
 		{
-			m_name = "Superior Musk Deer";
+			m_name = "S.Musk Deer";
 			m_base_yield.m_food   = 8;
 			m_base_yield.m_wealth = 5;
 			m_max_aspects = 4;
@@ -3612,7 +3612,7 @@ class Great_Pangolin : public Pangolin
 
 		void Create(void)
 		{
-			m_name = "Great Pangolin";
+			m_name = "G.Pangolin";
 			m_base_yield.m_food   = 2;
 			m_base_yield.m_wealth = 2;
 			m_max_aspects = 3;
@@ -3642,7 +3642,7 @@ class Superior_Pangolin : public Pangolin
 
 		void Create(void)
 		{
-			m_name = "Superior Pangolin";
+			m_name = "S.Pangolin";
 			m_base_yield.m_food   = 2; // KCJ might be wrong
 			m_base_yield.m_wealth = 2;
 			m_max_aspects = 4;
@@ -3711,7 +3711,7 @@ class Great_SnowLeopard : public SnowLeopard
 
 		void Create(void)
 		{
-			m_name = "Great Snow Leopard";
+			m_name = "G.Snow Leopard";
 			m_base_yield.m_wealth = 8;
 			m_base_yield.m_danger = 4;
 			m_max_aspects = 5;
@@ -3780,7 +3780,7 @@ class Great_LangurMonkey : public LangurMonkey
 
 		void Create(void)
 		{
-			m_name = "Great Langur Monkey";
+			m_name = "G.Langur Monkey";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -3847,7 +3847,7 @@ class Great_Yak : public Yak
 
 		void Create(void)
 		{
-			m_name = "Great Yak";
+			m_name = "G.Yak";
 			m_base_yield.m_food = 4;
 			m_max_aspects = 5;
 			m_level = 3;
@@ -3949,7 +3949,7 @@ class Great_Crane : public Crane
 
 		void Create(void)
 		{
-			m_name = "Great Crane";
+			m_name = "G.Crane";
 			m_base_yield.m_food = 1; // KCJ - check this
 			m_base_yield.m_wealth = 3;
 			m_max_aspects = 2;
@@ -3979,7 +3979,7 @@ class Superior_Crane : public Crane
 
 		void Create(void)
 		{
-			m_name = "Superior Crane";
+			m_name = "S.Crane";
 			m_base_yield.m_food = 1; // KCJ - check this
 			m_base_yield.m_wealth = 3;
 			m_max_aspects = 3;
